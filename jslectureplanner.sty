@@ -1,0 +1,630 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% File jslectureplanner.sty
+%%
+%% Package to manage university courses.
+%%
+%% Author: Juergen Spitzmueller <juergen.spitzmueller@univie.ac.at>
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2003/12/01 or later.
+%%
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is Juergen Spitzmueller.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\filedate{2014/12/12}
+\def\fileversion{0.6b}
+\def\filename{jslectureplanner.sty}
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{jslectureplanner}
+	[\filedate\space v\fileversion\space JS lecture planner]
+
+
+%
+% REQUIRED PACKAGES
+%
+\RequirePackage{etoolbox}
+\RequirePackage{advdate}
+\RequirePackage{xkeyval}
+\RequirePackage{datetime}
+\RequirePackage{calc}
+
+%
+% VARIABLES
+%
+\def\lectype{}
+\def\lectypeverb{}
+\def\lectypesession{}
+\def\lectitle{}
+\def\lectitlesep{}
+\def\lecsubtitle{}
+\def\lecshorttitle{}
+\def\lecsemshort{}
+\def\lecsemverb{}
+\def\lecyear{}
+\def\lecsemester{}
+\def\lecsemesterverb{}
+\def\lecuniversity{}
+\def\lecinstitute{}
+
+\def\lecplatform{}
+\def\officehours{}
+
+\def\sesdate{}
+\def\sesshortdate{}
+\def\sestitle{}
+\def\sestitlesep{}
+\def\sessubtitle{}
+\def\sesnr{}
+
+\def\programlist{}
+\def\programlistbeamer{}
+\def\jsbiblist{}
+
+%
+% STRINGS
+%
+% vl
+\def\lectypevl{Vorlesung}
+\def\lectypevls{VL}
+\def\lectypevlses{Vorlesung}
+% vo
+\def\lectypevo{Vorlesung}
+\def\lectypevos{VO}
+\def\lectypevoses{Vorlesung}
+% ps
+\def\lectypeps{Proseminar}
+\def\lectypepss{PS}
+\def\lectypepsses{Sitzung}
+% se
+\def\lectypese{Seminar}
+\def\lectypeses{SE}
+\def\lectypeseses{Sitzung}
+% ue
+\def\lectypeue{\"Ubung}
+\def\lectypeues{UE}
+\def\lectypeueses{Sitzung}
+% ko
+\def\lectypeko{Kolloquium}
+\def\lectypekos{KO}
+\def\lectypekoses{Sitzung}
+% pv
+\def\lectypepv{Privatissimum}
+\def\lectypepvs{PV}
+\def\lectypepvses{Sitzung}
+
+% fs
+\def\lectermfs{Fr\"uhjahrssemester}
+\def\lectermfss{FS}
+% hs
+\def\lectermhs{Herbstsemester}
+\def\lectermhss{HS}
+% ss
+\def\lectermss{Sommersemester}
+\def\lectermsss{SoSe}
+% ws
+\def\lectermws{Wintersemester}
+\def\lectermwss{WS}
+
+% misc.
+\newcommand*\leccancel{-- keine}
+\newcommand*\lecprogram{Programm}
+\newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
+
+%
+% PACKAGE OPTIONS
+%
+\define@choicekey*+{lec}{lectype}[\val\nr]{vl,vo,ps,se,ue,ko,pv}{%
+    \ifcase\nr\relax% vl
+      \def\lectype{\lectypevls}
+      \def\lectypeverb{\lectypevl}
+      \def\lectypesession{\lectypevlses}
+    \or% vo (wien)
+      \def\lectype{\lectypevos}
+      \def\lectypeverb{\lectypevo}
+      \def\lectypesession{\lectypevoses}
+    \or% ps
+      \def\lectype{\lectypepss}
+      \def\lectypeverb{\lectypeps}
+      \def\lectypesession{\lectypepsses}
+    \or% se
+      \def\lectype{\lectypeses}
+      \def\lectypeverb{\lectypese}
+      \def\lectypesession{\lectypeseses}
+    \or% ue
+      \def\lectype{\lectypeues}
+      \def\lectypeverb{\lectypeue}
+      \def\lectypesession{\lectypeueses}
+    \or% ko
+      \def\lectype{\lectypekos}
+      \def\lectypeverb{\lectypeko}
+      \def\lectypesession{\lectypekoses}
+    \or% pv
+      \def\lectype{\lectypepvs}
+      \def\lectypeverb{\lectypepv}
+      \def\lectypesession{\lectypepvses}
+    \fi
+}{%
+    \PackageWarning{jslectureplanner}{unknown type value '#1'}%
+}
+\DeclareOptionX{type}{\setkeys{lec}{lectype=#1}}
+
+\define@choicekey*+{lec}{lecsem}[\val\nr]{fs,hs,ss,ws}{%
+    \ifcase\nr\relax% fs
+      \def\lecsemshort{\lectermfss}
+      \def\lecsemverb{\lectermfs}
+    \or% hs
+      \def\lecsemshort{\lectermhss}
+      \def\lecsemverb{\lectermhs}
+    \or% ss
+      \def\lecsemshort{\lectermsss}
+      \def\lecsemverb{\lectermss}
+    \or% ws
+      \def\lecsemshort{\lectermwss}
+      \def\lecsemverb{\lectermws}
+    \fi
+}{%
+    \PackageWarning{jslectureplanner}{unknown semester value '#1'}%
+}
+\DeclareOptionX{semester}{\setkeys{lec}{lecsem=#1}}
+
+\define@key{lec}{title}{\def\lectitle{#1}}
+\define@key{lec}{titlesep}{\def\lectitlesep{#1}}
+\define@key{lec}{subtitle}{\def\lecsubtitle{#1}}
+\define@key{lec}{shorttitle}{\def\lecshorttitle{#1}}
+\define@key{lec}{year}{\def\lecyear{#1}}
+\define@key{lec}{uni}{\def\lecuniversity{#1}}
+\define@key{lec}{institute}{\def\lecinstitute{#1}}
+\define@key{lec}{platform}{\def\lecplatform{#1}}
+\define@key{lec}{officehours}{\def\officehours{#1}}
+\define@key{lec}{startdate}{\SetDate[#1]}
+
+\DeclareOptionX{title}{\setkeys{lec}{title=#1}}
+\DeclareOptionX{titlesep}{\setkeys{lec}{titlesep=#1}}
+\DeclareOptionX{subtitle}{\setkeys{lec}{subtitle=#1}}
+\DeclareOptionX{shorttitle}{\setkeys{lec}{shorttitle=#1}}
+\DeclareOptionX{year}{\setkeys{lec}{year=#1}}
+\DeclareOptionX{uni}{\setkeys{lec}{uni=#1}}
+\DeclareOptionX{institute}{\setkeys{lec}{institute=#1}}
+\DeclareOptionX{startdate}{\setkeys{lec}{startdate=#1}}
+\DeclareOptionX{platform}{\setkeys{lec}{platform=#1}}
+\DeclareOptionX{officehours}{\setkeys{lec}{officehours=#1}}
+
+\ProcessOptionsX
+
+%
+% End Options
+%%
+
+%
+% ALTERNATIVE SETUP MACROS
+%
+
+\newcommand*{\LecType}[1]{\setkeys{lec}{lectype=#1}}
+\newcommand*{\LecTitle}[2][]{\setkeys{lec}{#1,title=#2}}
+\newcommand*{\LecTitleSep}[1]{\setkeys{lec}{titlesep=#1}}
+\newcommand*{\LecSubTitle}[1]{\setkeys{lec}{subtitle=#1}}
+\newcommand*{\LecYear}[2]{\setkeys{lec}{lecsem=#1,year=#2}}
+\newcommand*{\LecUni}[1]{\setkeys{lec}{uni=#1}}
+\newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute=#1}}
+\newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
+
+%
+% CONCATENATED VARIABLES
+%
+\def\lecsemester{\lecsemshort~\lecyear}
+\def\lecsemesterverb{\lecsemverb\ \lecyear}
+\def\lecfulltitle{\lectitle\lectitlesep\lecsubtitle}
+\def\sesfulltitle{\sestitle\sestitlesep\sessubtitle}
+
+
+%
+% CUSTOM DATE FORMATS (via datetime)
+%
+\newcommand*\lecdateformat{\THEDAY.\,\twodigit{\THEMONTH}.\,\THEYEAR}
+\newcommand*\lecdateshortformat{\THEDAY.\,\twodigit{\THEMONTH}.}
+\newdateformat{vldate}{\lecdateformat}
+\newdateformat{vlshdate}{\lecdateshortformat}
+
+%
+% COUNTERS
+%
+\newcounter{week}
+\newcounter{dateratio}
+\setcounter{dateratio}{1}
+\newcounter{cancellations}
+\newcounter{snum}
+\newcounter{blocks}
+\newcounter{fbreaks}
+
+%
+% MACROS (UI)
+%
+
+% Change strings
+% vl
+\newcommand*\DefTypeVL[3]{%
+  \def\lectypevl{#2}
+  \def\lectypevls{#1}
+  \def\lectypevlses{#2}
+}
+% vo
+\newcommand*\DefTypeVO[3]{%
+  \def\lectypevo{#2}
+  \def\lectypevos{#1}
+  \def\lectypevoses{#3}
+}
+% ps
+\newcommand*\DefTypePS[3]{%
+  \def\lectypeps{#2}
+  \def\lectypepss{#1}
+  \def\lectypepsses{#3}
+}
+% se
+\newcommand*\DefTypeSE[3]{%
+  \def\lectypese{#2}
+  \def\lectypeses{#1}
+  \def\lectypeseses{#3}
+}
+% ue
+\newcommand*\DefTypeUE[3]{%
+  \def\lectypeue{#2}
+  \def\lectypeues{#1}
+  \def\lectypeueses{#3}
+}
+% ko
+\newcommand*\DefTypeKO[3]{%
+  \def\lectypeko{#2}
+  \def\lectypekos{#1}
+  \def\lectypekoses{#3}
+}
+% pv
+\newcommand*\DefTypePV[3]{%
+  \def\lectypepv{#2}
+  \def\lectypepvs{#1}
+  \def\lectypepvses{#3}
+}
+
+% fs
+\newcommand*\DefTypeFS[2]{%
+  \def\lectermfss{#1}
+  \def\lectermfs{#2}
+}
+% hs
+\newcommand*\DefTypeHS[2]{%
+  \def\lectermhss{#1}
+  \def\lectermhs{#2}
+}
+% ss
+\newcommand*\DefTypeSS[2]{%
+  \def\lectermsss{#1}
+  \def\lectermss{#2}
+}
+% ws
+\newcommand*\DefTypeWS[2]{%
+  \def\lectermwss{#1}
+  \def\lectermws{#2}
+}
+
+% Program
+% Define labeling list if not available
+\@ifundefined{labeling}{%
+  \newenvironment{labeling}[2][]{%
+    \def\sc@septext{#1}%
+    \list{}{\settowidth{\labelwidth}{{%
+        \textbf{#2\sc@septext}%
+        }}%
+      \leftmargin\labelwidth \advance\leftmargin by \labelsep
+      \let\makelabel\labelinglabel
+    }%
+  }{%
+    \endlist
+  }
+  \newcommand\labelinglabel[1]{%
+    \textbf{#1\hfil\sc@septext}%
+  }
+}{}
+\newcommand\makeprogram{%
+  \raggedright
+  \begin{labeling}{\lecprogramlistindent}
+  \programlist
+  \end{labeling}
+}
+
+% Bibliography
+\newcommand\makesessionbib{%
+  \jsbiblist
+}
+
+% Beamer program generation
+\define@key{beamerprogram}{title}{\csdef{@bptitle}{#1}}
+\define@key{beamerprogram}{options}{\csdef{@bpopts}{#1}}
+\define@key{beamerprogram}{listoptions}{\csdef{@bplistopts}{#1}}
+\define@boolkey{beamerprogram}{alerted}[true]{}
+
+\newcommand*\makebeamerprogram[1][]{%
+  \csdef{@bptitle}{\lecprogram}
+  \def\btitleapp{}
+  \numdef\pframes{\thefbreaks + 1}
+  \setkeys{beamerprogram}{alerted=false}
+  \setkeys{beamerprogram}{#1}
+  \def\bpdescbeg{\begin{description}[\lecprogramlistindent]}
+  \providebool{alertedlist}
+  \ifKV@beamerprogram@alerted
+     \booltrue{alertedlist}
+  \else
+     \boolfalse{alertedlist}
+  \fi
+  \@ifundefined{programlistbeamerii}{}{%
+  \def\btitleapp{\ (1/\pframes)}
+  \ifcsdef{@bpopts}{%
+     \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}
+  }{%
+     \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
+  }
+  \ifbool{alertedlist}{%
+    \begin{description}[<alert@+(1)>][\lecprogramlistindent]
+    \programlistbeamerii
+    \end{description}
+  }{%
+    \begin{description}[\lecprogramlistindent]
+    \programlistbeamerii
+    \end{description}
+  }
+  \end{frame}
+  }
+  \@ifundefined{programlistbeameriii}{}{%
+  \def\btitleapp{\ (2/\pframes)}
+  \ifcsdef{@bpopts}{%
+     \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}
+  }{%
+     \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
+  }
+  \ifbool{alertedlist}{%
+    \begin{description}[<alert@+(1)>][\lecprogramlistindent]
+    \programlistbeameriii
+    \end{description}
+  }{%
+    \begin{description}[\lecprogramlistindent]
+    \programlistbeameriii
+    \end{description}
+  }
+  \end{frame}
+  }
+  \@ifundefined{programlistbeameriv}{}{%
+  \def\btitleapp{\ (2/\pframes)}
+  \ifcsdef{@bpopts}{%
+     \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}
+  }{%
+     \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+  }
+  \ifbool{alertedlist}{%
+    \begin{description}[<alert@+(1)>][\lecprogramlistindent]
+    \programlistbeameriv
+    \end{description}
+  }{%
+    \begin{description}[\lecprogramlistindent]
+    \programlistbeameriv
+    \end{description}
+  }
+  \end{frame}
+  }
+  \ifnumgreater{\thefbreaks}{0}{\def\btitleapp{\ (\pframes/\pframes)}}{}
+  \ifcsdef{@bpopts}{%
+     \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}
+    }{%
+        \@ifundefined{programlistbeamerii}{%
+            \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+          }{%
+             \@ifundefined{programlistbeameriii}{%
+                \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
+               }{%
+                 \@ifundefined{programlistbeameriv}{%
+                     \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+                   }{%
+                      \begin{frame}[label=beamerprogram4]{\csuse{@bptitle}\btitleapp}
+                    }
+                }
+           }
+     }
+  \ifbool{alertedlist}{%
+    \begin{description}[<alert@+(1)>][\lecprogramlistindent]
+    \programlistbeamer
+    \end{description}
+  }{%
+    \begin{description}[\lecprogramlistindent]
+    \programlistbeamer
+    \end{description}
+  }
+  \end{frame}
+}
+
+% Beamer frame breaks
+\newcommand*\SetBeamerFrameBreak{%
+  \stepcounter{fbreaks}
+  \@ifundefined{programlistbeamerii}{%
+    \global\let\programlistbeamerii\programlistbeamer
+  }{%
+    \@ifundefined{programlistbeameriii}{%
+      \global\let\programlistbeameriii\programlistbeamer
+    }{%
+      \global\let\programlistbeameriv\programlistbeamer
+    }
+  }
+  \global\let\programlistbeamer\empty
+}
+
+% Session definition
+\define@key{session}{titlesep}{\csdef{@sestitlesep}{#1}}
+\define@key{session}{subtitle}{\csdef{@vasutitle}{#1}}
+\define@key{session}{shorttitle}{\csdef{@vashorttitle}{#1}}
+\define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
+\define@boolkey{session}{cancel}[true]{}
+
+\newcommand*\NewSession[2][]{%
+  \stepcounter{week}
+  \setcounter{dateratio}{(\theweek-1)*7}
+  \setcounter{snum}{\theweek-\thecancellations}
+  \protected@csxdef{sesnr\thesnum}{\thesnum}
+  \csdef{@sestitlesep}{}
+  \csdef{@vasutitle}{}
+  \csdef{@vashorttitle}{}
+  \csdef{@sesbibsec}{}
+  \setkeys{session}{cancel=false}
+  \setkeys{session}{#1}
+  \csdef{@sestitle}{#2}
+  \protected@csxdef{sesdate\thesnum}{\AdvanceDate[\thedateratio]\vldate\today\AdvanceDate[-\thedateratio]}
+  \protected@csxdef{sesshortdate\thesnum}{\AdvanceDate[\thedateratio]\vlshdate\today\AdvanceDate[-\thedateratio]}
+  \protected@csxdef{sestitle\thesnum}{\csuse{@sestitle}}
+  \protected@csxdef{sestitlesep\thesnum}{\csuse{@sestitlesep}}
+  \protected@csxdef{sessubtitle\thesnum}{\csuse{@vasutitle}}
+  \protected@csxdef{sesshorttitle\thesnum}{\csuse{@vashorttitle}}
+  \protected@csxdef{sesbib\thesnum}{\csuse{@sesbibsec}}
+  \ifKV@session@cancel
+    \stepcounter{cancellations}
+    \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
+      \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}%
+        \ \leccancel\ \lectypesession\noexpand\egroup}
+    \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
+      \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}%
+        \ \leccancel\ \lectypesession\noexpand\egroup}
+  \else
+    \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
+      \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}}
+    \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
+      \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}}
+    \ifcsempty{sesbib\thesnum}{}{%
+    \xappto\jsbiblist{\noexpand\section{\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}}%
+      \noexpand\nocite{*}%
+      \noexpand\printbibliography[keyword=\csuse{sesbib\thesnum},heading=none]}%
+    }%
+  \fi
+}
+
+\newcommand*\SetBreak[2][\empty]{%
+  \stepcounter{week}
+  \stepcounter{cancellations}
+  \ifx\empty#1
+    \protected@eappto\programlist{\noexpand\begin{center} (#2) \noexpand\end{center}}
+    \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}
+  \else
+    \protected@eappto\programlist{\noexpand\begin{center} (#1: #2) \noexpand\end{center}}
+    \protected@eappto\programlistbeamer{\noexpand\begin{center} (#1: #2) \noexpand\end{center}}
+  \fi
+}
+
+% Beamer program hook
+\newcommand*\SetBeamerHook[1]{%
+    \protected@eappto\programlistbeamer{\noexpand#1}
+}
+
+\define@key{break}{weeks}{\csdef{@breakweeks}{#1}}
+\define@key{break}{span}{\csdef{@breakspan}{#1}}
+\newcommand*\SetBreaks[2][weeks=1]{%
+  \csdef{@breakweeks}{\empty}
+  \csdef{@breakspan}{\empty}
+  \setkeys{break}{#1}
+  \setcounter{week}{\theweek+\csuse{@breakweeks}}
+  \setcounter{cancellations}{\thecancellations+\csuse{@breakweeks}}
+  \ifx\empty\csuse{@breakspan}
+    \protected@eappto\programlist{\noexpand\begin{center} (#2) \noexpand\end{center}}
+    \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}
+  \else
+    \protected@eappto\programlist{\noexpand\begin{center} (\csuse{@breakspan}: #2) \noexpand\end{center}}
+    \protected@eappto\programlistbeamer{\noexpand\begin{center} (\csuse{@breakspan}: #2) \noexpand\end{center}}
+  \fi
+}
+
+\newcommand*\StartBlock[1]{%
+  \stepcounter{blocks}
+  \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
+    \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}
+  \gappto\programlist{\begin{labeling}{\lecprogramlistindent}}
+  \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
+    \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}
+  \gappto\programlistbeamer{\begin{description}[\lecprogramlistindent]}
+}
+
+\newcommand*\EndBlock{%
+  \gappto\programlist{\end{labeling}}
+  \gappto\programlistbeamer{\end{description}}
+}
+
+\newcommand*\NewBlock[1]{%
+  \EndBlock
+  \StartBlock{#1}
+}
+
+\newenvironment{SessionBlock}[1]{\StartBlock{#1}}{\EndBlock}
+
+% Infrastructure
+\newcommand\SetOfficeHours[1]{%
+  \def\officehours{#1}%
+}
+
+\newcommand\SetPlatform[1]{%
+  \def\lecplatform{#1}%
+}
+
+% Define current session
+\newcommand\ThisSession[1]{%
+  \gdef\sesnr{\csuse{sesnr#1}}%
+  \gdef\sesdate{\csuse{sesdate#1}}%
+  \gdef\sesshortdate{\csuse{sesshortdate#1}}%
+  \gdef\sestitle{\csuse{sestitle#1}}%
+  \gdef\sestitlesep{\csuse{sestitlesep#1}}%
+  \gdef\sesshorttitle{\csuse{sesshorttitle#1}}%
+  \gdef\sessubtitle{\csuse{sessubtitle#1}}%
+}
+
+\newcommand\LocalSession[1]{%
+  \gdef\lsesnr{\csuse{sesnr#1}}%
+  \gdef\lsesdate{\csuse{sesdate#1}}%
+  \gdef\lsesshortdate{\csuse{sesshortdate#1}}%
+  \gdef\lsestitle{\csuse{sestitle#1}}%
+  \gdef\lsestitlesep{\csuse{sestitlesep#1}}%
+  \gdef\lsesshorttitle{\csuse{sesshorttitle#1}}%
+  \gdef\lsessubtitle{\csuse{sessubtitle#1}}%
+}
+
+% Session information
+\newcommand*\SessionFullTitle[1]{%
+  \LocalSession{#1}%
+  \lsestitle\lsestitlesep\lsessubtitle%
+}
+
+\newcommand*\SessionDate[1]{%
+  \LocalSession{#1}%
+  \lsesdate%
+}
+
+\newcommand*\SessionShortTitle[1]{%
+  \LocalSession{#1}%
+  \lsesshorttitle%
+}
+
+\newcommand*\SessionTitle[1]{%
+  \LocalSession{#1}%
+  \lsestitle%
+}
+
+\newcommand*\SessionShortDate[1]{%
+  \LocalSession{#1}%
+  \lsesshortdate%
+}
+
+\newcommand*\MakeProgramline[1]{%
+  \LocalSession{#1}%
+\item[{\bfseries\lsesshortdate}]%
+      \lsestitle\lsestitlesep\lsessubtitle%
+}
+
+% Finis

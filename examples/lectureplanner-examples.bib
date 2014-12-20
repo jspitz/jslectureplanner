@@ -1,0 +1,546 @@
+@comment{entries taken from biblatex-examples.bib and arbitraily tagged with keywords}
+
+@string{anch-ie = {Angew.~Chem. Int.~Ed.}}
+@string{cup     = {Cambridge University Press}}
+@string{dtv     = {Deutscher Taschenbuch-Verlag}}
+@string{hup     = {Harvard University Press}}
+@string{jams    = {J.~Amer. Math. Soc.}}
+@string{jchph   = {J.~Chem. Phys.}}
+@string{jomch   = {J.~Organomet. Chem.}}
+@string{pup     = {Princeton University Press}}
+
+@article{angenendt,
+  author       = {Angenendt, Arnold},
+  title        = {In Honore Salvatoris~-- Vom Sinn und Unsinn der
+                  Patrozinienkunde},
+  journaltitle = {Revue d'Histoire Eccl{\'e}siastique},
+  date         = 2002,
+  volume       = 97,
+  pages        = {431--456, 791--823},
+  langid       = {german},
+  indextitle   = {In Honore Salvatoris},
+  shorttitle   = {In Honore Salvatoris},
+  annotation   = {A German article in a French journal. Apart from that, a
+                  typical \texttt{article} entry. Note the \texttt{indextitle}
+                  field},
+  keywords     = {einf}
+}
+
+@article{baez/article,
+  author       = {Baez, John C. and Lauda, Aaron D.},
+  title        = {Higher-Dimensional Algebra V: 2-Groups},
+  journaltitle = {Theory and Applications of Categories},
+  date         = 2004,
+  volume       = 12,
+  pages        = {423-491},
+  version      = 3,
+  eprint       = {math/0307200v3},
+  eprinttype   = {arxiv},
+  langid       = {english},
+  langidopts   = {variant=american},
+  annotation   = {An \texttt{article} with \texttt{eprint} and
+                  \texttt{eprinttype} fields. Note that the arXiv reference is
+                  transformed into a clickable link if \texttt{hyperref} support
+                  has been enabled.  Compare \texttt{baez\slash online}, which
+                  is the same item given as an \texttt{online} entry},
+  keywords     = {einf}
+}
+
+@article{doody,
+  author       = {Doody, Terrence},
+  title        = {Hemingway's Style and Jake's Narration},
+  year         = 1974,
+  volume       = 4,
+  number       = 3,
+  pages        = {212-225},
+  langid       = {english},
+  langidopts   = {variant=american},
+  related      = {matuz:doody},
+  relatedstring= {\autocap{e}xcerpt in},
+  journal      = {The Journal of Narrative Technique},
+  annotation   = {An \texttt{article} entry cited as an excerpt from a
+                  \texttt{collection} entry. Note the format of the
+                  \texttt{related} and \texttt{relatedstring} fields},
+  keywords     = {lokal}
+}
+
+@collection{matuz:doody,
+  editor       = {Matuz, Roger},
+  title        = {Contemporary Literary Criticism},
+  year         = 1990,
+  volume       = 61,
+  publisher    = {Gale},
+  location     = {Detroit},
+  pages        = {204-208},
+  langid       = {english},
+  langidopts   = {variant=american},
+  annotation   = {A \texttt{collection} entry providing the excerpt information
+                  for the \texttt{doody} entry. Note the format of the
+                  \texttt{pages} field},
+  keywords     = {lokal}
+}
+
+@article{gillies,
+  author       = {Gillies, Alexander},
+  title        = {Herder and the Preparation of Goethe's Idea of World
+                  Literature},
+  journaltitle = {Publications of the English Goethe Society},
+  date         = 1933,
+  series       = {newseries},
+  volume       = 9,
+  pages        = {46-67},
+  langid       = {english},
+  langidopts   = {variant=british},
+  annotation   = {An \texttt{article} entry with a \texttt{series} and a
+                  \texttt{volume} field. Note that format of the \texttt{series}
+                  field in the database file},
+  keywords     = {lokal}
+}
+
+@article{kastenholz,
+  author       = {Kastenholz, M. A. and H{\"u}nenberger, Philippe H.},
+  title        = {Computation of methodology\hyphen independent ionic solvation
+                  free energies from molecular simulations},
+  journaltitle = jchph,
+  date         = 2006,
+  subtitle     = {I. The electrostatic potential in molecular liquids},
+  volume       = 124,
+  eid          = 124106,
+  doi          = {10.1063/1.2172593},
+  langid       = {english},
+  langidopts   = {variant=american},
+  indextitle   = {Computation of ionic solvation free energies},
+  annotation   = {An \texttt{article} entry with an \texttt{eid} and a
+                  \texttt{doi} field. Note that the \textsc{doi} is transformed
+                  into a clickable link if \texttt{hyperref} support has been
+                  enabled},
+  abstract     = {The computation of ionic solvation free energies from
+                  atomistic simulations is a surprisingly difficult problem that
+                  has found no satisfactory solution for more than 15 years. The
+                  reason is that the charging free energies evaluated from such
+                  simulations are affected by very large errors. One of these is
+                  related to the choice of a specific convention for summing up
+                  the contributions of solvent charges to the electrostatic
+                  potential in the ionic cavity, namely, on the basis of point
+                  charges within entire solvent molecules (M scheme) or on the
+                  basis of individual point charges (P scheme). The use of an
+                  inappropriate convention may lead to a charge-independent
+                  offset in the calculated potential, which depends on the
+                  details of the summation scheme, on the quadrupole-moment
+                  trace of the solvent molecule, and on the approximate form
+                  used to represent electrostatic interactions in the
+                  system. However, whether the M or P scheme (if any) represents
+                  the appropriate convention is still a matter of on-going
+                  debate. The goal of the present article is to settle this
+                  long-standing controversy by carefully analyzing (both
+                  analytically and numerically) the properties of the
+                  electrostatic potential in molecular liquids (and inside
+                  cavities within them).},
+  keywords     = {begr}
+}
+
+@article{reese,
+  author       = {Reese, Trevor R.},
+  title        = {Georgia in Anglo-Spanish Diplomacy, 1736-1739},
+  journaltitle = {William and Mary Quarterly},
+  date         = 1958,
+  series       = 3,
+  volume       = 15,
+  pages        = {168-190},
+  langid       = {english},
+  langidopts   = {variant=american},
+  annotation   = {An \texttt{article} entry with a \texttt{series} and a
+                  \texttt{volume} field. Note the format of the series. If the
+                  value of the \texttt{series} field is an integer, this number
+                  is printed as an ordinal and the string \enquote*{series} is
+                  appended automatically},
+  keywords     = {begr}
+}
+
+@article{shore,
+  author       = {Shore, Bradd},
+  title        = {Twice-Born, Once Conceived},
+  journaltitle = {American Anthropologist},
+  date         = {1991-03},
+  subtitle     = {Meaning Construction and Cultural Cognition},
+  series       = {newseries},
+  volume       = 93,
+  number       = 1,
+  pages        = {9-27},
+  annotation   = {An \texttt{article} entry with \texttt{series},
+                  \texttt{volume}, and \texttt{number} fields. Note the format
+                  of the \texttt{series} which is a localization key},
+  keywords     = {bessweg}
+}
+
+@article{sigfridsson,
+  author       = {Sigfridsson, Emma and Ryde, Ulf},
+  title        = {Comparison of methods for deriving atomic charges from the
+                  electrostatic potential and moments},
+  journaltitle = {Journal of Computational Chemistry},
+  date         = 1998,
+  volume       = 19,
+  number       = 4,
+  pages        = {377-395},
+  doi          = {10.1002/(SICI)1096-987X(199803)19:4<377::AID-JCC1>3.0.CO;2-P},
+  langid       = {english},
+  langidopts   = {variant=american},
+  indextitle   = {Methods for deriving atomic charges},
+  annotation   = {An \texttt{article} entry with \texttt{volume},
+                  \texttt{number}, and \texttt{doi} fields. Note that the
+                  \textsc{doi} is transformed into a clickable link if
+                  \texttt{hyperref} support has been enabled},
+  abstract     = {Four methods for deriving partial atomic charges from the
+                  quantum chemical electrostatic potential (CHELP, CHELPG,
+                  Merz-Kollman, and RESP) have been compared and critically
+                  evaluated. It is shown that charges strongly depend on how and
+                  where the potential points are selected. Two alternative
+                  methods are suggested to avoid the arbitrariness in the
+                  point-selection schemes and van der Waals exclusion radii:
+                  CHELP-BOW, which also estimates the charges from the
+                  electrostatic potential, but with potential points that are
+                  Boltzmann-weighted after their occurrence in actual
+                  simulations using the energy function of the program in which
+                  the charges will be used, and CHELMO, which estimates the
+                  charges directly from the electrostatic multipole
+                  moments. Different criteria for the quality of the charges are
+                  discussed.},
+  keywords     = {bessweg}
+}
+
+@article{springer,
+  author       = {Springer, Otto},
+  title        = {Mediaeval Pilgrim Routes from Scandinavia to Rome},
+  journaltitle = {Mediaeval Studies},
+  date         = 1950,
+  volume       = 12,
+  pages        = {92-122},
+  langid       = {english},
+  langidopts   = {variant=british},
+  shorttitle   = {Mediaeval Pilgrim Routes},
+  annotation   = {A plain \texttt{article} entry},
+  keywords     = {anf}
+}
+
+@book{aristotle:anima,
+  author       = {Aristotle},
+  title        = {De Anima},
+  date         = 1907,
+  editor       = {Hicks, Robert Drew},
+  publisher    = cup,
+  location     = {Cambridge},
+  keywords     = {primary},
+  langid       = {english},
+  langidopts   = {variant=british},
+  annotation   = {A \texttt{book} entry with an \texttt{author} and an
+                  \texttt{editor}},
+  keywords     = {anf}
+}
+
+@book{aristotle:physics,
+  author       = {Aristotle},
+  title        = {Physics},
+  date         = 1929,
+  translator   = {Wicksteed, P. H. and Cornford, F. M.},
+  publisher    = {G. P. Putnam},
+  location     = {New York},
+  keywords     = {primary},
+  langid       = {english},
+  langidopts   = {variant=american},
+  shorttitle   = {Physics},
+  annotation   = {A \texttt{book} entry with a \texttt{translator} field},
+  keywords     = {erf}
+}
+
+@book{aristotle:poetics,
+  author       = {Aristotle},
+  title        = {Poetics},
+  date         = 1968,
+  editor       = {Lucas, D. W.},
+  series       = {Clarendon Aristotle},
+  publisher    = {Clarendon Press},
+  location     = {Oxford},
+  keywords     = {primary},
+  langid       = {english},
+  langidopts   = {variant=british},
+  shorttitle   = {Poetics},
+  annotation   = {A \texttt{book} entry with an \texttt{author} and an
+                  \texttt{editor} as well as a \texttt{series} field},
+  keywords     = {erf}
+}
+
+@book{averroes/bland,
+  author       = {Averroes},
+  title        = {The Epistle on the Possibility of Conjunction with the Active
+                  Intellect by Ibn Rushd with the Commentary of Moses Narboni},
+  date         = 1982,
+  editor       = {Bland, Kalman P.},
+  translator   = {Bland, Kalman P.},
+  series       = {Moreshet: Studies in Jewish History, Literature and Thought},
+  number       = 7,
+  publisher    = {Jewish Theological Seminary of America},
+  location     = {New York},
+  keywords     = {primary},
+  langid       = {english},
+  langidopts   = {variant=american},
+  indextitle   = {Epistle on the Possibility of Conjunction, The},
+  shorttitle   = {Possibility of Conjunction},
+  annotation   = {A \texttt{book} entry with a \texttt{series} and a
+                  \texttt{number}. Note the concatenation of the \texttt{editor}
+                  and \texttt{translator} fields as well as the
+                  \texttt{indextitle} field},
+  keywords     = {konk}
+}
+
+@book{averroes/hercz,
+  author       = {Averroes},
+  title        = {Drei Abhandlungen {\"u}ber die Conjunction des separaten
+                  Intellects mit dem Menschen},
+  date         = 1869,
+  editor       = {Hercz, J.},
+  translator   = {Hercz, J.},
+  publisher    = {S.~Hermann},
+  location     = {Berlin},
+  keywords     = {primary},
+  langid       = {german},
+  indexsorttitle= {Drei Abhandlungen uber die Conjunction},
+  indextitle   = {Drei Abhandlungen {\"u}ber die Conjunction},
+  subtitle     = {Von Averroes (Vater und Sohn), aus dem Arabischen
+                  {\"u}bersetzt von Samuel Ibn Tibbon},
+  shorttitle   = {Drei Abhandlungen},
+  annotation   = {A \texttt{book} entry. Note the concatenation of the
+                  \texttt{editor} and \texttt{translator} fields as well as the
+                  \texttt{indextitle} and \texttt{indexsorttitle} fields},
+  keywords     = {konk}
+}
+
+@book{cicero,
+  author       = {Cicero, Marcus Tullius},
+  title        = {De natura deorum. {\"U}ber das Wesen der G{\"o}tter},
+  date         = 1995,
+  editor       = {Blank-Sangmeister, Ursula},
+  translator   = {Blank-Sangmeister, Ursula},
+  afterword    = {Thraede, Klaus},
+  language     = {langlatin and langgerman},
+  publisher    = {Reclam},
+  location     = {Stuttgart},
+  langid       = {german},
+  indextitle   = {De natura deorum},
+  shorttitle   = {De natura deorum},
+  annotation   = {A bilingual edition of Cicero's \emph{De natura deorum}, with
+                  a German translation. Note the format of the \texttt{language}
+                  field in the database file, the concatenation of the
+                  \texttt{editor} and \texttt{translator} fields, and the
+                  \texttt{afterword} field},
+  keywords     = {entsch}
+}
+
+@book{companion,
+  author       = {Goossens, Michel and Mittelbach, Frank and Samarin, Alexander},
+  title        = {The LaTeX Companion},
+  date         = 1994,
+  edition      = 1,
+  publisher    = {Addison-Wesley},
+  location     = {Reading, Mass.},
+  pagetotal    = 528,
+  langid       = {english},
+  langidopts   = {variant=american},
+  sorttitle    = {LaTeX Companion},
+  indextitle   = {LaTeX Companion, The},
+  shorttitle   = {LaTeX Companion},
+  annotation   = {A book with three authors. Note the formatting of the author
+                  list. By default, only the first name is reversed in the
+                  bibliography},
+  keywords     = {wesentl}
+}
+
+@book{gerhardt,
+  author       = {Gerhardt, Michael J.},
+  title        = {The Federal Appointments Process},
+  date         = 2000,
+  publisher    = {Duke University Press},
+  location     = {Durham and London},
+  langid       = {english},
+  langidopts   = {variant=american},
+  sorttitle    = {Federal Appointments Process},
+  indextitle   = {Federal Appointments Process, The},
+  subtitle     = {A Constitutional and Historical Analysis},
+  shorttitle   = {Federal Appointments Process},
+  annotation   = {This is a \texttt{book} entry. Note the format of the
+                  \texttt{location} field as well as the \texttt{sorttitle} and
+                  \texttt{indextitle} fields},
+  keywords     = {fok}
+}
+
+@book{gonzalez,
+  author       = {Gonzalez, Ray},
+  title        = {The Ghost of John Wayne and Other Stories},
+  date         = 2001,
+  publisher    = {The University of Arizona Press},
+  location     = {Tucson},
+  isbn         = {0-816-52066-6},
+  langid       = {english},
+  langidopts   = {variant=american},
+  sorttitle    = {Ghost of John Wayne and Other Stories},
+  indextitle   = {Ghost of John Wayne and Other Stories, The},
+  shorttitle   = {Ghost of John Wayne},
+  annotation   = {A collection of short stories. This is a \texttt{book} entry.
+                  Note the \texttt{sorttitle} and \texttt{indextitle} fields in
+                  the database file. There's also an \texttt{isbn} field},
+  keywords     = {fok}
+}
+
+@book{iliad,
+  author       = {Homer},
+  title        = {Die Ilias},
+  date         = 2004,
+  translator   = {Schadewaldt, Wolfgang},
+  introduction = {Latacz, Joachim},
+  edition      = 3,
+  publisher    = {Artemis \& Winkler},
+  location     = {D{\"u}sseldorf and Z{\"u}rich},
+  langid       = {german},
+  sorttitle    = {Ilias},
+  indextitle   = {Ilias, Die},
+  shorttitle   = {Ilias},
+  annotation   = {A German translation of the \emph{Iliad}. Note the
+                  \texttt{translator} and \texttt{introduction} fields and the
+                  format of the \texttt{location} field in the database
+                  file. Also note the \texttt{sorttitle} and \texttt{indextitle}
+                  fields},
+  keywords     = {fok}
+}
+
+@book{knuth:ct,
+  author       = {Knuth, Donald E.},
+  title        = {Computers \& Typesetting},
+  date         = {1984/1986},
+  volumes      = 5,
+  publisher    = {Addison-Wesley},
+  location     = {Reading, Mass.},
+  langid       = {english},
+  langidopts   = {variant=american},
+  sortyear     = {1984-0},
+  sorttitle    = {Computers & Typesetting},
+  indexsorttitle= {Computers & Typesetting},
+  annotation   = {A five-volume book cited as a whole. This is a \texttt{book}
+                  entry, note the \texttt{volumes} field},
+  keywords     = {rekap}
+}
+
+@book{knuth:ct:a,
+  author       = {Knuth, Donald E.},
+  title        = {The \TeX book},
+  date         = 1984,
+  maintitle    = {Computers \& Typesetting},
+  volume       = {A},
+  publisher    = {Addison-Wesley},
+  location     = {Reading, Mass.},
+  langid       = {english},
+  langidopts   = {variant=american},
+  sortyear     = {1984-1},
+  sorttitle    = {Computers & Typesetting A},
+  indexsorttitle= {The TeXbook},
+  indextitle   = {\protect\TeX book, The},
+  shorttitle   = {\TeX book},
+  annotation   = {The first volume of a five-volume book. Note the
+                  \texttt{sorttitle} and \texttt{sortyear} fields. We want this
+                  volume to be listed after the entry referring to the entire
+                  five-volume set. Also note the \texttt{indextitle} and
+                  \texttt{indexsorttitle} fields. Indexing packages that don't
+                  generate robust index entries require some control sequences
+                  to be protected from expansion},
+  keywords     = {rekap}
+}
+
+@book{knuth:ct:b,
+  author       = {Knuth, Donald E.},
+  title        = {\TeX: The Program},
+  date         = 1986,
+  maintitle    = {Computers \& Typesetting},
+  volume       = {B},
+  publisher    = {Addison-Wesley},
+  location     = {Reading, Mass.},
+  langid       = {english},
+  langidopts   = {variant=american},
+  sortyear     = {1986-1},
+  sorttitle    = {Computers & Typesetting B},
+  indexsorttitle= {TeX: The Program},
+  shorttitle   = {\TeX},
+  annotation   = {The second volume of a five-volume book. Note the
+                  \texttt{sorttitle} and \texttt{sortyear} fields. Also note the
+                  \texttt{indexsorttitle} field},
+  keywords     = {rekap}
+}
+
+@book{maron,
+  author       = {Maron, Monika},
+  title        = {Animal Triste},
+  date         = 2000,
+  translator   = {Brigitte Goldstein},
+  origlanguage = {german},
+  publisher    = {University of Nebraska Press},
+  location     = {Lincoln},
+  langid       = {english},
+  langidopts   = {variant=american},
+  shorttitle   = {Animal Triste},
+  annotation   = {An English translation of a German novel with a French title.
+                  In other words: a \texttt{book} entry with a
+                  \texttt{translator} field.  Note the \texttt{origlanguage}
+                  field which is concatenated with the \texttt{translator}},
+  keywords     = {welt}
+}
+
+@book{nietzsche:ksa,
+  author       = {Nietzsche, Friedrich},
+  title        = {S{\"a}mtliche Werke},
+  date         = 1988,
+  editor       = {Colli, Giorgio and Montinari, Mazzino},
+  edition      = 2,
+  volumes      = 15,
+  publisher    = dtv # { and Walter de Gruyter},
+  location     = {M{\"u}nchen and Berlin and New York},
+  langid       = {german},
+  sortyear     = {1988-0},
+  sorttitle    = {Werke-00-000},
+  indexsorttitle= {Samtliche Werke},
+  subtitle     = {Kritische Studienausgabe},
+  annotation   = {The critical edition of Nietzsche's works. This is a
+                  \texttt{book} entry referring to a 15-volume work as a
+                  whole. Note the \texttt{volumes} field and the format of the
+                  \texttt{publisher} and \texttt{location} fields in the
+                  database file. Also note the \texttt{sorttitle} and
+                  \texttt{sortyear} fields which are used to fine-tune the
+                  sorting order of the bibliography. We want this item listed
+                  first in the bibliography},
+  keywords     = {welt}
+}
+
+@book{nietzsche:ksa1,
+  author       = {Nietzsche, Friedrich},
+  title        = {Die Geburt der Trag{\"o}die. Unzeitgem{\"a}{\ss}e
+                  Betrachtungen I--IV. Nachgelassene Schriften 1870--1973},
+  date         = 1988,
+  editor       = {Colli, Giorgio and Montinari, Mazzino},
+  maintitle    = {S{\"a}mtliche Werke},
+  mainsubtitle = {Kritische Studienausgabe},
+  volume       = 1,
+  edition      = 2,
+  publisher    = dtv # { and Walter de Gruyter},
+  location     = {M{\"u}nchen and Berlin and New York},
+  langid       = {german},
+  sortyear     = {1988-1},
+  sorttitle    = {Werke-01-000},
+  indexsorttitle= {Samtliche Werke I},
+  bookauthor   = {Nietzsche, Friedrich},
+  indextitle   = {S{\"a}mtliche Werke I},
+  shorttitle   = {S{\"a}mtliche Werke I},
+  annotation   = {A single volume from the critical edition of Nietzsche's
+                  works. This \texttt{book} entry explicitly refers to the first
+                  volume only. Note the \texttt{title} and \texttt{maintitle}
+                  fields. Also note the \texttt{sorttitle} and \texttt{sortyear}
+                  fields. We want this entry to be listed after the entry
+                  referring to the entire edition},
+  keywords     = {welt}
+}
+

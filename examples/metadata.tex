@@ -1,0 +1,104 @@
+% Example file, part of the package jslectureplanner
+%
+% METADATA example
+
+%
+% General course data
+%
+\LecType{vl}
+\LecTitle[shorttitle={Meine Wissenschaft},
+          subtitle={Grundlagen und Theorien},
+          titlesep={\ --\ }]{Einf\"uhrung in meine Wissenschaft}
+\LecYear{ss}{2013}
+\LecUni{Universit\"at Schwanheim}
+\LecInstitute{Institut f\"ur Wissenschaftsgeschichte}
+\LecStartDate{17/04/2013}
+
+%
+% Session data
+%
+
+% a single session
+\NewSession[bibsec=einf]{Einf\"uhrung in die Einf\"uhrung}
+
+% a thematic block
+\begin{SessionBlock}{Meine Wissenschaft: Begr\"undung}
+
+	\NewSession[%
+		titlesep={:\ },
+		subtitle={Irrwege und Unwahrheiten},
+                bibsec=begr
+	]{Andere Wissenschaften}
+
+	\NewSession[%
+		titlesep={:\ },
+		subtitle={Der bessere Weg},
+                bibsec=bessweg
+	]{Meine Wissenschaft}
+
+\end{SessionBlock}
+
+% another thematic block
+\begin{SessionBlock}{Die Geschichte meiner Wissenschaft}
+
+	\NewSession[bibsec=anf]{Die Anf\"ange}
+
+	\NewSession[bibsec=erf]{Erste Erfolge}
+
+	\NewSession[cancel=true]{Dies Academicus}
+
+	\NewSession[bibsec=konk]{Konkurrenzk\"ampfe}
+
+	\NewSession[%
+		titlesep={:\ },
+		subtitle={Andere werden ignoriert},
+                bibsec=entsch
+	]{Die Entscheidung}
+
+\end{SessionBlock}
+
+% a semester break of two weeks
+\SetBreaks[weeks=2,span={10.\,--\,23.\,06.}]{Osterferien}
+
+% start a new frame in beamer
+\SetBeamerFrameBreak
+
+% another thematic block
+\begin{SessionBlock}{Theorien meiner Wissenschaft}
+
+	\NewSession[bibsec=wesentl]{Bestimmung des Wesentlichen}
+
+	\NewSession[bibsec=fok]{Fokussierung auf das Wesentliche}
+
+	\NewSession[bibsec=rekap]{Rekapitulation der Wesensbestimmung}
+
+\end{SessionBlock}
+
+% and a last thematic block
+\begin{SessionBlock}{Anwendungsfelder}
+
+	\NewSession[%
+		titlesep={:\ },
+		subtitle={Mein Institut},
+                bibsec=lokal
+	]{Das lokale Umfeld}
+
+	\NewSession[%
+		titlesep={:\ },
+		subtitle={Die Welt},
+                bibsec=welt
+	]{Der Rest}
+
+\end{SessionBlock}
+
+\NewSession{Fazit, Ausblick, Reflexion}
+
+%
+% Further info
+%
+
+\SetPlatform{\url{http://myelearningplatform/mycourse}}
+
+\SetOfficeHours{Sonntag, 02:00\,--\,03:00 Uhr}
+
+% Finis
