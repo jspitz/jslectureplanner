@@ -27,7 +27,7 @@
 
 \author{Jürgen Spitzmüller\thanks{juergen@spitzmueller.org}}
 
-\date{Version 0.6\,b, 2014/12/12}
+\date{Version 0.7dev, 2014/12/31}
 
 \maketitle
 
@@ -149,7 +149,8 @@ etc.)
 \item [{uni=<university>}]~
 \item [{institute=<institute>}]~
 \item [{startdate=<startdate>}] Date of the first session (argument\emph{
-must} have the form DD/MM/YYYY)
+must} have the form DD/MM/YYYY). Note that this option changes the value of \jfcsmacro{today}.
+See sec.~\ref{sec:resetdate} how to reset it.
 \end{description}
 
 \subsubsection{Additional information}
@@ -207,7 +208,9 @@ your university
 \item \jcsmacro{LecInstitute\{<institute>\}}: Set your institute
 name
 \item \jcsmacro{LecStartDate\{<startdate>\}}: Set date of
-the first session (argument\emph{ must} have the form DD/MM/YYYY)
+the first session (argument\emph{ must} have the form DD/MM/YYYY).
+Note that this macro changes the value of \jfcsmacro{today}.
+See sec.~\ref{sec:resetdate} how to reset it.
 \end{itemize}
 
 \subsubsection{Additional information}
@@ -298,6 +301,8 @@ code to the beamer program
 Thematic block consisting of several sessions. Respective sessions
 are nested inside this block.
 \end{itemize}
+Note that setting up a course plan changes the value of \jfcsmacro{today}.
+See sec.~\ref{sec:resetdate} how to reset it.
 
 \section{Retrieving general course information\label{sec:general-course-info}}
 
@@ -343,6 +348,7 @@ e-learning platform
 \end{itemize}
 
 \subsection{Generating lecture programs}
+\label{sec:lecprog}
 \begin{itemize}
 \item \jcsmacro{makeprogram}: Generates a lecture program
 from the metadata in the form
@@ -478,6 +484,16 @@ item line for session number \joption{<nr>} in the form
 
 \end{itemize}
 
+
+\section{Resetting the current date}
+\label{sec:resetdate}
+
+The date calculation mechanism (as provided by the \textsf{advdate} package) rewrites the value
+of \jfcsmacro{today}. So after you defined a start date via the \joption{startdate} option or
+the \jcsmacro{LecStartDate} macro and/or set up a course plan as described in sec.~\ref{sec:lecprog},
+\jfcsmacro{today} will most likely not return today's date anymore. 
+To restore the current day, use the macro \jcsmacro{ResetDate} after your course plan has been set up.
+
 \section{Customizing the output}
 
 
@@ -555,13 +571,14 @@ The indentation used in program lists can be changed by redefining
 \end{lstlisting}
 
 
-Again, use \jfmacro{\textbackslash{}renewcommand{*}} to redefine
+Again, use \jfcsmacro{renewcommand{*}} to redefine
 those.
 
 
 \section{History}
 
 \begin{itemize}
+\item Forthcoming (v. 0.7): Add macro for resetting \jfcsmacro{today}.
 \item 2012/12/12 (v. 0.6\,b): Minor corrections in the manual and example files.
 \item 2012/12/12 (v. 0.6): Initial release to CTAN.
 \end{itemize}

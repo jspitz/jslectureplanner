@@ -19,8 +19,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2014/12/12}
-\def\fileversion{0.6b}
+\def\filedate{2014/12/31}
+\def\fileversion{0.7dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -36,6 +36,11 @@
 \RequirePackage{xkeyval}
 \RequirePackage{datetime}
 \RequirePackage{calc}
+
+%
+% Store \today
+%
+\SaveDate
 
 %
 % VARIABLES
@@ -626,5 +631,8 @@
 \item[{\bfseries\lsesshortdate}]%
       \lsestitle\lsestitlesep\lsessubtitle%
 }
+
+% Reset to today
+\newcommand*\ResetDate{\SetDate}
 
 % Finis
