@@ -26,9 +26,10 @@
 
 \title{The jslectureplanner package}
 
-\author{Jürgen Spitzmüller\thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}}}
+\author{Jürgen Spitzmüller%
+\thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}}}
 
-\date{Version 0.7dev, 2014/12/31}
+\date{Version 0.7dev, 2015/01/02}
 
 \maketitle
 
@@ -142,7 +143,7 @@ etc.)
 
 \begin{itemize}
 \item \joption{fs}: spring term (``Frühjahrssemester'', short form: ``FS'')
-\item \joption{hs}: autumn term (``Herbstsemester'', short form: ``HS'')
+\item \joption{hs}: fall term (``Herbstsemester'', short form: ``HS'')
 \item \joption{ss}: summer term (``Sommersemester'', short form: ``SoSe'')
 \item \joption{ws}: winter term (``Wintersemester'', short form: ``WS'')
 \end{itemize}
@@ -172,13 +173,13 @@ subsection.
 description.}
 
 \begin{itemize}
-\item \joption{vl}
-\item \joption{vo}
-\item \joption{ps}
-\item \joption{se}
-\item \joption{ue}
-\item \joption{ko}
-\item \joption{pv}
+\item \joption{vl}: lecture (\emph{Vorlesung})
+\item \joption{vo}: lecture (alternative)
+\item \joption{ps}: undergraduate seminar (\emph{Proseminar})
+\item \joption{se}: seminar (Seminar)
+\item \joption{ue}: practical course (\emph{Übung})
+\item \joption{ko}: colloquium (\emph{Kolloquium})
+\item \joption{pv}: research seminar (\emph{Privatissimum})
 \end{itemize}
 \end{itemize}
 
@@ -199,10 +200,10 @@ year of the course; \joption{<term>} is one of\footnote{See above sec.~\ref{sec:
 description.}
 
 \begin{itemize}
-\item \joption{fs}
-\item \joption{hs}
-\item \joption{ss}
-\item \joption{ws}
+\item \joption{fs}: spring term (\emph{Frühjahrssemester})
+\item \joption{hs}: fall term (\emph{Herbstsemester})
+\item \joption{ss}: summer term (\emph{Sommersemester})
+\item \joption{ws}: winter term (\emph{Wintersemester})
 \end{itemize}
 \item \jcsmacro{LecUni\{<university>\}}: Set the name of
 your university
@@ -493,7 +494,7 @@ The date calculation mechanism (as provided by the \textsf{advdate} package) rew
 of \jfcsmacro{today}. So after you defined a start date via the \joption{startdate} option or
 the \jcsmacro{LecStartDate} macro and/or set up a course plan as described in sec.~\ref{sec:lecprog},
 \jfcsmacro{today} will most likely not return today's date anymore. 
-To restore the current day, use the macro \jcsmacro{ResetDate} after your course plan has been set up.
+To restore the current date, use the macro \jcsmacro{ResetDate} after your course plan has been set up.
 
 \section{Customizing the output}
 
