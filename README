@@ -58,7 +58,8 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 0.7 (forthcoming): Add macro for resetting \today.
+* V. 0.7 (2015-01-04): Add macro for resetting \today.
+                       Minor corrections in the manual.
 
 * V. 0.6b (2014-12-12): Minor corrections in the manual and
                         example files.
