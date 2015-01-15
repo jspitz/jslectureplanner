@@ -58,6 +58,10 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
+* V. 0.8 (forthcoming):  Add option and macro to set a room
+                         for the course as well as a
+                         session-specific room.
+
 * V. 0.7 (2015-01-04): Add macro for resetting \today.
                        Minor corrections in the manual.
 

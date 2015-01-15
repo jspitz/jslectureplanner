@@ -29,7 +29,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}}}
 
-\date{Version 0.7, 2015/01/04}
+\date{Version 0.8dev, 2015/01/15}
 
 \maketitle
 
@@ -150,6 +150,7 @@ etc.)
 \item [{year=<year>}]~
 \item [{uni=<university>}]~
 \item [{institute=<institute>}]~
+\item [{room=<room>}]~
 \item [{startdate=<startdate>}] Date of the first session (argument\emph{
 must} have the form DD/MM/YYYY). Note that this option changes the value of \jfcsmacro{today}.
 See sec.~\ref{sec:resetdate} how to reset it.
@@ -209,6 +210,7 @@ description.}
 your university
 \item \jcsmacro{LecInstitute\{<institute>\}}: Set your institute
 name
+\item \jcsmacro{LecRoom\{<room>\}}: Set the room where the course takes place
 \item \jcsmacro{LecStartDate\{<startdate>\}}: Set date of
 the first session (argument\emph{ must} have the form DD/MM/YYYY).
 Note that this macro changes the value of \jfcsmacro{today}.
@@ -239,6 +241,7 @@ subtitle
 \item \joption{subtitle=<subtitle>}: Subtitle of the session
 \item \joption{shorttitle=<shorttitle>}: Short title of the session (for
 headings etc.)
+\item \joption{room=<room>}: Specific room for this session (if it differs)
 \item \joption{bibsec=<keyword>}: Session keyword for the bibliography
 (see below sec.~\ref{sub:bibliographies})
 \item \joption{cancel=<true|false>}: Whether this session takes place.
@@ -344,6 +347,7 @@ the semester (e.\,g., ``WS 2014'')
 of the semester (e.\,g., ``Wintersemester 2014'')
 \item \jcsmacro{lecuniversity}: Outputs the university name
 \item \jcsmacro{lecinstitute}: Outputs the institute name
+\item \jcsmacro{lecroom}: Outputs the room
 \item \jcsmacro{lecplatform}: Outputs information on the
 e-learning platform
 \item \jcsmacro{officehours}: Outputs the office hours
@@ -457,6 +461,7 @@ the current session
 \item \jcsmacro{sesfulltitle}: Full title of the current
 session (title, separator, subtitle)
 \item \jcsmacro{sesnr}: Number of the current session
+\item \jcsmacro{sesroom}: Room of the current session
 \end{itemize}
 
 \subsection{Generating session-specific information for an arbitrary session}
@@ -475,6 +480,7 @@ title of session number \joption{<nr>}
 session number \joption{<nr>}
 \item \jcsmacro{SessionShortDate\{<nr>\}}: Outputs the short
 date (no year) of session number \joption{<nr>}
+\item \jcsmacro{SessionRoom\{<nr>\}}: Outputs the room of session number \joption{<nr>}
 \item \jcsmacro{MakeProgramline\{<nr>\}}: Outputs a list
 item line for session number \joption{<nr>} in the form
 
@@ -580,6 +586,7 @@ those.
 \section{History}
 
 \begin{itemize}
+\item forthcoming (v. 0.8): Add option and macro to set a room for the course as well as a session-specific room.
 \item 2015/01/04 (v. 0.7): Add macro for resetting \jfcsmacro{today}; minor corrections in the manual.
 \item 2014/12/12 (v. 0.6\,b): Minor corrections in the manual and example files.
 \item 2014/12/12 (v. 0.6): Initial release to CTAN.

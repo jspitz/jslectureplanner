@@ -21,8 +21,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2014/01/04}
-\def\fileversion{0.7}
+\def\filedate{2015/01/15}
+\def\fileversion{0.8dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -61,6 +61,7 @@
 \def\lecsemesterverb{}
 \def\lecuniversity{}
 \def\lecinstitute{}
+\def\lecroom{}
 
 \def\lecplatform{}
 \def\officehours{}
@@ -192,6 +193,7 @@
 \define@key{lec}{institute}{\def\lecinstitute{#1}}
 \define@key{lec}{platform}{\def\lecplatform{#1}}
 \define@key{lec}{officehours}{\def\officehours{#1}}
+\define@key{lec}{room}{\def\lecroom{#1}}
 \define@key{lec}{startdate}{\SetDate[#1]}
 
 \DeclareOptionX{title}{\setkeys{lec}{title=#1}}
@@ -204,6 +206,7 @@
 \DeclareOptionX{startdate}{\setkeys{lec}{startdate=#1}}
 \DeclareOptionX{platform}{\setkeys{lec}{platform=#1}}
 \DeclareOptionX{officehours}{\setkeys{lec}{officehours=#1}}
+\DeclareOptionX{room}{\setkeys{lec}{room=#1}}
 
 \ProcessOptionsX
 
@@ -222,6 +225,7 @@
 \newcommand*{\LecYear}[2]{\setkeys{lec}{lecsem=#1,year=#2}}
 \newcommand*{\LecUni}[1]{\setkeys{lec}{uni=#1}}
 \newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute=#1}}
+\newcommand*{\LecRoom}[1]{\setkeys{lec}{room=#1}}
 \newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
 
 %
@@ -474,6 +478,7 @@
 \define@key{session}{subtitle}{\csdef{@vasutitle}{#1}}
 \define@key{session}{shorttitle}{\csdef{@vashorttitle}{#1}}
 \define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
+\define@key{session}{room}{\csdef{@sesroom}{#1}}
 \define@boolkey{session}{cancel}[true]{}
 
 \newcommand*\NewSession[2][]{%
@@ -485,6 +490,7 @@
   \csdef{@vasutitle}{}
   \csdef{@vashorttitle}{}
   \csdef{@sesbibsec}{}
+  \csdef{@sesroom}{\lecroom}
   \setkeys{session}{cancel=false}
   \setkeys{session}{#1}
   \csdef{@sestitle}{#2}
@@ -495,6 +501,7 @@
   \protected@csxdef{sessubtitle\thesnum}{\csuse{@vasutitle}}
   \protected@csxdef{sesshorttitle\thesnum}{\csuse{@vashorttitle}}
   \protected@csxdef{sesbib\thesnum}{\csuse{@sesbibsec}}
+  \protected@csxdef{sesroom\thesnum}{\csuse{@sesroom}}
   \ifKV@session@cancel
     \stepcounter{cancellations}
     \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
@@ -590,6 +597,7 @@
   \gdef\sestitlesep{\csuse{sestitlesep#1}}%
   \gdef\sesshorttitle{\csuse{sesshorttitle#1}}%
   \gdef\sessubtitle{\csuse{sessubtitle#1}}%
+  \gdef\sesroom{\csuse{sesroom#1}}%
 }
 
 \newcommand\LocalSession[1]{%
@@ -600,6 +608,7 @@
   \gdef\lsestitlesep{\csuse{sestitlesep#1}}%
   \gdef\lsesshorttitle{\csuse{sesshorttitle#1}}%
   \gdef\lsessubtitle{\csuse{sessubtitle#1}}%
+  \gdef\lsesroom{\csuse{sesroom#1}}%
 }
 
 % Session information
@@ -626,6 +635,11 @@
 \newcommand*\SessionShortDate[1]{%
   \LocalSession{#1}%
   \lsesshortdate%
+}
+
+\newcommand*\SessionRoom[1]{%
+  \LocalSession{#1}%
+  \lsesroom%
 }
 
 \newcommand*\MakeProgramline[1]{%
