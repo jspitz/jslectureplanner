@@ -58,7 +58,7 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 0.8 (forthcoming):  - Fix corruption of \today.
+* V. 0.8 (2015-01-17):  - Fix corruption of \today.
                          - Add framework for different styles.
                          - Add option and macro to set a room
                            for the course as well as a
