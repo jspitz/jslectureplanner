@@ -62,6 +62,8 @@ instructions; also have a look at the example files.
                          - Add option and macro to set a room
                            for the course as well as a
                            session-specific room.
+                         - Remove redundant lecture type "vo"
+                           from the documentation.
 
 * V. 0.7 (2015-01-04): Add macro for resetting \today.
                        Minor corrections in the manual.

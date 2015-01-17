@@ -112,9 +112,6 @@ in ``the second \emph{session} of this course'').
 \begin{itemize}
 \item \joption{vl}: a lecture (verbose form: ``Vorlesung''\footnote{Sec.~\ref{sec:customizing-strings}
 explains how to customize these strings.}, short form: ``VL'', session form: ``Vorlesung'')
-\item \joption{vo}: also a lecture\footnote{The division of ``vl'' and ``vo'' has historical (personal) reasons.}
-(verbose form: ``Vorlesung'', short form: ``VO'', session form:
-``Vorlesung'')
 \item \joption{ps}: undergraduate seminar (verbose form: ``Proseminar'',
 short form: ``PS'', session form: ``Sitzung'')
 \item \joption{se}: seminar (verbose form: ``Seminar'', short form: ``SE'',
@@ -174,7 +171,6 @@ description.}
 
 \begin{itemize}
 \item \joption{vl}: lecture (\emph{Vorlesung})
-\item \joption{vo}: lecture (alternative)
 \item \joption{ps}: undergraduate seminar (\emph{Proseminar})
 \item \joption{se}: seminar (\emph{Seminar})
 \item \joption{ue}: practical course (\emph{Übung})
@@ -496,7 +492,6 @@ item line for session number \joption{<nr>} in the form
 The strings of the course types can be changed via the macros:
 \begin{itemize}
 \item \jcsmacro{DefTypeVL\{<short form>\}\{<title>\}\{<session title>\}}
-\item \jcsmacro{DefTypeVO\{<short form>\}\{<title>\}\{<session title>\}}
 \item \jcsmacro{DefTypePS\{<short form>\}\{<title>\}\{<session title>\}}
 \item \jcsmacro{DefTypeSE\{<short form>\}\{<title>\}\{<session title>\}}
 \item \jcsmacro{DefTypeUE\{<short form>\}\{<title>\}\{<session title>\}}
@@ -572,7 +567,9 @@ those.
 \section{History}
 
 \begin{itemize}
-\item forthcoming (v. 0.8): Fix corruption of \jfcsmacro{today}; add option and macro to set a room for the course as well as a session-specific room.
+\item forthcoming (v. 0.8): Fix corruption of \jfcsmacro{today};
+    add option and macro to set a room for the course as well as a session-specific room;
+    remove redundant lecture type \joption{vo} from the documentation.
 \item 2015/01/04 (v. 0.7): Add macro for resetting \jfcsmacro{today}; minor corrections in the manual.
 \item 2014/12/12 (v. 0.6\,b): Minor corrections in the manual and example files.
 \item 2014/12/12 (v. 0.6): Initial release to CTAN.

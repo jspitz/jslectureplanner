@@ -85,7 +85,8 @@
 \def\lectypevl{Vorlesung}
 \def\lectypevls{VL}
 \def\lectypevlses{Vorlesung}
-% vo
+% vo (redundant and undocumented;
+%     just kept for historical reasons)
 \def\lectypevo{Vorlesung}
 \def\lectypevos{VO}
 \def\lectypevoses{Vorlesung}
@@ -136,7 +137,7 @@
       \def\lectype{\lectypevls}
       \def\lectypeverb{\lectypevl}
       \def\lectypesession{\lectypevlses}
-    \or% vo (wien)
+    \or% vo (redundant and undocumented; just kept for historical reasons)
       \def\lectype{\lectypevos}
       \def\lectypeverb{\lectypevo}
       \def\lectypesession{\lectypevoses}
@@ -268,7 +269,8 @@
   \def\lectypevls{#1}
   \def\lectypevlses{#2}
 }
-% vo
+% vo (redundant and undocumented;
+%     just kept for historical reasons)
 \newcommand*\DefTypeVO[3]{%
   \def\lectypevo{#2}
   \def\lectypevos{#1}
