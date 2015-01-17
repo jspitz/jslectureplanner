@@ -29,6 +29,7 @@ via biblatex.
 The package consists of the following files:
 
 * jslectureplanner.sty (the LaTeX package)
+* german-default.lps (German style file)
 * jslectureplanner.pdf (package documentation)
 * jslectureplanner.tex (documentation source)
 * README (this very file)
