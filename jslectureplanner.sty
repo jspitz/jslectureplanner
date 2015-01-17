@@ -62,6 +62,7 @@
 \def\lecuniversity{}
 \def\lecinstitute{}
 \def\lecroom{}
+\def\lecstartdate{}
 
 \def\lecplatform{}
 \def\officehours{}
@@ -194,7 +195,7 @@
 \define@key{lec}{platform}{\def\lecplatform{#1}}
 \define@key{lec}{officehours}{\def\officehours{#1}}
 \define@key{lec}{room}{\def\lecroom{#1}}
-\define@key{lec}{startdate}{\SetDate[#1]}
+\define@key{lec}{startdate}{\def\lecstartdate{#1}}
 
 \DeclareOptionX{title}{\setkeys{lec}{title=#1}}
 \DeclareOptionX{titlesep}{\setkeys{lec}{titlesep=#1}}
@@ -494,8 +495,12 @@
   \setkeys{session}{cancel=false}
   \setkeys{session}{#1}
   \csdef{@sestitle}{#2}
-  \protected@csxdef{sesdate\thesnum}{\AdvanceDate[\thedateratio]\vldate\today\AdvanceDate[-\thedateratio]}
-  \protected@csxdef{sesshortdate\thesnum}{\AdvanceDate[\thedateratio]\vlshdate\today\AdvanceDate[-\thedateratio]}
+  \protected@csxdef{sesdate\thesnum}{%
+      \bgroup\ifx\lecstartdate\empty\else\SetDate[\lecstartdate]\fi%
+      \AdvanceDate[\thedateratio]\vldate\today\egroup}
+  \protected@csxdef{sesshortdate\thesnum}{%
+      \bgroup\ifx\lecstartdate\empty\else\SetDate[\lecstartdate]\fi%
+      \AdvanceDate[\thedateratio]\vlshdate\today\egroup}
   \protected@csxdef{sestitle\thesnum}{\csuse{@sestitle}}
   \protected@csxdef{sestitlesep\thesnum}{\csuse{@sestitlesep}}
   \protected@csxdef{sessubtitle\thesnum}{\csuse{@vasutitle}}
@@ -644,11 +649,13 @@
 
 \newcommand*\MakeProgramline[1]{%
   \LocalSession{#1}%
-\item[{\bfseries\lsesshortdate}]%
-      \lsestitle\lsestitlesep\lsessubtitle%
+  \item[{\bfseries\lsesshortdate}]%
+    \lsestitle\lsestitlesep\lsessubtitle%
 }
 
 % Reset to today
+% Not needed anymore as of v. 0.8,
+% but kept for backwards compatibility reasons
 \newcommand*\ResetDate{\SetDate}
 
 % Finis

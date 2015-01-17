@@ -152,8 +152,7 @@ etc.)
 \item [{institute=<institute>}]~
 \item [{room=<room>}]~
 \item [{startdate=<startdate>}] Date of the first session (argument\emph{
-must} have the form DD/MM/YYYY). Note that this option changes the value of \jfcsmacro{today}.
-See sec.~\ref{sec:resetdate} how to reset it.
+must} have the form DD/MM/YYYY).
 \end{description}
 
 \subsubsection{Additional information}
@@ -213,8 +212,6 @@ name
 \item \jcsmacro{LecRoom\{<room>\}}: Set the room where the course takes place
 \item \jcsmacro{LecStartDate\{<startdate>\}}: Set date of
 the first session (argument\emph{ must} have the form DD/MM/YYYY).
-Note that this macro changes the value of \jfcsmacro{today}.
-See sec.~\ref{sec:resetdate} how to reset it.
 \end{itemize}
 
 \subsubsection{Additional information}
@@ -306,8 +303,6 @@ code to the beamer program
 Thematic block consisting of several sessions. Respective sessions
 are nested inside this block.
 \end{itemize}
-Note that setting up a course plan changes the value of \jfcsmacro{today}.
-See sec.~\ref{sec:resetdate} how to reset it.
 
 \section{Retrieving general course information\label{sec:general-course-info}}
 
@@ -493,15 +488,6 @@ item line for session number \joption{<nr>} in the form
 \end{itemize}
 
 
-\section{Resetting the current date}
-\label{sec:resetdate}
-
-The date calculation mechanism (as provided by the \textsf{advdate} package) rewrites the value
-of \jfcsmacro{today}. So after you defined a start date via the \joption{startdate} option or
-the \jcsmacro{LecStartDate} macro and/or set up a course plan as described in sec.~\ref{sec:lecprog},
-\jfcsmacro{today} will most likely not return today's date anymore. 
-To restore the current date, use the macro \jcsmacro{ResetDate} after your course plan has been set up.
-
 \section{Customizing the output}
 
 
@@ -586,7 +572,7 @@ those.
 \section{History}
 
 \begin{itemize}
-\item forthcoming (v. 0.8): Add option and macro to set a room for the course as well as a session-specific room.
+\item forthcoming (v. 0.8): Fix corruption of \jfcsmacro{today}; add option and macro to set a room for the course as well as a session-specific room.
 \item 2015/01/04 (v. 0.7): Add macro for resetting \jfcsmacro{today}; minor corrections in the manual.
 \item 2014/12/12 (v. 0.6\,b): Minor corrections in the manual and example files.
 \item 2014/12/12 (v. 0.6): Initial release to CTAN.
