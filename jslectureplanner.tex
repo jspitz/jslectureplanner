@@ -29,7 +29,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 0.8, 2015/01/17}
+\date{Version 0.9dev, 2015/01/17}
 
 \maketitle
 
@@ -50,7 +50,8 @@ data in every single file, you just need to change it once, in the
 metadata file.
 
 To further facilitate the planning, the package is able to calculate
-the session dates of a whole semester, if the course is held weekly.
+the session dates of a whole semester, if the sessions of the course
+follow a regular interval.
 You only need to set the date of the first lecture, the package does
 the rest. Moreover, the package can be used to generate a sectioned
 bibliography for the course via \textsf{biblatex}.
@@ -150,6 +151,8 @@ etc.)
 \item [{room=<room>}]~
 \item [{startdate=<startdate>}] Date of the first session (argument\emph{
 must} have the form DD/MM/YYYY).
+\item [{interval=<interval>}] Interval (in days) between two sessions.
+      The preset interval is 7 (=~weekly courses).
 \end{description}
 
 \subsubsection{Additional information}
@@ -208,6 +211,8 @@ name
 \item \jcsmacro{LecRoom\{<room>\}}: Set the room where the course takes place
 \item \jcsmacro{LecStartDate\{<startdate>\}}: Set date of
 the first session (argument\emph{ must} have the form DD/MM/YYYY).
+\item \jcsmacro{LecInterval\{<interval>\}}: Interval (in days) between two sessions.
+      The preset interval is 7 (=~weekly courses).
 \end{itemize}
 
 \subsubsection{Additional information}
@@ -254,8 +259,8 @@ will output something like
 
 \end{itemize}
 \item \jcsmacro{SetBreak{[}<span>{]}\{Reason\}}: Add a semester
-break (e.g., holidays). This increments the counter for one week and
-outputs in the program
+break (e.g., holidays). This increments the counter for one unit (one week
+with default interval settings) and outputs in the program
 
 
 \begin{center}
@@ -272,7 +277,7 @@ expands to
 \par\end{center}
 
 \item \jcsmacro{SetBreaks{[}<options>{]}\{Reason\}}: Add
-a semester break (e.g., holidays) that is longer than one week. This
+a semester break (e.g., holidays) that is longer than one interval unit. This
 increments the counter respectively, and outputs in the program
 
 
@@ -281,11 +286,16 @@ increments the counter respectively, and outputs in the program
 \par\end{center}
 
 
-\jmacro{<options>} include:
+Possible \jmacro{<options>} are:
 \begin{itemize}
-\item \joption{weeks=<int>}: Number of weeks the break takes (to increment
-the internal counter that is used to calculate the session dates)
-\item \joption{span=<time span>}: time span (to be output on the program)
+\item \joption{units=<int>}: Number of interval units the break takes. One \emph{unit}
+    is the number of days as specified by the \joption{interval} option (one week by
+    default\footnote{The former option \joption{weeks} is deprecated a of v. 0.9,
+    since the interval can be adjusted now.}).
+    This value is needed in order to increment the internal counter that is used to
+    calculate the session dates. If \joption{units} is not specified, the counter is
+    incremented by one.
+\item \joption{span=<time span>}: time span (verbally output on the program)
 \end{itemize}
 \item \jcsmacro{SetBeamerFrameBreak}: Add a frame break in
 the beamer program at this position. This also increments the frame
@@ -579,6 +589,10 @@ them for inclusion to the package.
 \section{History}
 
 \begin{itemize}
+\item forthcoming (v. 0.9): Add a way to adjust the interval between two sessions
+    (\joption{interval} package option and \jcsmacro{LecInternal} macro); rename option \joption{weeks}
+    of the \jcsmacro{SetBreaks} macro to \joption{units} (\joption{weeks} still works, but is
+    marked deprecated).
 \item 2015/01/17 (v. 0.8): Fix corruption of \jfcsmacro{today};
     add framework for different styles;
     add option and macro to set a room for the course as well as a session-specific room;

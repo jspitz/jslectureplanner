@@ -22,7 +22,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\filedate{2015/01/17}
-\def\fileversion{0.8}
+\def\fileversion{0.9dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -129,6 +129,21 @@
 \newcommand*\lecprogram{Programm}
 \newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
 
+
+%
+% COUNTERS
+%
+\newcounter{sesunit}
+\newcounter{dateratio}
+\setcounter{dateratio}{1}
+\newcounter{cancellations}
+\newcounter{snum}
+\newcounter{blocks}
+\newcounter{fbreaks}
+\newcounter{lecinterval}
+\setcounter{lecinterval}{7}
+
+
 %
 % PACKAGE OPTIONS
 %
@@ -198,6 +213,17 @@
 \define@key{lec}{room}{\def\lecroom{#1}}
 \define@key{lec}{startdate}{\def\lecstartdate{#1}}
 \define@key{lec}{style}{\AtEndOfPackage{\input{#1.lps}}}
+\define@key{lec}{interval}{%
+    % test if the input is a number
+    % courtesy of egreg at http://tex.stackexchange.com/a/50131
+    \if\relax\detokenize\expandafter{\romannumeral-0#1}\relax
+      \setcounter{lecinterval}{#1}%
+    \else
+      \PackageError{jslectureplanner}{%
+          Value of 'interval' option must be a number\MessageBreak
+          ('#1' was given instead)}{}%
+    \fi
+}
 
 \DeclareOptionX{title}{\setkeys{lec}{title=#1}}
 \DeclareOptionX{titlesep}{\setkeys{lec}{titlesep=#1}}
@@ -211,6 +237,7 @@
 \DeclareOptionX{officehours}{\setkeys{lec}{officehours=#1}}
 \DeclareOptionX{room}{\setkeys{lec}{room=#1}}
 \DeclareOptionX{style}{\setkeys{lec}{style=#1}}
+\DeclareOptionX{interval}{\setkeys{lec}{interval=#1}}
 
 \ProcessOptionsX
 
@@ -231,6 +258,7 @@
 \newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute=#1}}
 \newcommand*{\LecRoom}[1]{\setkeys{lec}{room=#1}}
 \newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
+\newcommand*{\LecInterval}[1]{\setkeys{lec}{interval=#1}}
 
 %
 % CONCATENATED VARIABLES
@@ -249,16 +277,6 @@
 \newdateformat{vldate}{\lecdateformat}
 \newdateformat{vlshdate}{\lecdateshortformat}
 
-%
-% COUNTERS
-%
-\newcounter{week}
-\newcounter{dateratio}
-\setcounter{dateratio}{1}
-\newcounter{cancellations}
-\newcounter{snum}
-\newcounter{blocks}
-\newcounter{fbreaks}
 
 %
 % MACROS (UI)
@@ -487,9 +505,9 @@
 \define@boolkey{session}{cancel}[true]{}
 
 \newcommand*\NewSession[2][]{%
-  \stepcounter{week}
-  \setcounter{dateratio}{(\theweek-1)*7}
-  \setcounter{snum}{\theweek-\thecancellations}
+  \stepcounter{sesunit}
+  \setcounter{dateratio}{(\thesesunit-1)*\thelecinterval}
+  \setcounter{snum}{\thesesunit-\thecancellations}
   \protected@csxdef{sesnr\thesnum}{\thesnum}
   \csdef{@sestitlesep}{}
   \csdef{@vasutitle}{}
@@ -533,7 +551,7 @@
 }
 
 \newcommand*\SetBreak[2][\empty]{%
-  \stepcounter{week}
+  \stepcounter{sesunit}
   \stepcounter{cancellations}
   \ifx\empty#1
     \protected@eappto\programlist{\noexpand\begin{center} (#2) \noexpand\end{center}}
@@ -549,14 +567,18 @@
     \protected@eappto\programlistbeamer{\noexpand#1}
 }
 
-\define@key{break}{weeks}{\csdef{@breakweeks}{#1}}
+\define@key{break}{units}{\csdef{@breakunits}{#1}}
 \define@key{break}{span}{\csdef{@breakspan}{#1}}
-\newcommand*\SetBreaks[2][weeks=1]{%
-  \csdef{@breakweeks}{\empty}
+\define@key{break}{weeks}{%
+  \PackageWarning{jslectureplanner}{\protect\SetBreaks\space option 'weeks' is deprecated. Use 'units' instead.}
+  \setkeys{break}{units=#1}%
+}
+\newcommand*\SetBreaks[2][units=1]{%
+  \csdef{@breakunits}{\empty}
   \csdef{@breakspan}{\empty}
   \setkeys{break}{#1}
-  \setcounter{week}{\theweek+\csuse{@breakweeks}}
-  \setcounter{cancellations}{\thecancellations+\csuse{@breakweeks}}
+  \setcounter{sesunit}{\thesesunit+\csuse{@breakunits}}
+  \setcounter{cancellations}{\thecancellations+\csuse{@breakunits}}
   \ifx\empty\csuse{@breakspan}
     \protected@eappto\programlist{\noexpand\begin{center} (#2) \noexpand\end{center}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}

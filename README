@@ -59,7 +59,12 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 0.8 (2015-01-17):  - Fix corruption of \today.
+* V. 0.9 (forthcoming):  - Add a way to adjust the interval between two sessions
+                           ('interval' package option and \LecInternal macro)
+                         - Rename option 'weeks' of the \SetBreaks macro to 'units'
+                           ('weeks' still works, but is marked deprecated).
+
+* V. 0.8 (2015-01-17):   - Fix corruption of \today.
                          - Add framework for different styles.
                          - Add option and macro to set a room
                            for the course as well as a
@@ -69,12 +74,12 @@ instructions; also have a look at the example files.
                          - Change \leccancel default definition
                            in favour of better translatability.
 
-* V. 0.7 (2015-01-04): Add macro for resetting \today.
-                       Minor corrections in the manual.
+* V. 0.7 (2015-01-04):   - Add macro for resetting \today.
+                         - Minor corrections in the manual.
 
-* V. 0.6b (2014-12-12): Minor corrections in the manual and
-                        example files.
+* V. 0.6b (2014-12-12):  - Minor corrections in the manual and
+                           example files.
 
-* V. 0.6 (2014-12-12): Initial release to CTAN.
+* V. 0.6 (2014-12-12):   - Initial release to CTAN.
 
 
