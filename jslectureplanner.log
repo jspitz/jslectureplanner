@@ -1,0 +1,248 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.1.12)  17 JAN 2015 10:32
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**jslectureplanner.tex
+(./jslectureplanner.tex
+LaTeX2e <2014/05/01>
+Babel <3.9l> and hyphenation patterns for 78 languages loaded.
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/charter.sty
+Package: charter 2005/04/12 PSNFSS-v9.2a (P.Dyballa) 
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/bera/beramono.sty
+Package: beramono 2004/01/31 (WaS)
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+))
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2014/04/30 v1.2b Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/latin9.def
+File: latin9.def 2014/04/30 v1.2b Input encoding file
+))
+(/usr/local/texlive/2014/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(/usr/local/texlive/2014/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2014/09/25 3.9l The Babel package
+
+(/usr/local/texlive/2014/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2012/08/20 v3.3p English support from the babel system
+
+(/usr/local/texlive/2014/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2014/09/25 3.9l Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count88
+\lst@gtempboxa=\box26
+\lst@token=\toks17
+\lst@length=\count89
+\lst@currlwidth=\dimen104
+\lst@column=\count90
+\lst@pos=\count91
+\lst@lostspace=\dimen105
+\lst@width=\dimen106
+\lst@newlines=\count92
+\lst@lineno=\count93
+\lst@maxwidth=\dimen107
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+\c@lstnumber=\count94
+\lst@skipnumbers=\count95
+\lst@framebox=\box27
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2014/09/06 1.5e listings configuration
+))
+Package: listings 2014/09/06 1.5e (Carsten Heinz)
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+)
+(./jslectureplanner.aux)
+\openout1 = `jslectureplanner.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Try loading font information for T1+bch on input line 25.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/t1bch.fd
+File: t1bch.fd 2004/10/18 font definitions for T1/bch.
+)
+\c@lstlisting=\count96
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 34.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 34.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 34.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 34.
+LaTeX Font Info:    Try loading font information for T1+fvm on input line 34.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/bera/t1fvm.fd
+File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
+)
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 6.95996pt on input line 34.
+
+(./jslectureplanner.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 6.
+)
+\tf@toc=\write3
+\openout3 = `jslectureplanner.toc'.
+
+ [1
+
+{/home/juergen/.texlive2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 56.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/t1cmss.fd
+File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Try loading font information for OMS+bch on input line 81.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/omsbch.fd
+File: omsbch.fd 
+)
+LaTeX Font Info:    Font shape `OMS/bch/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 81.
+LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
+(Font)              scaled to size 8.69995pt on input line 84.
+
+Overfull \hbox (0.35742pt too wide) in paragraph at lines 84--86
+[]\T1/bch/m/n/10 In your doc-u-ments, load the pack-age (\T1/fvm/b/n/10 \usepac
+kage{jslectureplanner}\T1/bch/m/n/10 )
+ []
+
+[2] [3] [4] [5]
+Overfull \hbox (0.91959pt too wide) in paragraph at lines 256--259
+[]\T1/fvm/b/n/10 \SetBreak[<span>]{Reason}\T1/bch/m/n/10 : Add a semester break
+ (e.g., hol-i-days). This
+ []
+
+[6]
+Overfull \hbox (5.21318pt too wide) in paragraph at lines 335--337
+[]\T1/fvm/b/n/10 \lecsemester\T1/bch/m/n/10 : Out-puts the short ver-sion of th
+e semester (e.g., ``WS 2014'') 
+ []
+
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 7.82996pt on input line 354.
+LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
+(Font)              scaled to size 7.82996pt on input line 355.
+[7]
+Overfull \hbox (5.24838pt too wide) in paragraph at lines 369--371
+[]\T1/fvm/b/n/10 \makebeamerprogram[<options>]\T1/bch/m/n/10 : Gen-er-ates a be
+amer-suited lec-ture pro-
+ []
+
+[8] [9] [10]
+LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <9> not available
+(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 527.
+LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
+(Font)              scaled to size 7.82996pt on input line 527.
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 8.69995pt on input line 534.
+ [11] [12] (./jslectureplanner.aux) ) 
+Here is how much of TeX's memory you used:
+ 4073 strings out of 493118
+ 54762 string characters out of 6135602
+ 170652 words of memory out of 5000000
+ 7501 multiletter control sequences out of 15000+600000
+ 44325 words of font info for 59 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 40i,11n,67p,193b,2868s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2014/texmf-dist/fonts/
+enc/dvips/base/8r.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/cm-su
+per/cm-super-t1.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/bitstrea/ch
+arter/bchb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/bitstrea/chart
+er/bchr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/bitstrea/charter/
+bchri8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy6.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/bera/fvmb8a.pfb><
+/usr/local/texlive/2014/texmf-dist/fonts/type1/public/bera/fvmr8a.pfb></usr/loc
+al/texlive/2014/texmf-dist/fonts/type1/public/bera/fvmro8a.pfb></usr/local/texl
+ive/2014/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb>
+Output written on jslectureplanner.pdf (12 pages, 112080 bytes).
+PDF statistics:
+ 85 PDF objects out of 1000 (max. 8388607)
+ 60 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
