@@ -125,7 +125,7 @@
 \def\lectermwss{WS}
 
 % misc.
-\newcommand*\leccancel{-- keine}
+\newcommand*\leccancel{\ -- keine \lectypesession}
 \newcommand*\lecprogram{Programm}
 \newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
 
@@ -513,10 +513,10 @@
     \stepcounter{cancellations}
     \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
       \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}%
-        \ \leccancel\ \lectypesession\noexpand\egroup}
+        \leccancel\noexpand\egroup}
     \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
       \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}%
-        \ \leccancel\ \lectypesession\noexpand\egroup}
+        \leccancel\noexpand\egroup}
   \else
     \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
       \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}}

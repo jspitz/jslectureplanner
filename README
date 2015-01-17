@@ -64,6 +64,8 @@ instructions; also have a look at the example files.
                            session-specific room.
                          - Remove redundant lecture type "vo"
                            from the documentation.
+                         - Change \leccancel default definition
+                           in favour of better translatability.
 
 * V. 0.7 (2015-01-04): Add macro for resetting \today.
                        Minor corrections in the manual.
