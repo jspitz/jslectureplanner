@@ -484,10 +484,10 @@ item line for session number \joption{<nr>} in the form
 \end{itemize}
 
 
-\section{Customizing the output}
+\section{Customizing the output}\label{sec:customizing-strings}
 
 
-\subsection{Customizing the course type strings\label{sec:customizing-strings}}
+\subsection{Customizing the course type strings}
 
 The strings of the course types can be changed via the macros:
 \begin{itemize}
@@ -503,7 +503,7 @@ An English form for a lecture, thus, can be achieved by e.\,g.
 \item \jcsmacro{DefTypeVL\{LEC\}\{Lecture\}\{Session\}}
 \end{itemize}
 The types themselves are hardcoded. If you need further\slash{}other
-types, you need to modify the package.
+types, you need to modify the package (or ask me to do it).
 
 
 \subsection{Customizing the term types}
@@ -564,10 +564,23 @@ Again, use \jfcsmacro{renewcommand{*}} to redefine
 those.
 
 
+\subsection{Using styles}
+
+The most elegant way to do the customizing is to use \emph{lecture planner style} (*.lps) files.
+These files can be loaded via the \joption{style=<style>} package option, where <style>
+is the file name without *.lps extension.
+
+Currently, the package ships only one style, \emph{german-default}, which includes the default
+strings. This one can be used as a model. If you provide me with other style files, in particular
+translations to other languages than German (but also other university conventions), I consider
+them for inclusion to the package.
+
+
 \section{History}
 
 \begin{itemize}
 \item forthcoming (v. 0.8): Fix corruption of \jfcsmacro{today};
+    add framework for different styles;
     add option and macro to set a room for the course as well as a session-specific room;
     remove redundant lecture type \joption{vo} from the documentation;
     change \jcsmacro{leccancel} default definition in favour of better translatability.

@@ -197,6 +197,7 @@
 \define@key{lec}{officehours}{\def\officehours{#1}}
 \define@key{lec}{room}{\def\lecroom{#1}}
 \define@key{lec}{startdate}{\def\lecstartdate{#1}}
+\define@key{lec}{style}{\AtEndOfPackage{\input{#1.lps}}}
 
 \DeclareOptionX{title}{\setkeys{lec}{title=#1}}
 \DeclareOptionX{titlesep}{\setkeys{lec}{titlesep=#1}}
@@ -209,6 +210,7 @@
 \DeclareOptionX{platform}{\setkeys{lec}{platform=#1}}
 \DeclareOptionX{officehours}{\setkeys{lec}{officehours=#1}}
 \DeclareOptionX{room}{\setkeys{lec}{room=#1}}
+\DeclareOptionX{style}{\setkeys{lec}{style=#1}}
 
 \ProcessOptionsX
 
