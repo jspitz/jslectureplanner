@@ -39,10 +39,6 @@
 \RequirePackage{datetime}
 \RequirePackage{calc}
 
-%
-% Store \today
-%
-\SaveDate
 
 %
 % VARIABLES
@@ -78,8 +74,12 @@
 \def\programlistbeamer{}
 \def\jsbiblist{}
 
+
 %
 % STRINGS
+%
+
+% 1) Course types
 %
 % vl
 \def\lectypevl{Vorlesung}
@@ -111,6 +111,8 @@
 \def\lectypepvs{PV}
 \def\lectypepvses{Sitzung}
 
+% 2.) Term types
+%
 % fs
 \def\lectermfs{Fr\"uhjahrssemester}
 \def\lectermfss{FS}
@@ -124,9 +126,13 @@
 \def\lectermws{Wintersemester}
 \def\lectermwss{WS}
 
-% misc.
+% 3.) misc.
+%
+% Suffix to cancelled sessions
 \newcommand*\leccancel{\ -- keine \lectypesession}
+% Beamer program heading
 \newcommand*\lecprogram{Programm}
+% Program list indentation
 \newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
 
 
@@ -246,6 +252,7 @@
 % End Options
 %%
 
+
 %
 % ALTERNATIVE SETUP MACROS
 %
@@ -260,6 +267,7 @@
 \newcommand*{\LecRoom}[1]{\setkeys{lec}{room=#1}}
 \newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
 \newcommand*{\LecInterval}[1]{\setkeys{lec}{interval=#1}}
+
 
 %
 % CONCATENATED VARIABLES
@@ -280,10 +288,11 @@
 
 
 %
-% MACROS (UI)
+% CUSTOMIZATION OF STRINGS
 %
 
-% Change strings
+% 1) Course types
+%
 % vl
 \newcommand*\DefTypeVL[3]{%
   \def\lectypevl{#2}
@@ -328,6 +337,8 @@
   \def\lectypepvses{#3}
 }
 
+% 2.) Term types
+%
 % fs
 \newcommand*\DefTypeFS[2]{%
   \def\lectermfss{#1}
@@ -349,7 +360,13 @@
   \def\lectermws{#2}
 }
 
-% Program
+
+%
+% RETRIEVE COURSE INFORMATION
+%
+
+% 1) Course program
+%
 % Define labeling list if not available
 \@ifundefined{labeling}{%
   \newenvironment{labeling}[2][]{%
@@ -367,6 +384,8 @@
     \textbf{#1\hfil\sc@septext}%
   }
 }{}
+%
+% Program generation
 \newcommand\makeprogram{%
   \raggedright
   \begin{labeling}{\lecprogramlistindent}
@@ -374,11 +393,7 @@
   \end{labeling}
 }
 
-% Bibliography
-\newcommand\makesessionbib{%
-  \jsbiblist
-}
-
+%
 % Beamer program generation
 \define@key{beamerprogram}{title}{\csdef{@bptitle}{#1}}
 \define@key{beamerprogram}{options}{\csdef{@bpopts}{#1}}
@@ -482,35 +497,27 @@
   \end{frame}
 }
 
-% Beamer frame breaks
-\newcommand*\SetBeamerFrameBreak{%
-  \stepcounter{fbreaks}
-  \@ifundefined{programlistbeamerii}{%
-    \global\let\programlistbeamerii\programlistbeamer
-  }{%
-    \@ifundefined{programlistbeameriii}{%
-      \global\let\programlistbeameriii\programlistbeamer
-    }{%
-      \global\let\programlistbeameriv\programlistbeamer
-    }
-  }
-  \global\let\programlistbeamer\empty
+
+% 2) Bibliography
+%
+\newcommand\makesessionbib{%
+  \jsbiblist
 }
 
-% Beamer program hook
-\newcommand*\SetBeamerHook[1]{%
-    \protected@eappto\programlistbeamer{\noexpand#1}
-}
 
-% Session definition
+%
+% COURSE SCHEDULE SETUP
+%
+
+% 1) Session definition
+%
 \define@key{session}{titlesep}{\csdef{@sestitlesep}{#1}}
 \define@key{session}{subtitle}{\csdef{@vasutitle}{#1}}
 \define@key{session}{shorttitle}{\csdef{@vashorttitle}{#1}}
 \define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
 \define@key{session}{room}{\csdef{@sesroom}{#1}}
 \define@boolkey{session}{cancel}[true]{}
-
-% Define new session
+%
 \newcommand*\NewSession[2][]{%
   \stepcounter{sesunit}
   \setcounter{dateratio}{(\thesesunit-1)*\thelecinterval+\thesesoffset}
@@ -557,6 +564,8 @@
   \fi
 }
 
+% 2) Semester breaks and schedule offsets
+%
 % Set break of one interval unit
 \newcommand*\SetBreak[2][\empty]{%
   \stepcounter{sesunit}
@@ -574,7 +583,7 @@
 \define@key{break}{units}{\csdef{@breakunits}{#1}}
 \define@key{break}{span}{\csdef{@breakspan}{#1}}
 \define@key{break}{weeks}{%
-  \PackageWarning{jslectureplanner}{\protect\SetBreaks\space option 'weeks' is deprecated. Use 'units' instead.}
+  \PackageWarning{jslectureplanner}{\protect\SetBreaks\space option 'weeks' is deprecated. Use 'units' instead.}%
   \setkeys{break}{units=#1}%
 }
 \newcommand*\SetBreaks[2][units=1]{%
@@ -597,7 +606,8 @@
     \addtocounter{sesoffset}{#1}
 }
 
-% Thematic block
+% 3) Definition of thematic blocks
+%
 \newcommand*\StartBlock[1]{%
   \stepcounter{blocks}
   \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
@@ -620,14 +630,44 @@
 
 \newenvironment{SessionBlock}[1]{\StartBlock{#1}}{\EndBlock}
 
-% Infrastructure
+% 4) Beamer-specific features
+%
+% Beamer frame breaks
+\newcommand*\SetBeamerFrameBreak{%
+  \stepcounter{fbreaks}
+  \@ifundefined{programlistbeamerii}{%
+    \global\let\programlistbeamerii\programlistbeamer
+  }{%
+    \@ifundefined{programlistbeameriii}{%
+      \global\let\programlistbeameriii\programlistbeamer
+    }{%
+      \global\let\programlistbeameriv\programlistbeamer
+    }
+  }
+  \global\let\programlistbeamer\empty
+}
+
+% Beamer program hook
+\newcommand*\SetBeamerHook[1]{%
+    \protected@eappto\programlistbeamer{\noexpand#1}
+}
+
+% 5) Infrastructure
+%
+% Office hours
 \newcommand\SetOfficeHours[1]{%
   \def\officehours{#1}%
 }
 
+% (E-learning) platform
 \newcommand\SetPlatform[1]{%
   \def\lecplatform{#1}%
 }
+
+
+%
+% RETRIEVE SESSION-SPECIFIC INFORMATION
+%
 
 % Define current session
 \newcommand\ThisSession[1]{%
@@ -641,6 +681,8 @@
   \gdef\sesroom{\csuse{sesroom#1}}%
 }
 
+% Define a local session
+% (independent of current session)
 \newcommand\LocalSession[1]{%
   \gdef\lsesnr{\csuse{sesnr#1}}%
   \gdef\lsesdate{\csuse{sesdate#1}}%
@@ -652,37 +694,46 @@
   \gdef\lsesroom{\csuse{sesroom#1}}%
 }
 
-% Session information
+% Get information for a specific (local) session
+%
+% Full title
 \newcommand*\SessionFullTitle[1]{%
   \LocalSession{#1}%
   \lsestitle\lsestitlesep\lsessubtitle%
 }
 
+% Date
 \newcommand*\SessionDate[1]{%
   \LocalSession{#1}%
   \lsesdate%
 }
 
+% Short title
 \newcommand*\SessionShortTitle[1]{%
   \LocalSession{#1}%
   \lsesshorttitle%
 }
 
+% Main title
 \newcommand*\SessionTitle[1]{%
   \LocalSession{#1}%
   \lsestitle%
 }
 
+% Short date
 \newcommand*\SessionShortDate[1]{%
   \LocalSession{#1}%
   \lsesshortdate%
 }
 
+% Room
 \newcommand*\SessionRoom[1]{%
   \LocalSession{#1}%
   \lsesroom%
 }
 
+% Program line suitable for
+% a description or labeling list
 \newcommand*\MakeProgramline[1]{%
   \LocalSession{#1}%
   \item[{\bfseries\lsesshortdate}]%
@@ -690,8 +741,10 @@
 }
 
 % Reset to today
-% Not needed anymore as of v. 0.8,
-% but kept for backwards compatibility reasons
-\newcommand*\ResetDate{\SetDate}
+% DEPRECATED as of v.0.8,
+\newcommand*\ResetDate{%
+  \PackageWarning{jslectureplanner}{%
+    \protect\ResetDate\space is deprecated (not needed anymore).}%
+}
 
 % Finis
