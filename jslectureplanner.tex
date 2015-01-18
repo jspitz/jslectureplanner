@@ -52,7 +52,7 @@ metadata file.
 To further facilitate the planning, the package is able to calculate
 the session dates of a whole semester, if the sessions of the course
 follow at regular intervals.
-You only need to set the date of the first lecture, the package does
+You only need to set the date of the first session, the package does
 the rest. Moreover, the package can be used to generate a sectioned
 bibliography for the course via \textsf{biblatex}.
 
@@ -80,7 +80,7 @@ The following packages are required: \textsf{etoolbox}, \textsf{advdate},
 The general idea goes as follows:
 \begin{itemize}
 \item Set up a \emph{metadata.tex} file (or whatever name you prefer) and
-insert all meta information of the course there (as described in sec.~\ref{sec:course-metadata}
+record all meta information of the course in it (as described in sec.~\ref{sec:course-metadata}
 and \ref{sec:lecplan}).
 \item In your documents, load the package (\jcsmacro{usepackage\{jslectureplanner\}})
 and then input the metadata file (\jcsmacro{input\{metadata.tex\}}).
@@ -184,7 +184,7 @@ description.}
 
 \subsubsection{Course title}
 \begin{itemize}
-\item \jcsmacro{LecTitle{[}<options>{]}\{<title>\}}: Set
+\item \jcsmacro{LecTitle[<options>]\{<title>\}}: Set
 course title; \joption{<options>} might be any set of package options
 described in sec.~\ref{sub:package-options}
 \item \jcsmacro{LecTitleSep\{<title separator>\}}: Set course
@@ -229,46 +229,50 @@ In the metadata file, you can setup a plan for the course by entering
 session information in chronological order. This is done via the following
 macro:
 \begin{itemize}
-\item \jcsmacro{NewSession{[}<options>{]}\{Session title\}}
+\item \jcsmacro{NewSession[<options>]\{Session title\}}
 
 
-\joption{<options>} include:
+Valid \joption{<options>}:
 \begin{itemize}
 \item \joption{titlesep=<separator>}: Separator between session title and
-subtitle
+    subtitle
 \item \joption{subtitle=<subtitle>}: Subtitle of the session
 \item \joption{shorttitle=<shorttitle>}: Short title of the session (for
-headings etc.)
-\item \joption{room=<room>}: Specific room for this session (if it differs)
+    headings etc.)
+\item \joption{room=<room>}: Specific room for this session (if it differs
+    from the usual course room)
 \item \joption{bibsec=<keyword>}: Session keyword for the bibliography
-(see below sec.~\ref{sub:bibliographies})
-\item \joption{cancel=<true|false>}: Whether this session takes place.
-If you specify \joption{cancel=true}, the program will mark the
-session as ``canceled''. For instance,
+    (see below sec.~\ref{sub:bibliographies})
+\item \joption{cancel=<true|false>}: Marks this session as ``canceled''.
+    If you specify \joption{cancel=true}, the session will be printed
+    in the program in bold type and appended by a verbal comment.
+    For example,
 
+\jcsmacro{NewSession[cancel=true]\{Dies Academicus\}}
 
-\jcsmacro{NewSession{[}cancel=true{]}\{Dies Academicus\}}
-
-
-will output something like
+will expand to
 \begin{quote}
 \textbf{15.\,05.: Dies Academicus -- keine Sitzung}
 \end{quote}
 
-(i.\,e., ``Dies Academicus -- no session'')
+(i.\,e., ``Dies Academicus -- no session'').
+
+Furthermore, a canceled session is not counted in the session counter
+that is used to retrieve session-specific information
+(see below sec.~\ref{sec:session-specific-info}).
 
 \end{itemize}
-\item \jcsmacro{SetBreak{[}<span>{]}\{Reason\}}: Add a semester
-break (e.g., holidays). This increments the counter for one unit (one week
-with default interval settings) and outputs in the program
-
+\item \jcsmacro{SetBreak[<span>]\{Reason\}}: Add a semester break
+(e.\,g., holidays) that affects one session. By means of the optional
+argument, the real time span of the break might be given.
+The macro increments the internal counters respectively and expands
+in the program to
 
 \begin{center}
 \textbf{(<span>: Reason)}
 \par\end{center}
 
-
-E.\,g., \jcsmacro{SetBreak{[}28.05.-{}-3.06.{]}\{Whitsun holidays\}}
+E.\,g., \jcsmacro{SetBreak[28.05.-{}-3.06.]\{Whitsun holidays\}}
 expands to
 
 
@@ -276,15 +280,10 @@ expands to
 \textbf{(28.05.--3.06.: Whitsun holidays)}
 \par\end{center}
 
-\item \jcsmacro{SetBreaks{[}<options>{]}\{Reason\}}: Add
-a semester break (e.g., holidays) that is longer than one interval unit. This
-increments the counter respectively, and outputs in the program
-
-
-\begin{center}
-\textbf{(<span>: Reason)}
-\par\end{center}
-
+\item \jcsmacro{SetBreaks[<options>]\{Reason\}}: Add
+a semester break that affects more than one session. The output in the program
+is identical to the \jcsmacro{SetBreak} macro, but the counter incrementation
+can be adjusted to the needed time span.
 
 Possible \jmacro{<options>} are:
 \begin{itemize}
@@ -294,8 +293,10 @@ Possible \jmacro{<options>} are:
     since the interval can be adjusted now.}).
     This value is needed in order to increment the internal counter that is used to
     calculate the session dates. If \joption{units} is not specified, the counter is
-    incremented by one. <n> must be a positive integer.
-\item \joption{span=<span>}: time span (verbally output on the program)
+    incremented by one.\footnote{That is: \jcsmacro{SetBreak\{Reason\}} =
+    \jcsmacro{SetBreaks\{Reason\}} = \jcsmacro{SetBreaks[units=1]\{Reason\}}.}
+    <n> must be a positive integer.
+\item \joption{span=<span>}: Real time span (verbally output on the program).
 \end{itemize}
 \item \jcsmacro{SetLecOffset\{<n>\}}: Shift the date of all subsequent sessions by <n> days.
     <n> can also be negative.
@@ -350,7 +351,7 @@ the semester (e.\,g., ``WS 2014'')
 of the semester (e.\,g., ``Wintersemester 2014'')
 \item \jcsmacro{lecuniversity}: Outputs the university name
 \item \jcsmacro{lecinstitute}: Outputs the institute name
-\item \jcsmacro{lecroom}: Outputs the room
+\item \jcsmacro{lecroom}: Outputs the course room
 \item \jcsmacro{lecplatform}: Outputs information on the
 e-learning platform
 \item \jcsmacro{officehours}: Outputs the office hours
@@ -378,7 +379,7 @@ from the metadata in the form
 The \jmacro{labeling} environment is defined by the KOMA classes.
 The package provides a fallback, however, if another class is used.
 
-\item \jcsmacro{makebeamerprogram{[}<options>{]}}: Generates
+\item \jcsmacro{makebeamerprogram[<options>]}: Generates
 a beamer-suited lecture program from the metadata in the form
 
 
@@ -444,7 +445,7 @@ to the current session. This is done as follows.
 \subsection{Setting the current session}
 
 Use \jcsmacro{ThisSession\{<nr>\}} to tell the package
-which session is current. \joption{<nr>} is an integer value, e.g.
+which session is current. \joption{<nr>} is an integer value, e.\,g.
 \jcsmacro{ThisSession\{3\}} for the 3rd session of
 the lecture.
 
