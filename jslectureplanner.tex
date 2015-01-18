@@ -29,7 +29,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 0.9dev, 2015/01/17}
+\date{Version 0.9dev, 2015/01/18}
 
 \maketitle
 
@@ -288,15 +288,17 @@ increments the counter respectively, and outputs in the program
 
 Possible \jmacro{<options>} are:
 \begin{itemize}
-\item \joption{units=<int>}: Number of interval units the break takes. One \emph{unit}
+\item \joption{units=<n>}: Number of interval units the break takes. One \emph{unit}
     is the number of days as specified by the \joption{interval} option (one week by
     default\footnote{The former option \joption{weeks} is deprecated as of v. 0.9,
     since the interval can be adjusted now.}).
     This value is needed in order to increment the internal counter that is used to
     calculate the session dates. If \joption{units} is not specified, the counter is
-    incremented by one.
-\item \joption{span=<time span>}: time span (verbally output on the program)
+    incremented by one. <n> must be a positive integer.
+\item \joption{span=<span>}: time span (verbally output on the program)
 \end{itemize}
+\item \jcsmacro{SetLecOffset\{<n>\}}: Shift the date of all subsequent sessions by <n> days.
+    <n> can also be negative.
 \item \jcsmacro{SetBeamerFrameBreak}: Add a frame break in
 the beamer program at this position. This also increments the frame
 counter which is used for subsequent program frame titles. Note that
@@ -590,7 +592,8 @@ them for inclusion to the package.
 
 \begin{itemize}
 \item forthcoming (v. 0.9): Add a way to adjust the interval between two sessions
-    (\joption{interval} package option and \jcsmacro{LecInternal} macro); rename option \joption{weeks}
+    (\joption{interval} package option and \jcsmacro{LecInternal} macro); add a way to shift
+    session dates from the regular interval (\jcsmacro{SetLecOffset}); rename option \joption{weeks}
     of the \jcsmacro{SetBreaks} macro to \joption{units} (\joption{weeks} still works, but is
     marked deprecated).
 \item 2015/01/17 (v. 0.8): Fix corruption of \jfcsmacro{today};

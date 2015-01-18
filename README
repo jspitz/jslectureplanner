@@ -60,7 +60,9 @@ instructions; also have a look at the example files.
 == CHANGES ==
 
 * V. 0.9 (forthcoming):  - Add a way to adjust the interval between two sessions
-                           ('interval' package option and \LecInternal macro)
+                           ('interval' package option and \LecInternal macro).
+                         - Add a way to shift session dates from the regular
+                           interval (\SetLecOffset).
                          - Rename option 'weeks' of the \SetBreaks macro to 'units'
                            ('weeks' still works, but is marked deprecated).
 

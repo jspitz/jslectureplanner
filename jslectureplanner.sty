@@ -21,7 +21,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2015/01/17}
+\def\filedate{2015/01/18}
 \def\fileversion{0.9dev}
 \def\filename{jslectureplanner.sty}
 
@@ -142,6 +142,7 @@
 \newcounter{fbreaks}
 \newcounter{lecinterval}
 \setcounter{lecinterval}{7}
+\newcounter{sesoffset}
 
 
 %
@@ -496,6 +497,11 @@
   \global\let\programlistbeamer\empty
 }
 
+% Beamer program hook
+\newcommand*\SetBeamerHook[1]{%
+    \protected@eappto\programlistbeamer{\noexpand#1}
+}
+
 % Session definition
 \define@key{session}{titlesep}{\csdef{@sestitlesep}{#1}}
 \define@key{session}{subtitle}{\csdef{@vasutitle}{#1}}
@@ -504,9 +510,10 @@
 \define@key{session}{room}{\csdef{@sesroom}{#1}}
 \define@boolkey{session}{cancel}[true]{}
 
+% Define new session
 \newcommand*\NewSession[2][]{%
   \stepcounter{sesunit}
-  \setcounter{dateratio}{(\thesesunit-1)*\thelecinterval}
+  \setcounter{dateratio}{(\thesesunit-1)*\thelecinterval+\thesesoffset}
   \setcounter{snum}{\thesesunit-\thecancellations}
   \protected@csxdef{sesnr\thesnum}{\thesnum}
   \csdef{@sestitlesep}{}
@@ -550,6 +557,7 @@
   \fi
 }
 
+% Set break of one interval unit
 \newcommand*\SetBreak[2][\empty]{%
   \stepcounter{sesunit}
   \stepcounter{cancellations}
@@ -562,11 +570,7 @@
   \fi
 }
 
-% Beamer program hook
-\newcommand*\SetBeamerHook[1]{%
-    \protected@eappto\programlistbeamer{\noexpand#1}
-}
-
+% Set break of multiple interval units
 \define@key{break}{units}{\csdef{@breakunits}{#1}}
 \define@key{break}{span}{\csdef{@breakspan}{#1}}
 \define@key{break}{weeks}{%
@@ -588,6 +592,12 @@
   \fi
 }
 
+% Offset in days
+\newcommand*\SetLecOffset[1]{%
+    \addtocounter{sesoffset}{#1}
+}
+
+% Thematic block
 \newcommand*\StartBlock[1]{%
   \stepcounter{blocks}
   \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
