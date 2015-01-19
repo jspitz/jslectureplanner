@@ -88,8 +88,8 @@ and/or%
 you need to load the package in the metadata file itself.}
  input the metadata file (\jcsmacro{input\{metadata.tex\}}).
 \item Finally, use the macros described in sec.~\ref{sec:general-course-info}
-and \ref{sec:session-specific-info} to retrieve the respective data and use
-it in your documents.
+and \ref{sec:session-specific-info} to retrieve the respective data and re-use
+the recorded information in your documents.
 \end{itemize}
 The procedure is detailed in the following sections.
 
@@ -113,7 +113,7 @@ to a verbose string (such as ``Seminar''), a short form (such as
 ``SE'') and a form that is used to denote individual sessions (as
 in ``the second \emph{session} of this course'').
 \begin{description}
-\item [{type=<type>,}] where \joption{<type>} is one of
+\item [{type=<type>}] Defines the course type. Possible values:
 
 \begin{itemize}
 \item \joption{vl}: A lecture (verbose form: ``Vorlesung''\footnote{Sec.~\ref{sec:customizing-strings}
@@ -133,7 +133,7 @@ short form: ``PV'', session form: ``Sitzung'')
 
 \subsubsection{Course title}
 \begin{description}
-\item [{title=<title>}] Title of the course
+\item [{title=<title>}] Main title of the course
 \item [{titlesep=<separator>}] Separator between title and subtitle
 \item [{subtitle=<subtitle>}] Subtitle of the course
 \item [{shorttitle=<shorttitle>}] Short title of the course (for headings etc.)
@@ -210,8 +210,7 @@ description.}
 \end{itemize}
 \item \jcsmacro{LecUni\{<university>\}}: Record the name of
 your university
-\item \jcsmacro{LecInstitute\{<institute>\}}: Record your institute
-name
+\item \jcsmacro{LecInstitute\{<institute>\}}: Record your institute's name
 \item \jcsmacro{LecRoom\{<room>\}}: Record the room where the course takes place
 \item \jcsmacro{LecStartDate\{<startdate>\}}: Set date of
 the first session (argument\emph{ must} have the form DD/MM/YYYY)
@@ -360,8 +359,8 @@ of the term type (e.\,g., ``Wintersemester'')
 the semester (e.\,g., ``WS 2014'')
 \item \jcsmacro{lecsemesterverb}: Outputs the verbose version
 of the semester (e.\,g., ``Wintersemester 2014'')
-\item \jcsmacro{lecuniversity}: Outputs the university name
-\item \jcsmacro{lecinstitute}: Outputs the institute name
+\item \jcsmacro{lecuniversity}: Outputs the university's name
+\item \jcsmacro{lecinstitute}: Outputs the institute's name
 \item \jcsmacro{lecroom}: Outputs the course room
 \item \jcsmacro{lecplatform}: Outputs information on the
 e-learning platform
