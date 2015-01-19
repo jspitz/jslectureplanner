@@ -39,15 +39,14 @@
 
 I have written this package in order to facilitate (and somewhat systematize)
 the planning of my university courses. The basic idea of this package
-is that you write all general data of a course (date, semester, type,
-course title, session titles, general information etc.) into a central
-tex file (e.\,g., \emph{metadata.tex}), and then input this file
-into all documents related to the course (course program, bibliography,
-scripts, handouts, beamer presentations, exercises etc.), in order
-to re-use the data. This is particularly helpful if you have standard
-courses which are held every other semester: instead of changing the
-data in every single file, you just need to change it once, in the
-metadata file.
+is that you record all general data of a course (date, semester, type,
+course title, session titles, general information etc.) in a central
+tex file and then input this file to all documents related to the
+course (such as the course program, bibliography, scripts, handouts, beamer
+presentations, exercises etc.), in order to re-use the recorded data.
+This is particularly helpful if you have standard courses which
+are held every other semester: instead of changing the data in every
+single file, you just need to change it once, in the metadata file.
 
 To further facilitate the planning, the package is able to calculate
 the session dates of a whole semester, if the sessions of the course
@@ -64,9 +63,9 @@ formats are German. However, it is possible to customize them to some
 degree, particularly to translate them to other languages. This is
 described later in this manual.
 
-This manual describes the basic user interface of the package. You
-might want to have a look at the example file included in the package
-in order to see how it is supposed to be used.
+This manual describes the basic user interface of the package. Please
+also refer to the example files included in the package  in order to
+see how it is supposed to be used ``in practice''.
 
 
 \section{Requirements}
@@ -83,9 +82,14 @@ The general idea goes as follows:
 record all meta information of the course in it (as described in sec.~\ref{sec:course-metadata}
 and \ref{sec:lecplan}).
 \item In your documents, load the package (\jcsmacro{usepackage\{jslectureplanner\}})
-and then input the metadata file (\jcsmacro{input\{metadata.tex\}}).
-\item Then use the macros described below (sec.~\ref{sec:general-course-info}
-and \ref{sec:session-specific-info}) to retrieve the respective data.
+and/or%
+\footnote{If you prefer to record the data via package options
+(see sec.~\ref{sub:package-options}) instead of macros (see sec.~\ref{sec:via-macros}),
+you need to load the package in the metadata file itself.}
+ input the metadata file (\jcsmacro{input\{metadata.tex\}}).
+\item Finally, use the macros described in sec.~\ref{sec:general-course-info}
+and \ref{sec:session-specific-info} to retrieve the respective data and use
+it in your documents.
 \end{itemize}
 The procedure is detailed in the following sections.
 
@@ -99,6 +103,7 @@ or via specific macros (see sec.~\ref{sec:via-macros}).
 
 \subsection{Via package options\label{sub:package-options}}
 
+\jcsmacro{usepackage[<comma-separated options>]\{jslectureplanner\}}
 
 \subsubsection{Course classification\label{sec:lecture-classification}}
 
@@ -111,17 +116,17 @@ in ``the second \emph{session} of this course'').
 \item [{type=<type>,}] where \joption{<type>} is one of
 
 \begin{itemize}
-\item \joption{vl}: a lecture (verbose form: ``Vorlesung''\footnote{Sec.~\ref{sec:customizing-strings}
+\item \joption{vl}: A lecture (verbose form: ``Vorlesung''\footnote{Sec.~\ref{sec:customizing-strings}
 explains how to customize these strings.}, short form: ``VL'', session form: ``Vorlesung'')
-\item \joption{ps}: undergraduate seminar (verbose form: ``Proseminar'',
+\item \joption{ps}: Undergraduate seminar (verbose form: ``Proseminar'',
 short form: ``PS'', session form: ``Sitzung'')
-\item \joption{se}: seminar (verbose form: ``Seminar'', short form: ``SE'',
+\item \joption{se}: Seminar (verbose form: ``Seminar'', short form: ``SE'',
 session form: ``Sitzung'')
-\item \joption{ue}: practical course (verbose form: ``Übung'', short
+\item \joption{ue}: Practical course (verbose form: ``Übung'', short
 form: ``UE'', session form: ``Sitzung'')
-\item \joption{ko}: colloquium (verbose form: ``Kolloquium'', short form:
+\item \joption{ko}: Colloquium (verbose form: ``Kolloquium'', short form:
 ``KO'', session form: ``Sitzung'')
-\item \joption{pv}: research seminar (verbose form: ``Privatissimum'',
+\item \joption{pv}: Research seminar (verbose form: ``Privatissimum'',
 short form: ``PV'', session form: ``Sitzung'')
 \end{itemize}
 \end{description}
@@ -131,8 +136,7 @@ short form: ``PV'', session form: ``Sitzung'')
 \item [{title=<title>}] Title of the course
 \item [{titlesep=<separator>}] Separator between title and subtitle
 \item [{subtitle=<subtitle>}] Subtitle of the course
-\item [{shorttitle=<shorttitle>}] Short title of the course (for headings
-etc.)
+\item [{shorttitle=<shorttitle>}] Short title of the course (for headings etc.)
 \end{description}
 
 \subsubsection{Date and place\label{sec:date-and-place}}
@@ -140,31 +144,30 @@ etc.)
 \item [{semester=<term>,}] where \joption{<term>} is one of
 
 \begin{itemize}
-\item \joption{fs}: spring term (``Frühjahrssemester'', short form: ``FS'')
-\item \joption{hs}: fall term (``Herbstsemester'', short form: ``HS'')
-\item \joption{ss}: summer term (``Sommersemester'', short form: ``SoSe'')
-\item \joption{ws}: winter term (``Wintersemester'', short form: ``WS'')
+\item \joption{fs}: Spring term (``Frühjahrssemester'', short form: ``FS'')
+\item \joption{hs}: Fall term (``Herbstsemester'', short form: ``HS'')
+\item \joption{ss}: Summer term (``Sommersemester'', short form: ``SoSe'')
+\item \joption{ws}: Winter term (``Wintersemester'', short form: ``WS'')
 \end{itemize}
 \item [{year=<year>}]~
 \item [{uni=<university>}]~
 \item [{institute=<institute>}]~
 \item [{room=<room>}]~
 \item [{startdate=<startdate>}] Date of the first session (argument\emph{
-must} have the form DD/MM/YYYY).
+must} have the form DD/MM/YYYY). If no startdate is given, \jfcsmacro{today} is used.
 \item [{interval=<interval>}] Interval (in days) between two sessions.
       The preset interval is 7 (=~weekly courses).
 \end{description}
 
 \subsubsection{Additional information}
 \begin{description}
-\item [{platform=<url>}] information (e.g., URL) of the e-learning platform
-\item [{officehours=<data>}] date of the office hours
+\item [{platform=<data>}] Information (e.\,g., URL) of the e-learning platform
+\item [{officehours=<data>}] Date of your office hours
 \end{description}
 
 \subsection{Via macros\label{sec:via-macros}}
 
-The following macros provide an alternative interface to set up the course metadata described in the previous
-subsection.
+The following macros provide an alternative interface to set up the course metadata.
 
 \subsubsection{Course classification}
 \begin{itemize}
@@ -173,59 +176,61 @@ subsection.
 description.}
 
 \begin{itemize}
-\item \joption{vl}: lecture (\emph{Vorlesung})
-\item \joption{ps}: undergraduate seminar (\emph{Proseminar})
-\item \joption{se}: seminar (\emph{Seminar})
-\item \joption{ue}: practical course (\emph{Übung})
-\item \joption{ko}: colloquium (\emph{Kolloquium})
-\item \joption{pv}: research seminar (\emph{Privatissimum})
+\item \joption{vl}: Lecture (\emph{Vorlesung})
+\item \joption{ps}: Undergraduate seminar (\emph{Proseminar})
+\item \joption{se}: Seminar (\emph{Seminar})
+\item \joption{ue}: Practical course (\emph{Übung})
+\item \joption{ko}: Colloquium (\emph{Kolloquium})
+\item \joption{pv}: Research seminar (\emph{Privatissimum})
 \end{itemize}
 \end{itemize}
 
 \subsubsection{Course title}
 \begin{itemize}
-\item \jcsmacro{LecTitle[<options>]\{<title>\}}: Set
-course title; \joption{<options>} might be any set of package options
-described in sec.~\ref{sub:package-options}
-\item \jcsmacro{LecTitleSep\{<title separator>\}}: Set course
-title-subtitle separator
-\item \jcsmacro{LecSubTitle\{<subtitle>\}}: Set course subtitle
+\item \jcsmacro{LecTitle[<package options>]\{<title>\}}: Record course title and options;
+\joption{<package options>} might be any set of package options described
+in sec.~\ref{sub:package-options} (except for \joption{title} itself),
+so this macro can actually be used to record all metadata.
+\item \jcsmacro{LecTitleSep\{<title separator>\}}: Specify course
+title-subtitle separator (e.\,g., ``. '' or `` -- '')
+\item \jcsmacro{LecSubTitle\{<subtitle>\}}: Record course subtitle
 \end{itemize}
 
 \subsubsection{Date and place}
 \begin{itemize}
-\item \textbackslash{}\jmacro{LecYear\{<term>\}\{<year>\}}, Set term and
+\item \textbackslash{}\jmacro{LecYear\{<term>\}\{<year>\}}, Record term and
 year of the course; \joption{<term>} is one of\footnote{See above sec.~\ref{sec:date-and-place} for a detailed
 description.}
 
 \begin{itemize}
-\item \joption{fs}: spring term (\emph{Frühjahrssemester})
-\item \joption{hs}: fall term (\emph{Herbstsemester})
-\item \joption{ss}: summer term (\emph{Sommersemester})
-\item \joption{ws}: winter term (\emph{Wintersemester})
+\item \joption{fs}: Spring term (\emph{Frühjahrssemester})
+\item \joption{hs}: Fall term (\emph{Herbstsemester})
+\item \joption{ss}: Summer term (\emph{Sommersemester})
+\item \joption{ws}: Winter term (\emph{Wintersemester})
 \end{itemize}
-\item \jcsmacro{LecUni\{<university>\}}: Set the name of
+\item \jcsmacro{LecUni\{<university>\}}: Record the name of
 your university
-\item \jcsmacro{LecInstitute\{<institute>\}}: Set your institute
+\item \jcsmacro{LecInstitute\{<institute>\}}: Record your institute
 name
-\item \jcsmacro{LecRoom\{<room>\}}: Set the room where the course takes place
+\item \jcsmacro{LecRoom\{<room>\}}: Record the room where the course takes place
 \item \jcsmacro{LecStartDate\{<startdate>\}}: Set date of
-the first session (argument\emph{ must} have the form DD/MM/YYYY).
-\item \jcsmacro{LecInterval\{<interval>\}}: Interval (in days) between two sessions.
+the first session (argument\emph{ must} have the form DD/MM/YYYY)
+\item \jcsmacro{LecInterval\{<interval>\}}: Adjust the interval (in days) between two sessions.
       The preset interval is 7 (=~weekly courses).
 \end{itemize}
 
 \subsubsection{Additional information}
 \begin{itemize}
-\item \jcsmacro{SetOfficeHours\{<office hours>\}}: Set date
-of your office hours
-\item \jcsmacro{SetPlatform\{<platform information>\}}: Set
-information (e.g., URL) of the e-learning platform
+\item \jcsmacro{SetOfficeHours\{<office hours>\}}: Record date of your office hours
+\item \jcsmacro{SetPlatform\{<platform information>\}}: Record information
+(e.\,g., URL) of the e-learning platform
 \end{itemize}
+
+\clearpage
 
 \section{Setting up a course plan\label{sec:lecplan}}
 
-In the metadata file, you can setup a plan for the course by entering
+In the metadata file, you can set up a schedule for the course by entering
 session information in chronological order. This is done via the following
 macro:
 \begin{itemize}
@@ -242,7 +247,7 @@ Valid \joption{<options>}:
 \item \joption{room=<room>}: Specific room for this session (if it differs
     from the usual course room)
 \item \joption{bibsec=<keyword>}: Session keyword for the bibliography
-    (see below sec.~\ref{sub:bibliographies})
+    (see below sec.~\ref{sub:bibliographies} for its use)
 \item \joption{cancel=<true|false>}: Marks this session as ``canceled''.
     If you specify \joption{cancel=true}, the session will be printed
     in the program in bold type and appended by a verbal comment.
@@ -262,14 +267,20 @@ that is used to retrieve session-specific information
 (see below sec.~\ref{sec:session-specific-info}).
 
 \end{itemize}
-\item \jcsmacro{SetBreak[<span>]\{Reason\}}: Add a semester break
-(e.\,g., holidays) that affects one session. By means of the optional
-argument, the real time span of the break might be given.
-The macro increments the internal counters respectively and expands
-in the program to
+\item \jcsmacro{SetBreak[<span>]\{Break\}}: Add a semester break
+(e.\,g., holidays) that affects one session. The macro increments
+the internal counters respectively and expands in the program to
 
 \begin{center}
-\textbf{(<span>: Reason)}
+\textbf{(Break)}
+\par\end{center}
+
+By means of the optional argument, the real time span of the break
+might be given if you want to print it on the program. If you pass
+an optional argument \joption{<span>}, the macro will expand to
+
+\begin{center}
+\textbf{(<span>: Break)}
 \par\end{center}
 
 E.\,g., \jcsmacro{SetBreak[28.05.-{}-3.06.]\{Whitsun holidays\}}
@@ -280,10 +291,10 @@ expands to
 \textbf{(28.05.--3.06.: Whitsun holidays)}
 \par\end{center}
 
-\item \jcsmacro{SetBreaks[<options>]\{Reason\}}: Add
-a semester break that affects more than one session. The output in the program
-is identical to the \jcsmacro{SetBreak} macro, but the counter incrementation
-can be adjusted to the needed time span.
+\item \jcsmacro{SetBreaks[<options>]\{Break\}}: Add
+a semester break that affects more than one session (e.\,g., two-week holidays).
+The output in the program is identical to the \jcsmacro{SetBreak} macro,
+but the counter incrementation can be adjusted to the needed time span.
 
 Possible \jmacro{<options>} are:
 \begin{itemize}
@@ -293,17 +304,17 @@ Possible \jmacro{<options>} are:
     since the interval can be adjusted now.}).
     This value is needed in order to increment the internal counter that is used to
     calculate the session dates. If \joption{units} is not specified, the counter is
-    incremented by one.\footnote{That is: \jcsmacro{SetBreak\{Reason\}} =
-    \jcsmacro{SetBreaks\{Reason\}} = \jcsmacro{SetBreaks[units=1]\{Reason\}}.}
+    incremented by one.\footnote{That is: \jcsmacro{SetBreak\{Break\}} =
+    \jcsmacro{SetBreaks\{Break\}} = \jcsmacro{SetBreaks[units=1]\{Break\}}.}
     <n> must be a positive integer.
-\item \joption{span=<span>}: Real time span (verbally output on the program).
+\item \joption{span=<span>}: Real time span (verbally output on the program)
 \end{itemize}
 \item \jcsmacro{SetLecOffset\{<n>\}}: Shift the date of all subsequent sessions by <n> days.
     <n> can also be negative.
 \item \jcsmacro{SetBeamerFrameBreak}: Add a frame break in
-the beamer program at this position. This also increments the frame
-counter which is used for subsequent program frame titles. Note that
-you can insert maximally 3 breaks.
+the beamer program at this position (more precisely, start a new frame).
+This also increments the frame counter which is used for subsequent program
+frame titles. Note that you can insert maximally 3 breaks.
 \item \jcsmacro{SetBeamerHook\{<code>\}}: Add arbitrary \LaTeX{}
 code to the beamer program
 \item \jcsmacro{begin\{SessionBlock\}\{<Block title>\}}\\
@@ -316,7 +327,7 @@ are nested inside this block.
 \section{Retrieving general course information\label{sec:general-course-info}}
 
 Once the metadata file is set up as documented above and input to
-your document(s), you can retrieve the recorded as well as concatenated
+your document(s), you can retrieve the recorded as well as some concatenated
 information by means the following macros.
 
 
@@ -435,6 +446,7 @@ So if you specify your session with a keyword via the \joption{bibsec}
 option, and tag your Bib\TeX{} database entries with that keyword,
 you will get a list of session-specific literature.
 
+\clearpage
 
 \section{Retrieving session-specific information\label{sec:session-specific-info}}
 
