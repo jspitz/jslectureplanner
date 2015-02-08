@@ -59,7 +59,7 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 0.9 (2015-02-08):  - Add a way to adjust the interval between two sessions
+* V. 0.9 (2015-02-08):   - Add a way to adjust the interval between two sessions
                            ('interval' package option and \LecInternal macro).
                          - Add a way to shift session dates from the regular
                            interval (\SetLecOffset).
