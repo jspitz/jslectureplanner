@@ -198,7 +198,7 @@ title-subtitle separator (e.\,g., ``. '' or `` -- '')
 
 \subsubsection{Date and place}
 \begin{itemize}
-\item \textbackslash{}\jmacro{LecYear\{<term>\}\{<year>\}}, Record term and
+\item \jcsmacro{LecYear\{<term>\}\{<year>\}}, Record term and
 year of the course; \joption{<term>} is one of\footnote{See above sec.~\ref{sec:date-and-place} for a detailed
 description.}
 
@@ -555,7 +555,7 @@ package. By default, the two formats are defined as follows:
 \end{lstlisting}
 
 
-Use \jfmacro{\textbackslash{}renewcommand{*}} to redefine them.
+Use \jfcsmacro{renewcommand*} to redefine them.
 
 
 \subsection{Misc. customizing}
@@ -604,7 +604,7 @@ them for inclusion to the package.
 
 \begin{itemize}
 \item 2015/02/08 (v. 0.9): Add a way to adjust the interval between two sessions
-    (\joption{interval} package option and \jcsmacro{LecInternal} macro); add a way to shift
+    (\joption{interval} package option and \jcsmacro{LecInterval} macro); add a way to shift
     session dates from the regular interval (\jcsmacro{SetLecOffset}); rename option \joption{weeks}
     of the \jcsmacro{SetBreaks} macro to \joption{units} (\joption{weeks} still works, but is
     marked deprecated).
