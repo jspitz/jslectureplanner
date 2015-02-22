@@ -29,7 +29,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 0.9, 2015/02/08}
+\date{Version 1.0dev, 2015/02/22}
 
 \maketitle
 
@@ -161,6 +161,7 @@ must} have the form DD/MM/YYYY). If no startdate is given, \jfcsmacro{today} is 
 
 \subsubsection{Additional information}
 \begin{description}
+\item [{instructor=<name>}] Instructor's name
 \item [{platform=<data>}] Information (e.\,g., URL) of the e-learning platform
 \item [{officehours=<data>}] Date of your office hours
 \end{description}
@@ -220,6 +221,7 @@ the first session (argument\emph{ must} have the form DD/MM/YYYY)
 
 \subsubsection{Additional information}
 \begin{itemize}
+\item \jcsmacro{LecInstructor\{<name>\}}: Record the instructor's name
 \item \jcsmacro{SetOfficeHours\{<office hours>\}}: Record date of your office hours
 \item \jcsmacro{SetPlatform\{<platform information>\}}: Record information
 (e.\,g., URL) of the e-learning platform
@@ -241,8 +243,11 @@ Valid \joption{<options>}:
 \item \joption{titlesep=<separator>}: Separator between session title and
     subtitle
 \item \joption{subtitle=<subtitle>}: Subtitle of the session
-\item \joption{shorttitle=<shorttitle>}: Short title of the session (for
+\item \joption{shorttitle=<shorttitle>}: Short title (for
     headings etc.)
+\item \joption{instructor=<name>}: Specific instructor for this session
+    (if it differs from the usual course instructor)
+\item \joption{presstudents=<names>}: Students presenting in this session
 \item \joption{room=<room>}: Specific room for this session (if it differs
     from the usual course room)
 \item \joption{bibsec=<keyword>}: Session keyword for the bibliography
@@ -361,6 +366,7 @@ the semester (e.\,g., ``WS 2014'')
 of the semester (e.\,g., ``Wintersemester 2014'')
 \item \jcsmacro{lecuniversity}: Outputs the university's name
 \item \jcsmacro{lecinstitute}: Outputs the institute's name
+\item \jcsmacro{lecinstructor}: Outputs the instructor's name
 \item \jcsmacro{lecroom}: Outputs the course room
 \item \jcsmacro{lecplatform}: Outputs information on the
 e-learning platform
@@ -475,6 +481,8 @@ the current session
 \item \jcsmacro{sessubtitle}: Subtitle of the current session
 \item \jcsmacro{sesfulltitle}: Full title of the current
 session (title, separator, subtitle)
+\item \jcsmacro{sesinstructor}: Current session's instructor's name
+\item \jcsmacro{sespresstudents}: Students presenting in this session
 \item \jcsmacro{sesnr}: Number of the current session
 \item \jcsmacro{sesroom}: Room of the current session
 \end{itemize}
@@ -495,6 +503,10 @@ title of session number \joption{<nr>}
 session number \joption{<nr>}
 \item \jcsmacro{SessionShortDate\{<nr>\}}: Outputs the short
 date (no year) of session number \joption{<nr>}
+\item \jcsmacro{SessionInstructor\{<nr>\}}: Outputs the name of the instructor of session
+number \joption{<nr>}
+\item \jcsmacro{SessionPresStudents\{<nr>\}}: Outputs the name of the students presenting
+in session number \joption{<nr>}
 \item \jcsmacro{SessionRoom\{<nr>\}}: Outputs the room of session number \joption{<nr>}
 \item \jcsmacro{MakeProgramline\{<nr>\}}: Outputs a list
 item line for session number \joption{<nr>} in the form
@@ -603,19 +615,23 @@ them for inclusion to the package.
 \section{History}
 
 \begin{itemize}
+\item Fortcoming (v.\,1.0): Add option to add the instructor's name to both the course (via
+    \jcsmacro{LecInstructor} or \joption{instructor} package option) and to specific sessions
+    (via \joption{instructor} option of \jcsmacro{NewSession}); add option to add names of
+    presenting students to a session (via \joption{presstudents} option).
 \item 2015/02/08 (v. 0.9): Add a way to adjust the interval between two sessions
     (\joption{interval} package option and \jcsmacro{LecInterval} macro); add a way to shift
     session dates from the regular interval (\jcsmacro{SetLecOffset}); rename option \joption{weeks}
     of the \jcsmacro{SetBreaks} macro to \joption{units} (\joption{weeks} still works, but is
     marked deprecated).
-\item 2015/01/17 (v. 0.8): Fix corruption of \jfcsmacro{today};
+\item 2015/01/17 (v.\,0.8): Fix corruption of \jfcsmacro{today};
     add framework for different styles;
     add option and macro to set a room for the course as well as a session-specific room;
     remove redundant lecture type \joption{vo} from the documentation;
     change \jcsmacro{leccancel} default definition in favour of better translatability.
-\item 2015/01/04 (v. 0.7): Add macro for resetting \jfcsmacro{today}; minor corrections in the manual.
-\item 2014/12/12 (v. 0.6\,b): Minor corrections in the manual and example files.
-\item 2014/12/12 (v. 0.6): Initial release to CTAN.
+\item 2015/01/04 (v.\,0.7): Add macro for resetting \jfcsmacro{today}; minor corrections in the manual.
+\item 2014/12/12 (v.\,0.6\,b): Minor corrections in the manual and example files.
+\item 2014/12/12 (v.\,0.6): Initial release to CTAN.
 \end{itemize}
 
 \end{document}

@@ -21,8 +21,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2015/02/08}
-\def\fileversion{0.9}
+\def\filedate{2015/02/22}
+\def\fileversion{0.9dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -59,6 +59,7 @@
 \def\lecinstitute{}
 \def\lecroom{}
 \def\lecstartdate{}
+\def\lecinstructor{}
 
 \def\lecplatform{}
 \def\officehours{}
@@ -219,6 +220,7 @@
 \define@key{lec}{officehours}{\def\officehours{#1}}
 \define@key{lec}{room}{\def\lecroom{#1}}
 \define@key{lec}{startdate}{\def\lecstartdate{#1}}
+\define@key{lec}{instructor}{\def\lecinstructor{#1}}
 \define@key{lec}{style}{\AtEndOfPackage{\input{#1.lps}}}
 \define@key{lec}{interval}{%
     % test if the input is a number
@@ -240,6 +242,7 @@
 \DeclareOptionX{uni}{\setkeys{lec}{uni=#1}}
 \DeclareOptionX{institute}{\setkeys{lec}{institute=#1}}
 \DeclareOptionX{startdate}{\setkeys{lec}{startdate=#1}}
+\DeclareOptionX{instructor}{\setkeys{lec}{instructor=#1}}
 \DeclareOptionX{platform}{\setkeys{lec}{platform=#1}}
 \DeclareOptionX{officehours}{\setkeys{lec}{officehours=#1}}
 \DeclareOptionX{room}{\setkeys{lec}{room=#1}}
@@ -266,6 +269,7 @@
 \newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute=#1}}
 \newcommand*{\LecRoom}[1]{\setkeys{lec}{room=#1}}
 \newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
+\newcommand*{\LecInstructor}[1]{\setkeys{lec}{instructor=#1}}
 \newcommand*{\LecInterval}[1]{\setkeys{lec}{interval=#1}}
 
 
@@ -516,6 +520,8 @@
 \define@key{session}{shorttitle}{\csdef{@vashorttitle}{#1}}
 \define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
 \define@key{session}{room}{\csdef{@sesroom}{#1}}
+\define@key{session}{instructor}{\csdef{@sesinstructor}{#1}}
+\define@key{session}{presstudents}{\csdef{@sespresstudents}{#1}}
 \define@boolkey{session}{cancel}[true]{}
 %
 \newcommand*\NewSession[2][]{%
@@ -528,6 +534,8 @@
   \csdef{@vashorttitle}{}
   \csdef{@sesbibsec}{}
   \csdef{@sesroom}{\lecroom}
+  \csdef{@sesinstructor}{\lecinstructor}
+  \csdef{@sespresstudents}{}
   \setkeys{session}{cancel=false}
   \setkeys{session}{#1}
   \csdef{@sestitle}{#2}
@@ -543,6 +551,8 @@
   \protected@csxdef{sesshorttitle\thesnum}{\csuse{@vashorttitle}}
   \protected@csxdef{sesbib\thesnum}{\csuse{@sesbibsec}}
   \protected@csxdef{sesroom\thesnum}{\csuse{@sesroom}}
+  \protected@csxdef{sesinstructor\thesnum}{\csuse{@sesinstructor}}
+  \protected@csxdef{sespresstudents\thesnum}{\csuse{@sespresstudents}}
   \ifKV@session@cancel
     \stepcounter{cancellations}
     \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
@@ -679,6 +689,8 @@
   \gdef\sesshorttitle{\csuse{sesshorttitle#1}}%
   \gdef\sessubtitle{\csuse{sessubtitle#1}}%
   \gdef\sesroom{\csuse{sesroom#1}}%
+  \gdef\sesinstructor{\csuse{sesinstructor#1}}%
+  \gdef\sespresstudents{\csuse{sespresstudents#1}}%
 }
 
 % Define a local session
@@ -692,6 +704,8 @@
   \gdef\lsesshorttitle{\csuse{sesshorttitle#1}}%
   \gdef\lsessubtitle{\csuse{sessubtitle#1}}%
   \gdef\lsesroom{\csuse{sesroom#1}}%
+  \gdef\lsesinstructor{\csuse{sesinstructor#1}}%
+  \gdef\lsespresstudents{\csuse{sespresstudents#1}}%
 }
 
 % Get information for a specific (local) session
@@ -730,6 +744,18 @@
 \newcommand*\SessionRoom[1]{%
   \LocalSession{#1}%
   \lsesroom%
+}
+
+% Instructor
+\newcommand*\SessionInstructor[1]{%
+  \LocalSession{#1}%
+  \lsesinstructor%
+}
+
+% Presenting students
+\newcommand*\SessionPresStudents[1]{%
+  \LocalSession{#1}%
+  \lsespresstudents%
 }
 
 % Program line suitable for
