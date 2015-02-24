@@ -29,7 +29,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.0dev, 2015/02/22}
+\date{Version 1.0dev, 2015/02/24}
 
 \maketitle
 
@@ -417,7 +417,9 @@ a beamer-suited lecture program from the metadata in the form
 \joption{<options>} can be one of
 \begin{itemize}
 \item \joption{title=<title>}: Program title (<Heading>)
-\item \joption{options=<bfoptions>}: Beamer frame options
+\item \joption{options=<bfoptions>}: Beamer frame options. Note that yey-value
+    beamer frame options need to be embraced, as in\\
+    \jcsmacro{makebeamerprogram[options=\{shrink=10\}]}
 \end{itemize}
 
 Note that multiple subsequent frames are generated if the metadata
@@ -618,7 +620,8 @@ them for inclusion to the package.
 \item Fortcoming (v.\,1.0): Add option to add the instructor's name to both the course (via
     \jcsmacro{LecInstructor} or \joption{instructor} package option) and to specific sessions
     (via \joption{instructor} option of \jcsmacro{NewSession}); add option to add names of
-    presenting students to a session (via \joption{presstudents} option).
+    presenting students to a session (via \joption{presstudents} option); fix expansion issue
+    in \joption{options} option of \jcsmacro{makebeamerprogram}.
 \item 2015/02/08 (v. 0.9): Add a way to adjust the interval between two sessions
     (\joption{interval} package option and \jcsmacro{LecInterval} macro); add a way to shift
     session dates from the regular interval (\jcsmacro{SetLecOffset}); rename option \joption{weeks}

@@ -21,7 +21,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2015/02/22}
+\def\filedate{2015/02/24}
 \def\fileversion{1.0dev}
 \def\filename{jslectureplanner.sty}
 
@@ -420,7 +420,8 @@
   \@ifundefined{programlistbeamerii}{}{%
   \def\btitleapp{\ (1/\pframes)}
   \ifcsdef{@bpopts}{%
-     \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}
+     \begingroup\edef\tempa{\endgroup\noexpand%
+       \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
   }{%
      \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
   }
@@ -438,7 +439,8 @@
   \@ifundefined{programlistbeameriii}{}{%
   \def\btitleapp{\ (2/\pframes)}
   \ifcsdef{@bpopts}{%
-     \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}
+     \begingroup\edef\tempa{\endgroup\noexpand%
+        \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
   }{%
      \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
   }
@@ -456,7 +458,8 @@
   \@ifundefined{programlistbeameriv}{}{%
   \def\btitleapp{\ (2/\pframes)}
   \ifcsdef{@bpopts}{%
-     \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}
+     \begingroup\edef\tempa{\endgroup\noexpand%
+       \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
   }{%
      \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
   }
@@ -473,7 +476,8 @@
   }
   \ifnumgreater{\thefbreaks}{0}{\def\btitleapp{\ (\pframes/\pframes)}}{}
   \ifcsdef{@bpopts}{%
-     \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}
+      \begingroup\edef\tempa{\endgroup\noexpand%
+        \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
     }{%
         \@ifundefined{programlistbeamerii}{%
             \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
