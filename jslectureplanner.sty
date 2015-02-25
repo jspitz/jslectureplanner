@@ -21,7 +21,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2015/02/24}
+\def\filedate{2015/02/25}
 \def\fileversion{1.0dev}
 \def\filename{jslectureplanner.sty}
 
@@ -62,6 +62,7 @@
 \def\lecinstructor{}
 
 \def\lecplatform{}
+\def\officenumber{}
 \def\officehours{}
 
 \def\sesdate{}
@@ -218,6 +219,7 @@
 \define@key{lec}{institute}{\def\lecinstitute{#1}}
 \define@key{lec}{platform}{\def\lecplatform{#1}}
 \define@key{lec}{officehours}{\def\officehours{#1}}
+\define@key{lec}{officenumber}{\def\officenumber{#1}}
 \define@key{lec}{room}{\def\lecroom{#1}}
 \define@key{lec}{startdate}{\def\lecstartdate{#1}}
 \define@key{lec}{instructor}{\def\lecinstructor{#1}}
@@ -245,6 +247,7 @@
 \DeclareOptionX{instructor}{\setkeys{lec}{instructor=#1}}
 \DeclareOptionX{platform}{\setkeys{lec}{platform=#1}}
 \DeclareOptionX{officehours}{\setkeys{lec}{officehours=#1}}
+\DeclareOptionX{officenumber}{\setkeys{lec}{officenumber=#1}}
 \DeclareOptionX{room}{\setkeys{lec}{room=#1}}
 \DeclareOptionX{style}{\setkeys{lec}{style=#1}}
 \DeclareOptionX{interval}{\setkeys{lec}{interval=#1}}
@@ -671,6 +674,11 @@
 % Office hours
 \newcommand\SetOfficeHours[1]{%
   \def\officehours{#1}%
+}
+
+% Office number
+\newcommand\SetOfficeNumber[1]{%
+  \def\officenumber{#1}%
 }
 
 % (E-learning) platform

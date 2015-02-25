@@ -29,7 +29,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.0dev, 2015/02/24}
+\date{Version 1.0dev, 2015/02/25}
 
 \maketitle
 
@@ -164,6 +164,7 @@ must} have the form DD/MM/YYYY). If no startdate is given, \jfcsmacro{today} is 
 \item [{instructor=<name>}] Instructor's name
 \item [{platform=<data>}] Information (e.\,g., URL) of the e-learning platform
 \item [{officehours=<data>}] Date of your office hours
+\item [{officenumber=<data>}] Your office number
 \end{description}
 
 \subsection{Via macros\label{sec:via-macros}}
@@ -223,6 +224,7 @@ the first session (argument\emph{ must} have the form DD/MM/YYYY)
 \begin{itemize}
 \item \jcsmacro{LecInstructor\{<name>\}}: Record the instructor's name
 \item \jcsmacro{SetOfficeHours\{<office hours>\}}: Record date of your office hours
+\item \jcsmacro{SetOfficeNumber\{<office number>\}}: Record your office number
 \item \jcsmacro{SetPlatform\{<platform information>\}}: Record information
 (e.\,g., URL) of the e-learning platform
 \end{itemize}
@@ -371,6 +373,7 @@ of the semester (e.\,g., ``Wintersemester 2014'')
 \item \jcsmacro{lecplatform}: Outputs information on the
 e-learning platform
 \item \jcsmacro{officehours}: Outputs the office hours
+\item \jcsmacro{officenumber}: Outputs the office number
 \end{itemize}
 
 \subsection{Generating course programs}
@@ -619,9 +622,12 @@ them for inclusion to the package.
 \begin{itemize}
 \item Fortcoming (v.\,1.0): Add option to add the instructor's name to both the course (via
     \jcsmacro{LecInstructor} or \joption{instructor} package option) and to specific sessions
-    (via \joption{instructor} option of \jcsmacro{NewSession}); add option to add names of
-    presenting students to a session (via \joption{presstudents} option); fix expansion issue
-    in \joption{options} option of \jcsmacro{makebeamerprogram}.
+    (via \joption{instructor} option of \jcsmacro{NewSession});
+    add option to add names of presenting students to a session (via \joption{presstudents}
+    option);
+    add option to record the office number (\jcsmacro{SetOfficeNumber} or \joption{officenumber}
+    package option);
+    fix expansion issue in \joption{options} option of \jcsmacro{makebeamerprogram}.
 \item 2015/02/08 (v. 0.9): Add a way to adjust the interval between two sessions
     (\joption{interval} package option and \jcsmacro{LecInterval} macro); add a way to shift
     session dates from the regular interval (\jcsmacro{SetLecOffset}); rename option \joption{weeks}

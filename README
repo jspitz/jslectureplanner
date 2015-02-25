@@ -64,6 +64,8 @@ instructions; also have a look at the example files.
                            specific sessions (via 'instructor' option of \NewSession).
                          - Add option to add names of presenting students to a session
                            (via 'presstudents' option).
+                         - Add option to record the office number (\SetOfficeNumber
+                           or 'officenumber' package option) [github issue #3].
                          - Fix expansion issue in 'options' option of
                            \makebeamerprogram.
 
