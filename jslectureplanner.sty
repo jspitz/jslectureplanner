@@ -84,49 +84,49 @@
 % 1) Course types
 %
 % vl
-\def\lectypevl{Vorlesung}
-\def\lectypevls{VL}
-\def\lectypevlses{Vorlesung}
+\def\lectypeverb@vl{Vorlesung}
+\def\lectype@vl{VL}
+\def\lectypesession@vl{Vorlesung}
 % vo (redundant and undocumented;
 %     just kept for historical reasons)
-\def\lectypevo{Vorlesung}
-\def\lectypevos{VO}
-\def\lectypevoses{Vorlesung}
+\def\lectypeverb@vo{Vorlesung}
+\def\lectype@vo{VO}
+\def\lectypesession@vo{Vorlesung}
 % ps
-\def\lectypeps{Proseminar}
-\def\lectypepss{PS}
-\def\lectypepsses{Sitzung}
+\def\lectypeverb@ps{Proseminar}
+\def\lectype@ps{PS}
+\def\lectypesession@ps{Sitzung}
 % se
-\def\lectypese{Seminar}
-\def\lectypeses{SE}
-\def\lectypeseses{Sitzung}
+\def\lectypeverb@se{Seminar}
+\def\lectype@se{SE}
+\def\lectypesession@se{Sitzung}
 % ue
-\def\lectypeue{\"Ubung}
-\def\lectypeues{UE}
-\def\lectypeueses{Sitzung}
+\def\lectypeverb@ue{\"Ubung}
+\def\lectype@ue{UE}
+\def\lectypesession@ue{Sitzung}
 % ko
-\def\lectypeko{Kolloquium}
-\def\lectypekos{KO}
-\def\lectypekoses{Sitzung}
+\def\lectypeverb@ko{Kolloquium}
+\def\lectype@ko{KO}
+\def\lectypesession@ko{Sitzung}
 % pv
-\def\lectypepv{Privatissimum}
-\def\lectypepvs{PV}
-\def\lectypepvses{Sitzung}
+\def\lectypeverb@pv{Privatissimum}
+\def\lectype@pv{PV}
+\def\lectypesession@pv{Sitzung}
 
 % 2.) Term types
 %
 % fs
-\def\lectermfs{Fr\"uhjahrssemester}
-\def\lectermfss{FS}
+\def\lecsemverb@fs{Fr\"uhjahrssemester}
+\def\lecsemshort@fs{FS}
 % hs
-\def\lectermhs{Herbstsemester}
-\def\lectermhss{HS}
+\def\lecsemverb@hs{Herbstsemester}
+\def\lecsemshort@hs{HS}
 % ss
-\def\lectermss{Sommersemester}
-\def\lectermsss{SoSe}
+\def\lecsemverb@ss{Sommersemester}
+\def\lecsemshort@ss{SoSe}
 % ws
-\def\lectermws{Wintersemester}
-\def\lectermwss{WS}
+\def\lecsemverb@ws{Wintersemester}
+\def\lecsemshort@ws{WS}
 
 % 3.) misc.
 %
@@ -156,57 +156,28 @@
 %
 % PACKAGE OPTIONS
 %
-\define@choicekey*+{lec}{lectype}[\val\nr]{vl,vo,ps,se,ue,ko,pv}{%
-    \ifcase\nr\relax% vl
-      \def\lectype{\lectypevls}
-      \def\lectypeverb{\lectypevl}
-      \def\lectypesession{\lectypevlses}
-    \or% vo (redundant and undocumented; just kept for historical reasons)
-      \def\lectype{\lectypevos}
-      \def\lectypeverb{\lectypevo}
-      \def\lectypesession{\lectypevoses}
-    \or% ps
-      \def\lectype{\lectypepss}
-      \def\lectypeverb{\lectypeps}
-      \def\lectypesession{\lectypepsses}
-    \or% se
-      \def\lectype{\lectypeses}
-      \def\lectypeverb{\lectypese}
-      \def\lectypesession{\lectypeseses}
-    \or% ue
-      \def\lectype{\lectypeues}
-      \def\lectypeverb{\lectypeue}
-      \def\lectypesession{\lectypeueses}
-    \or% ko
-      \def\lectype{\lectypekos}
-      \def\lectypeverb{\lectypeko}
-      \def\lectypesession{\lectypekoses}
-    \or% pv
-      \def\lectype{\lectypepvs}
-      \def\lectypeverb{\lectypepv}
-      \def\lectypesession{\lectypepvses}
-    \fi
-}{%
-    \PackageWarning{jslectureplanner}{unknown type value '#1'}%
+\define@key{lec}{lectype}{%
+  \AtEndPreamble{%
+    \ifcsundef{lectype@#1}{%
+       \PackageError{jslectureplanner}{Lecture type '#1' is not defined!}{%
+             Please consult the package manual for instructions how to define it}
+    }{}
+    \def\lectype{\csuse{lectype@#1}}%
+    \def\lectypeverb{\csuse{lectypeverb@#1}}%
+    \def\lectypesession{\csuse{lectypesession@#1}}%
+  }%
 }
 \DeclareOptionX{type}{\setkeys{lec}{lectype=#1}}
 
-\define@choicekey*+{lec}{lecsem}[\val\nr]{fs,hs,ss,ws}{%
-    \ifcase\nr\relax% fs
-      \def\lecsemshort{\lectermfss}
-      \def\lecsemverb{\lectermfs}
-    \or% hs
-      \def\lecsemshort{\lectermhss}
-      \def\lecsemverb{\lectermhs}
-    \or% ss
-      \def\lecsemshort{\lectermsss}
-      \def\lecsemverb{\lectermss}
-    \or% ws
-      \def\lecsemshort{\lectermwss}
-      \def\lecsemverb{\lectermws}
-    \fi
-}{%
-    \PackageWarning{jslectureplanner}{unknown semester value '#1'}%
+\define@key{lec}{lecsem}{%
+  \AtEndPreamble{%
+    \ifcsundef{lecsemshort@#1}{%
+       \PackageError{jslectureplanner}{Semester type '#1' is not defined!}{%
+             Please consult the package manual for instructions how to define it}
+    }{}
+    \def\lecsemshort{\csuse{lecsemshort@#1}}%
+    \def\lecsemverb{\csuse{lecsemverb@#1}}%
+  }%
 }
 \DeclareOptionX{semester}{\setkeys{lec}{lecsem=#1}}
 
@@ -300,71 +271,66 @@
 
 % 1) Course types
 %
+\newcommand*\DefLecType[4]{%
+  \csdef{lectype@#1}{#2}
+  \csdef{lectypeverb@#1}{#3}
+  \csdef{lectypesession@#1}{#4}
+}
+%
+% Kept for backwards compatibility
 % vl
 \newcommand*\DefTypeVL[3]{%
-  \def\lectypevl{#2}
-  \def\lectypevls{#1}
-  \def\lectypevlses{#2}
+  \DefLecType{vl}{#1}{#2}{#3}
 }
 % vo (redundant and undocumented;
 %     just kept for historical reasons)
 \newcommand*\DefTypeVO[3]{%
-  \def\lectypevo{#2}
-  \def\lectypevos{#1}
-  \def\lectypevoses{#3}
+  \DefLecType{vo}{#1}{#2}{#3}
 }
 % ps
 \newcommand*\DefTypePS[3]{%
-  \def\lectypeps{#2}
-  \def\lectypepss{#1}
-  \def\lectypepsses{#3}
+  \DefLecType{ps}{#1}{#2}{#3}
 }
 % se
 \newcommand*\DefTypeSE[3]{%
-  \def\lectypese{#2}
-  \def\lectypeses{#1}
-  \def\lectypeseses{#3}
+  \DefLecType{se}{#1}{#2}{#3}
 }
 % ue
 \newcommand*\DefTypeUE[3]{%
-  \def\lectypeue{#2}
-  \def\lectypeues{#1}
-  \def\lectypeueses{#3}
+  \DefLecType{ue}{#1}{#2}{#3}
 }
 % ko
 \newcommand*\DefTypeKO[3]{%
-  \def\lectypeko{#2}
-  \def\lectypekos{#1}
-  \def\lectypekoses{#3}
+  \DefLecType{ko}{#1}{#2}{#3}
 }
 % pv
 \newcommand*\DefTypePV[3]{%
-  \def\lectypepv{#2}
-  \def\lectypepvs{#1}
-  \def\lectypepvses{#3}
+  \DefLecType{pv}{#1}{#2}{#3}
 }
 
 % 2.) Term types
 %
+\newcommand*\DefSemType[3]{%
+  \csdef{lecsemshort@#1}{#2}
+  \csdef{lecsemverb@#1}{#3}
+}
+%
+% Kept for backwards compatibility
 % fs
 \newcommand*\DefTypeFS[2]{%
-  \def\lectermfss{#1}
-  \def\lectermfs{#2}
+  \DefSemType{fs}{#1}{#2}
 }
 % hs
 \newcommand*\DefTypeHS[2]{%
-  \def\lectermhss{#1}
-  \def\lectermhs{#2}
+  \DefSemType{hs}{#1}{#2}
 }
 % ss
 \newcommand*\DefTypeSS[2]{%
-  \def\lectermsss{#1}
-  \def\lectermss{#2}
+  \DefSemType{ss}{#1}{#2}
 }
 % ws
 \newcommand*\DefTypeWS[2]{%
-  \def\lectermwss{#1}
-  \def\lectermws{#2}
+  \DefSemType{ws}{#1}{#2}
 }
 
 

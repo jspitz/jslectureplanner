@@ -29,7 +29,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.0dev, 2015/02/25}
+\date{Version 1.0dev, 2015/02/26}
 
 \maketitle
 
@@ -59,9 +59,8 @@ Since the package was written for my own needs, it is somewhat tied
 to my workflow. Particularly, it is tied to my context: teaching in
 the Humanities at a German-speaking university. Hence, the categorization
 of the package draws on this context. In particular, all strings and
-formats are German. However, it is possible to customize them to some
-degree, particularly to translate them to other languages. This is
-described later in this manual.
+formats are German. However, it is possible to customize, extend and
+translate them to other languages. This is described later in this manual.
 
 This manual describes the basic user interface of the package. Please
 also refer to the example files included in the package  in order to
@@ -113,7 +112,7 @@ to a verbose string (such as ``Seminar''), a short form (such as
 ``SE'') and a form that is used to denote individual sessions (as
 in ``the second \emph{session} of this course'').
 \begin{description}
-\item [{type=<type>}] Defines the course type. Possible values:
+\item [{type=<type>}] Defines the course type. Preset values:
 
 \begin{itemize}
 \item \joption{vl}: A lecture (verbose form: ``Vorlesung''\footnote{Sec.~\ref{sec:customizing-strings}
@@ -129,6 +128,9 @@ form: ``UE'', session form: ``Sitzung'')
 \item \joption{pv}: Research seminar (verbose form: ``Privatissimum'',
 short form: ``PV'', session form: ``Sitzung'')
 \end{itemize}
+
+Sec.~\ref{sec:customizing-strings} explains how to customize and extend this list.
+Also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
 \end{description}
 
 \subsubsection{Course title}
@@ -528,33 +530,37 @@ item line for session number \joption{<nr>} in the form
 \section{Customizing the output}\label{sec:customizing-strings}
 
 
-\subsection{Customizing the course type strings}
+\subsection{Defining and customizing course types}
 
-The strings of the course types can be changed via the macros:
+The following macro allows to define new course types and redefine existing ones:
 \begin{itemize}
-\item \jcsmacro{DefTypeVL\{<short form>\}\{<title>\}\{<session title>\}}
-\item \jcsmacro{DefTypePS\{<short form>\}\{<title>\}\{<session title>\}}
-\item \jcsmacro{DefTypeSE\{<short form>\}\{<title>\}\{<session title>\}}
-\item \jcsmacro{DefTypeUE\{<short form>\}\{<title>\}\{<session title>\}}
-\item \jcsmacro{DefTypeKO\{<short form>\}\{<title>\}\{<session title>\}}
-\item \jcsmacro{DefTypePV\{<short form>\}\{<title>\}\{<session title>\}}
+\item \jcsmacro{DefLecType\{<key>\}\{<short form>\}\{<title>\}\{<session title>\}}
 \end{itemize}
-An English form for a lecture, thus, can be achieved by e.\,g.
+A new type, say summer school, thus, could be defined as follows:
 \begin{itemize}
-\item \jcsmacro{DefTypeVL\{LEC\}\{Lecture\}\{Session\}}
+\item \jcsmacro{DefLecType\{ss\}\{SS\}\{Summer School\}\{Session\}}
 \end{itemize}
-The types themselves are hardcoded. If you need further\slash{}other
-types, you need to modify the package (or ask me to do it).
+This could then be set via \jcsmacro{LecType\{ss\}} or the package option
+\joption{type=ss}, respectively.
 
-
-\subsection{Customizing the term types}
-
-The strings of the term types can be changed via the macros:
+Likewise, you can use the macro to redefine existing styles, e.\,g. change
+the ``session'' string of type \joption{vl} via
 \begin{itemize}
-\item \jcsmacro{DefTypeFS\{<short form>\}\{<verbose form>\}}
-\item \jcsmacro{DefTypeHS\{<short form>\}\{<verbose form>\}}
-\item \jcsmacro{DefTypeSS\{<short form>\}\{<verbose form>\}}
-\item \jcsmacro{DefTypeWS\{<short form>\}\{<verbose form>\}}
+\item \jcsmacro{DefLecType\{vl\}\{VL\}\{Vorlesung\}\{Einheit\}}
+\end{itemize}
+If you need to change or add types, consider the use of styles
+(see sec.~\ref{sec:styles}).
+
+
+\subsection{Defining and customizing term types}
+
+The available term (semester) types can be changed and extended via the macro:
+\begin{itemize}
+\item \jcsmacro{DefSemType\{<key>\}\{<short form>\}\{<verbose form>\}}
+\end{itemize}
+Thus, you could add a new term type ``spring term'' via
+\begin{itemize}
+\item \jcsmacro{DefSemType\{st\}\{ST\}\{Spring Term\}}
 \end{itemize}
 
 \subsection{Customizing the date format}
@@ -605,7 +611,7 @@ Again, use \jfcsmacro{renewcommand{*}} to redefine
 those.
 
 
-\subsection{Using styles}
+\subsection{Using styles}\label{sec:styles}
 
 The most elegant way to do the customizing is to use \emph{lecture planner style} (*.lps) files.
 These files can be loaded via the \joption{style=<style>} package option, where <style>
@@ -620,7 +626,9 @@ them for inclusion to the package.
 \section{History}
 
 \begin{itemize}
-\item Fortcoming (v.\,1.0): Add option to add the instructor's name to both the course (via
+\item Forthcoming (v.\,1.0): Lecture types and term types are not hardcoded anymore and can
+    be freely modified and extended via \jcsmacro{DefLecType} and \jcsmacro{DefSemType};
+    add option to add the instructor's name to both the course (via
     \jcsmacro{LecInstructor} or \joption{instructor} package option) and to specific sessions
     (via \joption{instructor} option of \jcsmacro{NewSession});
     add option to add names of presenting students to a session (via \joption{presstudents}

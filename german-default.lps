@@ -24,18 +24,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Lecture types
-\DefTypeVL{VL}{Vorlesung}{Vorlesung}% lecture
-\DefTypePS{PS}{Proseminar}{Sitzung}% undergraduate seminar
-\DefTypeSE{SE}{Seminar}{Sitzung}% seminar
-\DefTypeUE{UE}{\"Ubung}{Sitzung}% practical course
-\DefTypeKO{KO}{Kolloquium}{Sitzung}% colloquium
-\DefTypePV{PV}{Privatissimum}{Sitzung}% research seminar
+\DefLecType{vl}{VL}{Vorlesung}{Vorlesung}% lecture
+\DefLecType{ps}{PS}{Proseminar}{Sitzung}% undergraduate seminar
+\DefLecType{se}{SE}{Seminar}{Sitzung}% seminar
+\DefLecType{ue}{UE}{\"Ubung}{Sitzung}% practical course
+\DefLecType{ko}{KO}{Kolloquium}{Sitzung}% colloquium
+\DefLecType{pv}{PV}{Privatissimum}{Sitzung}% research seminar
 
 % Term types
-\DefTypeFS{FS}{Fr\"ujahrssemester}% spring term
-\DefTypeHS{HS}{Herbstsemester}% fall term
-\DefTypeSS{SoSe}{Sommersemester}% summer term
-\DefTypeWS{WS}{Wintersemester}% winter term
+\DefSemType{fs}{FS}{Fr\"ujahrssemester}% spring term
+\DefSemType{hs}{HS}{Herbstsemester}% fall term
+\DefSemType{ss}{SoSe}{Sommersemester}% summer term
+\DefSemType{ws}{WS}{Wintersemester}% winter term
 
 % Date formats
 \renewcommand*\lecdateformat{%
