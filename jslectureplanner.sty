@@ -151,6 +151,9 @@
 \newcounter{lecinterval}
 \setcounter{lecinterval}{7}
 \newcounter{sesoffset}
+\newcounter{autooffset}
+\newcounter{autooffsettrigger}
+\newcounter{autooffsetcounter}
 
 
 %
@@ -500,6 +503,12 @@
 \newcommand*\NewSession[2][]{%
   \stepcounter{sesunit}
   \setcounter{dateratio}{(\thesesunit-1)*\thelecinterval+\thesesoffset}
+  \ifnumcomp{\value{autooffsettrigger}}{>}{0}{%
+     \ifnumcomp{\value{autooffsettrigger}}{=}{\value{autooffsetcounter}}{%
+        \addtocounter{dateratio}{\theautooffset}%
+        \setcounter{autooffsetcounter}{0}%
+     }{\stepcounter{autooffsetcounter}}
+  }{}
   \setcounter{snum}{\thesesunit-\thecancellations}
   \protected@csxdef{sesnr\thesnum}{\thesnum}
   \csdef{@sestitlesep}{}
@@ -587,6 +596,12 @@
 % Offset in days
 \newcommand*\SetLecOffset[1]{%
     \addtocounter{sesoffset}{#1}
+}
+
+% Automatic Offset after n sessions
+\newcommand*\SetAutoOffset[2]{%
+    \setcounter{autooffsettrigger}{#1}
+    \setcounter{autooffset}{#2}
 }
 
 % 3) Definition of thematic blocks

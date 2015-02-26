@@ -220,6 +220,10 @@ your university
 the first session (argument\emph{ must} have the form DD/MM/YYYY)
 \item \jcsmacro{LecInterval\{<interval>\}}: Adjust the interval (in days) between two sessions.
       The preset interval is 7 (=~weekly courses).
+\item \jcsmacro{SetAutoOffset\{<n>\}\{<days>\}}: Automatically shift all subsequent sessions
+      by <days> extra  days after every <n>th session. This is useful if you have each week
+      two regular sessions and then a pause until the next week (for instance, a Tuesday + Thursday course could
+      be defined via \jcsmacro{LecInterval\{2\}} and \jcsmacro{SetAutoOffset\{2\}\{3\}})
 \end{itemize}
 
 \subsubsection{Additional information}
@@ -635,7 +639,9 @@ them for inclusion to the package.
     option);
     add option to record the office number (\jcsmacro{SetOfficeNumber} or \joption{officenumber}
     package option);
-    fix expansion issue in \joption{options} option of \jcsmacro{makebeamerprogram}.
+    fix expansion issue in \joption{options} option of \jcsmacro{makebeamerprogram};
+    add option to automatically shift all subsequent sessions by a certain value after every
+    \emph{n}th session (\jcsmacro{SetAutoOffset}).
 \item 2015/02/08 (v. 0.9): Add a way to adjust the interval between two sessions
     (\joption{interval} package option and \jcsmacro{LecInterval} macro); add a way to shift
     session dates from the regular interval (\jcsmacro{SetLecOffset}); rename option \joption{weeks}

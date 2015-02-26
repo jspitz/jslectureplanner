@@ -68,6 +68,9 @@ instructions; also have a look at the example files.
                            (via 'presstudents' option).
                          - Add option to record the office number (\SetOfficeNumber
                            or 'officenumber' package option) [github issue #3].
+                         - Add option to automatically shift all subsequent sessions by
+                           a certain value after every nth session (\SetAutoOffset).
+                           [github issue #2]
                          - Fix expansion issue in 'options' option of
                            \makebeamerprogram.
 
