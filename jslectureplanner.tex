@@ -621,8 +621,20 @@ The most elegant way to do the customizing is to use \emph{lecture planner style
 These files can be loaded via the \joption{style=<style>} package option, where <style>
 is the file name without *.lps extension.
 
-Currently, the package ships only one style, \emph{german-default}, which includes the default
-strings. This one can be used as a model. If you provide me with other style files, in particular
+Currently, the package ships two styles:
+\begin{enumerate}
+ \item \joption{german-default} simply includes the default strings.
+     This style is meant to be used as a model for new styles.
+\item \joption{cologne} provides some specifics current at the University of Cologne
+     (\emph{Universität zu Köln}):
+     \begin{itemize}
+      \item Additional course types: \joption{ak} (\emph{Arbeitskurs}),
+      \joption{as} (\emph{Aufbauseminar}), \joption{es} (\emph{Einführungsseminar}),
+      \joption{evl} (\emph{Einführungsvorlesung}), \joption{hs} (\emph{Hauptseminar}).
+     \end{itemize}
+     
+\end{enumerate}
+If you provide me with other style files, in particular
 translations to other languages than German (but also other university conventions), I consider
 them for inclusion to the package.
 
@@ -630,29 +642,49 @@ them for inclusion to the package.
 \section{History}
 
 \begin{itemize}
-\item Forthcoming (v.\,1.0): Lecture types and term types are not hardcoded anymore and can
-    be freely modified and extended via \jcsmacro{DefLecType} and \jcsmacro{DefSemType};
-    add option to add the instructor's name to both the course (via
-    \jcsmacro{LecInstructor} or \joption{instructor} package option) and to specific sessions
-    (via \joption{instructor} option of \jcsmacro{NewSession});
-    add option to add names of presenting students to a session (via \joption{presstudents}
-    option);
-    add option to record the office number (\jcsmacro{SetOfficeNumber} or \joption{officenumber}
-    package option);
-    fix expansion issue in \joption{options} option of \jcsmacro{makebeamerprogram};
-    add option to automatically shift all subsequent sessions by a certain value after every
-    \emph{n}th session (\jcsmacro{SetAutoOffset}).
-\item 2015/02/08 (v. 0.9): Add a way to adjust the interval between two sessions
-    (\joption{interval} package option and \jcsmacro{LecInterval} macro); add a way to shift
-    session dates from the regular interval (\jcsmacro{SetLecOffset}); rename option \joption{weeks}
-    of the \jcsmacro{SetBreaks} macro to \joption{units} (\joption{weeks} still works, but is
-    marked deprecated).
-\item 2015/01/17 (v.\,0.8): Fix corruption of \jfcsmacro{today};
-    add framework for different styles;
-    add option and macro to set a room for the course as well as a session-specific room;
-    remove redundant lecture type \joption{vo} from the documentation;
-    change \jcsmacro{leccancel} default definition in favour of better translatability.
-\item 2015/01/04 (v.\,0.7): Add macro for resetting \jfcsmacro{today}; minor corrections in the manual.
+\item Forthcoming (v.\,1.0):
+     \begin{itemize}
+       \item Lecture types and term types are not hardcoded anymore and can be freely
+             modified and extended via \jcsmacro{DefLecType} and \jcsmacro{DefSemType}.
+       \item Add option to add the instructor's name to both the course (via
+             \jcsmacro{LecInstructor} or \joption{instructor} package option) and
+             to specific sessions (via \joption{instructor} option of
+             \jcsmacro{NewSession}).
+       \item Add option to add names of presenting students to a session (via
+             \joption{presstudents} option).
+       \item Add option to record the office number (\jcsmacro{SetOfficeNumber}
+             or package option \joption{officenumber}).
+       \item Fix expansion issue in \joption{options} option of \jcsmacro{makebeamerprogram}.
+       \item Add option to automatically shift all subsequent sessions by a certain value
+             after every \emph{n}th session (\jcsmacro{SetAutoOffset}).
+       \item Add \joption{cologne} style file.
+    \end{itemize}
+\item 2015/02/08 (v. 0.9):
+     \begin{itemize}
+       \item Add a way to adjust the interval between two sessions
+             (\joption{interval} package option and \jcsmacro{LecInterval} macro).
+       \item Add a way to shift session dates from the regular interval
+             (macro \jcsmacro{SetLecOffset}).
+       \item Add option and macro to set a room for the course as well as
+             a session-specific room.
+       \item Rename option \joption{weeks} of the \jcsmacro{SetBreaks} macro
+             to \joption{units} (\joption{weeks} still works, but is marked deprecated).
+    \end{itemize} 
+\item 2015/01/17 (v.\,0.8):
+    \begin{itemize}
+       \item Fix corruption of \jfcsmacro{today}.
+       \item Add framework for different styles.
+       \item Add option and macro to set a room for the course as well as
+             a session-specific room.
+       \item Remove redundant lecture type \joption{vo} from the documentation.
+       \item Change \jcsmacro{leccancel} default definition in favour of better
+             translatability.
+    \end{itemize}
+\item 2015/01/04 (v.\,0.7):
+    \begin{itemize}
+       \item Add macro for resetting \jfcsmacro{today}.
+       \item Minor corrections in the manual.
+    \end{itemize}
 \item 2014/12/12 (v.\,0.6\,b): Minor corrections in the manual and example files.
 \item 2014/12/12 (v.\,0.6): Initial release to CTAN.
 \end{itemize}
