@@ -29,7 +29,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.0, 2015/02/27}
+\date{Version 1.0.1, 2015/02/27}
 
 \maketitle
 
@@ -644,6 +644,11 @@ them for inclusion to the package.
 \section{History}
 
 \begin{itemize}
+\item 2015/02/27 (v.\,1.0.1):
+     \begin{itemize}
+       \item Fix a regression introduced by v. 1.0 (\jcsmacro{leccancel}
+             was not properly expanded).
+     \end{itemize}
 \item 2015/02/27 (v.\,1.0):
      \begin{itemize}
        \item Lecture types and term types are not hardcoded anymore and can be freely
@@ -681,7 +686,7 @@ them for inclusion to the package.
        \item Remove redundant lecture type \joption{vo} from the documentation.
        \item Change \jcsmacro{leccancel} default definition in favour of better
              translatability.
-    \end{itemize}
+    \end{itemize}\filbreak
 \item 2015/01/04 (v.\,0.7):
     \begin{itemize}
        \item Add macro for resetting \jfcsmacro{today}.
