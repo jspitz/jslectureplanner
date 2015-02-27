@@ -21,7 +21,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2015/02/25}
+\def\filedate{2015/02/27}
 \def\fileversion{1.0dev}
 \def\filename{jslectureplanner.sty}
 
@@ -154,6 +154,8 @@
 \newcounter{autooffset}
 \newcounter{autooffsettrigger}
 \newcounter{autooffsetcounter}
+\newcounter{breakunits}
+\newcounter{loopcounter}
 
 
 %
@@ -502,13 +504,13 @@
 %
 \newcommand*\NewSession[2][]{%
   \stepcounter{sesunit}
-  \setcounter{dateratio}{(\thesesunit-1)*\thelecinterval+\thesesoffset}
   \ifnumcomp{\value{autooffsettrigger}}{>}{0}{%
      \ifnumcomp{\value{autooffsettrigger}}{=}{\value{autooffsetcounter}}{%
-        \addtocounter{dateratio}{\theautooffset}%
-        \setcounter{autooffsetcounter}{0}%
+        \addtocounter{sesoffset}{\theautooffset}%
+        \setcounter{autooffsetcounter}{1}%
      }{\stepcounter{autooffsetcounter}}
   }{}
+  \setcounter{dateratio}{(\thesesunit-1)*\thelecinterval+\thesesoffset}
   \setcounter{snum}{\thesesunit-\thecancellations}
   \protected@csxdef{sesnr\thesnum}{\thesnum}
   \csdef{@sestitlesep}{}
@@ -562,6 +564,12 @@
 \newcommand*\SetBreak[2][\empty]{%
   \stepcounter{sesunit}
   \stepcounter{cancellations}
+  \ifnumcomp{\value{autooffsettrigger}}{>}{0}{%
+     \ifnumcomp{\value{autooffsettrigger}}{=}{\value{autooffsetcounter}}{%
+        \addtocounter{sesoffset}{\theautooffset}%
+        \setcounter{autooffsetcounter}{1}%
+     }{\stepcounter{autooffsetcounter}}
+  }{}
   \ifx\empty#1
     \protected@eappto\programlist{\noexpand\begin{center} (#2) \noexpand\end{center}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}
@@ -582,8 +590,19 @@
   \csdef{@breakunits}{\empty}
   \csdef{@breakspan}{\empty}
   \setkeys{break}{#1}
-  \setcounter{sesunit}{\thesesunit+\csuse{@breakunits}}
-  \setcounter{cancellations}{\thecancellations+\csuse{@breakunits}}
+  \setcounter{breakunits}{\csuse{@breakunits}}
+  \setcounter{sesunit}{\thesesunit+\thebreakunits}
+  \setcounter{cancellations}{\thecancellations+\thebreakunits}
+  \setcounter{loopcounter}{0}
+  \loop\ifnum\theloopcounter<\thebreakunits\relax
+     \ifnumcomp{\value{autooffsettrigger}}{>}{0}{%
+        \ifnumcomp{\value{autooffsettrigger}}{=}{\value{autooffsetcounter}}{%
+          \addtocounter{sesoffset}{\theautooffset}%
+          \setcounter{autooffsetcounter}{1}%
+       }{\stepcounter{autooffsetcounter}}
+    }{}
+    \stepcounter{loopcounter}
+  \repeat
   \ifx\empty\csuse{@breakspan}
     \protected@eappto\programlist{\noexpand\begin{center} (#2) \noexpand\end{center}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}
