@@ -60,7 +60,7 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.0 (forthcoming):  - Lecture types and term types are not hardcoded anymore and can
+* V. 1.0 (2015-02-27):   - Lecture types and term types are not hardcoded anymore and can
                            be freely modified and extended via \DefLecType and \DefSemType.
                          - Add option to add the instructor's name to both the course
                            (via \LecInstructor or 'instructor' package option) and to

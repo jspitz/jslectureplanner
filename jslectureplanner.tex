@@ -29,7 +29,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.0dev, 2015/02/26}
+\date{Version 1.0, 2015/02/27}
 
 \maketitle
 
@@ -59,8 +59,9 @@ Since the package was written for my own needs, it is somewhat tied
 to my workflow. Particularly, it is tied to my context: teaching in
 the Humanities at a German-speaking university. Hence, the categorization
 of the package draws on this context. In particular, all strings and
-formats are German. However, it is possible to customize, extend and
-translate them to other languages. This is described later in this manual.
+formats are German. However, it is possible add new categories as well as
+to customize and translate the strings.
+This is described later in this manual.
 
 This manual describes the basic user interface of the package. Please
 also refer to the example files included in the package  in order to
@@ -106,7 +107,7 @@ or via specific macros (see sec.~\ref{sec:via-macros}).
 
 \subsubsection{Course classification\label{sec:lecture-classification}}
 
-The course classification draws on the conventions at German universities
+The default course classification draws on the conventions at German universities
 (or those where I have worked, for that matter). Each type is connected
 to a verbose string (such as ``Seminar''), a short form (such as
 ``SE'') and a form that is used to denote individual sessions (as
@@ -151,6 +152,9 @@ Also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
 \item \joption{ss}: Summer term (``Sommersemester'', short form: ``SoSe'')
 \item \joption{ws}: Winter term (``Wintersemester'', short form: ``WS'')
 \end{itemize}
+Sec.~\ref{sec:customizing-strings} explains how to customize and extend this list.
+Also cf. sec.~\ref{sec:styles}.
+
 \item [{year=<year>}]~
 \item [{uni=<university>}]~
 \item [{institute=<institute>}]~
@@ -171,7 +175,7 @@ must} have the form DD/MM/YYYY). If no startdate is given, \jfcsmacro{today} is 
 
 \subsection{Via macros\label{sec:via-macros}}
 
-The following macros provide an alternative interface to set up the course metadata.
+The following macros provide an alternative way to set up the course metadata.
 
 \subsubsection{Course classification}
 \begin{itemize}
@@ -193,8 +197,8 @@ description.}
 \begin{itemize}
 \item \jcsmacro{LecTitle[<package options>]\{<title>\}}: Record course title and options;
 \joption{<package options>} might be any set of package options described
-in sec.~\ref{sub:package-options} (except for \joption{title} itself),
-so this macro can actually be used to record all metadata.
+in sec.~\ref{sub:package-options}, so this macro can actually be used to record
+all metadata.
 \item \jcsmacro{LecTitleSep\{<title separator>\}}: Specify course
 title-subtitle separator (e.\,g., ``. '' or `` -- '')
 \item \jcsmacro{LecSubTitle\{<subtitle>\}}: Record course subtitle
@@ -222,8 +226,10 @@ the first session (argument\emph{ must} have the form DD/MM/YYYY)
       The preset interval is 7 (=~weekly courses).
 \item \jcsmacro{SetAutoOffset\{<n>\}\{<days>\}}: Automatically shift all subsequent sessions
       by <days> extra  days after every <n>th session. This is useful if you have each week
-      two regular sessions and then a pause until the next week (for instance, a Tuesday + Thursday course could
-      be defined via \jcsmacro{LecInterval\{2\}} and \jcsmacro{SetAutoOffset\{2\}\{3\}})
+      two regular sessions and then a pause until the next week (for instance, a Tuesday +
+      Thursday course could be defined via \jcsmacro{LecInterval\{2\}} and 
+      \jcsmacro{SetAutoOffset\{2\}\{3\}}). <n> must be a positive integer, <days> can 
+      also be a negative integer value.
 \end{itemize}
 
 \subsubsection{Additional information}
@@ -234,8 +240,6 @@ the first session (argument\emph{ must} have the form DD/MM/YYYY)
 \item \jcsmacro{SetPlatform\{<platform information>\}}: Record information
 (e.\,g., URL) of the e-learning platform
 \end{itemize}
-
-\clearpage
 
 \section{Setting up a course schedule\label{sec:lecplan}}
 
@@ -357,10 +361,9 @@ verbose form (e.\,g., ``Seminar'')
 course
 \item \jcsmacro{lectitlesep}: Outputs the separator between
 title and subtitle
-\item \jcsmacro{lecsubtitle}: Outputs the subtitle of the
-course
-\item \jcsmacro{lecfulltitle}: Outputs the full title of
-the course (title, separator, subtitle)
+\item \jcsmacro{lecsubtitle}: Outputs the subtitle of the course
+\item \jcsmacro{lecfulltitle}: Outputs the course's full title
+    (title, separator, subtitle)
 \item \jcsmacro{lecshorttitle}: Outputs the short version
 of the course title
 \item \jcsmacro{lecsemshort}: Outputs the short version of
@@ -385,8 +388,7 @@ e-learning platform
 \subsection{Generating course programs}
 \label{sec:lecprog}
 \begin{itemize}
-\item \jcsmacro{makeprogram}: Generates a course program
-from the metadata in the form
+\item \jcsmacro{makeprogram}: Generates a course program in the form:
 
 
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
@@ -628,9 +630,9 @@ Currently, the package ships two styles:
 \item \joption{cologne} provides some specifics current at the University of Cologne
      (\emph{Universität zu Köln}):
      \begin{itemize}
-      \item Additional course types: \joption{ak} (\emph{Arbeitskurs}),
-      \joption{as} (\emph{Aufbauseminar}), \joption{es} (\emph{Einführungsseminar}),
-      \joption{evl} (\emph{Einführungsvorlesung}), \joption{hs} (\emph{Hauptseminar}).
+      \item Additional course types: \joption{ak} (AK, \emph{Arbeitskurs}),
+      \joption{as} (AS, \emph{Aufbauseminar}), \joption{es} (ES, \emph{Einführungsseminar}),
+      \joption{evl} (EVL, \emph{Einführungsvorlesung}), \joption{hs} (HS, \emph{Hauptseminar}).
      \end{itemize}
      
 \end{enumerate}
@@ -642,7 +644,7 @@ them for inclusion to the package.
 \section{History}
 
 \begin{itemize}
-\item Forthcoming (v.\,1.0):
+\item 2015/02/27 (v.\,1.0):
      \begin{itemize}
        \item Lecture types and term types are not hardcoded anymore and can be freely
              modified and extended via \jcsmacro{DefLecType} and \jcsmacro{DefSemType}.
