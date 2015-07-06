@@ -60,6 +60,8 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
+* V. 1.1 (forthcoming):  - Permit \LecType and \LecYear in the document body (again).
+
 * V. 1.0.1 (2015-02-27): - Fix a regression introduced by v. 1.0 (\leccancel not properly
                            expanded).
 

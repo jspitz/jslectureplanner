@@ -29,7 +29,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.0.1, 2015/02/27}
+\date{Version 1.1dev, 2015/07/06}
 
 \maketitle
 
@@ -238,7 +238,7 @@ the first session (argument\emph{ must} have the form DD/MM/YYYY)
 \item \jcsmacro{SetOfficeHours\{<office hours>\}}: Record date of your office hours
 \item \jcsmacro{SetOfficeNumber\{<office number>\}}: Record your office number
 \item \jcsmacro{SetPlatform\{<platform information>\}}: Record information
-(e.\,g., URL) of the e-learning platform
+(such as URL) of the e-learning platform
 \end{itemize}
 
 \section{Setting up a course schedule\label{sec:lecplan}}
@@ -644,6 +644,10 @@ them for inclusion to the package.
 \section{History}
 
 \begin{itemize}
+\item Forthcoming (v. 1.1):
+     \begin{itemize}
+       \item Permit \jcsmacro{LecType} and \jcsmacro{LecYear} in the document body (again).
+     \end{itemize}
 \item 2015/02/27 (v.\,1.0.1):
      \begin{itemize}
        \item Fix a regression introduced by v. 1.0 (\jcsmacro{leccancel}

@@ -21,8 +21,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2015/02/27}
-\def\fileversion{1.0.1}
+\def\filedate{2015/07/06}
+\def\fileversion{1.1dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -157,12 +157,26 @@
 \newcounter{breakunits}
 \newcounter{loopcounter}
 
+%
+% HELPERS
+%
+
+% Helper command that uses etoolbox's \AtEndPreamble iff
+% we actually are in a preamble. If not, the argument is
+% output as is.
+\newcommand\AtEndPreambleIfInPreamble[1]{%
+  \ifx\@onlypreamble\@notprerr
+   #1
+  \else
+   \AtEndPreamble{#1}
+  \fi
+}
 
 %
 % PACKAGE OPTIONS
 %
 \define@key{lec}{lectype}{%
-  \AtEndPreamble{%
+  \AtEndPreambleIfInPreamble{%
     \ifcsundef{lectype@#1}{%
        \PackageError{jslectureplanner}{Lecture type '#1' is not defined!}{%
              Please consult the package manual for instructions how to define it}
@@ -175,7 +189,7 @@
 \DeclareOptionX{type}{\setkeys{lec}{lectype=#1}}
 
 \define@key{lec}{lecsem}{%
-  \AtEndPreamble{%
+  \AtEndPreambleIfInPreamble{%
     \ifcsundef{lecsemshort@#1}{%
        \PackageError{jslectureplanner}{Semester type '#1' is not defined!}{%
              Please consult the package manual for instructions how to define it}
