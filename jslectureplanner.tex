@@ -24,7 +24,7 @@
 
 \begin{document}
 
-\title{The \texttt{jslectureplanner} bundle}
+\title{The \emph{jslectureplanner} bundle}
 
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
@@ -344,8 +344,8 @@ Possible \jmacro{<options>} are:
 the beamer program at this position (more precisely, start a new frame).
 This also increments the frame counter which is used for subsequent program
 frame titles. Note that you can insert maximally 3 breaks.
-\item \jcsmacro{SetBeamerHook\{<code>\}}: Add arbitrary \LaTeX{}
-code to the beamer program
+\item \jcsmacro{SetBeamerHook\{<code>\}}: Add arbitrary LaTeX code to the
+beamer program
 \item \jcsmacro{begin\{SessionBlock\}\{<Block title>\}}\\
 \ldots{} \\
 \jcsmacro{end\{SessionBlock\}}:\\
@@ -773,12 +773,13 @@ See above section~\ref{sec:styles} for details on styles.
 
 \subsection{Generating a presence table}
 
-Presence tables consist of a row where your students fill in their name and rows
+Presence tables consist of rows where your students fill in their name and columns
 for each session of your course where the students can sign and mark their presence
 in the respective session.
 The package provides two kinds of presence tables. The first one requires the
 \textsf{jslectureplanner} package and uses the course metadata in order
-to generate a matching number of rows with the respective session date as row header.
+to generate a matching number of columns with the respective session date as
+column header.
 If you use \textsf{jslectureplanner} anyway to generate your course material,
 this is the most convenient approach.
 
@@ -811,7 +812,7 @@ a preset number of sessions, namely 15.
 
 For courses of 2--16 sessions, the package tries to produce reasonably sized tables that
 fit the page width. From 7 sessions upwards, two separate tables, each for half a semester,
-are produced.
+are produced. In general, it is assumed that you use landscape page format for presence tables.
 
 The header strings can be adjusted by redefining the following
 macros (using \jfcsmacro{renewcommand*}), for instance like this:
