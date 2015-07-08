@@ -39,9 +39,8 @@ I have written in order to facilitate (and somewhat systematize)
 the planning of my university courses and to generate the basic material.
 Currently, it consists of the main, title-giving package \textsf{jslectureplanner}
 that provides an interface to central, partially dynamically calculated course metadata,
-and two smaller companion packages: \textsf{jsmembertable}, a package to generate
-course member tables and \textsf{jspreslist}, a package to generate a list of student
-presentations. This manual documents all these packages.
+and one smaller companion package: \textsf{jsmembertable}, a package to generate
+course member tables. This manual documents these packages.
 \end{abstract}
 
 \tableofcontents
@@ -85,7 +84,7 @@ This is described later in this manual.
 \section{Requirements of \emph{jslectureplanner}}
 
 The following packages are required by \textsf{jslectureplanner}: \textsf{etoolbox}, \textsf{advdate},
-\textsf{xkeyval}, \textsf{datetime}, \textsf{calc}.
+\textsf{xkeyval}, \textsf{datetime}, \textsf{calc}, \textsf{ifthen}.
 
 
 \section{General idea}
@@ -479,6 +478,56 @@ option, and tag your Bib\TeX{} database entries with that keyword,
 you will get a list of session-specific literature.
 
 
+\subsection{Generating student presentation lists}
+
+The package provides macros to produce a list with the name of the students presenting
+stuff, or generally being particularly involved, in specific sessions.
+
+The names of the presenting students are assigned in the metadata to specific sessions
+by means of the \joption{presstudents} option of the \jcsmacro{NewSession} command
+(see above sec.~\ref{ses-add}). The macro
+
+\begin{quote}
+\jcsmacro{makepreslist}
+\end{quote}
+outputs a list that consists of the session dates and titles as well as the names of the
+presenting students, i.\,e., it expands to code in the form:
+
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
+\begin{labeling}{\lecprogramlistindent}
+\item[<short date>] <session full title>\par
+                    <presenting students>
+...
+\end{labeling}
+\end{lstlisting}
+If no presenting students have been assigned to a given session,
+an em-dash (---) is output instead.
+
+A starred version of the macro outputs a ``blank'' presentation list that just consists of
+the session dates and titles with enough space to fill in student names manually.
+This version might be useful to schedule the presentations of your students in the first
+session:
+
+\begin{quote}
+\jcsmacro{makepreslist*}
+\end{quote}
+For beamer presentations, finally, a specific macro
+
+\begin{quote}
+\jcsmacro{makebeamerpreslist}
+\end{quote}
+is provided (with no starred version). The main difference is the more compact design that makes
+the list fit better on a slide.
+
+If you want to start your presentation list only from a given session number (e.\,g., since you
+do not have any presentations in the first session of the course), you can use
+
+\begin{quote}
+\jcsmacro{setfirstpressession\{<session number>\}}
+\end{quote}
+to set the first session number to be printed on the list.
+
+
 \section{Retrieving session-specific information\label{sec:session-specific-info}}
 
 In session-specific documents, you also need information specific
@@ -789,77 +838,6 @@ linked to \textsf{jslectureplanner}'s \jcsmacro{lectypesession} value if
 \textsf{jslectureplanner} is loaded before \textsf{jsmembertable}.
 
 
-\section{The \emph{jspreslist} package}
-
-This section of the manual describes the user interface of the \textsf{jspreslist}
-package. Please also refer to the example files included in the bundle.
-
-\subsection{Aim of this package}
-
-This package provides a way to generate lists of student presentations.
-It uses the metadata of the \textsf{jslectureplanner} package 
-(see part~I of this manual for details on metadata).
-
-
-\subsection{Requirements of \emph{jspreslist}}
-
-The following packages are required by \textsf{jspreslist}: \textsf{ifthen}, \textsf{calc},
-\textsf{etoolbox}, \textsf{jslectureplanner}.
-
-\subsection{Loading the package}
-
-The package is loaded like this:
-\begin{quote}
-\jcsmacro{usepackage\{jspreslist\}}
-\end{quote}
-Currently, no package options are available.
-
-\subsection{Generating a blank presentation list}
-
-In order to schedule the presentations of your students in the first session, you might
-want a list just consisting the session dates and titles with enough space to fill in
-student names. Given that your metadata is set up correctly and that
-\textsf{jslectureplanner} and the metadata are loaded \emph{before} \textsf{jspreslist},
-it is as simple as
-
-\begin{quote}
-\jcsmacro{makepreslist*}
-\end{quote}
-If you want to start your presentations only from a given session number, you can use
-
-\begin{quote}
-\jcsmacro{setfirstsession\{<session number>\}}
-\end{quote}
-to set the first session number to be printed on the list.
-
-\subsection{Generating a filled-in presentation list}
-
-If you have collected the names of the presenting students, you can assign them in the
-metadata to specific sessions by the \joption{presstudents} option of the
-\jcsmacro{NewSession} command (see above sec.~\ref{ses-add}). If you have done so,
-and given that \textsf{jslectureplanner} and the metadata are loaded \emph{before}
-\textsf{jspreslist}, the unstarred macro
-
-\begin{quote}
-\jcsmacro{makepreslist}
-\end{quote}
-will output a list using the names of the presenting students. If no presenting
-students have been assigned for a session, an em-dash (---) will be output instead.
-Again,if you want to start your presentations only from a given session number, you can use
-
-\begin{quote}
-\jcsmacro{setfirstsession\{<session number>\}}
-\end{quote}
-to set the first session number to be printed on the list.
-
-For beamer presentations, a specific macro
-
-\begin{quote}
-\jcsmacro{makebeamerpreslist}
-\end{quote}
-is provided (no starred version). The main difference is the more compact design that makes
-this fit better on a slide.
-
 \clearpage
 
 \part{Appendix}
@@ -870,8 +848,10 @@ this fit better on a slide.
 \begin{itemize}
 \item Forthcoming (v. 1.1dev):
      \begin{itemize}
-       \item Include and document the \textsf{jsmembertable} and \textsf{jspreslist}
-             packages.
+       \item Include and document the \textsf{jsmembertable} package.
+       \item Add support for student presentation lists (new macros \jcsmacro{makepreslist},
+             \jcsmacro{makepreslist*}, \jcsmacro{makebeamerpreslist} and
+             \jcsmacro{setfirstpressession}).
      \end{itemize}
 \item 2015/07/07 (v. 1.0.2):
      \begin{itemize}

@@ -21,9 +21,8 @@ Furthermore, it is able to calculate the session dates of a whole semester
 and generate course programs, if the sessions follow at regular intervals
 and the date of the first session is specified. Moreover, it can be used
 to generate a sectioned course bibliography via biblatex.
-Next to the main, title-giving package, the bundle includes specific
-packages that help generating course member and presence lists as well as
-lists of student presentations.
+Next to the main, title-giving package, the bundle includes a package
+that helps generating course member and presence lists.
 
 
 == CONTENTS ==
@@ -32,7 +31,6 @@ The package consists of the following files:
 
 * jslectureplanner.sty (the main LaTeX package)
 * jsmembertable.sty (LaTeX package to generate course member and presence lists)
-* jspreslist.sty (LaTeX package to generate lists of student presentations)
 * german-default.lps (German 'model' style file with default settings)
 * cologne.lps (German style file attempted at the Univ. of Cologne)
 * jslectureplanner.pdf (documentation)
@@ -70,8 +68,10 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.1 (forthcoming):  - Include and document the companion packages jsmembertable and
-                           jspreslist.
+* V. 1.1 (forthcoming):  - Include and document the companion package jsmembertable.
+                         - Add support for student presentation lists (new macros
+                           \makepreslist, \makepreslist*, \makebeamerpreslist and
+                           \jsetfirstpressession).
 
 * V. 1.0.2 (2015-07-07): - Permit \LecType and \LecYear in the document body again
                            (fix a regression introduced in v. 1.0).

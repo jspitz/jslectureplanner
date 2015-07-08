@@ -40,6 +40,7 @@
 \RequirePackage{xkeyval}
 \RequirePackage{datetime}
 \RequirePackage{calc}
+\RequirePackage{ifthen}
 
 
 %
@@ -700,6 +701,61 @@
 % (E-learning) platform
 \newcommand\SetPlatform[1]{%
   \def\lecplatform{#1}%
+}
+
+
+%
+% 6) Student presentations
+%
+
+\newcounter{pressession}
+
+% Allow to change first output session
+\newcommand*\setfirstpressession[1]{%
+  \setcounter{pressession}{#1}
+}
+
+% Generate presentation list
+\newcommand\makepreslist{%
+  \@ifstar{\@makeblankpreslist}{\@makepreslist}%
+}
+% Unstarred: use sespresstudents
+\newcommand\@makepreslist{%
+  \begin{labeling}{\lecprogramlistindent}
+  \whiledo {\not{\value{pressession} > \value{snum}}}%
+  {%
+    \ThisSession{\thepressession}%
+    \if\relax\sespresstudents\relax
+    \MakeProgramline{\thepressession}\par
+     ---
+    \else
+    \MakeProgramline{\thepressession}\par
+    \SessionPresStudents{\thepressession}
+    \fi
+    \stepcounter{pressession}%
+  }
+  \end{labeling}
+}
+% Starred: blank list
+\newcommand\@makeblankpreslist{%
+  \begin{labeling}{\lecprogramlistindent}
+  \whiledo {\not{\value{pressession} > \value{snum}}}%
+  {%
+    \MakeProgramline{\thepressession}\vspace{2\baselineskip}
+    \stepcounter{pressession}%
+  }
+  \end{labeling}
+}
+
+% A beamer-specific version
+\newcommand\makebeamerpreslist{%
+  \begin{description}[\lecprogramlistindent]
+  \whiledo {\not{\value{pressession} > \value{snum}}}%
+  {%
+    \MakeProgramline{\thepressession}: \SessionPresStudents{\thepressession}
+    \stepcounter{pressession}%
+  }
+  \end{description}
 }
 
 
