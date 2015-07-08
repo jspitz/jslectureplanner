@@ -709,10 +709,18 @@
 %
 
 \newcounter{pressession}
+\newcounter{lastpressession}
+\providebool{deflastpressession}
 
 % Allow to change first output session
 \newcommand*\setfirstpressession[1]{%
-  \setcounter{pressession}{#1}
+  \setcounter{pressession}{#1}%
+}
+
+% Allow to change last output session
+\newcommand*\setlastpressession[1]{%
+  \setcounter{lastpressession}{#1}%
+  \booltrue{deflastpressession}%
 }
 
 % Generate presentation list
@@ -721,8 +729,9 @@
 }
 % Unstarred: use sespresstudents
 \newcommand\@makepreslist{%
+  \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
   \begin{labeling}{\lecprogramlistindent}
-  \whiledo {\not{\value{pressession} > \value{snum}}}%
+  \whiledo {\not{\value{pressession} > \value{lastpressession}}}%
   {%
     \ThisSession{\thepressession}%
     \if\relax\sespresstudents\relax
@@ -738,8 +747,9 @@
 }
 % Starred: blank list
 \newcommand\@makeblankpreslist{%
+  \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
   \begin{labeling}{\lecprogramlistindent}
-  \whiledo {\not{\value{pressession} > \value{snum}}}%
+  \whiledo {\not{\value{pressession} > \value{lastpressession}}}%
   {%
     \MakeProgramline{\thepressession}\vspace{2\baselineskip}
     \stepcounter{pressession}%
@@ -749,8 +759,9 @@
 
 % A beamer-specific version
 \newcommand\makebeamerpreslist{%
+  \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
   \begin{description}[\lecprogramlistindent]
-  \whiledo {\not{\value{pressession} > \value{snum}}}%
+  \whiledo {\not{\value{pressession} > \value{lastpressession}}}%
   {%
     \MakeProgramline{\thepressession}: \SessionPresStudents{\thepressession}
     \stepcounter{pressession}%

@@ -70,8 +70,8 @@ instructions; also have a look at the example files.
 
 * V. 1.1 (forthcoming):  - Include and document the companion package jsmembertable.
                          - Add support for student presentation lists (new macros
-                           \makepreslist, \makepreslist*, \makebeamerpreslist and
-                           \jsetfirstpressession).
+                           \makepreslist, \makepreslist*, \makebeamerpreslist,
+                           \jsetfirstpressession and \jsetlastpressession).
 
 * V. 1.0.2 (2015-07-07): - Permit \LecType and \LecYear in the document body again
                            (fix a regression introduced in v. 1.0).

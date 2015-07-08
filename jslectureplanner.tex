@@ -525,7 +525,11 @@ do not have any presentations in the first session of the course), you can use
 \begin{quote}
 \jcsmacro{setfirstpressession\{<session number>\}}
 \end{quote}
-to set the first session number to be printed on the list.
+to set the first session number to be printed on the list. Likewise, 
+\begin{quote}
+\jcsmacro{setlastpressession\{<session number>\}}
+\end{quote}
+can be used to determine the last session number to be printed on the list.
 
 
 \section{Retrieving session-specific information\label{sec:session-specific-info}}
@@ -851,8 +855,8 @@ linked to \textsf{jslectureplanner}'s \jcsmacro{lectypesession} value if
      \begin{itemize}
        \item Include and document the \textsf{jsmembertable} package.
        \item Add support for student presentation lists (new macros \jcsmacro{makepreslist},
-             \jcsmacro{makepreslist*}, \jcsmacro{makebeamerpreslist} and
-             \jcsmacro{setfirstpressession}).
+             \jcsmacro{makepreslist*}, \jcsmacro{makebeamerpreslist},
+             \jcsmacro{setfirstpressession} and \jcsmacro{setlastpressession}).
      \end{itemize}
 \item 2015/07/07 (v. 1.0.2):
      \begin{itemize}
