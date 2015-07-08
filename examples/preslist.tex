@@ -1,0 +1,37 @@
+% Example file, part of the package jslectureplanner
+%
+% Example of a course presentation list generated with jslectureplanner
+% and jspreslist
+
+\documentclass[ngerman]{article}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+
+\usepackage{jslectureplanner}
+\input{metadata.tex}
+
+\usepackage{jspreslist}
+
+\usepackage{babel}
+
+\begin{document}
+
+\title{\lectype\ \lecfulltitle}
+
+\author{\lecinstructor}
+
+\date{\lecsemester}
+
+\maketitle
+
+\section*{Student presentations}
+
+\setfirstsession{2}
+
+\makepreslist
+
+% Blank presentaion list
+% \makepreslist*
+
+\end{document}
