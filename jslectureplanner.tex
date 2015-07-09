@@ -1,7 +1,7 @@
 \documentclass[english]{article}
 
-\usepackage{charter}
-\usepackage[scaled=0.87]{beramono}
+\usepackage[osf]{libertine}
+\usepackage[scaled=0.7]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{url}
@@ -12,6 +12,10 @@
 \newcommand*\joption[1]{\textbf{\texttt{#1}}}
 \newcommand*\jfmacro[1]{\texttt{#1}}
 \newcommand*\jfcsmacro[1]{\jfmacro{\textbackslash{#1}}}
+
+% macros
+\newcommand*\jslp{\textsf{jslectureplanner}}
+\newcommand*\jsmt{\textsf{jsmembertable}}
 
 \usepackage{babel}
 \usepackage{listings}
@@ -24,7 +28,7 @@
 
 \begin{document}
 
-\title{The \emph{jslectureplanner} bundle}
+\title{The \jslp\ bundle}
 
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
@@ -34,29 +38,30 @@
 \maketitle
 
 \begin{abstract}
-\noindent The \textsf{jslectureplanner} bundle provides a collection of packages
+\noindent The \jslp\ bundle provides a collection of packages
 I have written in order to facilitate (and somewhat systematize)
-the planning of my university courses and to generate the basic material.
-Currently, it consists of the main, title-giving package \textsf{jslectureplanner}
-that provides an interface to central, partially dynamically calculated course metadata,
-and one smaller companion package: \textsf{jsmembertable}, a package to generate
-course member tables. This manual documents these packages.
+the planning of my university courses and the generation of course material.
+Currently, it consists of the main, title-giving package \jslp\
+that provides an interface to central, partly dynamically generated course
+metadata as well as routines to generate programs, bibliographies etc., and one
+smaller companion package: \jsmt, a package that can construct course
+member and presence tables. This manual documents these packages.
 \end{abstract}
 
 \tableofcontents
 
 \clearpage
 
-\part{The \emph{jslectureplanner} package}
+\part{The \jslp\ package}
 
 This part of the manual describes the basic user interface of the
-\textsf{jslectureplanner} package.
+\jslp\ package.
 Please also refer to the example files included in the bundle in order to
-see how it is supposed to be used ``in practice''.
+see how \jslp\ is supposed to be used ``in practice''.
 
 \section{Aim of this package}
 
-The basic idea of the \textsf{jslectureplanner} package is that you record
+The basic idea of the \jslp\ package is that you record
 all general data of a course (date, semester, type, course title, session titles,
 general information etc.) in a central tex file and then input this
 file to all documents related to the course (such as the course program,
@@ -66,7 +71,7 @@ This is particularly helpful if you have standard courses which
 are held every other semester: instead of changing the data in every
 single file, you just need to change it once, in the metadata file.
 
-To further facilitate the planning, the \textsf{jslectureplanner} package
+To further facilitate the planning, the \jslp\ package
 is able to calculate the session dates of a whole semester, if the sessions
 of the course follow at regular intervals.
 You only need to set the date of the first session, the package does
@@ -81,10 +86,18 @@ formats are German. However, it is possible to add new categories as
 well as to customize and translate the strings.
 This is described later in this manual.
 
-\section{Requirements of \emph{jslectureplanner}}
+\section{Requirements of \jslp}
 
-The following packages are required by \textsf{jslectureplanner}: \textsf{etoolbox}, \textsf{advdate},
-\textsf{xkeyval}, \textsf{datetime}, \textsf{calc}, \textsf{ifthen}.
+The following packages are required and loaded by \jslp:
+\begin{itemize}
+ \setlength\itemsep{2pt}
+ \item \textsf{advdate}
+ \item \textsf{calc}
+ \item \textsf{datetime}
+ \item \textsf{etoolbox}
+ \item \textsf{ifthen}
+ \item \textsf{xkeyval}
+\end{itemize}
 
 
 \section{General idea}
@@ -120,13 +133,13 @@ or via specific macros (see sec.~\ref{sec:via-macros}).
 
 \subsubsection{Course classification\label{sec:lecture-classification}}
 
-The default course classification draws on the conventions at German universities
-(or those where I have worked, for that matter). Each type is connected
-to a verbose string (such as ``Seminar''), a short form (such as
+The default course classification draws on the conventions at German-speaking
+universities (or those where I have worked, for that matter). Each type is
+connected to a verbose string (such as ``Seminar''), a short form (such as
 ``SE'') and a form that is used to denote individual sessions (as
 in ``the second \emph{session} of this course'').
 \begin{description}
-\item [{type=<type>}] Defines the course type. Preset values:
+\item [{type=<type>}] Defines the course type. Predefined values are:
 
 \begin{itemize}
 \item \joption{vl}: A lecture (verbose form: ``Vorlesung''\footnote{Sec.~\ref{sec:customizing-strings}
@@ -172,9 +185,10 @@ Also cf. sec.~\ref{sec:styles}.
 \item [{uni=<university>}]~
 \item [{institute=<institute>}]~
 \item [{room=<room>}]~
-\item [{startdate=<startdate>}] Date of the first session (argument\emph{
-must} have the form DD/MM/YYYY). If no startdate is given, \jfcsmacro{today} is used.
-\item [{interval=<interval>}] Interval (in days) between two sessions.
+\item [{startdate=<startdate>}] The date of the first session (the argument
+      \emph{must} have the form DD/MM/YYYY). If no startdate is given,
+      \jfcsmacro{today} is used.
+\item [{interval=<interval>}] The interval (in days) between two sessions.
       The preset interval is 7 (=~weekly courses).
 \end{description}
 
@@ -212,8 +226,8 @@ description.}
 \joption{<package options>} might be any set of package options described
 in sec.~\ref{sub:package-options}, so this macro can actually be used to record
 all metadata.
-\item \jcsmacro{LecTitleSep\{<title separator>\}}: Specify course
-title-subtitle separator (e.\,g., ``. '' or `` -- '')
+\item \jcsmacro{LecTitleSep\{<title separator>\}}: Specify a separator between course
+title and subtitle (e.\,g., ``. '' or `` -- '')
 \item \jcsmacro{LecSubTitle\{<subtitle>\}}: Record course subtitle
 \end{itemize}
 
@@ -233,8 +247,8 @@ description.}
 your university
 \item \jcsmacro{LecInstitute\{<institute>\}}: Record your institute's name
 \item \jcsmacro{LecRoom\{<room>\}}: Record the room where the course takes place
-\item \jcsmacro{LecStartDate\{<startdate>\}}: Set date of
-the first session (argument\emph{ must} have the form DD/MM/YYYY)
+\item \jcsmacro{LecStartDate\{<startdate>\}}: Set the date of
+the first session (the argument \emph{must} have the form DD/MM/YYYY)
 \item \jcsmacro{LecInterval\{<interval>\}}: Adjust the interval (in days) between two sessions.
       The preset interval is 7 (=~weekly courses).
 \item \jcsmacro{SetAutoOffset\{<n>\}\{<days>\}}: Automatically shift all subsequent sessions
@@ -273,6 +287,7 @@ Valid \joption{<options>}:
 \item \joption{instructor=<name>}: Specific instructor for this session
     (if it differs from the usual course instructor)
 \item \joption{presstudents=<names>}: Students presenting in this session
+    (used for student presentation lists, see below sec.~\ref{sec:preslists})
 \item \joption{room=<room>}: Specific room for this session (if it differs
     from the usual course room)
 \item \joption{bibsec=<keyword>}: Session keyword for the bibliography
@@ -441,7 +456,7 @@ a beamer-suited lecture program from the metadata in the form
 \joption{<options>} can be one of
 \begin{itemize}
 \item \joption{title=<title>}: Program title (<Heading>)
-\item \joption{options=<bfoptions>}: Beamer frame options. Note that yey-value
+\item \joption{options=<bfoptions>}: Beamer frame options. Note that key-value
     beamer frame options need to be embraced, as in\\
     \jcsmacro{makebeamerprogram[options=\{shrink=10\}]}
 \end{itemize}
@@ -478,7 +493,7 @@ option, and tag your Bib\TeX{} database entries with that keyword,
 you will get a list of session-specific literature.
 
 
-\subsection{Generating student presentation lists}
+\subsection{Generating student presentation lists}\label{sec:preslists}
 
 The package provides macros to produce a list with the name of the students presenting
 stuff, or generally being particularly involved, in specific sessions.
@@ -710,9 +725,9 @@ them for inclusion to the package.
 
 \part{Companion packages}
 
-\section{The \emph{jsmembertable} package}
+\section{The \jsmt\ package}
 
-This section of the manual describes the user interface of the \textsf{jsmembertable}
+This section of the manual describes the user interface of the \jsmt\
 package. Please also refer to the example files included in the bundle.
 
 \subsection{Aim of this package}
@@ -722,22 +737,28 @@ university course (a table where your students can
 fill in names, student IDs and e-mail adresses) and a table to record their presence,
 should this be a requisite at your institute.
 
-The package somewhat integrates with \textsf{jslectureplanner} and can use the
+The package somewhat integrates with \jslp\ and can use the
 metadata and styles of that package where necessary (see part~I of this
 manual for details on metadata and styles).
 
 Since the package was written for my own needs, the table design might not fit yours.
 However, with some basic LaTeX knowledge, it should not be too hard to adapt it.
-Like for \textsf{jslectureplanner}, the default strings are German.
+Like for \jslp, the default strings are German.
 However, it is possible to customize and translate them.
 This is described later in this manual.
 
 
-\subsection{Requirements of \emph{jsmembertable}}
+\subsection{Requirements of \jsmt}
 
-The following packages are required by \textsf{jsmembertable}: \textsf{ifthen}, \textsf{calc},
-\textsf{longtable}, \textsf{hhline}; \textsf{jsmembertable} can be used independently of
-\textsf{jslectureplanner} to some degree. The latter package is only
+The following packages are required and loaded by \jsmt: 
+\begin{itemize}
+ \item \textsf{ifthen}
+ \item \textsf{calc}
+ \item \textsf{longtable}
+ \item \textsf{hhline}
+\end{itemize}
+\jsmt\ can be used independently of
+\jslp\ to some degree. The latter package is only
 required for specific features (see below) and must be loaded explicitly.
 
 \subsection{Loading the package}
@@ -769,10 +790,13 @@ macros (using \jfcsmacro{renewcommand*}), for instance like this:
 % Email
 \renewcommand*\jsemailheader{\textbf{Email address}}
 \end{lstlisting}
-If you use the \textsf{jslectureplanner} package, you can use the \textsf{jslectureplanner}
-style files in order to store those redefinitions globally. Of course, you need
-to load \textsf{jslectureplanner} with the respective \joption{style} option then
-(\emph{before} \textsf{jsmembertable}).
+If you use the \jslp\ package, you can use the \jslp\
+style files in order to store those redefinitions globally.
+See the \texttt{german-default.lps} style file for a model.\footnote{%
+Note that within styles, you must use \jfcsmacro{newcommand*} instead of
+\jfcsmacro{renewcommand*}, since the styles are loaded before the \jsmt\ package.}
+Of course, you need to load \jslp\ with the respective \joption{style} option then
+(\emph{before} \jsmt).
 See above section~\ref{sec:styles} for details on styles.
 
 \subsection{Generating a presence table}
@@ -781,14 +805,14 @@ Presence tables consist of rows where your students fill in their name and colum
 for each session of your course where the students can sign and mark their presence
 in the respective session.
 The package provides two kinds of presence tables. The first one requires the
-\textsf{jslectureplanner} package and uses the course metadata in order
+\jslp\ package and uses the course metadata in order
 to generate a matching number of columns with the respective session date as
 column header.
-If you use \textsf{jslectureplanner} anyway to generate your course material,
+If you use \jslp\ anyway to generate your course material,
 this is the most convenient approach.
 
-You must load the \textsf{jslectureplanner} package and input the metadata file
-\emph{before} \textsf{jsmembertable} if you want to use this feature (the package yields
+You must load the \jslp\ package and input the metadata file
+\emph{before} \jsmt\ if you want to use this feature (the package yields
 a warning otherwise). Then just insert:
 
 \begin{quote}
@@ -805,12 +829,12 @@ The second kind of presence table is provided via the starred version of the com
 \begin{quote}
 \jcsmacro{makeprestable*[<number of sessions>]\{<number of students>\}}
 \end{quote}
-This one also works without \textsf{jslectureplanner}. As opposed to the unstarred version,
+This one also works without \jslp. As opposed to the unstarred version,
 it does not print the session dates as column headers, but ``Session <nr>'' with an
-accelerating number. Like with the unstarred version, if the \textsf{jslectureplanner}
+accelerating number. Like with the unstarred version, if the \jslp\
 metadata is used/available, the number of sessions is calculated from the metadata,
 if you do not pass a different number via the optional argument.
-If the \textsf{jslectureplanner} metadata is not
+If the \jslp\ metadata is not
 used/available, and no column number is given via the optional argument, the table will use
 a preset number of sessions, namely 15.
 
@@ -832,15 +856,19 @@ macros (using \jfcsmacro{renewcommand*}), for instance like this:
 % The advice for students to sign
 \renewcommand*\jssigheader{Students' signature}
 \end{lstlisting}
-Again, if you use \textsf{jslectureplanner}, you can use the \textsf{jslectureplanner}
-style files in order to store those redefinitions globally. Of course, you need
-to load \textsf{jslectureplanner} with the respective \joption{style} option then
-(\emph{before} \textsf{jsmembertable}).
+Again, if you use \jslp, you can use the \jslp\
+style files in order to store those redefinitions globally.
+See the \texttt{german-default.lps} style file for a model.\footnote{%
+Note that within styles, you must use \jfcsmacro{newcommand*} instead of
+\jfcsmacro{renewcommand*}, since the styles are loaded before the \jsmt\ package.}
+Of course, you need to load \jslp\ with the respective \joption{style} option then
+(\emph{before} \jsmt).
 See above section~\ref{sec:styles} for details on styles.
 
 Note, furthermore, that the ``Session'' string (value of \jcsmacro{jsmsession}) is by default
-linked to \textsf{jslectureplanner}'s \jcsmacro{lectypesession} value if
-\textsf{jslectureplanner} is loaded before \textsf{jsmembertable}.
+linked to \jslp's \jcsmacro{lectypesession} value if 
+\jslp\ is loaded before \jsmt. So if \jcsmacro{lectypesession} fits, you do not have to redefine
+\jcsmacro{jsmsession}.
 
 
 \clearpage
@@ -853,7 +881,7 @@ linked to \textsf{jslectureplanner}'s \jcsmacro{lectypesession} value if
 \begin{itemize}
 \item Forthcoming (v. 1.1dev):
      \begin{itemize}
-       \item Include and document the \textsf{jsmembertable} package.
+       \item Include and document the \jsmt\ package.
        \item Add support for student presentation lists (new macros \jcsmacro{makepreslist},
              \jcsmacro{makepreslist*}, \jcsmacro{makebeamerpreslist},
              \jcsmacro{setfirstpressession} and \jcsmacro{setlastpressession}).
