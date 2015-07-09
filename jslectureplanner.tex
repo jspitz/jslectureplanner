@@ -139,7 +139,7 @@ connected to a verbose string (such as ``Seminar''), a short form (such as
 ``SE'') and a form that is used to denote individual sessions (as
 in ``the second \emph{session} of this course'').
 \begin{description}
-\item [{type=<type>}] Defines the course type. Predefined values are:
+\item [\joption{type=<type>}] defines the course type. Predefined values are:
 
 \begin{itemize}
 \item \joption{vl}: A lecture (verbose form: ``Vorlesung''\footnote{Sec.~\ref{sec:customizing-strings}
@@ -162,15 +162,15 @@ Also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
 
 \subsubsection{Course title}
 \begin{description}
-\item [{title=<title>}] Main title of the course
-\item [{titlesep=<separator>}] Separator between title and subtitle
-\item [{subtitle=<subtitle>}] Subtitle of the course
-\item [{shorttitle=<shorttitle>}] Short title of the course (for headings etc.)
+\item [\joption{title=<title>}] Main title of the course
+\item [\joption{titlesep=<separator>}] Separator between title and subtitle
+\item [\joption{subtitle=<subtitle>}] Subtitle of the course
+\item [\joption{shorttitle=<shorttitle>}] Short title of the course (for headings etc.)
 \end{description}
 
 \subsubsection{Date and place\label{sec:date-and-place}}
 \begin{description}
-\item [{semester=<term>,}] where \joption{<term>} is one of
+\item [\joption{semester=<term>,}] where \joption{<term>} is one of
 
 \begin{itemize}
 \item \joption{fs}: Spring term (``Frühjahrssemester'', short form: ``FS'')
@@ -181,23 +181,23 @@ Also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
 Sec.~\ref{sec:customizing-strings} explains how to customize and extend this list.
 Also cf. sec.~\ref{sec:styles}.
 
-\item [{year=<year>}]~
-\item [{uni=<university>}]~
-\item [{institute=<institute>}]~
-\item [{room=<room>}]~
-\item [{startdate=<startdate>}] The date of the first session (the argument
+\item [\joption{year=<year>}] Year of the course
+\item [\joption{uni=<university>}] Your university
+\item [\joption{institute=<institute>}] Your institute/department
+\item [\joption{room=<room>}] The room the course takes place (generally)
+\item [\joption{startdate=<startdate>}] The date of the first session (the argument
       \emph{must} have the form DD/MM/YYYY). If no startdate is given,
       \jfcsmacro{today} is used.
-\item [{interval=<interval>}] The interval (in days) between two sessions.
+\item [\joption{interval=<interval>}] The interval (in days) between two sessions.
       The preset interval is 7 (=~weekly courses).
 \end{description}
 
 \subsubsection{Additional information}
 \begin{description}
-\item [{instructor=<name>}] Instructor's name
-\item [{platform=<data>}] Information (e.\,g., URL) of the e-learning platform
-\item [{officehours=<data>}] Date of your office hours
-\item [{officenumber=<data>}] Your office number
+\item [\joption{instructor=<name>}] Instructor's name
+\item [\joption{platform=<data>}] Information (e.\,g., URL) of the e-learning platform
+\item [\joption{officehours=<data>}] Date of your office hours
+\item [\joption{officenumber=<data>}] Your office number
 \end{description}
 
 \subsection{Via macros\label{sec:via-macros}}
@@ -245,8 +245,8 @@ description.}
 \end{itemize}
 \item \jcsmacro{LecUni\{<university>\}}: Record the name of
 your university
-\item \jcsmacro{LecInstitute\{<institute>\}}: Record your institute's name
-\item \jcsmacro{LecRoom\{<room>\}}: Record the room where the course takes place
+\item \jcsmacro{LecInstitute\{<institute>\}}: Record your institute's/department's name
+\item \jcsmacro{LecRoom\{<room>\}}: Record the room where the course (generally) takes place
 \item \jcsmacro{LecStartDate\{<startdate>\}}: Set the date of
 the first session (the argument \emph{must} have the form DD/MM/YYYY)
 \item \jcsmacro{LecInterval\{<interval>\}}: Adjust the interval (in days) between two sessions.
