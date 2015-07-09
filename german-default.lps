@@ -3,7 +3,7 @@
 %%
 %% Default German style for lecture planning
 %%
-%% This file is part of the jslectureplanner package.
+%% This file is part of the jslectureplanner bundle.
 %%
 %% Author: Juergen Spitzmueller <juergen.spitzmueller@univie.ac.at>
 %%
@@ -22,6 +22,10 @@
 %% Code repository and issue tracker: https://github.com/jspitz/jslectureplanner
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% Default strings (German) used by the jslectureplanner package
+%
 
 % Lecture types
 \DefLecType{vl}{VL}{Vorlesung}{Vorlesung}% lecture
@@ -51,5 +55,27 @@
 
 % Indentation of program list
 \renewcommand*\lecprogramlistindent{\textbf{88.\,88.}}
+
+%
+% Strings used by the jsmembertable package
+% NOTE that these have to be defined via \newcommand
+%
+
+% 1.) Session column header
+\newcommand*\jsmsession{\lectypesession}%
+\newcommand*\jsmsessionheader{\textbf{\thesession.~\jsmsession}}%
+
+% 2.) Student Name
+\newcommand*\jsmnameheader{\textbf{Name, Vorname}}
+
+% 3.) Student ID
+\newcommand*\jsmidheader{\textbf{Matrikel-Nr.}}
+
+% 3.) E-Mail
+\newcommand*\jsemailheader{\textbf{E-Mail-Adresse}}
+
+% 4.) Signature advice
+\newcommand*\jssigheader{Unterschrift Teilnehmer*innen}
+
 
 % Finis
