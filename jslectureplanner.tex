@@ -17,12 +17,23 @@
 \newcommand*\jslp{\textsf{jslectureplanner}}
 \newcommand*\jsmt{\textsf{jsmembertable}}
 
+% improve layout
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty = 10000
+\vfuzz \hfuzz
+\raggedbottom
+
+\usepackage{microtype}
+
 \usepackage{babel}
+
 \usepackage{listings}
 \lstset{language={[LaTeX]TeX},
         basicstyle={\small\ttfamily},
         frame=single}
-\renewcommand{\lstlistingname}{Listing}
 
 \setcounter{tocdepth}{2}
 
@@ -86,7 +97,7 @@ formats are German. However, it is possible to add new categories as
 well as to customize and translate the strings.
 This is described later in this manual.
 
-\section{Requirements of \jslp}
+\section{Requirements of \jslp}\label{sec:req-jslp}
 
 The following packages are required and loaded by \jslp:
 \begin{itemize}
@@ -748,7 +759,7 @@ However, it is possible to customize and translate them.
 This is described later in this manual.
 
 
-\subsection{Requirements of \jsmt}
+\subsection{Requirements of \jsmt}\label{sec:req-jsmt} 
 
 The following packages are required and loaded by \jsmt: 
 \begin{itemize}
@@ -873,18 +884,36 @@ linked to \jslp's \jcsmacro{lectypesession} value if
 
 \clearpage
 
+\appendix
+
 \part{Appendix}
 
+\section{Acknowledgements}
 
-\section{History}
+I could not have written the packages of the \jslp\ bundle without the expertise of the incredible \LaTeX\
+community. The packages heavily rely on functions and features
+provided by other packages (which are listed in sec.~\ref{sec:req-jslp} and \ref{sec:req-jsmt}).
+I am deeply indepted to the authors of those packages.
+Furthermore, \emph{stackexchange} proved to be a great source of knowledge which
+provided me with solutions for specific tasks:
+\jsmt\ heavily draws on code for dynamic table generation that has been
+provided by Herbert Voss (\url{http://tex.stackexchange.com/a/7594}); the \jslp\ package
+uses code to test for \jfcsmacro{romannumeral} arguments which has been taken from
+a \emph{stackexchange} post by Enrico Gregorio (\url{http://tex.stackexchange.com/a/50131}).
+Thank you, Herbert and Enrico! Finally, Dominik Waﬂenhoven tested the package and provided
+me with multiple suggestions, which effectively manifested in major new features such as
+the \jslp\ style files. Thanks, Dominik.
+
+\section{Release History}
 
 \begin{itemize}
 \item Forthcoming (v. 1.1dev):
      \begin{itemize}
        \item Include and document the \jsmt\ package.
-       \item Add support for student presentation lists (new macros \jcsmacro{makepreslist},
-             \jcsmacro{makepreslist*}, \jcsmacro{makebeamerpreslist},
-             \jcsmacro{setfirstpressession} and \jcsmacro{setlastpressession}).
+       \item Add support for student presentation lists. This introduces the new macros
+             \jcsmacro{makepreslist}, \jcsmacro{makepreslist*},
+             \jcsmacro{makebeamerpreslist}, \jcsmacro{setfirstpressession} and
+             \jcsmacro{setlastpressession}.
      \end{itemize}
 \item 2015/07/07 (v. 1.0.2):
      \begin{itemize}
@@ -900,12 +929,12 @@ linked to \jslp's \jcsmacro{lectypesession} value if
      \begin{itemize}
        \item Lecture types and term types are not hardcoded anymore and can be freely
              modified and extended via \jcsmacro{DefLecType} and \jcsmacro{DefSemType}.
-       \item Add option to add the instructor's name to both the course (via
+       \item Add option to add the instructor's name to both the course (via macro
              \jcsmacro{LecInstructor} or \joption{instructor} package option) and
              to specific sessions (via \joption{instructor} option of
              \jcsmacro{NewSession}).
-       \item Add option to add names of presenting students to a session (via
-             \joption{presstudents} option).
+       \item Add option to add names of presenting students to a session (via option
+             \joption{presstudents}).
        \item Add option to record the office number (\jcsmacro{SetOfficeNumber}
              or package option \joption{officenumber}).
        \item Fix expansion issue in \joption{options} option of \jcsmacro{makebeamerprogram}.
@@ -918,7 +947,7 @@ linked to \jslp's \jcsmacro{lectypesession} value if
        \item Add a way to adjust the interval between two sessions
              (\joption{interval} package option and \jcsmacro{LecInterval} macro).
        \item Add a way to shift session dates from the regular interval
-             (macro \jcsmacro{SetLecOffset}).
+             (by means of macro \jcsmacro{SetLecOffset}).
        \item Add option and macro to set a room for the course as well as
              a session-specific room.
        \item Rename option \joption{weeks} of the \jcsmacro{SetBreaks} macro
