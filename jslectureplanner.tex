@@ -146,29 +146,30 @@ or via specific macros (see sec.~\ref{sec:via-macros}).
 
 The default course classification draws on the conventions at German-speaking
 universities (or those where I have worked, for that matter). Each type is
-connected to a verbose string (such as ``Seminar''), a short form (such as
-``SE'') and a form that is used to denote individual sessions (as
+connected to a verbose string (such as \emph{Seminar}), a short form (such as
+\emph{SE}) and a form that is used to denote individual sessions (as
 in ``the second \emph{session} of this course'').
 \begin{description}
 \item [\joption{type=<type>}] defines the course type. Predefined values are:
 
 \begin{itemize}
-\item \joption{vl}: A lecture (verbose form: ``Vorlesung''\footnote{Sec.~\ref{sec:customizing-strings}
-explains how to customize these strings.}, short form: ``VL'', session form: ``Vorlesung'')
-\item \joption{ps}: Undergraduate seminar (verbose form: ``Proseminar'',
-short form: ``PS'', session form: ``Sitzung'')
-\item \joption{se}: Seminar (verbose form: ``Seminar'', short form: ``SE'',
-session form: ``Sitzung'')
-\item \joption{ue}: Practical course (verbose form: ``Übung'', short
-form: ``UE'', session form: ``Sitzung'')
-\item \joption{ko}: Colloquium (verbose form: ``Kolloquium'', short form:
-``KO'', session form: ``Sitzung'')
-\item \joption{pv}: Research seminar (verbose form: ``Privatissimum'',
-short form: ``PV'', session form: ``Sitzung'')
+\item \joption{vl}: A lecture (verbose form: \emph{Vorlesung}, short form:
+      \emph{VL}, session form: \emph{Vorlesung})
+\item \joption{ps}: Undergraduate seminar (verbose form: \emph{Proseminar},
+      short form: \emph{PS}, session form: \emph{Sitzung})
+\item \joption{se}: Seminar (verbose form: \emph{Seminar}, short form:
+      \emph{SE}, session form: \emph{Sitzung})
+\item \joption{ue}: Practical course (verbose form: \emph{Übung}, short
+      form: \emph{UE}, session form: \emph{Sitzung})
+\item \joption{ko}: Colloquium (verbose form: \emph{Kolloquium}, short form:
+      \emph{KO}, session form: \emph{Sitzung})
+\item \joption{pv}: Research seminar (verbose form: \emph{Privatissimum},
+      short form: \emph{PV}, session form: \emph{Sitzung})
 \end{itemize}
 
-Sec.~\ref{sec:customizing-strings} explains how to customize and extend this list.
-Also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
+Section~\ref{sec:customizing-strings} explains how to extend this list and how
+to customize the strings.
+Please also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
 \end{description}
 
 \subsubsection{Course title}
@@ -184,18 +185,20 @@ Also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
 \item [\joption{semester=<term>,}] where \joption{<term>} is one of
 
 \begin{itemize}
-\item \joption{fs}: Spring term (``Frühjahrssemester'', short form: ``FS'')
-\item \joption{hs}: Fall term (``Herbstsemester'', short form: ``HS'')
-\item \joption{ss}: Summer term (``Sommersemester'', short form: ``SoSe'')
-\item \joption{ws}: Winter term (``Wintersemester'', short form: ``WS'')
+\item \joption{fs}: Spring term (\emph{Frühjahrssemester}, short form: \emph{FS})
+\item \joption{hs}: Fall term (\emph{Herbstsemester}, short form: \emph{HS})
+\item \joption{ss}: Summer term (\emph{Sommersemester}, short form: \emph{SoSe})
+\item \joption{ws}: Winter term (\emph{Wintersemester}, short form: \emph{WS})
 \end{itemize}
 Sec.~\ref{sec:customizing-strings} explains how to customize and extend this list.
 Also cf. sec.~\ref{sec:styles}.
 
-\item [\joption{year=<year>}] Year of the course
+\item [\joption{year=<year>}] Year of the term
 \item [\joption{uni=<university>}] Your university
 \item [\joption{institute=<institute>}] Your institute/department
-\item [\joption{room=<room>}] The room the course takes place (generally)
+\item [\joption{room=<room>}] The room where the course generally takes place.
+      It is possible to specify diverging rooms for individual sessions
+      (see sec. \ref{sec:lecplan}).
 \item [\joption{startdate=<startdate>}] The date of the first session (the argument
       \emph{must} have the form DD/MM/YYYY). If no startdate is given,
       \jfcsmacro{today} is used.
@@ -205,11 +208,16 @@ Also cf. sec.~\ref{sec:styles}.
 
 \subsubsection{Additional information}
 \begin{description}
-\item [\joption{instructor=<name>}] Instructor's name
-\item [\joption{platform=<data>}] Information (e.\,g., URL) of the e-learning platform
+\item [\joption{instructor=<name>}] (General) course instructor's name.
+      It is possible to specify different or specific instructors for individual sessions
+      (see sec. \ref{sec:lecplan}).
+\item [\joption{platform=<data>}] Information of the e-learning platform
+      (such as the URL)
 \item [\joption{officehours=<data>}] Date of your office hours
-\item [\joption{officenumber=<data>}] Your office number
+\item [\joption{officenumber=<data>}] Your office (room) number
 \end{description}
+
+\clearpage
 
 \subsection{Via macros\label{sec:via-macros}}
 
@@ -272,14 +280,14 @@ the first session (the argument \emph{must} have the form DD/MM/YYYY)
 
 \subsubsection{Additional information}\label{ses-add}
 \begin{itemize}
-\item \jcsmacro{LecInstructor\{<name>\}}: Record the instructor's name
+\item \jcsmacro{LecInstructor\{<name>\}}: Record the (general) instructor's name
 \item \jcsmacro{SetOfficeHours\{<office hours>\}}: Record date of your office hours
-\item \jcsmacro{SetOfficeNumber\{<office number>\}}: Record your office number
+\item \jcsmacro{SetOfficeNumber\{<office number>\}}: Record your office (room) number
 \item \jcsmacro{SetPlatform\{<platform information>\}}: Record information
 (such as URL) of the e-learning platform
 \end{itemize}
 
-\section{Setting up a course schedule\label{sec:lecplan}}
+\section{Setting up a course schedule}\label{sec:lecplan}
 
 In the metadata file, you can set up a schedule for the course by entering
 session information in chronological order. This is done via the following
@@ -288,7 +296,7 @@ macro:
 \item \jcsmacro{NewSession[<options>]\{Session title\}}
 
 
-Valid \joption{<options>}:
+Valid \joption{<options>} include:
 \begin{itemize}
 \item \joption{titlesep=<separator>}: Separator between session title and
     subtitle
@@ -338,7 +346,7 @@ an optional argument \joption{<span>}, the macro will expand to
 \textbf{(<span>: Break)}
 \par\end{center}
 
-E.\,g., \jcsmacro{SetBreak[28.05.-{}-3.06.]\{Whitsun holidays\}}
+So for instance, \jcsmacro{SetBreak[28.05.-{}-3.06.]\{Whitsun holidays\}}
 expands to
 
 
@@ -408,20 +416,20 @@ of the course title
 \item \jcsmacro{lecsemshort}: Outputs the short version of
 the term type (e.\,g., ``WS'')
 \item \jcsmacro{lecsemverb}: Outputs the verbose version
-of the term type (e.\,g., ``Wintersemester'')
+of the term type (such as ``Winter\-semester'')
 \item \jcsmacro{lecyear}: Outputs the year
 \item \jcsmacro{lecsemester}: Outputs the short version of
 the semester (e.\,g., ``WS 2014'')
 \item \jcsmacro{lecsemesterverb}: Outputs the verbose version
-of the semester (e.\,g., ``Wintersemester 2014'')
+of the semester (such as ``Winter\-semester 2014'')
 \item \jcsmacro{lecuniversity}: Outputs the university's name
-\item \jcsmacro{lecinstitute}: Outputs the institute's name
-\item \jcsmacro{lecinstructor}: Outputs the instructor's name
-\item \jcsmacro{lecroom}: Outputs the course room
+\item \jcsmacro{lecinstitute}: Outputs the institute's/department's name
+\item \jcsmacro{lecinstructor}: Outputs the (general) instructor's name
+\item \jcsmacro{lecroom}: Outputs the (general) course room
 \item \jcsmacro{lecplatform}: Outputs information on the
 e-learning platform
 \item \jcsmacro{officehours}: Outputs the office hours
-\item \jcsmacro{officenumber}: Outputs the office number
+\item \jcsmacro{officenumber}: Outputs the office (room) number
 \end{itemize}
 
 \subsection{Generating course programs}
@@ -443,7 +451,7 @@ e-learning platform
 
 
 The \jmacro{labeling} environment is defined by the KOMA classes.
-The package provides a fallback, however, if another class is used.
+The package provides a fallback, however, if a different class is used.
 
 \item \jcsmacro{makebeamerprogram[<options>]}: Generates
 a beamer-suited lecture program from the metadata in the form
@@ -674,8 +682,6 @@ package. By default, the two formats are defined as follows:
 \newcommand*\lecdateshortformat{%
     \THEDAY.\,\twodigit{\THEMONTH}.}
 \end{lstlisting}
-
-
 Use \jfcsmacro{renewcommand*} to redefine them.
 
 
@@ -688,25 +694,18 @@ following macro
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \newcommand*\leccancel{\ -- keine \lectypesession}
 \end{lstlisting}
-
-
 The default program string used in beamer frames can be changed by
 redefining
 
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \newcommand*\lecprogram{Programm}
 \end{lstlisting}
-
-
 The indentation used in program lists can be changed by redefining
 
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
 \end{lstlisting}
-
-
-Again, use \jfcsmacro{renewcommand{*}} to redefine
-those.
+Again, use \jfcsmacro{renewcommand{*}} for the redefinitions.
 
 
 \subsection{Using styles}\label{sec:styles}
@@ -769,12 +768,12 @@ The following packages are required and loaded by \jsmt:
  \item \textsf{hhline}
 \end{itemize}
 \jsmt\ can be used independently of
-\jslp\ to some degree. The latter package is only
-required for specific features (see below) and must be loaded explicitly.
+\jslp\ to some degree. The latter package is only required for specific
+features (see below) and must be loaded explicitly in that case.
 
 \subsection{Loading the package}
 
-The package is loaded like this:
+The package is loaded as usual:
 \begin{quote}
 \jcsmacro{usepackage\{jsmembertable\}}
 \end{quote}
@@ -787,10 +786,12 @@ In order to generate a course member table, simply insert
 \begin{quote}
 \jcsmacro{makemembertable\{<number of students>\}}
 \end{quote}
-The columns are fixed: \emph{student id}, \emph{name}, \emph{e-mail address}.
+The number of rows depends on the \joption{<number of students>} argument,
+the number of columns, on the other hand, is always 3, tracking \emph{student id},
+\emph{name} and \emph{e-mail address}.
 If you want to have more or less columns, you need to redefine the
 \jcsmacro{makemembertable} command.
-The header strings, however, can easily be adjusted by redefining the following three
+The header strings, however, can easily be changed by redefining the following three
 macros (using \jfcsmacro{renewcommand*}), for instance like this:
 
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
@@ -823,8 +824,7 @@ If you use \jslp\ anyway to generate your course material,
 this is the most convenient approach.
 
 You must load the \jslp\ package and input the metadata file
-\emph{before} \jsmt\ if you want to use this feature (the package yields
-a warning otherwise). Then just insert:
+\emph{before} \jsmt\ if you want to use this feature. Then just insert:
 
 \begin{quote}
 \jcsmacro{makeprestable\{<number of students>\}}
@@ -914,6 +914,7 @@ the \jslp\ style files. Thanks, Dominik.
              \jcsmacro{makepreslist}, \jcsmacro{makepreslist*},
              \jcsmacro{makebeamerpreslist}, \jcsmacro{setfirstpressession} and
              \jcsmacro{setlastpressession}.
+       \item Major revision of the manual.
      \end{itemize}
 \item 2015/07/07 (v. 1.0.2):
      \begin{itemize}
@@ -940,7 +941,7 @@ the \jslp\ style files. Thanks, Dominik.
        \item Fix expansion issue in \joption{options} option of \jcsmacro{makebeamerprogram}.
        \item Add option to automatically shift all subsequent sessions by a certain value
              after every \emph{n}th session (\jcsmacro{SetAutoOffset}).
-       \item Add \joption{cologne} style file.
+       \item Add \joption{cologne} style file (suggested by Dominik Waßenhoven).
     \end{itemize}
 \item 2015/02/08 (v. 0.9):
      \begin{itemize}
@@ -966,9 +967,9 @@ the \jslp\ style files. Thanks, Dominik.
 \item 2015/01/04 (v.\,0.7):
     \begin{itemize}
        \item Add macro for resetting \jfcsmacro{today}.
-       \item Minor corrections in the manual.
+       \item Minor corrections of the manual.
     \end{itemize}
-\item 2014/12/12 (v.\,0.6\,b): Minor corrections in the manual and example files.
+\item 2014/12/12 (v.\,0.6\,b): Minor corrections of the manual and example files.
 \item 2014/12/12 (v.\,0.6): Initial release to CTAN.
 \end{itemize}
 

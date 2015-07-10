@@ -32,7 +32,7 @@ The package consists of the following files:
 * jslectureplanner.sty (the main LaTeX package)
 * jsmembertable.sty (LaTeX package to generate course member and presence lists)
 * german-default.lps (German 'model' style file with default settings)
-* cologne.lps (German style file attempted at the Univ. of Cologne)
+* cologne.lps (German style file attempted at the University of Cologne)
 * jslectureplanner.pdf (documentation)
 * jslectureplanner.tex (documentation source)
 * README (this very file)
@@ -72,6 +72,7 @@ instructions; also have a look at the example files.
                          - Add support for student presentation lists (new macros
                            \makepreslist, \makepreslist*, \makebeamerpreslist,
                            \jsetfirstpressession and \jsetlastpressession).
+                         - Major revision of the manual.
 
 * V. 1.0.2 (2015-07-07): - Permit \LecType and \LecYear in the document body again
                            (fix a regression introduced in v. 1.0).
@@ -113,9 +114,9 @@ instructions; also have a look at the example files.
                            in favour of better translatability.
 
 * V. 0.7 (2015-01-04):   - Add macro for resetting \today.
-                         - Minor corrections in the manual.
+                         - Minor corrections of the manual.
 
-* V. 0.6b (2014-12-12):  - Minor corrections in the manual and
+* V. 0.6b (2014-12-12):  - Minor corrections of the manual and
                            example files.
 
 * V. 0.6 (2014-12-12):   - Initial release to CTAN.
