@@ -24,7 +24,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2015/07/08}
+\def\filedate{2015/07/14}
 \def\fileversion{1.1dev}
 \def\filename{jsmembertable.sty}
 
@@ -41,6 +41,34 @@
 \RequirePackage{array}
 \RequirePackage{longtable}
 \RequirePackage{hhline}
+\RequirePackage{xkeyval}
+
+%
+% OPTIONS
+%
+
+%
+% PACKAGE OPTIONS
+%
+\newif\if@datatool\@datatoolfalse
+\def\jsmt@datafile{}
+\define@key{mem}{datafile}{%
+  \def\jsmt@datafile{#1.csv}
+  \@datatooltrue
+}
+\DeclareOptionX{datafile}{\setkeys{mem}{datafile=#1}}
+\ProcessOptionsX
+
+%
+% EXTRA PACKAGES
+%
+
+% Load datatool if necessary
+\if@datatool
+  \RequirePackage{datatool}
+  \DTLloadrawdb[noheader,keys={fname,sname,mid,email}]{data}{\jsmt@datafile}
+  \dtlsort{sname,fname}{data}{\dtlicompare}
+\fi
 
 %
 % STRETCH ROW HEIGHT
@@ -143,7 +171,9 @@
 %
 
 \newcommand\makemembertable[1]{%
-  \setcounter{members}{#1}
+  \ifx\relax#1\relax\else
+    \setcounter{members}{#1}
+  \fi
   \resettabtoks
   \loop\ifnum\thetabrow<\themembers\relax
     \stepcounter{tabrow}
@@ -156,7 +186,15 @@
          &   \jsemailheader\tabularnewline
   \hhline{-===}
   \endhead
-  \printtabtoks
+  \if@datatool
+    \DTLforeach*{data}{%
+      \jsmt@firstname=fname,\jsmt@surname=sname,\jsmt@mid=mid,\jsmt@email=email}{%
+      \DTLiffirstrow{}{\tabularnewline\hline}%
+      \getmembernr & \jsmt@mid & \jsmt@surname, \jsmt@firstname & \jsmt@email%
+    }%
+    \tabularnewline\hline
+  \fi%
+  \printtabtoks%
   \end{longtable}
 }
 
@@ -178,9 +216,9 @@
   \@@makeprestable{#2}
 }
 
-% Width of session columns (table 1) 
+% Width of session columns (table 1)
 \newlength\sescolwidth
-% Width of session columns (table 2) 
+% Width of session columns (table 2)
 \newlength\sescolwidthtwo
 
 
@@ -192,8 +230,8 @@
 % Default table design (16 sessions)
 \setlength\sescolwidth{.075\textwidth}
 \setlength\sescolwidthtwo{.075\textwidth}
-\def\bodyrowone{\addtabtoks{ & & & & & & & & \tabularnewline\hline}}
-\def\bodyrowtwo{\addtabtoks{ & & & & & & & & \tabularnewline\hline}}
+\def\bodyrowone##1{##1 & & & & & & & & }
+\def\bodyrowtwo##1{##1 & & & & & & & & }
 \def\visumcell{\raisebox{8pt}{\footnotesize\jssigheader}}
 \def\headerpone{%
   \cline{2-9}
@@ -224,8 +262,8 @@
 \ifnum\thesnum=15
 	\setlength\sescolwidth{.085\textwidth}
 	\setlength\sescolwidthtwo{.075\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & & & & \tabularnewline\hline}}
-	\def\bodyrowtwo{\addtabtoks{ & & & & & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & & & & }
+	\def\bodyrowtwo##1{##1 & & & & & & & & }
 	\def\headerpone{%
 	  \cline{2-8}
 	   \multicolumn{1}{c|}{} & \multicolumn{7}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -256,8 +294,8 @@
 \ifnum\thesnum=14
         \setlength\sescolwidth{.085\textwidth}
         \setlength\sescolwidthtwo{.085\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & & & & \tabularnewline\hline}}
-	\def\bodyrowtwo{\addtabtoks{ & & & & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & & & & }
+	\def\bodyrowtwo##1{##1 & & & & & & & }
 	\def\headerpone{%
 	  \cline{2-8}
 	   \multicolumn{1}{c|}{} & \multicolumn{7}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -288,8 +326,8 @@
 \ifnum\thesnum=13
         \setlength\sescolwidth{.085\textwidth}
         \setlength\sescolwidthtwo{.102\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & & & & \tabularnewline\hline}}
-	\def\bodyrowtwo{\addtabtoks{ & & & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & & & & }
+	\def\bodyrowtwo##1{##1 & & & & & & }
 	\def\headerpone{%
 	  \cline{2-8}
 	   \multicolumn{1}{c|}{} & \multicolumn{7}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -320,8 +358,8 @@
 \ifnum\thesnum=12
         \setlength\sescolwidth{.102\textwidth}
         \setlength\sescolwidthtwo{.102\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & & & \tabularnewline\hline}}
-	\def\bodyrowtwo{\addtabtoks{ & & & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & & & }
+	\def\bodyrowtwo##1{##1 & & & & & & }
 	\def\headerpone{%
 	  \cline{2-7}
 	   \multicolumn{1}{c|}{} & \multicolumn{6}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -352,8 +390,8 @@
 \ifnum\thesnum=11
         \setlength\sescolwidth{.102\textwidth}
         \setlength\sescolwidthtwo{.125\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & & & \tabularnewline\hline}}
-	\def\bodyrowtwo{\addtabtoks{ & & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & & & }
+	\def\bodyrowtwo##1{##1 & & & & & }
 	\def\headerpone{%
 	  \cline{2-7}
 	   \multicolumn{1}{c|}{} & \multicolumn{6}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -383,8 +421,8 @@
 \ifnum\thesnum=10
         \setlength\sescolwidth{.125\textwidth}
         \setlength\sescolwidthtwo{.125\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & & \tabularnewline\hline}}
-	\def\bodyrowtwo{\addtabtoks{ & & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & & }
+	\def\bodyrowtwo##1{##1 & & & & & }
 	\def\headerpone{%
 	  \cline{2-6}
 	   \multicolumn{1}{c|}{} & \multicolumn{5}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -413,8 +451,8 @@
 \ifnum\thesnum=9
         \setlength\sescolwidth{.125\textwidth}
         \setlength\sescolwidthtwo{.161\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & & \tabularnewline\hline}}
-	\def\bodyrowtwo{\addtabtoks{ & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & & }
+	\def\bodyrowtwo##1{##1 & & & & }
 	\def\headerpone{%
 	  \cline{2-6}
 	   \multicolumn{1}{c|}{} & \multicolumn{5}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -442,8 +480,8 @@
 \ifnum\thesnum=8
         \setlength\sescolwidth{.161\textwidth}
         \setlength\sescolwidthtwo{.161\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & \tabularnewline\hline}}
-	\def\bodyrowtwo{\addtabtoks{ & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & }
+	\def\bodyrowtwo##1{##1 & & & & }
 	\def\headerpone{%
 	  \cline{2-5}
 	   \multicolumn{1}{c|}{} & \multicolumn{4}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -469,7 +507,7 @@
 % Table design: 7 sessions
 \ifnum\thesnum=7
         \setlength\sescolwidth{.085\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & & & & }
 	\def\headerpone{%
 	  \cline{2-8}
 	   \multicolumn{1}{c|}{} & \multicolumn{7}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -487,7 +525,7 @@
 % Table design: 6 sessions
 \ifnum\thesnum=6
         \setlength\sescolwidth{.102\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & & & }
 	\def\headerpone{%
 	  \cline{2-7}
 	   \multicolumn{1}{c|}{} & \multicolumn{6}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -505,7 +543,7 @@
 % Table design: 5 sessions
 \ifnum\thesnum=5
         \setlength\sescolwidth{.125\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & & }
 	\def\headerpone{%
 	  \cline{2-6}
 	   \multicolumn{1}{c|}{} & \multicolumn{5}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -522,7 +560,7 @@
 % Table design: 4 sessions
 \ifnum\thesnum=4
         \setlength\sescolwidth{.161\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & & }
 	\def\headerpone{%
 	  \cline{2-5}
 	   \multicolumn{1}{c|}{} & \multicolumn{4}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -538,7 +576,7 @@
 % Table design: 3 sessions
 \ifnum\thesnum=3
         \setlength\sescolwidth{.2\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & & }
 	\def\headerpone{%
 	  \cline{2-4}
 	   \multicolumn{1}{c|}{} & \multicolumn{3}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -554,7 +592,7 @@
 % Table design: 2 sessions
 \ifnum\thesnum=2
         \setlength\sescolwidth{.3\textwidth}
-	\def\bodyrowone{\addtabtoks{ & & \tabularnewline\hline}}
+	\def\bodyrowone##1{##1 & & }
 	\def\headerpone{%
 	  \cline{2-3}
 	   \multicolumn{1}{c|}{} & \multicolumn{2}{c|}{\visumcell}\tabularnewline[-12pt]
@@ -578,33 +616,53 @@
 
 \newcommand\@@makeprestable[1]{%
   \inittemplates
-  \setcounter{members}{#1}
+  \ifx\relax#1\relax\else
+    \setcounter{members}{#1}
+  \fi
   \resettabtoks
   \loop\ifnum\thetabrow<\themembers\relax
     \stepcounter{tabrow}
-    \bodyrowone%
+    \addtabtoks{\bodyrowone{}\tabularnewline\hline}%
   \repeat
   \ltstartone
   \headerpone
   \hline
   \hline
   \endhead
+  \if@datatool%
+    \DTLforeach*{data}{%
+      \jsmt@firstname=fname,\jsmt@surname=sname}{%
+      \DTLiffirstrow{}{\tabularnewline\hline}%
+      \bodyrowone{\jsmt@surname, \jsmt@firstname}%
+    }%
+    \tabularnewline\hline
+  \fi%
   \printtabtoks
   \end{longtable}
   \ifnum\thesnum>7
     \clearpage
     \setcounter{tabrow}{0}
-    \setcounter{members}{#1}
+    \ifx\relax#1\relax\else
+      \setcounter{members}{#1}
+    \fi
     \resettabtoks
     \loop\ifnum\thetabrow<\themembers\relax
       \stepcounter{tabrow}
-      \bodyrowtwo%
+      \addtabtoks{\bodyrowtwo{}\tabularnewline\hline}%
     \repeat
     \ltstarttwo
     \headerptwo
     \hline
     \hline
     \endhead
+    \if@datatool
+      \DTLforeach*{data}{%
+        \jsmt@firstname=fname,\jsmt@surname=sname}{%
+        \DTLiffirstrow{}{\tabularnewline\hline}%
+        \bodyrowtwo{\jsmt@surname, \jsmt@firstname}%
+      }%
+      \tabularnewline\hline
+    \fi%
     \printtabtoks
     \end{longtable}
   \fi
