@@ -169,7 +169,16 @@
 
 \newcommand\makemembertable[1]{%
   \ifx\relax#1\relax\else
-    \setcounter{members}{#1}
+    % test if the input is a number
+    % courtesy of egreg at http://tex.stackexchange.com/a/50131
+    \if\relax\detokenize\expandafter{\romannumeral-0#1}\relax
+      \setcounter{members}{#1}%
+    \else
+      \PackageError{jsmembertable}{%
+          Argument of 'makemembertable' must be\MessageBreak
+          a positive integer number\MessageBreak
+          ('#1' was given instead)}{}%
+    \fi
   \fi
   \resettabtoks
   \loop\ifnum\thetabrow<\themembers\relax
@@ -614,7 +623,16 @@
 \newcommand\@@makeprestable[1]{%
   \inittemplates
   \ifx\relax#1\relax\else
-    \setcounter{members}{#1}
+    % test if the input is a number
+    % courtesy of egreg at http://tex.stackexchange.com/a/50131
+    \if\relax\detokenize\expandafter{\romannumeral-0#1}\relax
+      \setcounter{members}{#1}%
+    \else
+      \PackageError{jsmembertable}{%
+          Argument of 'makeprestable' must be\MessageBreak
+          a positive integer number\MessageBreak
+          ('#1' was given instead)}{}%
+    \fi
   \fi
   \resettabtoks
   \loop\ifnum\thetabrow<\themembers\relax
@@ -640,7 +658,16 @@
     \clearpage
     \setcounter{tabrow}{0}
     \ifx\relax#1\relax\else
-      \setcounter{members}{#1}
+      % test if the input is a number
+      % courtesy of egreg at http://tex.stackexchange.com/a/50131
+      \if\relax\detokenize\expandafter{\romannumeral-0#1}\relax
+        \setcounter{members}{#1}%
+      \else
+        \PackageError{jsmembertable}{%
+            Argument of 'makeprestable' must be\MessageBreak
+            a positive integer number\MessageBreak
+            ('#1' was given instead)}{}%
+      \fi
     \fi
     \resettabtoks
     \loop\ifnum\thetabrow<\themembers\relax
