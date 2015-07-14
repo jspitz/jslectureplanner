@@ -44,7 +44,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.1dev, 2015/07/08}
+\date{Version 1.1dev, 2015/07/14}
 
 \maketitle
 
@@ -743,8 +743,8 @@ package. Please also refer to the example files included in the bundle.
 \subsection{Aim of this package}
 
 This package provides a way to easily generate tables to track the members of a
-university course (a table where your students can
-fill in names, student IDs and e-mail adresses) and a table to record their presence,
+university course (a table where you, or your students, can fill in names,
+student IDs and e-mail adresses) and a table to record their presence,
 should this be a requisite at your institute.
 
 The package somewhat integrates with \jslp\ and can use the
@@ -762,10 +762,13 @@ This is described later in this manual.
 
 The following packages are required and loaded by \jsmt: 
 \begin{itemize}
+ \setlength\itemsep{2pt}
+ \item \textsf{datatool} (only if the option \joption{datafile} is used)
  \item \textsf{ifthen}
  \item \textsf{calc}
  \item \textsf{longtable}
  \item \textsf{hhline}
+ \item \textsf{xkeyval}
 \end{itemize}
 \jsmt\ can be used independently of
 \jslp\ to some degree. The latter package is only required for specific
@@ -775,23 +778,57 @@ features (see below) and must be loaded explicitly in that case.
 
 The package is loaded as usual:
 \begin{quote}
-\jcsmacro{usepackage\{jsmembertable\}}
+\jcsmacro{usepackage[<options>]\{jsmembertable\}}
 \end{quote}
-Currently, no package options are available.
+Currently, one package option is available:
+\begin{itemize}
+ \item \joption{datafile=<csv-file>}: Use external student data file (see sec.~\ref{sec:ext-data}).
+\end{itemize}
+
+
+\subsection{Loading external data}\label{sec:ext-data} 
+
+Both course member and presence tables can be filled with external student data. To this end,
+the package option \joption{datafile=<csv-file>} is provided. If it is used, the package tries
+to access a comma-separated data file. Note that the external file must have the extension \emph{.csv},
+and the extension must be omitted in the option, so
+\begin{quote}
+ \jcsmacro{usepackage[datafile=mystudents]\{jsmembertable\}}
+\end{quote}
+loads the file \texttt{mystudents.csv}.
+
+The external csv file must follow the following structure:
+
+\begin{lstlisting}[language={},basicstyle={\small\ttfamily},frame=single]
+Prename1, Surname1, StudentID1, Email1
+Prename2, Surname2, StudentID2, Email2
+...
+\end{lstlisting}
 
 \subsection{Generating a course member table}
 
 In order to generate a course member table, simply insert
 
 \begin{quote}
-\jcsmacro{makemembertable\{<number of students>\}}
+\jcsmacro{makemembertable\{<number of blank rows>\}}
 \end{quote}
-The number of rows depends on the \joption{<number of students>} argument,
-the number of columns, on the other hand, is always 3, tracking \emph{student id},
+If an external data file has been loaded, \joption{<number of blank rows>} can either be empty or a positive
+integer value. If no external data file has been loaded, \joption{<number of blank rows>} \emph{must} be a
+positive integer value.
+
+If no external data file has been loaded, the command generates a table with \joption{<number of blank rows>}
+blank rows, to which your students can fill in their name, student ID and e-mail address.
+
+If an external data file has been loaded, an appropriate number of rows is generated and the
+respective student data is filled in. Additionally, \joption{<number of blank rows>} blank rows are
+\emph{appended} after the filled-in rows (for the late birds that have not registered themselves yet).
+If the command's argument is empty or \joption{0}, no extra rows are appended.
+
+The number of columns of the member table is always 3, tracking \emph{student id},
 \emph{name} and \emph{e-mail address}.
 If you want to have more or less columns, you need to redefine the
 \jcsmacro{makemembertable} command.
-The header strings, however, can easily be changed by redefining the following three
+The header strings, though, can easily be changed by redefining the following three
 macros (using \jfcsmacro{renewcommand*}), for instance like this:
 
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
@@ -813,44 +850,55 @@ See above section~\ref{sec:styles} for details on styles.
 
 \subsection{Generating a presence table}
 
-Presence tables consist of rows where your students fill in their name and columns
-for each session of your course where the students can sign and mark their presence
-in the respective session.
-The package provides two kinds of presence tables. The first one requires the
-\jslp\ package and uses the course metadata in order
-to generate a matching number of columns with the respective session date as
-column header.
-If you use \jslp\ anyway to generate your course material,
-this is the most convenient approach.
+Presence tables consist of rows with your students' names and columns for each session
+of your course where each student can sign and mark her/his presence in the respective
+session. As with the member tables, the package can fill in student data (the student
+name in this case) from an external data file if the \joption{datafile} package option
+is used.
 
-You must load the \jslp\ package and input the metadata file
-\emph{before} \jsmt\ if you want to use this feature. Then just insert:
+The package provides two kinds of presence tables: A presence table with real session dates
+and a simpler one just with session numbers (``Session~1'' etc.). The first variant requires
+the \jslp\ package, since it uses the course metadata in order to generate a matching number
+of columns with the respective session date for the column headers. The second one also works
+without \jslp\, since the session numbers can be simply derived from an internal counter and
+you can manually set the total number of sessions.
+
+Note that if you use \jslp, you must load the \jslp\ package and also input the metadata file
+\emph{before} \jsmt.
+
+The first presence table variant (with real session dates) is produced with the macro
 
 \begin{quote}
-\jcsmacro{makeprestable\{<number of students>\}}
+\jcsmacro{makeprestable\{<number of blank rows>\}}
 \end{quote}
-The number of sessions is automatically calculated from the metadata. If you want a different
+As with the member table, an appropriate number of rows, pre-filled with student data, is
+generated if an external data file has been loaded. Then, \joption{<number of blank rows>}
+blank rows are \emph{appended} after the filled-in rows (if \joption{<number of blank rows>}
+is not empty or \joption{0}). If no external data file has been loaded, simply a table with
+\joption{<number of blank rows>} blank rows is constructed.
+
+The number of columns/sessions is automatically calculated from the metadata. If you want a different
 number, you can use the optional argument of the command:
 
 \begin{quote}
-\jcsmacro{makeprestable[<number of sessions>]\{<number of students>\}}
+\jcsmacro{makeprestable[<number of sessions>]\{<number of blank rows>\}}
 \end{quote}
-The second kind of presence table is provided via the starred version of the command:
+The second kind of presence table (with session numbers) is provided via the starred version
+of the command:
 
 \begin{quote}
-\jcsmacro{makeprestable*[<number of sessions>]\{<number of students>\}}
+\jcsmacro{makeprestable*[<number of sessions>]\{<number of blank rows>\}}
 \end{quote}
-This one also works without \jslp. As opposed to the unstarred version,
-it does not print the session dates as column headers, but ``Session <nr>'' with an
-accelerating number. Like with the unstarred version, if the \jslp\
-metadata is used/available, the number of sessions is calculated from the metadata,
-if you do not pass a different number via the optional argument.
-If the \jslp\ metadata is not
-used/available, and no column number is given via the optional argument, the table will use
-a preset number of sessions, namely 15.
+Like with the unstarred version, if the \jslp\
+metadata is used/available, the number of columns/sessions is calculated from the metadata.
+The optional argument can be used to override this calculation.
+If the \jslp\ metadata is not used/available, and no column number is given via the optional
+argument, the table will use a preset number of sessions, namely 15. The starred version also
+uses the external student data if the \joption{datafile} option has been used.
 
 For courses of 2--16 sessions, the package tries to produce reasonably sized tables that
-fit the page width. From 7 sessions upwards, two separate tables, each for half a semester,
+fit the page width (more than 16 sessions are currently not supported).
+From 7 sessions upwards, two separate tables, each for half a term,
 are produced. In general, it is assumed that you use landscape page format for presence tables.
 
 The header strings can be adjusted by redefining the following
