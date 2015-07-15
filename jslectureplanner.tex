@@ -44,15 +44,17 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.1dev, 2015/07/14}
+\date{Version 1.1, 2015/07/15}
 
 \maketitle
 
 \begin{abstract}
 \noindent The \jslp\ bundle provides a collection of packages
-I have written in order to facilitate (and somewhat systematize)
-the planning of my university courses and the generation of course material.
-Currently, it consists of the main, title-giving package \jslp\
+I have written in order to facilitate, and somewhat systematize,
+the planning of my university courses and the generation of course material
+(and thus, ultimately, to relieve me from some of the more boring and
+time-consuming part of teaching work).
+Currently, the bundle consists of the main, title-giving package \jslp\
 that provides an interface to central, partly dynamically generated course
 metadata as well as routines to generate programs, bibliographies etc., and one
 smaller companion package: \jsmt, a package that can construct course
@@ -859,14 +861,14 @@ is used.
 The package provides two kinds of presence tables: A presence table with real session dates
 and a simpler one just with session numbers (``Session~1'' etc.). The first variant requires
 the \jslp\ package, since it uses the course metadata in order to generate a matching number
-of columns with the respective session date for the column headers. The second one also works
+of columns with the respective session date in the column headers. The second one also works
 without \jslp\, since the session numbers can be simply derived from an internal counter and
 you can manually set the total number of sessions.
 
 Note that if you use \jslp, you must load the \jslp\ package and also input the metadata file
 \emph{before} \jsmt.
 
-The first presence table variant (with real session dates) is produced with the macro
+The first presence table variant (with real session dates) is produced with the following macro:
 
 \begin{quote}
 \jcsmacro{makeprestable\{<number of blank rows>\}}
@@ -878,30 +880,33 @@ is not empty or \joption{0}). If no external data file has been loaded, simply a
 \joption{<number of blank rows>} blank rows is constructed.
 
 The number of columns/sessions is automatically calculated from the metadata. If you want a different
-number, you can use the optional argument of the command:
+number, you can use the optional argument of the command to override this calculation:
 
 \begin{quote}
 \jcsmacro{makeprestable[<number of sessions>]\{<number of blank rows>\}}
 \end{quote}
-The second kind of presence table (with session numbers) is provided via the starred version
-of the command:
+The second kind of presence table (with session numbers instead of session dates) is provided
+via the starred version of the command:
 
 \begin{quote}
 \jcsmacro{makeprestable*[<number of sessions>]\{<number of blank rows>\}}
 \end{quote}
 Like with the unstarred version, if the \jslp\
 metadata is used/available, the number of columns/sessions is calculated from the metadata.
-The optional argument can be used to override this calculation.
-If the \jslp\ metadata is not used/available, and no column number is given via the optional
-argument, the table will use a preset number of sessions, namely 15. The starred version also
-uses the external student data if the \joption{datafile} option has been used.
+Again, the optional argument can be used to override this calculation.
+If the \jslp\ metadata is not used/available, and no session number is given via the optional
+argument, the table will use a preset number of sessions, namely 15. The starred version uses,
+like the unstarred variant, the external student data if the \joption{datafile} option has been
+used.
 
 For courses of 2--16 sessions, the package tries to produce reasonably sized tables that
 fit the page width (more than 16 sessions are currently not supported).
 From 7 sessions upwards, two separate tables, each for half a term,
 are produced. In general, it is assumed that you use landscape page format for presence tables.
+The tables will be too wide for portrait page format. Also, the tables have been optimized for A4
+page size.
 
-The header strings can be adjusted by redefining the following
+The header strings of the presence tables can be adjusted by redefining the following
 macros (using \jfcsmacro{renewcommand*}), for instance like this:
 
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
@@ -955,7 +960,7 @@ the \jslp\ style files. Thanks, Dominik.
 \section{Release History}
 
 \begin{itemize}
-\item Forthcoming (v. 1.1dev):
+\item 2015/07/15 (v. 1.1):
      \begin{itemize}
        \item Include and document the \jsmt\ package.
        \item Add support for student presentation lists. This introduces the new macros

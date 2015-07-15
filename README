@@ -68,7 +68,7 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.1 (forthcoming):  - Include and document the companion package jsmembertable.
+* V. 1.1 (2015-07-15):   - Include and document the companion package jsmembertable.
                          - Add support for student presentation lists (new macros
                            \makepreslist, \makepreslist*, \makebeamerpreslist,
                            \jsetfirstpressession and \jsetlastpressession).
