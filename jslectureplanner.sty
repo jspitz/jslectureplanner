@@ -23,8 +23,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2015/07/15}
-\def\fileversion{1.1}
+\def\filedate{2016/02/22}
+\def\fileversion{1.2dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -546,7 +546,7 @@
   \protected@csxdef{sesshortdate\thesnum}{%
       \bgroup\ifx\lecstartdate\empty\else\SetDate[\lecstartdate]\fi%
       \AdvanceDate[\thedateratio]\vlshdate\today\egroup}
-  \protected@csxdef{sestitle\thesnum}{\csuse{@sestitle}}
+  \protected@csxdef{sestitle\thesnum}{\csuse{@sestitle}\ifcsempty{@sestitle}{\strut}{}}
   \protected@csxdef{sestitlesep\thesnum}{\csuse{@sestitlesep}}
   \protected@csxdef{sessubtitle\thesnum}{\csuse{@vasutitle}}
   \protected@csxdef{sesshorttitle\thesnum}{\csuse{@vashorttitle}}
