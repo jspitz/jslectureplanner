@@ -44,7 +44,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.2dev, 2016/02/22}
+\date{Version 1.2dev, 2016/05/07}
 
 \maketitle
 
@@ -602,6 +602,26 @@ session (title, separator, subtitle)
 \item \jcsmacro{sesroom}: Room of the current session
 \end{itemize}
 
+\subsection{Generating session-specific information for the next session}
+
+Depending on the value of \jcsmacro{ThisSession}, you can retrieve the following
+information for the next session via the following macros:
+\begin{itemize}
+	\item \jcsmacro{NextSessionTitle}: Outputs the main title
+	of the next session
+	\item \jcsmacro{NextSessionFullTitle}: Outputs the full
+	title (main title, separator, subtitle) of the next session
+	\item \jcsmacro{NextSessionShortTitle}: Outputs the short
+	title of the next session
+	\item \jcsmacro{NextSessionDate}: Outputs the date of the next session
+	\item \jcsmacro{NextSessionShortDate}: Outputs the short
+	date (no year) of the next session
+	\item \jcsmacro{NextSessionInstructor}: Outputs the name of the instructor of the next session
+	\item \jcsmacro{NextSessionPresStudents}: Outputs the name of the students presenting
+	in the next session
+	\item \jcsmacro{NextSessionRoom}: Outputs the room of the next session
+\end{itemize}
+
 \subsection{Generating session-specific information for an arbitrary session}
 
 Independent of the value of \jcsmacro{ThisSession},
@@ -626,14 +646,11 @@ in session number \joption{<nr>}
 \item \jcsmacro{MakeProgramline\{<nr>\}}: Outputs a list
 item line for session number \joption{<nr>} in the form
 
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \item[{\bfseries <short date>}] <session full title>
 \end{lstlisting}
 
-
 \end{itemize}
-
 
 \section{Customizing the output}\label{sec:customizing-strings}
 
@@ -962,8 +979,18 @@ the \jslp\ style files. Thanks, Dominik.
 \begin{itemize}
 \item Forthcoming (v. 1.2):
     \begin{itemize}	
-	\item Fix line breaking with empty session titles before course
-	breaks. 
+	\item Fix line breaking with empty session titles before course breaks. 
+	\item New commands for getting next session data:
+	   \begin{itemize}	
+		  \item \jcsmacro{NextSessionFullTitle}
+		  \item \jcsmacro{NextSessionDate}
+		  \item \jcsmacro{NextSessionShortTitle}
+		  \item \jcsmacro{NextSessionTitle}
+		  \item \jcsmacro{NextSessionShortDate}
+		  \item \jcsmacro{NextSessionRoom}
+		  \item \jcsmacro{NextSessionInstructor}
+		  \item \jcsmacro{NextSessionPresStudents}
+	  \end{itemize}
     \end{itemize}
 \item 2015/07/15 (v. 1.1):
      \begin{itemize}
@@ -973,7 +1000,7 @@ the \jslp\ style files. Thanks, Dominik.
              \jcsmacro{makebeamerpreslist}, \jcsmacro{setfirstpressession} and
              \jcsmacro{setlastpressession}.
        \item Major revision of the manual.
-     \end{itemize}
+     \end{itemize}\filbreak
 \item 2015/07/07 (v. 1.0.2):
      \begin{itemize}
        \item Permit \jcsmacro{LecType} and \jcsmacro{LecYear} in the document body again
