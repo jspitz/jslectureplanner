@@ -71,9 +71,9 @@ instructions; also have a look at the example files.
 * V. 1.2 (forthcoming):  - Fix line breaking with empty session titles before course
                            breaks.
 
-                         - New commands \NextSessionFullTitle, \NextSessionDate,
-                           \NextSessionShortTitle, \NextSessionTitle, \NextSessionShortDate,
-                           \NextSessionRoom, \NextSessionInstructor, \NextSessionPresStudents
+                         - New commands \AdjSessionFullTitle, \AdjSessionDate,
+                           \AdjSessionShortTitle, \AdjSessionTitle, \AdjSessionShortDate,
+                           \AdjSessionRoom, \AdjSessionInstructor, \AdjSessionPresStudents
 
 * V. 1.1 (2015-07-15):   - Include and document the companion package jsmembertable.
                          - Add support for student presentation lists (new macros

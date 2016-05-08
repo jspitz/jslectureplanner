@@ -604,26 +604,25 @@ session (title, separator, subtitle)
 \item \jcsmacro{sesroom}: Room of the current session
 \end{itemize}
 
-\subsection{Generating session-specific information for the next/previous session(s)}
+\subsection{Generating session-specific information for adjacent sessions}
 
 Depending on the value of \jcsmacro{ThisSession}, you can retrieve the following
-information for sessions following or preceding the current session via the following macros:
+information for sessions that follow or precede the current session by a specific interval unit via the following macros:
 \begin{itemize}
-	\item \jcsmacro{NextSessionTitle[<offset>]}: Outputs the main title
-	of the next session
-	\item \jcsmacro{NextSessionFullTitle[<offset>]}: Outputs the full
-	title (main title, separator, subtitle) of the next session
-	\item \jcsmacro{NextSessionShortTitle[<offset>]}: Outputs the short
-	title of the next session
-	\item \jcsmacro{NextSessionDate[<offset>]}: Outputs the date of the next session
-	\item \jcsmacro{NextSessionShortDate[<offset>]}: Outputs the short
-	date (no year) of the next session
-	\item \jcsmacro{NextSessionInstructor[<offset>]}: Outputs the name of the instructor of the next session
-	\item \jcsmacro{NextSessionPresStudents[<offset>]}: Outputs the name of the students presenting
-	in the next session
-	\item \jcsmacro{NextSessionRoom[<offset>]}: Outputs the room of the next session
+	\item \jcsmacro{AdjSessionTitle[<offset>]}: Outputs the main title
+	of the adjacent session
+	\item \jcsmacro{AdjSessionFullTitle[<offset>]}: Outputs the full
+	title (main title, separator, subtitle) of the adjacent session
+	\item \jcsmacro{AdjSessionShortTitle[<offset>]}: Outputs the short
+	title of the adjacent session
+	\item \jcsmacro{AdjSessionDate[<offset>]}: Outputs the date of the adjacent session
+	\item \jcsmacro{AdjSessionShortDate[<offset>]}: Outputs the short
+	date (no year) of the adjacent session
+	\item \jcsmacro{AdjSessionInstructor[<offset>]}: Outputs the name of the instructor of the adjacent session
+	\item \jcsmacro{AdjSessionPresStudents[<offset>]}: Outputs the name of the students presenting in the adjacent session
+	\item \jcsmacro{AdjSessionRoom[<offset>]}: Outputs the room of the adjacent session
 \end{itemize}
-Via the numerical \joption{<offset>} option (default: 1), you can specify which session, relative to the current one, you want to output. Negative values are valid; \jcsmacro{NextSessionTitle[-1]} would output the title of the previous session.
+Via the numerical \joption{<offset>} option, you can specify which session, relative to the current one, you want to output. The default is \joption{1}, i.\,e., \jcsmacro{AdjSessionTitle} without argument outputs the title of the \emph{next} session. Negative values are valid: \jcsmacro{AdjSessionTitle[-1]}, thus, outputs the title of the \emph{previous} session.
 
 \subsection{Generating session-specific information for an arbitrary session}
 
@@ -983,16 +982,16 @@ the \jslp\ style files. Thanks, Dominik.
 \item Forthcoming (v. 1.2):
     \begin{itemize}	
 	\item Fix line breaking with empty session titles before course breaks. 
-	\item New commands for getting next session data:
+	\item New commands for getting adjacent session data:
 	   \begin{itemize}	
-		  \item \jcsmacro{NextSessionFullTitle}
-		  \item \jcsmacro{NextSessionDate}
-		  \item \jcsmacro{NextSessionShortTitle}
-		  \item \jcsmacro{NextSessionTitle}
-		  \item \jcsmacro{NextSessionShortDate}
-		  \item \jcsmacro{NextSessionRoom}
-		  \item \jcsmacro{NextSessionInstructor}
-		  \item \jcsmacro{NextSessionPresStudents}
+		  \item \jcsmacro{AdjSessionFullTitle}
+		  \item \jcsmacro{AdjSessionDate}
+		  \item \jcsmacro{AdjSessionShortTitle}
+		  \item \jcsmacro{AdjSessionTitle}
+		  \item \jcsmacro{AdjSessionShortDate}
+		  \item \jcsmacro{AdjSessionRoom}
+		  \item \jcsmacro{AdjSessionInstructor}
+		  \item \jcsmacro{AdjSessionPresStudents}
 	  \end{itemize}
     \end{itemize}
 \item 2015/07/15 (v. 1.1):

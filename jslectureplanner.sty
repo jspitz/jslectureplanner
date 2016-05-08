@@ -159,7 +159,7 @@
 \newcounter{autooffsetcounter}
 \newcounter{breakunits}
 \newcounter{loopcounter}
-\newcounter{nextsession}
+\newcounter{adjsession}
 
 %
 % HELPERS
@@ -862,62 +862,62 @@
     \lsestitle\lsestitlesep\lsessubtitle%
 }
 
-% Get information for the next session
+% Get information for adjacent (next, previous etc.) sessions
 %
 % Full title
-\newcommand*\NextSessionFullTitle[1][1]{%
+\newcommand*\AdjSessionFullTitle[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
-    \SessionFullTitle{\thenextsession}%
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionFullTitle{\theadjsession}%
   \fi
 }
 % Date
-\newcommand*\NextSessionDate[1][1]{%
+\newcommand*\AdjSessionDate[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
-    \SessionDate{\thenextsession}%
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionDate{\theadjsession}%
   \fi
 }
 % Short title
-\newcommand*\NextSessionShortTitle[1][1]{%
+\newcommand*\AdjSessionShortTitle[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
-    \SessionShortTitle{\thenextsession}%
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionShortTitle{\theadjsession}%
   \fi
 }
 % Main title
-\newcommand*\NextSessionTitle[1][1]{%
+\newcommand*\AdjSessionTitle[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
-    \SessionTitle{\thenextsession}%
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionTitle{\theadjsession}%
   \fi
 }
 % Short date
-\newcommand*\NextSessionShortDate[1][1]{%
+\newcommand*\AdjSessionShortDate[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
-    \SessionShortDate{\thenextsession}%
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionShortDate{\theadjsession}%
   \fi
 }
 % Room
-\newcommand*\NextSessionRoom[1][1]{%
+\newcommand*\AdjSessionRoom[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
-    \SessionRoom{\thenextsession}%
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionRoom{\theadjsession}%
   \fi
 }
 % Instructor
-\newcommand*\NextSessionInstructor[1][1]{%
+\newcommand*\AdjSessionInstructor[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
-    \SessionInstructor{\thenextsession}%
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionInstructor{\theadjsession}%
   \fi
 }
 % Presenting students
-\newcommand*\NextSessionPresStudents[1][1]{%
+\newcommand*\AdjSessionPresStudents[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
-    \SessionPresStudents{\thenextsession}%
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionPresStudents{\theadjsession}%
   \fi
 }
 %
