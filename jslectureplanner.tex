@@ -1,3 +1,5 @@
+% Manual of the jslectureplanner bundle
+
 \documentclass[english]{article}
 
 \usepackage[osf]{libertine}
@@ -44,7 +46,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.2dev, 2016/05/07}
+\date{Version 1.2dev, 2016/05/08}
 
 \maketitle
 
@@ -602,25 +604,26 @@ session (title, separator, subtitle)
 \item \jcsmacro{sesroom}: Room of the current session
 \end{itemize}
 
-\subsection{Generating session-specific information for the next session}
+\subsection{Generating session-specific information for the next/previous session(s)}
 
 Depending on the value of \jcsmacro{ThisSession}, you can retrieve the following
-information for the next session via the following macros:
+information for sessions following or preceding the current session via the following macros:
 \begin{itemize}
-	\item \jcsmacro{NextSessionTitle}: Outputs the main title
+	\item \jcsmacro{NextSessionTitle[<offset>]}: Outputs the main title
 	of the next session
-	\item \jcsmacro{NextSessionFullTitle}: Outputs the full
+	\item \jcsmacro{NextSessionFullTitle[<offset>]}: Outputs the full
 	title (main title, separator, subtitle) of the next session
-	\item \jcsmacro{NextSessionShortTitle}: Outputs the short
+	\item \jcsmacro{NextSessionShortTitle[<offset>]}: Outputs the short
 	title of the next session
-	\item \jcsmacro{NextSessionDate}: Outputs the date of the next session
-	\item \jcsmacro{NextSessionShortDate}: Outputs the short
+	\item \jcsmacro{NextSessionDate[<offset>]}: Outputs the date of the next session
+	\item \jcsmacro{NextSessionShortDate[<offset>]}: Outputs the short
 	date (no year) of the next session
-	\item \jcsmacro{NextSessionInstructor}: Outputs the name of the instructor of the next session
-	\item \jcsmacro{NextSessionPresStudents}: Outputs the name of the students presenting
+	\item \jcsmacro{NextSessionInstructor[<offset>]}: Outputs the name of the instructor of the next session
+	\item \jcsmacro{NextSessionPresStudents[<offset>]}: Outputs the name of the students presenting
 	in the next session
-	\item \jcsmacro{NextSessionRoom}: Outputs the room of the next session
+	\item \jcsmacro{NextSessionRoom[<offset>]}: Outputs the room of the next session
 \end{itemize}
+Via the numerical \joption{<offset>} option (default: 1), you can specify which session, relative to the current one, you want to output. Negative values are valid; \jcsmacro{NextSessionTitle[-1]} would output the title of the previous session.
 
 \subsection{Generating session-specific information for an arbitrary session}
 

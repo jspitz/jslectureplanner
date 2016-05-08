@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2016/05/07}
+\def\filedate{2016/05/08}
 \def\fileversion{1.2dev}
 \def\filename{jslectureplanner.sty}
 
@@ -865,58 +865,58 @@
 % Get information for the next session
 %
 % Full title
-\newcommand*\NextSessionFullTitle{%
+\newcommand*\NextSessionFullTitle[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+1\relax}%
+    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
     \SessionFullTitle{\thenextsession}%
   \fi
 }
 % Date
-\newcommand*\NextSessionDate{%
+\newcommand*\NextSessionDate[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+1\relax}%
+    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
     \SessionDate{\thenextsession}%
   \fi
 }
 % Short title
-\newcommand*\NextSessionShortTitle{%
+\newcommand*\NextSessionShortTitle[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+1\relax}%
+    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
     \SessionShortTitle{\thenextsession}%
   \fi
 }
 % Main title
-\newcommand*\NextSessionTitle{%
+\newcommand*\NextSessionTitle[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+1\relax}%
+    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
     \SessionTitle{\thenextsession}%
   \fi
 }
 % Short date
-\newcommand*\NextSessionShortDate{%
+\newcommand*\NextSessionShortDate[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+1\relax}%
+    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
     \SessionShortDate{\thenextsession}%
   \fi
 }
 % Room
-\newcommand*\NextSessionRoom{%
+\newcommand*\NextSessionRoom[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+1\relax}%
+    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
     \SessionRoom{\thenextsession}%
   \fi
 }
 % Instructor
-\newcommand*\NextSessionInstructor{%
+\newcommand*\NextSessionInstructor[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+1\relax}%
+    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
     \SessionInstructor{\thenextsession}%
   \fi
 }
 % Presenting students
-\newcommand*\NextSessionPresStudents{%
+\newcommand*\NextSessionPresStudents[1][1]{%
   \ifnum0<0\sesnr\relax
-    \setcounter{nextsession}{\numexpr\sesnr+1\relax}%
+    \setcounter{nextsession}{\numexpr\sesnr+#1\relax}%
     \SessionPresStudents{\thenextsession}%
   \fi
 }
