@@ -68,7 +68,7 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.2 (forthcoming):  - Fix line breaking with empty session titles before course
+* V. 1.2 (2016-05-11):   - Fix line breaking with empty session titles before course
                            breaks.
 
                          - New commands \AdjSessionFullTitle, \AdjSessionDate,
