@@ -42,10 +42,14 @@
 \DefSemType{ws}{WS}{Wintersemester}% winter term
 
 % Date formats
-\renewcommand*\lecdateformat{%
-  \THEDAY.\,\twodigit{\THEMONTH}.\,\THEYEAR}% long date
-\renewcommand*\lecdateshortformat{%
-  \THEDAY.\,\twodigit{\THEMONTH}.}% short date
+\DTMrenewdatestyle{vldate}{% long date: dd.\,mm.~yyyy
+\renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.~##1}%
+\renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
+}
+
+\DTMrenewdatestyle{vlshortdate}{% short date: dd.\,mm.
+\renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.}%
+\renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
 
 % Suffix to cancelled sessions
 \renewcommand*\leccancel{\ -- keine \lectypesession}
