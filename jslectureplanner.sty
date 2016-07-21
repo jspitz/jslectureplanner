@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2016/05/21}
+\def\filedate{2016/07/21}
 \def\fileversion{1.3dev}
 \def\filename{jslectureplanner.sty}
 
@@ -36,9 +36,8 @@
 % REQUIRED PACKAGES
 %
 \RequirePackage{etoolbox}
-\RequirePackage{advdate}
 \RequirePackage{xkeyval}
-\RequirePackage{datetime}
+\RequirePackage[calc,useregional]{datetime2}
 \RequirePackage{calc}
 \RequirePackage{ifthen}
 
@@ -280,12 +279,18 @@
 
 
 %
-% CUSTOM DATE FORMATS (via datetime)
+% CUSTOM DATE FORMATS (via datetime2)
 %
-\newcommand*\lecdateformat{\THEDAY.\,\twodigit{\THEMONTH}.~\THEYEAR}
-\newcommand*\lecdateshortformat{\THEDAY.\,\twodigit{\THEMONTH}.}
-\newdateformat{vldate}{\lecdateformat}
-\newdateformat{vlshdate}{\lecdateshortformat}
+
+\DTMnewdatestyle{vldate}{%
+  \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.~##1}%
+  \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
+}
+
+\DTMnewdatestyle{vlshortdate}{%
+  \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.}%
+  \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
+}
 
 
 %
@@ -509,6 +514,11 @@
 % COURSE SCHEDULE SETUP
 %
 
+% Code adapted from advdate.sty
+\newcommand\jslp@SetDate[1][\s@v@dT@d@y]{\edef\d@t@{#1}%
+  \expandafter\t@d@y\d@t@\t@d@y}
+\def\t@d@y#1/#2/#3\t@d@y{\day#1 \month#2 \year#3 \relax}
+
 % 1) Session definition
 %
 \define@key{session}{titlesep}{\csdef{@sestitlesep}{#1}}
@@ -542,11 +552,11 @@
   \setkeys{session}{#1}
   \csdef{@sestitle}{#2}
   \protected@csxdef{sesdate\thesnum}{%
-      \bgroup\ifx\lecstartdate\empty\else\SetDate[\lecstartdate]\fi%
-      \AdvanceDate[\thedateratio]\vldate\today\egroup}
+      \bgroup\ifx\lecstartdate\empty\else\jslp@SetDate[\lecstartdate]\fi%
+      \DTMsetdatestyle{vldate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
   \protected@csxdef{sesshortdate\thesnum}{%
-      \bgroup\ifx\lecstartdate\empty\else\SetDate[\lecstartdate]\fi%
-      \AdvanceDate[\thedateratio]\vlshdate\today\egroup}
+      \bgroup\ifx\lecstartdate\empty\else\jslp@SetDate[\lecstartdate]\fi%
+      \DTMsetdatestyle{vlshortdate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
   \protected@csxdef{sestitle\thesnum}{\csuse{@sestitle}\ifcsempty{@sestitle}{\strut}{}}
   \protected@csxdef{sestitlesep\thesnum}{\csuse{@sestitlesep}}
   \protected@csxdef{sessubtitle\thesnum}{\csuse{@vasutitle}}
@@ -923,11 +933,33 @@
 %
 %%%%%%%%%%%%%
 
+%
+% DEPRECATED THINGS
+%
+
 % Reset to today
 % DEPRECATED as of v.0.8,
 \newcommand*\ResetDate{%
   \PackageWarning{jslectureplanner}{%
     \protect\ResetDate\space is deprecated (not needed anymore).}%
+}
+
+% datetime (v.1) date formats
+% DEPRECATED as of v.1.3
+% Issue a warning if redefined.
+\newcommand*\lecdateformat{}
+\newcommand*\lecdateshortformat{}
+\AtEndPreamble{%
+  \ifcsempty{lecdateformat}{}{
+    \PackageWarning{jslectureplanner}{\protect\lecdateformat\space is deprecated and non-functional.\MessageBreak
+     Please refer to the manual for the new way of customizing date output.
+    }
+  }
+  \ifcsempty{lecdateshortformat}{}{
+    \PackageWarning{jslectureplanner}{\protect\lecdateshortformat\space is deprecated and non-functional.\MessageBreak
+     Please refer to the manual for the new way of customizing date output.
+    }
+  }
 }
 
 % Finis
