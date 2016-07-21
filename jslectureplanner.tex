@@ -69,7 +69,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.3dev, 2016/05/21}
+\date{Version 1.3dev, 2016/07/21}
 
 \maketitle
 
@@ -129,9 +129,8 @@ This is described later in this manual.
 The following packages are required and loaded by \jslp:
 \begin{itemize}
  \setlength\itemsep{2pt}
- \item \textsf{advdate}
  \item \textsf{calc}
- \item \textsf{datetime}
+ \item \textsf{datetime2}
  \item \textsf{etoolbox}
  \item \textsf{ifthen}
  \item \textsf{xkeyval}
@@ -713,20 +712,27 @@ Thus, you could add a new term type ``spring term'' via
 \item \jcsmacro{DefSemType\{st\}\{ST\}\{Spring Term\}}
 \end{itemize}
 
-\subsection{Customizing the date format}
+\subsection{Customizing the date format}\label{sec:custdate}
 
-If you need to change the date format, redefine the macros \jcsmacro{lecdateformat}
-(for the long format) and \jcsmacro{lecdateshortformat}
-(for the short format), using the syntax provided by the \textsf{datetime}
+If you need to change the date format, redefine the date styles \textsf{vldate}
+(for the long format) and \textsf{vlshortdate} (for the short format),
+using the syntax provided by the \textsf{datetime2}
 package. By default, the two formats are defined as follows:
 
-\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
-\newcommand*\lecdateformat{%
-    \THEDAY.\,\twodigit{\THEMONTH}.~\THEYEAR}
-\newcommand*\lecdateshortformat{%
-    \THEDAY.\,\twodigit{\THEMONTH}.}
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{DTMnewdatestyle}}]
+\DTMnewdatestyle{vldate}{%
+\renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.~##1}%
+\renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
+}
+
+\DTMnewdatestyle{vlshortdate}{%
+\renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.}%
+\renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
+}
 \end{lstlisting}
-Use \jfcsmacro{renewcommand*} to redefine them.
+\jfcsmacro{DTMtwodigits\{\#\#3\}} represents the day of the month (using always two digits, i.\,e., 01 not 1), \jfcsmacro{DTMtwodigits\{\#\#2\}} represents the month (also in two-digit form) and \jfmacro{\#\#1} represents the year. Please refer to the datetime2 manual for details. If you want to redefine the styles, use \jfcsmacro{DTMrenewdatestyle} and change the definition accordingly.
+
+Note that the date redefinition syntax used up to \jslp\ 1.2 is no longer supported, since it relied on the \textsf{datetime} package, which is deprecated (and superseded by \textsf{datetime2}). The \jslp\ package will issue a warning if you try to use the old syntax.
 
 
 \subsection{Misc. customizing}
@@ -1003,8 +1009,10 @@ the \jslp\ style files. Thanks, Dominik.
 
 \begin{itemize}
 \item Forthcoming (v. 1.3):
-     \begin{itemize}		
-         \item Microtypographic improvement in default definition of \jcsmacro{lecdateformat}.
+     \begin{itemize}
+     	\item Use \textsf{datetime2} instead of \textsf{datetime} and \textsf{advdate}.
+     	This changes the interface to set the lecture date format. See sec.~\ref{sec:custdate}.		
+         \item Microtypographic improvement in default definition of the lecture date format.
 	 \end{itemize}
 \item 2016/05/11 (v. 1.2):
     \begin{itemize}	
