@@ -45,7 +45,7 @@
 % Uses datetime2 syntax:
 % ##1: year
 % ##2: month
-% ##1: day
+% ##3: day
 % \DTMtwodigits: always output two digits
 \DTMrenewdatestyle{vldate}{% long date: dd.\,mm.~yyyy
 \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.~##1}%
