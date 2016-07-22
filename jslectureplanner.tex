@@ -135,7 +135,7 @@ The following packages are required and loaded by \jslp:
  \item \textsf{ifthen}
  \item \textsf{xkeyval}
 \end{itemize}
-
+\pagebreak
 
 \section{General idea}
 
@@ -730,7 +730,7 @@ package. By default, the two formats are defined as follows:
 \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
 }
 \end{lstlisting}
-\jfcsmacro{DTMtwodigits\{\#\#3\}} represents the day of the month (using always two digits, i.\,e., 01 not 1), \jfcsmacro{DTMtwodigits\{\#\#2\}} represents the month (also in two-digit form) and \jfmacro{\#\#1} represents the year. Please refer to the datetime2 manual for details. If you want to redefine the styles, use \jfcsmacro{DTMrenewdatestyle} and change the definition accordingly.
+\jfcsmacro{DTMtwodigits\{\#\#3\}} represents the day of the month (producing always two digits, i.\,e., \emph{01} not \emph{1}), \jfcsmacro{DTMtwodigits\{\#\#2\}} represents the month (also in two-digit form) and \jfmacro{\#\#1} represents the year. Please refer to the datetime2 manual for details. If you want to redefine the styles, use \jfcsmacro{DTMrenewdatestyle} and change the definition accordingly (see the file \texttt{german-default.lps} for an example).
 
 Note that the date redefinition syntax used up to \jslp\ 1.2 is no longer supported, since it relied on the \textsf{datetime} package, which is deprecated (and superseded by \textsf{datetime2}). The \jslp\ package will issue a warning if you try to use the old syntax.
 
@@ -780,8 +780,6 @@ Currently, the package ships two styles:
 If you provide me with other style files, in particular
 translations to other languages than German (but also other university conventions), I consider
 them for inclusion to the package.
-
-\clearpage
 
 \part{Companion packages}
 
@@ -1010,7 +1008,7 @@ the \jslp\ style files. Thanks, Dominik.
 \begin{itemize}
 \item Forthcoming (v. 1.3):
      \begin{itemize}
-     	\item Use \textsf{datetime2} instead of \textsf{datetime} and \textsf{advdate}.
+     	\item \textbf{Backwards-incompatible change!} Use \textsf{datetime2} instead of \textsf{datetime} and \textsf{advdate}.
      	This changes the interface to set the lecture date format. See sec.~\ref{sec:custdate}.		
          \item Microtypographic improvement in default definition of the lecture date format.
 	 \end{itemize}
@@ -1037,7 +1035,7 @@ the \jslp\ style files. Thanks, Dominik.
              \jcsmacro{makebeamerpreslist}, \jcsmacro{setfirstpressession} and
              \jcsmacro{setlastpressession}.
        \item Major revision of the manual.
-     \end{itemize}\filbreak
+     \end{itemize}
 \item 2015/07/07 (v. 1.0.2):
      \begin{itemize}
        \item Permit \jcsmacro{LecType} and \jcsmacro{LecYear} in the document body again
