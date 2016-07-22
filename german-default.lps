@@ -42,14 +42,18 @@
 \DefSemType{ws}{WS}{Wintersemester}% winter term
 
 % Date formats
+% Uses datetime2 syntax:
+% ##1: year
+% ##2: month
+% ##1: day
+% \DTMtwodigits: always output two digits
 \DTMrenewdatestyle{vldate}{% long date: dd.\,mm.~yyyy
 \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.~##1}%
-\renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
 }
 
 \DTMrenewdatestyle{vlshortdate}{% short date: dd.\,mm.
 \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.}%
-\renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
+}
 
 % Suffix to cancelled sessions
 \renewcommand*\leccancel{\ -- keine \lectypesession}
