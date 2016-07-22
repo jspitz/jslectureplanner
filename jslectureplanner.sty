@@ -293,6 +293,13 @@
 }
 
 
+% Internal macro to set the date to a given value
+% Code adapted from advdate.sty
+\newcommand\jslp@SetDate[1][\s@v@dT@d@y]{\edef\d@t@{#1}%
+  \expandafter\t@d@y\d@t@\t@d@y}
+\def\t@d@y#1/#2/#3\t@d@y{\day#1 \month#2 \year#3 \relax}
+
+
 %
 % CUSTOMIZATION OF STRINGS
 %
@@ -513,11 +520,6 @@
 %
 % COURSE SCHEDULE SETUP
 %
-
-% Code adapted from advdate.sty
-\newcommand\jslp@SetDate[1][\s@v@dT@d@y]{\edef\d@t@{#1}%
-  \expandafter\t@d@y\d@t@\t@d@y}
-\def\t@d@y#1/#2/#3\t@d@y{\day#1 \month#2 \year#3 \relax}
 
 % 1) Session definition
 %
