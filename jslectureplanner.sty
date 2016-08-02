@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2016/07/21}
+\def\filedate{2016/08/02}
 \def\fileversion{1.3dev}
 \def\filename{jslectureplanner.sty}
 
@@ -282,12 +282,12 @@
 % CUSTOM DATE FORMATS (via datetime2)
 %
 
-\DTMnewdatestyle{vldate}{%
+\DTMnewdatestyle{lecdate}{% long date: DD.\,MM.~YYYY
   \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.~##1}%
   \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
 }
 
-\DTMnewdatestyle{vlshortdate}{%
+\DTMnewdatestyle{lecshortdate}{% short date: DD.\,MM.
   \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.}%
   \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
 }
@@ -555,10 +555,10 @@
   \csdef{@sestitle}{#2}
   \protected@csxdef{sesdate\thesnum}{%
       \bgroup\ifx\lecstartdate\empty\else\jslp@SetDate[\lecstartdate]\fi%
-      \DTMsetdatestyle{vldate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
+      \DTMsetdatestyle{lecdate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
   \protected@csxdef{sesshortdate\thesnum}{%
       \bgroup\ifx\lecstartdate\empty\else\jslp@SetDate[\lecstartdate]\fi%
-      \DTMsetdatestyle{vlshortdate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
+      \DTMsetdatestyle{lecshortdate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
   \protected@csxdef{sestitle\thesnum}{\csuse{@sestitle}\ifcsempty{@sestitle}{\strut}{}}
   \protected@csxdef{sestitlesep\thesnum}{\csuse{@sestitlesep}}
   \protected@csxdef{sessubtitle\thesnum}{\csuse{@vasutitle}}
