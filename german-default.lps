@@ -47,11 +47,11 @@
 % ##2: month
 % ##3: day
 % \DTMtwodigits: always output two digits
-\DTMrenewdatestyle{vldate}{% long date: dd.\,mm.~yyyy
+\DTMrenewdatestyle{lecdate}{% long date: dd.\,mm.~yyyy
 \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.~##1}%
 }
 
-\DTMrenewdatestyle{vlshortdate}{% short date: dd.\,mm.
+\DTMrenewdatestyle{lecshortdate}{% short date: dd.\,mm.
 \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.}%
 }
 
