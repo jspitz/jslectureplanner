@@ -69,7 +69,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.3dev, 2016/07/21}
+\date{Version 1.3dev, 2016/08/02}
 
 \maketitle
 
@@ -714,25 +714,38 @@ Thus, you could add a new term type ``spring term'' via
 
 \subsection{Customizing the date format}\label{sec:custdate}
 
-If you need to change the date format, redefine the date styles \textsf{vldate}
-(for the long format) and \textsf{vlshortdate} (for the short format),
+If you need to change the date format, redefine the date styles \textsf{lecdate}
+(for the long format) and \textsf{lecshortdate} (for the short format),
 using the syntax provided by the \textsf{datetime2}
 package. By default, the two formats are defined as follows:
 
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{DTMnewdatestyle}}]
-\DTMnewdatestyle{vldate}{%
+\DTMnewdatestyle{lecdate}{% long date: DD.\,MM.~YYYY
 \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.~##1}%
 \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
 }
 
-\DTMnewdatestyle{vlshortdate}{%
+\DTMnewdatestyle{lecshortdate}{% short date: DD.\,MM.
 \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.}%
 \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
 }
 \end{lstlisting}
-\jfcsmacro{DTMtwodigits\{\#\#3\}} represents the day of the month (producing always two digits, i.\,e., \emph{01} not \emph{1}), \jfcsmacro{DTMtwodigits\{\#\#2\}} represents the month (also in two-digit form) and \jfmacro{\#\#1} represents the year. Please refer to the datetime2 manual for details. If you want to redefine the styles, use \jfcsmacro{DTMrenewdatestyle} and change the definition accordingly (see the file \texttt{german-default.lps} for an example).
+\jfcsmacro{DTMtwodigits\{\#\#3\}} represents the day of the month (producing always two digits, i.\,e., \emph{01} not \emph{1}), \jfcsmacro{DTMtwodigits\{\#\#2\}} represents the month (also in two-digit form) and \jfmacro{\#\#1} represents the year. Please refer to the \textsf{datetime2} manual for details. 
 
-Note that the date redefinition syntax used up to \jslp\ 1.2 is no longer supported, since it relied on the \textsf{datetime} package, which is deprecated (and superseded by \textsf{datetime2}). The \jslp\ package will issue a warning if you try to use the old syntax.
+If you want to redefine the styles, use \jfcsmacro{DTMrenewdatestyle} and change the definition accordingly. For instance, to get the typical American English date formats \emph{MM/DD/YYYY} and \emph{Month, DD}, redefine the formats as follows:
+
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{DTMrenewdatestyle}}]
+\DTMrenewdatestyle{lecdate}{% long date: MM/DD/YYYY
+\renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##2}/\DTMtwodigits{##3}/##1}%
+}
+
+\DTMrenewdatestyle{lecshortdate}{% short date: Month, DD
+\renewcommand*{\DTMdisplaydate}[4]{\DTMenglishmonthname{##2}, ##3}%
+}
+\end{lstlisting}
+Note that it is not necessary to include the \jfcsmacro{DTMDisplaydate} redefinition in the date format redefinition (since it does never change here). Note further that the macro \jfcsmacro{DTMenglishmonthname} used in the short date redefinition requires the \textsf{datetime2-english} module to be loaded (see \textsf{datetime2} manual for details).
+
+Note, finally, that the date redefinition syntax used up to \jslp\ 1.2 is no longer supported, since it relied on the \textsf{datetime} package, which is deprecated (and superseded by \textsf{datetime2}). The \jslp\ package will issue a warning if you try to use the old syntax.
 
 
 \subsection{Misc. customizing}
@@ -755,7 +768,7 @@ The indentation used in program lists can be changed by redefining
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
 \end{lstlisting}
-Again, use \jfcsmacro{renewcommand{*}} for the redefinitions.
+Use \jfcsmacro{renewcommand{*}} for the redefinitions.
 
 
 \subsection{Using styles}\label{sec:styles}
@@ -780,6 +793,8 @@ Currently, the package ships two styles:
 If you provide me with other style files, in particular
 translations to other languages than German (but also other university conventions), I consider
 them for inclusion to the package.
+
+\clearpage
 
 \part{Companion packages}
 
