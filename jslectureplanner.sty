@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2016/08/02}
+\def\filedate{2016/08/27}
 \def\fileversion{1.3dev}
 \def\filename{jslectureplanner.sty}
 
@@ -618,7 +618,7 @@
 }
 \newcommand*\SetBreaks[2][units=1]{%
   \csdef{@breakunits}{\empty}
-  \csdef{@breakspan}{\empty}
+  \csdef{@breakspan}{}
   \setkeys{break}{#1}
   \setcounter{breakunits}{\csuse{@breakunits}}
   \setcounter{sesunit}{\thesesunit+\thebreakunits}
@@ -633,13 +633,13 @@
     }{}
     \stepcounter{loopcounter}
   \repeat
-  \ifx\empty\csuse{@breakspan}
+  \ifcsempty{@breakspan}{%
     \protected@eappto\programlist{\noexpand\begin{center} (#2) \noexpand\end{center}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}
-  \else
+  }{%
     \protected@eappto\programlist{\noexpand\begin{center} (\csuse{@breakspan}: #2) \noexpand\end{center}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (\csuse{@breakspan}: #2) \noexpand\end{center}}
-  \fi
+  }
 }
 
 % Offset in days

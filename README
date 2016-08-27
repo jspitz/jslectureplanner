@@ -72,6 +72,8 @@ instructions; also have a look at the example files.
                            and advdate. This changes the interface to set the lecture date
                            format. Please refer to the documentation for details.
 
+                         - Fix output of \SetBreaks when no span argument is given.
+
                          - Small microtypographic improvement in default definition of
                            the lecture date format.
 
