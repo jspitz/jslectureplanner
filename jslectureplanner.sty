@@ -617,7 +617,7 @@
   \setkeys{break}{units=#1}%
 }
 \newcommand*\SetBreaks[2][units=1]{%
-  \csdef{@breakunits}{\empty}
+  \csdef{@breakunits}{}
   \csdef{@breakspan}{}
   \setkeys{break}{#1}
   \setcounter{breakunits}{\csuse{@breakunits}}
