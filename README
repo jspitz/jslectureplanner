@@ -74,6 +74,9 @@ instructions; also have a look at the example files.
 
                          - Fix output of \SetBreaks when no span argument is given.
 
+                         - Protect content of some \Lec* macros to allow for commas in
+                           titles etc.
+
                          - Small microtypographic improvement in default definition of
                            the lecture date format.
 

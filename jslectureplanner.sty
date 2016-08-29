@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2016/08/27}
+\def\filedate{2016/08/29}
 \def\fileversion{1.3dev}
 \def\filename{jslectureplanner.sty}
 
@@ -257,15 +257,15 @@
 %
 
 \newcommand*{\LecType}[1]{\setkeys{lec}{lectype=#1}}
-\newcommand*{\LecTitle}[2][]{\setkeys{lec}{#1,title=#2}}
-\newcommand*{\LecTitleSep}[1]{\setkeys{lec}{titlesep=#1}}
-\newcommand*{\LecSubTitle}[1]{\setkeys{lec}{subtitle=#1}}
+\newcommand*{\LecTitle}[2][]{\setkeys{lec}{#1,title={#2}}}
+\newcommand*{\LecTitleSep}[1]{\setkeys{lec}{titlesep={#1}}}
+\newcommand*{\LecSubTitle}[1]{\setkeys{lec}{subtitle={#1}}}
 \newcommand*{\LecYear}[2]{\setkeys{lec}{lecsem=#1,year=#2}}
-\newcommand*{\LecUni}[1]{\setkeys{lec}{uni=#1}}
-\newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute=#1}}
-\newcommand*{\LecRoom}[1]{\setkeys{lec}{room=#1}}
+\newcommand*{\LecUni}[1]{\setkeys{lec}{uni={#1}}}
+\newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute={#1}}}
+\newcommand*{\LecRoom}[1]{\setkeys{lec}{room={#1}}}
 \newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
-\newcommand*{\LecInstructor}[1]{\setkeys{lec}{instructor=#1}}
+\newcommand*{\LecInstructor}[1]{\setkeys{lec}{instructor={#1}}}
 \newcommand*{\LecInterval}[1]{\setkeys{lec}{interval=#1}}
 
 
