@@ -69,7 +69,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.3dev, 2016/08/29}
+\date{Version 1.3dev, 2016/08/30}
 
 \maketitle
 
@@ -1026,7 +1026,7 @@ the \jslp\ style files. Thanks, Dominik.
      	\item \textbf{Backwards-incompatible change!} Use \textsf{datetime2} instead of \textsf{datetime} and \textsf{advdate}.
      	      This changes the interface to set the lecture date format. See sec.~\ref{sec:custdate}.
      	\item Fix output of \jcsmacro{SetBreaks} when no \joption{span} argument is given.
-     	\item Protect content of some \jcsmacro{Lec}* macros to allow for commas in
+     	\item Protect content of some \jcsmacro{Lec}* macros and options to allow for commas in
      	      titles etc.
         \item Microtypographic improvement in default definition of the lecture date format.
 	 \end{itemize}
@@ -1041,7 +1041,7 @@ the \jslp\ style files. Thanks, Dominik.
 		  \item \jcsmacro{AdjSessionTitle}
 		  \item \jcsmacro{AdjSessionShortDate}
 		  \item \jcsmacro{AdjSessionRoom}
-		  \item \jcsmacro{AdjSessionInstructor}
+		  \item \jcsmacro{AdjSessionInstructor}\enlargethispage{\baselineskip}
 		  \item \jcsmacro{AdjSessionPresStudents}
 	  \end{itemize}
     \end{itemize}

@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2016/08/29}
+\def\filedate{2016/08/30}
 \def\fileversion{1.3dev}
 \def\filename{jslectureplanner.sty}
 
@@ -229,19 +229,19 @@
     \fi
 }
 
-\DeclareOptionX{title}{\setkeys{lec}{title=#1}}
-\DeclareOptionX{titlesep}{\setkeys{lec}{titlesep=#1}}
-\DeclareOptionX{subtitle}{\setkeys{lec}{subtitle=#1}}
-\DeclareOptionX{shorttitle}{\setkeys{lec}{shorttitle=#1}}
+\DeclareOptionX{title}{\setkeys{lec}{title={#1}}}
+\DeclareOptionX{titlesep}{\setkeys{lec}{titlesep={#1}}}
+\DeclareOptionX{subtitle}{\setkeys{lec}{subtitle={#1}}}
+\DeclareOptionX{shorttitle}{\setkeys{lec}{shorttitle={#1}}}
 \DeclareOptionX{year}{\setkeys{lec}{year=#1}}
-\DeclareOptionX{uni}{\setkeys{lec}{uni=#1}}
-\DeclareOptionX{institute}{\setkeys{lec}{institute=#1}}
+\DeclareOptionX{uni}{\setkeys{lec}{uni={#1}}}
+\DeclareOptionX{institute}{\setkeys{lec}{institute={#1}}}
 \DeclareOptionX{startdate}{\setkeys{lec}{startdate=#1}}
-\DeclareOptionX{instructor}{\setkeys{lec}{instructor=#1}}
-\DeclareOptionX{platform}{\setkeys{lec}{platform=#1}}
-\DeclareOptionX{officehours}{\setkeys{lec}{officehours=#1}}
-\DeclareOptionX{officenumber}{\setkeys{lec}{officenumber=#1}}
-\DeclareOptionX{room}{\setkeys{lec}{room=#1}}
+\DeclareOptionX{instructor}{\setkeys{lec}{instructor={#1}}}
+\DeclareOptionX{platform}{\setkeys{lec}{platform={#1}}}
+\DeclareOptionX{officehours}{\setkeys{lec}{officehours={#1}}}
+\DeclareOptionX{officenumber}{\setkeys{lec}{officenumber={#1}}}
+\DeclareOptionX{room}{\setkeys{lec}{room={#1}}}
 \DeclareOptionX{style}{\setkeys{lec}{style=#1}}
 \DeclareOptionX{interval}{\setkeys{lec}{interval=#1}}
 
@@ -523,13 +523,13 @@
 
 % 1) Session definition
 %
-\define@key{session}{titlesep}{\csdef{@sestitlesep}{#1}}
-\define@key{session}{subtitle}{\csdef{@vasutitle}{#1}}
-\define@key{session}{shorttitle}{\csdef{@vashorttitle}{#1}}
+\define@key{session}{titlesep}{\csdef{@sestitlesep}{{#1}}}
+\define@key{session}{subtitle}{\csdef{@vasutitle}{{#1}}}
+\define@key{session}{shorttitle}{\csdef{@vashorttitle}{{#1}}}
 \define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
-\define@key{session}{room}{\csdef{@sesroom}{#1}}
-\define@key{session}{instructor}{\csdef{@sesinstructor}{#1}}
-\define@key{session}{presstudents}{\csdef{@sespresstudents}{#1}}
+\define@key{session}{room}{\csdef{@sesroom}{{#1}}}
+\define@key{session}{instructor}{\csdef{@sesinstructor}{{#1}}}
+\define@key{session}{presstudents}{\csdef{@sespresstudents}{{#1}}}
 \define@boolkey{session}{cancel}[true]{}
 %
 \newcommand*\NewSession[2][]{%
