@@ -23,8 +23,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2016/08/31}
-\def\fileversion{1.3}
+\def\filedate{2016/10/07}
+\def\fileversion{1.4dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -62,6 +62,7 @@
 \def\lecroom{}
 \def\lecstartdate{}
 \def\lecinstructor{}
+\def\lecshortinstructor{}
 
 \def\lecplatform{}
 \def\officenumber{}
@@ -216,6 +217,7 @@
 \define@key{lec}{room}{\def\lecroom{#1}}
 \define@key{lec}{startdate}{\def\lecstartdate{#1}}
 \define@key{lec}{instructor}{\def\lecinstructor{#1}}
+\define@key{lec}{shortinstructor}{\def\lecshortinstructor{#1}}
 \define@key{lec}{style}{\AtEndOfPackage{\input{#1.lps}}}
 \define@key{lec}{interval}{%
     % test if the input is a number
@@ -265,7 +267,7 @@
 \newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute={#1}}}
 \newcommand*{\LecRoom}[1]{\setkeys{lec}{room={#1}}}
 \newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
-\newcommand*{\LecInstructor}[1]{\setkeys{lec}{instructor={#1}}}
+\newcommand*{\LecInstructor}[2][]{\setkeys{lec}{shortinstructor={#1},instructor={#2}}}
 \newcommand*{\LecInterval}[1]{\setkeys{lec}{interval=#1}}
 
 
@@ -523,12 +525,14 @@
 
 % 1) Session definition
 %
+\providebool{othersesinstructor}
 \define@key{session}{titlesep}{\csdef{@sestitlesep}{{#1}}}
 \define@key{session}{subtitle}{\csdef{@vasutitle}{{#1}}}
 \define@key{session}{shorttitle}{\csdef{@vashorttitle}{{#1}}}
 \define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
 \define@key{session}{room}{\csdef{@sesroom}{{#1}}}
-\define@key{session}{instructor}{\csdef{@sesinstructor}{{#1}}}
+\define@key{session}{instructor}{\csdef{@sesinstructor}{{#1}}\booltrue{othersesinstructor}}
+\define@key{session}{shortinstructor}{\csdef{@sesshortinstructor}{{#1}}}
 \define@key{session}{presstudents}{\csdef{@sespresstudents}{{#1}}}
 \define@boolkey{session}{cancel}[true]{}
 %
@@ -549,6 +553,7 @@
   \csdef{@sesbibsec}{}
   \csdef{@sesroom}{\lecroom}
   \csdef{@sesinstructor}{\lecinstructor}
+  \csdef{@sesshortinstructor}{\lecshortinstructor}
   \csdef{@sespresstudents}{}
   \setkeys{session}{cancel=false}
   \setkeys{session}{#1}
@@ -566,6 +571,7 @@
   \protected@csxdef{sesbib\thesnum}{\csuse{@sesbibsec}}
   \protected@csxdef{sesroom\thesnum}{\csuse{@sesroom}}
   \protected@csxdef{sesinstructor\thesnum}{\csuse{@sesinstructor}}
+  \protected@csxdef{sesshortinstructor\thesnum}{\csuse{@sesshortinstructor}}
   \protected@csxdef{sespresstudents\thesnum}{\csuse{@sespresstudents}}
   \ifKV@session@cancel
     \stepcounter{cancellations}
@@ -798,6 +804,7 @@
   \gdef\sessubtitle{\csuse{sessubtitle#1}}%
   \gdef\sesroom{\csuse{sesroom#1}}%
   \gdef\sesinstructor{\csuse{sesinstructor#1}}%
+  \gdef\sesshortinstructor{\csuse{sesshortinstructor#1}}%
   \gdef\sespresstudents{\csuse{sespresstudents#1}}%
 }
 
@@ -813,6 +820,7 @@
   \gdef\lsessubtitle{\csuse{sessubtitle#1}}%
   \gdef\lsesroom{\csuse{sesroom#1}}%
   \gdef\lsesinstructor{\csuse{sesinstructor#1}}%
+  \gdef\lsesshortinstructor{\csuse{sesshortinstructor#1}}%
   \gdef\lsespresstudents{\csuse{sespresstudents#1}}%
 }
 
@@ -858,6 +866,12 @@
 \newcommand*\SessionInstructor[1]{%
   \LocalSession{#1}%
   \lsesinstructor%
+}
+
+% Instructor (Short Form)
+\newcommand*\SessionShortInstructor[1]{%
+  \LocalSession{#1}%
+  \lsesshortinstructor%
 }
 
 % Presenting students
@@ -923,6 +937,13 @@
   \ifnum0<0\sesnr\relax
     \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
     \SessionInstructor{\theadjsession}%
+  \fi
+}
+% Instructor (Short Form)
+\newcommand*\AdjSessionShortInstructor[1][1]{%
+  \ifnum0<0\sesnr\relax
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionShortInstructor{\theadjsession}%
   \fi
 }
 % Presenting students
