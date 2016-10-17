@@ -222,22 +222,22 @@ Also cf. sec.~\ref{sec:styles}.
 \item [\joption{year=<year>}] Year of the term
 \item [\joption{uni=<university>}] Your university
 \item [\joption{institute=<institute>}] Your institute/department
-\item [\joption{room=<room>}] The room where the course generally takes place.
-      It is possible to specify diverging rooms for individual sessions
-      (see sec. \ref{sec:lecplan}).
+\item [\joption{room=<room>}] The room where the course generally takes place;
+      it is possible to specify diverging rooms for individual sessions
+      (see sec. \ref{sec:lecplan})
 \item [\joption{startdate=<startdate>}] The date of the first session (the argument
-      \emph{must} have the form DD/MM/YYYY). If no startdate is given,
-      \jfcsmacro{today} is used.
-\item [\joption{interval=<interval>}] The interval (in days) between two sessions.
-      The preset interval is 7 (=~weekly courses).
+      \emph{must} have the form DD/MM/YYYY); if no startdate is given,
+      \jfcsmacro{today} is used
+\item [\joption{interval=<interval>}] The interval (in days) between two sessions;
+      the preset interval is 7 (=~weekly courses)
 \end{description}
 
 \subsubsection{Additional information}
 \begin{description}
-\item [\joption{instructor=<name>}] (General) course instructor's name.
-      It is possible to specify different or specific instructors for individual sessions
-      (see sec. \ref{sec:lecplan}).
-\item [\joption{shortinstructor=<name>}] Short form of the (general) course instructor's name (e.\,g., for headings).
+\item [\joption{instructor=<name>}] (General) course instructor's name;
+      it is possible to specify different or specific instructors for individual sessions
+      (see sec. \ref{sec:lecplan})
+\item [\joption{shortinstructor=<name>}] Short form of the (general) course instructor's name (e.\,g., for headings)
 \item [\joption{platform=<data>}] Information of the e-learning platform
       (such as the URL)
 \item [\joption{officehours=<data>}] Date of your office hours
@@ -440,7 +440,8 @@ title and subtitle
 \item \jcsmacro{lecfulltitle}: Outputs the course's full title
     (title, separator, subtitle)
 \item \jcsmacro{lecshorttitle}: Outputs the short version
-of the course title
+of the course title; if no explicit short title is specified,
+the normal title is output
 \item \jcsmacro{lecsemshort}: Outputs the short version of
 the term type (e.\,g., ``WS'')
 \item \jcsmacro{lecsemverb}: Outputs the verbose version
@@ -453,7 +454,8 @@ of the semester (such as ``Winter\-semester 2014'')
 \item \jcsmacro{lecuniversity}: Outputs the university's name
 \item \jcsmacro{lecinstitute}: Outputs the institute's/department's name
 \item \jcsmacro{lecinstructor}: Outputs the (general) instructor's name
-\item \jcsmacro{lecshortinstructor}: Outputs short form of the (general) instructor's name
+\item \jcsmacro{lecshortinstructor}: Outputs short form of the (general) instructor's name; if no explicit short name is given, the normal name
+will be output
 \item \jcsmacro{lecroom}: Outputs the (general) course room
 \item \jcsmacro{lecplatform}: Outputs information on the
 e-learning platform
@@ -618,13 +620,15 @@ the following macros output general session-specific information:
 \item \jcsmacro{sesshortdate}: Date of the current session,
 short form (no year)
 \item \jcsmacro{sestitle}: Main title of the current session
+\item \jcsmacro{sesshorttitle}: Short title of the current session; if
+no explicit short title is specified, the normal main title is output
 \item \jcsmacro{sestitlesep}: Title-subtitle separator of
 the current session
 \item \jcsmacro{sessubtitle}: Subtitle of the current session
 \item \jcsmacro{sesfulltitle}: Full title of the current
 session (title, separator, subtitle)
 \item \jcsmacro{sesinstructor}: Current session's instructor's name; if you want to output this name only if it differs from the general instructor (\jcsmacro{lecinstructor}), use the starred version \jcsmacro{sesinstructor*}
-\item \jcsmacro{sesshortinstructor}: Current session's instructor's short name; if you want to output this name only if it differs from the general instructor (\jcsmacro{lecshortinstructor}), use the starred version \jcsmacro{sesshortinstructor*}
+\item \jcsmacro{sesshortinstructor}: Current session's instructor's short name; if you want to output this name only if it differs from the general instructor (\jcsmacro{lecshortinstructor}), use the starred version \jcsmacro{sesshortinstructor*}; if no explicit instructor short name is given, the normal instructor name will be output
 \item \jcsmacro{sespresstudents}: Students presenting in this session
 \item \jcsmacro{sesnr}: Number of the current session
 \item \jcsmacro{sesroom}: Room of the current session
@@ -640,14 +644,14 @@ information for sessions that follow or precede the current session by a specifi
 	\item \jcsmacro{AdjSessionFullTitle[<offset>]}: Outputs the full
 	title (main title, separator, subtitle) of the adjacent session
 	\item \jcsmacro{AdjSessionShortTitle[<offset>]}: Outputs the short
-	title of the adjacent session
+	title of the adjacent session; if no explicit short title is specified, the normal main title is output
 	\item \jcsmacro{AdjSessionDate[<offset>]}: Outputs the date of the adjacent session
 	\item \jcsmacro{AdjSessionShortDate[<offset>]}: Outputs the short
 	date (no year) of the adjacent session
 	\item \jcsmacro{AdjSessionInstructor[<offset>]}: Outputs the name of the instructor of the adjacent session
 	\item \jcsmacro{AdjSessionInstructor*[<offset>]}: Outputs the name of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecinstructor})
-	\item \jcsmacro{AdjSessionShortInstructor[<offset>]}: Outputs the short name of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecshortinstructor})
-	\item \jcsmacro{AdjSessionShortInstructor*[<offset>]}: Outputs the short name of the instructor of the adjacent session
+	\item \jcsmacro{AdjSessionShortInstructor[<offset>]}: Outputs the short name (or normal name, if no short name was specified) of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecshortinstructor})
+	\item \jcsmacro{AdjSessionShortInstructor*[<offset>]}: Outputs the short name  (or normal name, if no short name was specified) of the instructor of the adjacent session
 	\item \jcsmacro{AdjSessionPresStudents[<offset>]}: Outputs the name of the students presenting in the adjacent session
 	\item \jcsmacro{AdjSessionRoom[<offset>]}: Outputs the room of the adjacent session
 \end{itemize}
@@ -664,7 +668,8 @@ of session number \joption{<nr>}
 \item \jcsmacro{SessionFullTitle\{<nr>\}}: Outputs the full
 title (main title, separator, subtitle) of session number \joption{<nr>}
 \item \jcsmacro{SessionShortTitle\{<nr>\}}: Outputs the short
-title of session number \joption{<nr>}
+title of session number \joption{<nr>}; if
+no explicit short title is specified, the normal main title is output
 \item \jcsmacro{SessionDate\{<nr>\}}: Outputs the date of
 session number \joption{<nr>}
 \item \jcsmacro{SessionShortDate\{<nr>\}}: Outputs the short
@@ -673,9 +678,9 @@ date (no year) of session number \joption{<nr>}
 number \joption{<nr>}
 \item \jcsmacro{SessionInstructor*\{<nr>\}}: Outputs the name of the instructor of session
 number \joption{<nr>} if it differs from the general instructor (\jcsmacro{lecinstructor})
-\item \jcsmacro{SessionShortInstructor\{<nr>\}}: Outputs the short name of the instructor of session
+\item \jcsmacro{SessionShortInstructor\{<nr>\}}: Outputs the short name (or normal name, if no short name was specified) of the instructor of session
 number \joption{<nr>}
-\item \jcsmacro{SessionShortInstructor*\{<nr>\}}: Outputs the short name of the instructor of session
+\item \jcsmacro{SessionShortInstructor*\{<nr>\}}: Outputs the short name  (or normal name, if no short name was specified) of the instructor of session
 number \joption{<nr>} if it differs from the general instructor (\jcsmacro{lecinstructor})
 \item \jcsmacro{SessionPresStudents\{<nr>\}}: Outputs the name of the students presenting
 in session number \joption{<nr>}
@@ -1037,7 +1042,8 @@ the \jslp\ style files. Thanks, Dominik.
 \item Forthcoming (v. 1.4):
 	\begin{itemize}
 		\item Add instructor short forms for lecture and session.
-		\item Add starred versions of \jcsmacro{sesinstructor}, \jcsmacro{SessionInstructor} and \jcsmacro{AdjSessionInstructor} that only produce output if the session instructor differs from the general course instructor.
+		\item Add starred versions of the \jcsmacro{sesinstructor}, \jcsmacro{SessionInstructor} and \jcsmacro{AdjSessionInstructor} macros that only produce output if the session instructor differs from the general course instructor.
+		\item All short\{instructor|title\} macros now output the long version if no short form was defined.
 	\end{itemize}
 \item 2016/08/31 (v. 1.3):
      \begin{itemize}

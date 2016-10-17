@@ -204,7 +204,8 @@
 }
 \DeclareOptionX{semester}{\setkeys{lec}{lecsem=#1}}
 
-\define@key{lec}{title}{\def\lectitle{#1}}
+\define@key{lec}{title}{\def\lectitle{#1}%
+    \ifx\lecshorttitle\empty\def\lecshorttitle{#1}\fi}
 \define@key{lec}{titlesep}{\def\lectitlesep{#1}}
 \define@key{lec}{subtitle}{\def\lecsubtitle{#1}}
 \define@key{lec}{shorttitle}{\def\lecshorttitle{#1}}
@@ -216,7 +217,8 @@
 \define@key{lec}{officenumber}{\def\officenumber{#1}}
 \define@key{lec}{room}{\def\lecroom{#1}}
 \define@key{lec}{startdate}{\def\lecstartdate{#1}}
-\define@key{lec}{instructor}{\def\lecinstructor{#1}}
+\define@key{lec}{instructor}{\def\lecinstructor{#1}%
+    \ifx\lecshortinstructor\empty\def\lecshortinstructor{#1}\fi}
 \define@key{lec}{shortinstructor}{\def\lecshortinstructor{#1}}
 \define@key{lec}{style}{\AtEndOfPackage{\input{#1.lps}}}
 \define@key{lec}{interval}{%
@@ -240,6 +242,7 @@
 \DeclareOptionX{institute}{\setkeys{lec}{institute={#1}}}
 \DeclareOptionX{startdate}{\setkeys{lec}{startdate=#1}}
 \DeclareOptionX{instructor}{\setkeys{lec}{instructor={#1}}}
+\DeclareOptionX{shortinstructor}{\setkeys{lec}{shortinstructor={#1}}}
 \DeclareOptionX{platform}{\setkeys{lec}{platform={#1}}}
 \DeclareOptionX{officehours}{\setkeys{lec}{officehours={#1}}}
 \DeclareOptionX{officenumber}{\setkeys{lec}{officenumber={#1}}}
@@ -259,7 +262,7 @@
 %
 
 \newcommand*{\LecType}[1]{\setkeys{lec}{lectype=#1}}
-\newcommand*{\LecTitle}[2][]{\setkeys{lec}{#1,title={#2}}}
+\newcommand*{\LecTitle}[2][]{\setkeys{lec}{shorttitle={#2},#1,title={#2}}}
 \newcommand*{\LecTitleSep}[1]{\setkeys{lec}{titlesep={#1}}}
 \newcommand*{\LecSubTitle}[1]{\setkeys{lec}{subtitle={#1}}}
 \newcommand*{\LecYear}[2]{\setkeys{lec}{lecsem=#1,year=#2}}
@@ -267,7 +270,13 @@
 \newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute={#1}}}
 \newcommand*{\LecRoom}[1]{\setkeys{lec}{room={#1}}}
 \newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
-\newcommand*{\LecInstructor}[2][]{\setkeys{lec}{shortinstructor={#1},instructor={#2}}}
+\newcommand*{\LecInstructor}[2][\empty]{%
+    \ifx#1\empty
+        \setkeys{lec}{instructor={#2}}%
+    \else
+        \setkeys{lec}{instructor={#2},shortinstructor={#1}}%
+    \fi
+}
 \newcommand*{\LecInterval}[1]{\setkeys{lec}{interval=#1}}
 
 
@@ -525,13 +534,17 @@
 
 % 1) Session definition
 %
+\newtoggle{shortinstrdef}
 \define@key{session}{titlesep}{\csdef{@sestitlesep}{{#1}}}
-\define@key{session}{subtitle}{\csdef{@vasutitle}{{#1}}}
-\define@key{session}{shorttitle}{\csdef{@vashorttitle}{{#1}}}
+\define@key{session}{subtitle}{\csdef{@sessubtitle}{{#1}}}
+\define@key{session}{shorttitle}{\csdef{@sesshorttitle}{{#1}}}
 \define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
 \define@key{session}{room}{\csdef{@sesroom}{{#1}}}
-\define@key{session}{instructor}{\csdef{@sesinstructor}{{#1}}\csdef{@usesinstructor}{{#1}}}
-\define@key{session}{shortinstructor}{\csdef{@sesshortinstructor}{{#1}}\csdef{@usesshortinstructor}{{#1}}}
+\define@key{session}{instructor}{%
+    \csdef{@sesinstructor}{{#1}}\csdef{@usesinstructor}{{#1}}%
+    \iftoggle{shortinstrdef}{}{\csdef{@sesshortinstructor}{{#1}}\csdef{@usesshortinstructor}{{#1}}}}
+\define@key{session}{shortinstructor}{%
+    \csdef{@sesshortinstructor}{{#1}}\csdef{@usesshortinstructor}{{#1}}\toggletrue{shortinstrdef}}
 \define@key{session}{presstudents}{\csdef{@sespresstudents}{{#1}}}
 \define@boolkey{session}{cancel}[true]{}
 %
@@ -546,9 +559,10 @@
   \setcounter{dateratio}{(\thesesunit-1)*\thelecinterval+\thesesoffset}
   \setcounter{snum}{\thesesunit-\thecancellations}
   \protected@csxdef{sesnr\thesnum}{\thesnum}
+  \togglefalse{shortinstrdef}
   \csdef{@sestitlesep}{}
-  \csdef{@vasutitle}{}
-  \csdef{@vashorttitle}{}
+  \csdef{@sessubtitle}{}
+  \csdef{@sesshorttitle}{#2}
   \csdef{@sesbibsec}{}
   \csdef{@sesroom}{\lecroom}
   \csdef{@sesinstructor}{\lecinstructor}
@@ -567,8 +581,8 @@
       \DTMsetdatestyle{lecshortdate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
   \protected@csxdef{sestitle\thesnum}{\csuse{@sestitle}\ifcsempty{@sestitle}{\strut}{}}
   \protected@csxdef{sestitlesep\thesnum}{\csuse{@sestitlesep}}
-  \protected@csxdef{sessubtitle\thesnum}{\csuse{@vasutitle}}
-  \protected@csxdef{sesshorttitle\thesnum}{\csuse{@vashorttitle}}
+  \protected@csxdef{sessubtitle\thesnum}{\csuse{@sessubtitle}}
+  \protected@csxdef{sesshorttitle\thesnum}{\csuse{@sesshorttitle}}
   \protected@csxdef{sesbib\thesnum}{\csuse{@sesbibsec}}
   \protected@csxdef{sesroom\thesnum}{\csuse{@sesroom}}
   \protected@csxdef{sesinstructor\thesnum}{\csuse{@sesinstructor}}
@@ -579,18 +593,18 @@
   \ifKV@session@cancel
     \stepcounter{cancellations}
     \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-      \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}%
+      \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}%
         \noexpand\leccancel\noexpand\egroup}
     \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-      \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}%
+      \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}%
         \noexpand\leccancel\noexpand\egroup}
   \else
     \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-      \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}}
+      \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
     \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-      \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}}
+      \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
     \ifcsempty{sesbib\thesnum}{}{%
-    \xappto\jsbiblist{\noexpand\section{\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@vasutitle}}%
+    \xappto\jsbiblist{\noexpand\section{\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}%
       \noexpand\nocite{*}%
       \noexpand\printbibliography[keyword=\csuse{sesbib\thesnum},heading=none]}%
     }%
