@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2016/10/07}
+\def\filedate{2016/10/17}
 \def\fileversion{1.4dev}
 \def\filename{jslectureplanner.sty}
 
@@ -525,14 +525,13 @@
 
 % 1) Session definition
 %
-\providebool{othersesinstructor}
 \define@key{session}{titlesep}{\csdef{@sestitlesep}{{#1}}}
 \define@key{session}{subtitle}{\csdef{@vasutitle}{{#1}}}
 \define@key{session}{shorttitle}{\csdef{@vashorttitle}{{#1}}}
 \define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
 \define@key{session}{room}{\csdef{@sesroom}{{#1}}}
-\define@key{session}{instructor}{\csdef{@sesinstructor}{{#1}}\booltrue{othersesinstructor}}
-\define@key{session}{shortinstructor}{\csdef{@sesshortinstructor}{{#1}}}
+\define@key{session}{instructor}{\csdef{@sesinstructor}{{#1}}\csdef{@usesinstructor}{{#1}}}
+\define@key{session}{shortinstructor}{\csdef{@sesshortinstructor}{{#1}}\csdef{@usesshortinstructor}{{#1}}}
 \define@key{session}{presstudents}{\csdef{@sespresstudents}{{#1}}}
 \define@boolkey{session}{cancel}[true]{}
 %
@@ -554,6 +553,8 @@
   \csdef{@sesroom}{\lecroom}
   \csdef{@sesinstructor}{\lecinstructor}
   \csdef{@sesshortinstructor}{\lecshortinstructor}
+  \csdef{@usesinstructor}{}
+  \csdef{@usesshortinstructor}{}
   \csdef{@sespresstudents}{}
   \setkeys{session}{cancel=false}
   \setkeys{session}{#1}
@@ -572,6 +573,8 @@
   \protected@csxdef{sesroom\thesnum}{\csuse{@sesroom}}
   \protected@csxdef{sesinstructor\thesnum}{\csuse{@sesinstructor}}
   \protected@csxdef{sesshortinstructor\thesnum}{\csuse{@sesshortinstructor}}
+  \protected@csxdef{usesinstructor\thesnum}{\csuse{@usesinstructor}}
+  \protected@csxdef{usesshortinstructor\thesnum}{\csuse{@usesshortinstructor}}
   \protected@csxdef{sespresstudents\thesnum}{\csuse{@sespresstudents}}
   \ifKV@session@cancel
     \stepcounter{cancellations}
@@ -803,8 +806,10 @@
   \gdef\sesshorttitle{\csuse{sesshorttitle#1}}%
   \gdef\sessubtitle{\csuse{sessubtitle#1}}%
   \gdef\sesroom{\csuse{sesroom#1}}%
-  \gdef\sesinstructor{\csuse{sesinstructor#1}}%
-  \gdef\sesshortinstructor{\csuse{sesshortinstructor#1}}%
+  \gdef\@sesinstructor{\csuse{sesinstructor#1}}%
+  \gdef\@sesshortinstructor{\csuse{sesshortinstructor#1}}%
+  \gdef\@usesinstructor{\csuse{usesinstructor#1}}%
+  \gdef\@usesshortinstructor{\csuse{usesshortinstructor#1}}%
   \gdef\sespresstudents{\csuse{sespresstudents#1}}%
 }
 
@@ -819,10 +824,21 @@
   \gdef\lsesshorttitle{\csuse{sesshorttitle#1}}%
   \gdef\lsessubtitle{\csuse{sessubtitle#1}}%
   \gdef\lsesroom{\csuse{sesroom#1}}%
-  \gdef\lsesinstructor{\csuse{sesinstructor#1}}%
-  \gdef\lsesshortinstructor{\csuse{sesshortinstructor#1}}%
+  \gdef\@lsesinstructor{\csuse{sesinstructor#1}}%
+  \gdef\@lsesshortinstructor{\csuse{sesshortinstructor#1}}%
+  \gdef\@lusesinstructor{\csuse{usesinstructor#1}}%
+  \gdef\@lusesshortinstructor{\csuse{usesshortinstructor#1}}%
   \gdef\lsespresstudents{\csuse{sespresstudents#1}}%
 }
+
+% \ses[short]instructor and \ses[short]instructor*.
+% The starred versions only output something if the session
+% instructor differs from the general lecture instructor
+\newcommand\sesinstructor{\@ifstar{\@usesinstructor}{\@sesinstructor}}
+\newcommand\sesshortinstructor{\@ifstar{\@usesshortinstructor}{\@sesshortinstructor}}
+% same for local instructor macros 
+\newcommand\lsesinstructor{\@ifstar{\@lusesinstructor}{\@lsesinstructor}}
+\newcommand\lsesshortinstructor{\@ifstar{\@lusesshortinstructor}{\@lsesshortinstructor}}
 
 % Get information for a specific (local) session
 %
@@ -862,16 +878,38 @@
   \lsesroom%
 }
 
-% Instructor
-\newcommand*\SessionInstructor[1]{%
+% Instructor relay
+\newcommand*\SessionInstructor{%
+  \@ifstar{\@@SessionInstructor}{\@SessionInstructor}%
+}
+
+% Instructor, unstarred
+\newcommand*\@SessionInstructor[1]{%
   \LocalSession{#1}%
   \lsesinstructor%
 }
 
-% Instructor (Short Form)
-\newcommand*\SessionShortInstructor[1]{%
+% Instructor, starred
+\newcommand*\@@SessionInstructor[1]{%
+  \LocalSession{#1}%
+  \lsesinstructor*%
+}
+
+% Instructor (Short Form) relay
+\newcommand*\SessionShortInstructor{%
+  \@ifstar{\@@SessionShortInstructor}{\@SessionShortInstructor}%
+}
+
+% Instructor (Short Form), unstarred
+\newcommand*\@SessionShortInstructor[1]{%
   \LocalSession{#1}%
   \lsesshortinstructor%
+}
+
+% Instructor (Short Form), starred
+\newcommand*\@@SessionShortInstructor[1]{%
+  \LocalSession{#1}%
+  \lsesshortinstructor*%
 }
 
 % Presenting students
@@ -932,18 +970,40 @@
     \SessionRoom{\theadjsession}%
   \fi
 }
-% Instructor
-\newcommand*\AdjSessionInstructor[1][1]{%
+% Instructor relay
+\newcommand*\AdjSessionInstructor{%
+  \@ifstar{\@@AdjSessionInstructor}{\@AdjSessionInstructor}%
+}
+% Instructor, unstarred
+\newcommand*\@AdjSessionInstructor[1][1]{%
   \ifnum0<0\sesnr\relax
     \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
     \SessionInstructor{\theadjsession}%
   \fi
 }
-% Instructor (Short Form)
-\newcommand*\AdjSessionShortInstructor[1][1]{%
+% Instructor, starred
+\newcommand*\@@AdjSessionInstructor[1][1]{%
+  \ifnum0<0\sesnr\relax
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionInstructor*{\theadjsession}%
+  \fi
+}
+% Instructor (Short Form) relay
+\newcommand*\AdjSessionShortInstructor{%
+  \@ifstar{\@@AdjSessionShortInstructor}{\@AdjSessionShortInstructor}%
+}
+% Instructor (Short Form), unstarred
+\newcommand*\@AdjSessionShortInstructor[1][1]{%
   \ifnum0<0\sesnr\relax
     \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
     \SessionShortInstructor{\theadjsession}%
+  \fi
+}
+% Instructor (Short Form), starred
+\newcommand*\@@AdjSessionShortInstructor[1][1]{%
+  \ifnum0<0\sesnr\relax
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionShortInstructor*{\theadjsession}%
   \fi
 }
 % Presenting students

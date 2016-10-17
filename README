@@ -70,7 +70,8 @@ instructions; also have a look at the example files.
 
 * V 1.4 (forthcoming):   - Add instructor short forms for lecture and session.
 
-                         - Add boolean check for identical lecture and session instructor.
+                         - Add starred version of \sesinstructor that only produces output
+                           if the session instructor differs from the general course instructor.
 
 * V. 1.3 (2016-08-31):   - BACKWARDS-INCOMPATIBLE CHANGE! Use datetime2 instead of datetime
                            and advdate. This changes the interface to set the lecture date

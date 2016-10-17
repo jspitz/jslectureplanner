@@ -69,7 +69,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.4dev, 2016/10/07}
+\date{Version 1.4dev, 2016/10/17}
 
 \maketitle
 
@@ -623,8 +623,8 @@ the current session
 \item \jcsmacro{sessubtitle}: Subtitle of the current session
 \item \jcsmacro{sesfulltitle}: Full title of the current
 session (title, separator, subtitle)
-\item \jcsmacro{sesinstructor}: Current session's instructor's name. If you want to output this name only if it differs from the general instructor (\jcsmacro{lecinstructor}), you can use the check \jcsmacro{ifbool\{othersesinstructor\}\{\textbackslash sesinstructor\}\{\}}
-\item \jcsmacro{sesshortinstructor}: Current session's instructor's short name
+\item \jcsmacro{sesinstructor}: Current session's instructor's name; if you want to output this name only if it differs from the general instructor (\jcsmacro{lecinstructor}), use the starred version \jcsmacro{sesinstructor*}
+\item \jcsmacro{sesshortinstructor}: Current session's instructor's short name; if you want to output this name only if it differs from the general instructor (\jcsmacro{lecshortinstructor}), use the starred version \jcsmacro{sesshortinstructor*}
 \item \jcsmacro{sespresstudents}: Students presenting in this session
 \item \jcsmacro{sesnr}: Number of the current session
 \item \jcsmacro{sesroom}: Room of the current session
@@ -645,7 +645,9 @@ information for sessions that follow or precede the current session by a specifi
 	\item \jcsmacro{AdjSessionShortDate[<offset>]}: Outputs the short
 	date (no year) of the adjacent session
 	\item \jcsmacro{AdjSessionInstructor[<offset>]}: Outputs the name of the instructor of the adjacent session
-	\item \jcsmacro{AdjSessionShortInstructor[<offset>]}: Outputs the short name of the instructor of the adjacent session
+	\item \jcsmacro{AdjSessionInstructor*[<offset>]}: Outputs the name of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecinstructor})
+	\item \jcsmacro{AdjSessionShortInstructor[<offset>]}: Outputs the short name of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecshortinstructor})
+	\item \jcsmacro{AdjSessionShortInstructor*[<offset>]}: Outputs the short name of the instructor of the adjacent session
 	\item \jcsmacro{AdjSessionPresStudents[<offset>]}: Outputs the name of the students presenting in the adjacent session
 	\item \jcsmacro{AdjSessionRoom[<offset>]}: Outputs the room of the adjacent session
 \end{itemize}
@@ -669,8 +671,12 @@ session number \joption{<nr>}
 date (no year) of session number \joption{<nr>}
 \item \jcsmacro{SessionInstructor\{<nr>\}}: Outputs the name of the instructor of session
 number \joption{<nr>}
+\item \jcsmacro{SessionInstructor*\{<nr>\}}: Outputs the name of the instructor of session
+number \joption{<nr>} if it differs from the general instructor (\jcsmacro{lecinstructor})
 \item \jcsmacro{SessionShortInstructor\{<nr>\}}: Outputs the short name of the instructor of session
 number \joption{<nr>}
+\item \jcsmacro{SessionShortInstructor*\{<nr>\}}: Outputs the short name of the instructor of session
+number \joption{<nr>} if it differs from the general instructor (\jcsmacro{lecinstructor})
 \item \jcsmacro{SessionPresStudents\{<nr>\}}: Outputs the name of the students presenting
 in session number \joption{<nr>}
 \item \jcsmacro{SessionRoom\{<nr>\}}: Outputs the room of session number \joption{<nr>}
@@ -1031,7 +1037,7 @@ the \jslp\ style files. Thanks, Dominik.
 \item Forthcoming (v. 1.4):
 	\begin{itemize}
 		\item Add instructor short forms for lecture and session.
-		\item Add boolean check for identical lecture and session instructor.
+		\item Add starred versions of \jcsmacro{sesinstructor}, \jcsmacro{SessionInstructor} and \jcsmacro{AdjSessionInstructor} that only produce output if the session instructor differs from the general course instructor.
 	\end{itemize}
 \item 2016/08/31 (v. 1.3):
      \begin{itemize}
