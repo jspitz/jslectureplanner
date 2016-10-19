@@ -71,6 +71,7 @@
 \def\sesdate{}
 \def\sesshortdate{}
 \def\sestitle{}
+\def\sesshorttitle{}
 \def\sestitlesep{}
 \def\sessubtitle{}
 \def\sesnr{}
@@ -161,6 +162,16 @@
 \newcounter{loopcounter}
 \newcounter{adjsession}
 
+
+%
+% Booleans
+%
+\newtoggle{uniquelecshortinstructor}
+\newtoggle{uniquesesinstructor}
+\newtoggle{uniquesesshortinstructor}
+\newtoggle{uniquelecshorttitle}
+\newtoggle{uniquesesshorttitle}
+
 %
 % HELPERS
 %
@@ -205,10 +216,15 @@
 \DeclareOptionX{semester}{\setkeys{lec}{lecsem=#1}}
 
 \define@key{lec}{title}{\def\lectitle{#1}%
-    \ifx\lecshorttitle\empty\def\lecshorttitle{#1}\fi}
+    \ifx\lecshorttitle\empty%
+      \def\lecshorttitle{#1}%
+      \global\togglefalse{uniquelecshorttitle}%
+    \fi}
 \define@key{lec}{titlesep}{\def\lectitlesep{#1}}
 \define@key{lec}{subtitle}{\def\lecsubtitle{#1}}
-\define@key{lec}{shorttitle}{\def\lecshorttitle{#1}}
+\define@key{lec}{shorttitle}{%
+    \def\lecshorttitle{#1}%
+    \global\toggletrue{uniquelecshorttitle}}
 \define@key{lec}{year}{\def\lecyear{#1}}
 \define@key{lec}{uni}{\def\lecuniversity{#1}}
 \define@key{lec}{institute}{\def\lecinstitute{#1}}
@@ -219,7 +235,9 @@
 \define@key{lec}{startdate}{\def\lecstartdate{#1}}
 \define@key{lec}{instructor}{\def\lecinstructor{#1}%
     \ifx\lecshortinstructor\empty\def\lecshortinstructor{#1}\fi}
-\define@key{lec}{shortinstructor}{\def\lecshortinstructor{#1}}
+\define@key{lec}{shortinstructor}{%
+    \def\lecshortinstructor{#1}%
+    \global\toggletrue{uniquelecshortinstructor}}
 \define@key{lec}{style}{\AtEndOfPackage{\input{#1.lps}}}
 \define@key{lec}{interval}{%
     % test if the input is a number
@@ -537,7 +555,7 @@
 \newtoggle{shortinstrdef}
 \define@key{session}{titlesep}{\csdef{@sestitlesep}{{#1}}}
 \define@key{session}{subtitle}{\csdef{@sessubtitle}{{#1}}}
-\define@key{session}{shorttitle}{\csdef{@sesshorttitle}{{#1}}}
+\define@key{session}{shorttitle}{\csdef{@sesshorttitle}{{#1}}\csdef{@usesshorttitle}{{#1}}}
 \define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
 \define@key{session}{room}{\csdef{@sesroom}{{#1}}}
 \define@key{session}{instructor}{%
@@ -563,6 +581,7 @@
   \csdef{@sestitlesep}{}
   \csdef{@sessubtitle}{}
   \csdef{@sesshorttitle}{#2}
+  \csdef{@usesshorttitle}{}
   \csdef{@sesbibsec}{}
   \csdef{@sesroom}{\lecroom}
   \csdef{@sesinstructor}{\lecinstructor}
@@ -583,6 +602,7 @@
   \protected@csxdef{sestitlesep\thesnum}{\csuse{@sestitlesep}}
   \protected@csxdef{sessubtitle\thesnum}{\csuse{@sessubtitle}}
   \protected@csxdef{sesshorttitle\thesnum}{\csuse{@sesshorttitle}}
+  \protected@csxdef{usesshorttitle\thesnum}{\csuse{@usesshorttitle}}
   \protected@csxdef{sesbib\thesnum}{\csuse{@sesbibsec}}
   \protected@csxdef{sesroom\thesnum}{\csuse{@sesroom}}
   \protected@csxdef{sesinstructor\thesnum}{\csuse{@sesinstructor}}
@@ -818,6 +838,7 @@
   \gdef\sestitle{\csuse{sestitle#1}}%
   \gdef\sestitlesep{\csuse{sestitlesep#1}}%
   \gdef\sesshorttitle{\csuse{sesshorttitle#1}}%
+  \gdef\@usesshorttitle{\csuse{usesshorttitle#1}}%
   \gdef\sessubtitle{\csuse{sessubtitle#1}}%
   \gdef\sesroom{\csuse{sesroom#1}}%
   \gdef\@sesinstructor{\csuse{sesinstructor#1}}%
@@ -825,6 +846,21 @@
   \gdef\@usesinstructor{\csuse{usesinstructor#1}}%
   \gdef\@usesshortinstructor{\csuse{usesshortinstructor#1}}%
   \gdef\sespresstudents{\csuse{sespresstudents#1}}%
+  \if\hfuzz\@usesinstructor\hfuzz%
+    \global\togglefalse{uniquesesinstructor}%
+  \else
+    \global\toggletrue{uniquesesinstructor}%
+  \fi
+  \if\hfuzz\@usesshortinstructor\hfuzz%
+    \global\togglefalse{uniquesesshortinstructor}%
+  \else
+    \global\toggletrue{uniquesesshortinstructor}%
+  \fi
+  \if\hfuzz\@usesshorttitle\hfuzz%
+    \global\togglefalse{uniquesesshorttitle}%
+  \else
+    \global\toggletrue{uniquesesshorttitle}%
+  \fi
 }
 
 % Define a local session
