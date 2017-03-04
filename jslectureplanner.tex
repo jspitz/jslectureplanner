@@ -69,7 +69,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.4, 2016/10/19}
+\date{Version 1.5dev, 2017/03/04}
 
 \maketitle
 
@@ -871,9 +871,10 @@ The package is loaded as usual:
 \begin{quote}
 \jcsmacro{usepackage[<options>]\{jsmembertable\}}
 \end{quote}
-Currently, one package option is available:
+Currently, the following package options are available:
 \begin{itemize}
  \item \joption{datafile=<csv-file>}: Use external student data file (see sec.~\ref{sec:ext-data}).
+ \item \joption{datakeys=<keyorder>}: Specify order of items in CSV data file (see sec.~\ref{sec:ext-data}).
 \end{itemize}
 
 
@@ -888,13 +889,20 @@ and the extension must be omitted in the option, so
 \end{quote}
 loads the file \texttt{mystudents.csv}.
 
-The external csv file must follow the following structure:
+It is assumed that the external CSV file conforms to the following structure:
 
 \begin{lstlisting}[language={},basicstyle={\small\ttfamily},frame=single]
 Prename1, Surname1, StudentID1, Email1
 Prename2, Surname2, StudentID2, Email2
 ...
 \end{lstlisting}
+The order if items can be adjusted via the \joption{datakeys} package option.
+The four items, \texttt{pname} (prename), \texttt{sname} (surname), \texttt{mid} (student ID) and \texttt{email}, can be freely re-ordered by that option. Note however, that all four items must be used. Thus, to change the order to \emph{Surname, Prename, Email, StudentID}, use:
+\begin{quote}
+	\jcsmacro{usepackage[datafile=mystudents,\\
+	\hphantom{\textbackslash usepackage[}datakeys=\{sname,pname,email,mid\}]\{jsmembertable\}}
+\end{quote}
+Note, finally, that the CSV file should have the same encoding than the tex file.
 
 \subsection{Generating a course member table}
 
@@ -1049,6 +1057,10 @@ the \jslp\ style files. Thanks, Dominik.
 \section{Release History}
 
 \begin{itemize}
+\item 2017/03/04 (v. 1.5dev):
+	\begin{itemize}
+		\item Add \joption{datakeys} option to \jsmt.
+	\end{itemize}
 \item 2016/10/19 (v. 1.4):
 	\begin{itemize}
 		\item Add instructor short forms for lecture and session.

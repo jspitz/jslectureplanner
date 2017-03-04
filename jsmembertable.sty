@@ -24,8 +24,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2016/10/19}
-\def\fileversion{1.4}
+\def\filedate{2017/03/04}
+\def\fileversion{1.5dev}
 \def\filename{jsmembertable.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -54,6 +54,11 @@
   \@datatooltrue
 }
 \DeclareOptionX{datafile}{\setkeys{mem}{datafile=#1}}
+\def\jsmt@datakeys{pname,sname,mid,email}
+\define@key{mem}{datakeys}{%
+  \def\jsmt@datakeys{#1}
+}
+\DeclareOptionX{datakeys}{\setkeys{mem}{datakeys={#1}}}
 \ProcessOptionsX
 
 %
@@ -63,8 +68,8 @@
 % Load datatool if necessary
 \if@datatool
   \RequirePackage{datatool}
-  \DTLloadrawdb[noheader,keys={fname,sname,mid,email}]{data}{\jsmt@datafile}
-  \dtlsort{sname,fname}{data}{\dtlicompare}
+  \DTLloadrawdb[noheader,keys={\jsmt@datakeys}]{data}{\jsmt@datafile}
+  \dtlsort{sname,pname}{data}{\dtlicompare}
 \fi
 
 %
@@ -194,7 +199,7 @@
   \endhead
   \if@datatool
     \DTLforeach*{data}{%
-      \jsmt@firstname=fname,\jsmt@surname=sname,\jsmt@mid=mid,\jsmt@email=email}{%
+      \jsmt@firstname=pname,\jsmt@surname=sname,\jsmt@mid=mid,\jsmt@email=email}{%
       \DTLiffirstrow{}{\tabularnewline\hline}%
       \getmembernr & \jsmt@mid & \jsmt@surname, \jsmt@firstname & \jsmt@email%
     }%
@@ -646,7 +651,7 @@
   \endhead
   \if@datatool%
     \DTLforeach*{data}{%
-      \jsmt@firstname=fname,\jsmt@surname=sname}{%
+      \jsmt@firstname=pname,\jsmt@surname=sname}{%
       \DTLiffirstrow{}{\tabularnewline\hline}%
       \bodyrowone{\jsmt@surname, \jsmt@firstname}%
     }%
@@ -681,7 +686,7 @@
     \endhead
     \if@datatool
       \DTLforeach*{data}{%
-        \jsmt@firstname=fname,\jsmt@surname=sname}{%
+        \jsmt@firstname=pname,\jsmt@surname=sname}{%
         \DTLiffirstrow{}{\tabularnewline\hline}%
         \bodyrowtwo{\jsmt@surname, \jsmt@firstname}%
       }%
