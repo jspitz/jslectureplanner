@@ -70,6 +70,10 @@ instructions; also have a look at the example files.
 
 * V 1.5 (forthcoming):   - Add datakeys option to the jsmembertable package.
 
+                         - Add package option "sestitlesep" and macro \SessionTitleSep that
+                           allow for the definition of a global session title-subtitle
+                           separator.
+
 * V 1.4 (2016-10-19):    - Add instructor short forms for lecture and session.
 
                          - Add starred version of \sesinstructor that only produces output

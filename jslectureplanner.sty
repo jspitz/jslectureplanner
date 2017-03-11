@@ -23,8 +23,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2016/10/19}
-\def\fileversion{1.4}
+\def\filedate{2017/03/11}
+\def\fileversion{1.5dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -250,6 +250,7 @@
           ('#1' was given instead)}{}%
     \fi
 }
+\define@key{lec}{sestitlesep}{\def\sestitlesep{#1}}
 
 \DeclareOptionX{title}{\setkeys{lec}{title={#1}}}
 \DeclareOptionX{titlesep}{\setkeys{lec}{titlesep={#1}}}
@@ -267,6 +268,7 @@
 \DeclareOptionX{room}{\setkeys{lec}{room={#1}}}
 \DeclareOptionX{style}{\setkeys{lec}{style=#1}}
 \DeclareOptionX{interval}{\setkeys{lec}{interval=#1}}
+\DeclareOptionX{sestitlesep}{\setkeys{lec}{sestitlesep=#1}}
 
 \ProcessOptionsX
 
@@ -296,6 +298,7 @@
     \fi
 }
 \newcommand*{\LecInterval}[1]{\setkeys{lec}{interval=#1}}
+\newcommand*{\SessionTitleSep}[1]{\setkeys{lec}{sestitlesep=#1}}
 
 
 %
@@ -578,7 +581,7 @@
   \setcounter{snum}{\thesesunit-\thecancellations}
   \protected@csxdef{sesnr\thesnum}{\thesnum}
   \togglefalse{shortinstrdef}
-  \csdef{@sestitlesep}{}
+  \csdef{@sestitlesep}{\sestitlesep}
   \csdef{@sessubtitle}{}
   \csdef{@sesshorttitle}{#2}
   \csdef{@usesshorttitle}{}

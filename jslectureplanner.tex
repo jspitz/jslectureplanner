@@ -69,7 +69,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.5dev, 2017/03/04}
+\date{Version 1.5dev, 2017/03/11}
 
 \maketitle
 
@@ -244,7 +244,10 @@ Also cf. sec.~\ref{sec:styles}.
 \item [\joption{officenumber=<data>}] Your office (room) number
 \end{description}
 
-\clearpage
+\subsubsection{Other global settings}
+\begin{description}
+	\item[\joption{sestitlesep=<separator>}] Specifies a default separator between session title and subtitle.
+\end{description}
 
 \subsection{Via macros\label{sec:via-macros}}
 
@@ -312,6 +315,11 @@ the first session (the argument \emph{must} have the form DD/MM/YYYY)
 \item \jcsmacro{SetOfficeNumber\{<office number>\}}: Record your office (room) number
 \item \jcsmacro{SetPlatform\{<platform information>\}}: Record information
 (such as URL) of the e-learning platform
+\end{itemize}
+
+\subsubsection{Other global settings}\label{ses-global}
+\begin{itemize}
+\item \jcsmacro{SessionTitleSep\{<title separator>\}}: Specify a default separator between session title and subtitle (e.\,g., ``. '' or `` -- ''). This is used if no specific separator has been specified in the session entry (see sec.~\ref{sec:lecplan})
 \end{itemize}
 
 \section{Setting up a course schedule}\label{sec:lecplan}
@@ -1060,6 +1068,8 @@ the \jslp\ style files. Thanks, Dominik.
 \item 2017/03/04 (v. 1.5dev):
 	\begin{itemize}
 		\item Add \joption{datakeys} option to \jsmt.
+		\item Add package option \joption{sestitlesep} and macro \jcsmacro{SessionTitleSep} that
+		allow for the definition of a global session title-subtitle	separator.
 	\end{itemize}
 \item 2016/10/19 (v. 1.4):
 	\begin{itemize}
