@@ -68,7 +68,9 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V 1.5 (forthcoming):   - Add datakeys option to the jsmembertable package.
+* V 1.5 (forthcoming):   - Add "english" style file (proof of concept).
+
+                         - Add datakeys option to the jsmembertable package.
 
                          - Add package option "sestitlesep" and macro \SessionTitleSep that
                            allow for the definition of a global session title-subtitle

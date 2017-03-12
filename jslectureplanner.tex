@@ -119,7 +119,7 @@ bibliography for the course via \textsf{biblatex}.
 Since the package has been written for my own needs, it is somewhat tied
 to my workflow. Particularly, it is tied to my context: teaching in
 the Humanities at a German-speaking university. Hence, the categorization
-of the package draws on this context. In particular, all strings and
+of the package draws on this context. In particular, all default strings and
 formats are German. However, it is possible to add new categories as
 well as to customize and translate the strings.
 This is described later in this manual.
@@ -334,7 +334,8 @@ macro:
 Valid \joption{<options>} include:
 \begin{itemize}
 \item \joption{titlesep=<separator>}: Separator between session title and
-    subtitle
+    subtitle (e.\,g., \verb|titlesep={.\ }|); this overrides any global separator set via \joption{sestitlesep} option
+    or \jcsmacro{SessionTitleSep} macro for the current session
 \item \joption{subtitle=<subtitle>}: Subtitle of the session
 \item \joption{shorttitle=<shorttitle>}: Short title (for
     headings etc.)
@@ -343,7 +344,7 @@ Valid \joption{<options>} include:
 \item \joption{shortinstructor=<name>}: Short form of the specific instructor for this session
 \item \joption{presstudents=<names>}: Students presenting in this session
     (used for student presentation lists, see below sec.~\ref{sec:preslists})
-\item \joption{room=<room>}: Specific room for this session (if it differs
+\item \joption{room=<room>}: Room for this session (if it differs
     from the usual course room)
 \item \joption{bibsec=<keyword>}: Session keyword for the bibliography
     (see below sec.~\ref{sub:bibliographies} for its use)
@@ -813,11 +814,14 @@ The most elegant way to do the customizing is to use \emph{lecture planner style
 These files can be loaded via the \joption{style=<style>} package option, where <style>
 is the file name without *.lps extension.
 
-Currently, the package ships two styles:
+Currently, the package ships three styles:
 \begin{enumerate}
- \item \joption{german-default} simply includes the default strings.
+  \item \joption{german-default} simply includes the default strings.
      This style is meant to be used as a model for new styles.
-\item \joption{cologne} provides some specifics current at the University of Cologne
+  \item \joption{english} is a proof-of-concept localization to English.
+     This style can be used as a basis for English styles. The English examples
+     included in the \jslp\ bundle use this style.
+  \item \joption{cologne} provides some specifics current at the University of Cologne
      (\emph{Universität zu Köln}):
      \begin{itemize}
       \item Additional course types: \joption{ak} (AK, \emph{Arbeitskurs}),
@@ -1027,7 +1031,7 @@ macros (using \jfcsmacro{renewcommand*}), for instance like this:
 \end{lstlisting}
 Again, if you use \jslp, you can use the \jslp\
 style files in order to store those redefinitions globally.
-See the \texttt{german-default.lps} style file for a model.\footnote{%
+See the \texttt{german-default.lps} and \texttt{english.lps} style files for a model.\footnote{%
 Note that within styles, you must use \jfcsmacro{newcommand*} instead of
 \jfcsmacro{renewcommand*}, since the styles are loaded before the \jsmt\ package.}
 Of course, you need to load \jslp\ with the respective \joption{style} option then
@@ -1067,6 +1071,7 @@ the \jslp\ style files. Thanks, Dominik.
 \begin{itemize}
 \item 2017/03/11 (v. 1.5dev):
 	\begin{itemize}
+		\item Add \joption{english} style file (proof of concept).
 		\item Add \joption{datakeys} option to \jsmt.
 		\item Add package option \joption{sestitlesep} and macro \jcsmacro{SessionTitleSep} that
 		allow for the definition of a global session title-subtitle	separator.
