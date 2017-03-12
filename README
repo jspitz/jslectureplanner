@@ -68,7 +68,7 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V 1.5 (forthcoming):   - Add "english" style file (proof of concept).
+* V 1.5 (2017-03-12):    - Add "english" style file (proof of concept).
 
                          - Add datakeys option to the jsmembertable package.
 
