@@ -1,0 +1,39 @@
+% Example file, part of the package jslectureplanner
+%
+% Body to be included in lecturepresentation.tex and lecturehandout.tex
+
+\title{\lectype\ \lecfulltitle}
+
+\author{\lecinstructor}
+
+\date{\lecsemester}
+
+\frame{\maketitle}
+
+\ThisSession{1}
+
+\section<article>*{\lectypesession\ \sesnr: \sesfulltitle\ (\sesdate)}
+
+\begin{frame}<presentation>[plain]
+
+\Large\structure{\sesnr}
+
+\structure{\sesfulltitle\ (\sesdate)}
+\end{frame}
+
+% Generate the course program slides
+\makebeamerprogram
+
+\begin{frame}{Further information}
+
+\begin{description}
+\item [{Course material:}] \lecplatform
+\item [{Office hours:}] \officehours
+\end{description}
+\end{frame}
+
+\begin{frame}{Next week}
+
+\AdjSessionFullTitle
+
+\end{frame}

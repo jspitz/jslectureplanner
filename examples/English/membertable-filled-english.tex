@@ -1,0 +1,28 @@
+% Example file, part of the package jslectureplanner
+%
+% Example of a course member table generated with jslectureplanner
+% and jsmembertable
+
+\documentclass{article}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage[style=english]{jslectureplanner}
+\input{metadata.tex}
+
+\usepackage[datafile=students]{jsmembertable}
+
+\begin{document}
+
+\title{\lectype\ \lecfulltitle}
+
+\author{\lecinstructor}
+
+\date{\lecsemester}
+
+\maketitle
+
+\makemembertable{}
+
+\end{document}

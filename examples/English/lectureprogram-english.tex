@@ -1,0 +1,40 @@
+% Example file, part of the package jslectureplanner
+%
+% Example of a course program generated with jslectureplanner
+
+\documentclass{article}
+
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+
+\usepackage[style=english]{jslectureplanner}
+\usepackage{url}
+\input{metadata.tex}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\title{\lectypeverb: \lecfulltitle}
+
+\author{\lecinstructor}
+
+\date{\lecsemesterverb}
+
+\maketitle
+
+\section*{Schedule}
+
+\makeprogram
+
+\vfill{}
+
+\noindent%
+\fbox{\begin{minipage}[t][1.3\totalheight][c]{1\columnwidth}%
+\begin{labeling}{\textbf{Office hours:}}
+\item [{\textbf{Office hours:}}] \officehours\setlength\itemsep{0pt}
+\item [{\textbf{Material:}}] \lecplatform\end{labeling}
+%
+\end{minipage}}
+\end{document}

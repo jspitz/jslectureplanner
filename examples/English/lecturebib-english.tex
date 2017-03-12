@@ -1,0 +1,37 @@
+% Example file, part of the package jslectureplanner
+%
+% Example of a bibliography generated with jslectureplanner
+% Requires biblatex and biber
+
+\documentclass{article}
+
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+
+\RequirePackage[%
+    style=authoryear,
+    sorting=nyvt,
+    mincrossrefs=1000,
+    backend=biber]
+{biblatex}
+
+\usepackage[style=english]{jslectureplanner}
+
+\input{metadata.tex}
+
+\bibliography{lectureplanner-examples}
+
+\begin{document}
+
+\title{\lectype\ \lecfulltitle:\\Bibliography}
+
+\author{\lecinstructor}
+
+\date{\lecsemesterverb}
+
+\maketitle
+
+\makesessionbib
+
+\end{document}

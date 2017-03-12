@@ -1,0 +1,107 @@
+% Example file, part of the package jslectureplanner
+%
+% METADATA example
+
+%
+% General course data
+%
+\LecType{vl}
+\LecTitle[shorttitle={My Very Own Science},
+          subtitle={Basics and Theories},
+          titlesep={\ --\ }]{Introduction to My Very Own Science}
+\LecYear{ss}{2015}
+\LecUni{University of Narcissia}
+\LecInstitute{Department for the History of Science}
+\LecInstructor{Dr. Paula Pan}
+\LecStartDate{01/04/2015}
+
+%
+% Session data
+%
+
+% a single session
+\NewSession[bibsec=einf]{Introduction to the Introduction}
+
+% a thematic block
+\begin{SessionBlock}{My Very Own Science: Rationale}
+
+	\NewSession[%
+		titlesep={:\ },
+		subtitle={Wrong Tracks and False Facts},
+                bibsec=begr
+	]{Other Sciences}
+
+	\NewSession[%
+		titlesep={:\ },
+		subtitle={The Better Way},
+                bibsec=bessweg
+	]{My Very Own Science}
+
+\end{SessionBlock}
+
+% another thematic block
+\begin{SessionBlock}{The History of My Very Own Science}
+
+	\NewSession[bibsec=anf, presstudents={Johannes Schmidt}]{The Beginnings}
+
+	\NewSession[bibsec=erf, presstudents={Clara Vanderfeld}]{First Results}
+
+	\NewSession[cancel=true]{Dies Academicus}
+
+	\NewSession[bibsec=konk, presstudents={Jana Braun}]{Concurrencies}
+
+	\NewSession[%
+		titlesep={:\ },
+		subtitle={Ignoring Others},
+                bibsec=entsch
+	]{The Decision}
+
+\end{SessionBlock}
+
+% a semester break of two weeks
+\SetBreaks[units=2,span={25.\,05.\,--\,06.\,06.}]{Whitsun Holidays}
+
+% start a new frame in beamer
+\SetBeamerFrameBreak
+
+% another thematic block
+\begin{SessionBlock}{Theories of My Very Own Science}
+
+	\NewSession[bibsec=wesentl]{Determing the Essential}
+
+	\NewSession[bibsec=fok, presstudents={Andy Braun}]{Focusing the Essential}
+
+	\NewSession[bibsec=rekap]{Recapitulation of the Essential Determination}
+
+\end{SessionBlock}
+
+% and a last thematic block
+\begin{SessionBlock}{Empirical Fields}
+
+	\NewSession[%
+		titlesep={:\ },
+		subtitle={My Department},
+                bibsec=lokal,
+                presstudents={Rolf Brandner}
+	]{The Local Field}
+
+	\NewSession[%
+		titlesep={:\ },
+		subtitle={The World},
+                bibsec=welt,
+                presstudents={Z\"oe Peters}
+	]{The Rest}
+
+\end{SessionBlock}
+
+\NewSession{Conclusions}
+
+%
+% Further info
+%
+
+\SetPlatform{\url{http://myelearningplatform/mycourse}}
+
+\SetOfficeHours{Sunday, 02.00\,--\,03.00 a.\,m.}
+
+% Finis
