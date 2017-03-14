@@ -68,6 +68,9 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
+* V. 1.6 (forthcoming):  - Do not output session title-subtitle separator if there is no
+                           subtitle.
+
 * V 1.5 (2017-03-12):    - Add "english" style file (proof of concept).
 
                          - Add datakeys option to the jsmembertable package.
@@ -76,7 +79,7 @@ instructions; also have a look at the example files.
                            allow for the definition of a global session title-subtitle
                            separator.
 
-* V 1.4 (2016-10-19):    - Add instructor short forms for lecture and session.
+* V. 1.4 (2016-10-19):   - Add instructor short forms for lecture and session.
 
                          - Add starred version of \sesinstructor that only produces output
                            if the session instructor differs from the general course instructor.

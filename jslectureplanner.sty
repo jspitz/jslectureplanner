@@ -23,8 +23,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2017/03/12}
-\def\fileversion{1.5}
+\def\filedate{2017/03/14}
+\def\fileversion{1.6dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -581,7 +581,7 @@
   \setcounter{snum}{\thesesunit-\thecancellations}
   \protected@csxdef{sesnr\thesnum}{\thesnum}
   \togglefalse{shortinstrdef}
-  \csdef{@sestitlesep}{\sestitlesep}
+  \csdef{@sestitlesep}{\ifcsempty{@sessubtitle}{}{\sestitlesep}}
   \csdef{@sessubtitle}{}
   \csdef{@sesshorttitle}{#2}
   \csdef{@usesshorttitle}{}
