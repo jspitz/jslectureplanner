@@ -69,7 +69,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.6dev, 2017/03/14}
+\date{Version 1.6dev, 2018/09/25}
 
 \maketitle
 
@@ -519,6 +519,8 @@ a beamer-suited lecture program from the metadata in the form
 \joption{<options>} can be one of
 \begin{itemize}
 \item \joption{title=<title>}: Program title (<Heading>)
+\item \joption{blocksonly=true|false}: If \joption{true}, only the session blocks are output,
+      not the sessions.
 \item \joption{options=<bfoptions>}: Beamer frame options. Note that key-value
     beamer frame options need to be embraced, as in\\
     \jcsmacro{makebeamerprogram[options=\{shrink=10\}]}
@@ -1072,6 +1074,7 @@ the \jslp\ style files. Thanks, Dominik.
 \item forthcoming (v. 1.6):
 	\begin{itemize}
 	    \item Do not output session title-subtitle separator if there is no	subtitle.
+	    \item Add \joption{blocksonly} option to \jcsmacro{makebeamerprogram}.
     \end{itemize}
 \item 2017/03/12 (v. 1.5):
 	\begin{itemize}

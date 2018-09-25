@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2017/03/14}
+\def\filedate{2018/09/25}
 \def\fileversion{1.6dev}
 \def\filename{jslectureplanner.sty}
 
@@ -78,6 +78,7 @@
 
 \def\programlist{}
 \def\programlistbeamer{}
+\def\programblocklistbeamer{\item}
 \def\jsbiblist{}
 
 
@@ -439,12 +440,14 @@
 \define@key{beamerprogram}{options}{\csdef{@bpopts}{#1}}
 \define@key{beamerprogram}{listoptions}{\csdef{@bplistopts}{#1}}
 \define@boolkey{beamerprogram}{alerted}[true]{}
+\define@boolkey{beamerprogram}{blocksonly}[true]{}
 
 \newcommand*\makebeamerprogram[1][]{%
   \csdef{@bptitle}{\lecprogram}
   \def\btitleapp{}
   \numdef\pframes{\thefbreaks + 1}
   \setkeys{beamerprogram}{alerted=false}
+  \setkeys{beamerprogram}{blocksonly=false}
   \setkeys{beamerprogram}{#1}
   \def\bpdescbeg{\begin{description}[\lecprogramlistindent]}
   \providebool{alertedlist}
@@ -453,92 +456,106 @@
   \else
      \boolfalse{alertedlist}
   \fi
-  \@ifundefined{programlistbeamerii}{}{%
-  \def\btitleapp{\ (1/\pframes)}
-  \ifcsdef{@bpopts}{%
-     \begingroup\edef\tempa{\endgroup\noexpand%
-       \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-  }{%
+  \ifKV@beamerprogram@blocksonly
      \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
-  }
-  \ifbool{alertedlist}{%
-    \begin{description}[<alert@+(1)>][\lecprogramlistindent]
-    \programlistbeamerii
-    \end{description}
-  }{%
-    \begin{description}[\lecprogramlistindent]
-    \programlistbeamerii
-    \end{description}
-  }
-  \end{frame}
-  }
-  \@ifundefined{programlistbeameriii}{}{%
-  \def\btitleapp{\ (2/\pframes)}
-  \ifcsdef{@bpopts}{%
-     \begingroup\edef\tempa{\endgroup\noexpand%
-        \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-  }{%
-     \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
-  }
-  \ifbool{alertedlist}{%
-    \begin{description}[<alert@+(1)>][\lecprogramlistindent]
-    \programlistbeameriii
-    \end{description}
-  }{%
-    \begin{description}[\lecprogramlistindent]
-    \programlistbeameriii
-    \end{description}
-  }
-  \end{frame}
-  }
-  \@ifundefined{programlistbeameriv}{}{%
-  \def\btitleapp{\ (2/\pframes)}
-  \ifcsdef{@bpopts}{%
-     \begingroup\edef\tempa{\endgroup\noexpand%
-       \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-  }{%
-     \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
-  }
-  \ifbool{alertedlist}{%
-    \begin{description}[<alert@+(1)>][\lecprogramlistindent]
-    \programlistbeameriv
-    \end{description}
-  }{%
-    \begin{description}[\lecprogramlistindent]
-    \programlistbeameriv
-    \end{description}
-  }
-  \end{frame}
-  }
-  \ifnumgreater{\thefbreaks}{0}{\def\btitleapp{\ (\pframes/\pframes)}}{}
-  \ifcsdef{@bpopts}{%
-      \begingroup\edef\tempa{\endgroup\noexpand%
-        \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+       \ifbool{alertedlist}{%
+       \begin{description}[<alert@+(1)>][\lecprogramlistindent]
+         \programblocklistbeamer
+       \end{description}
+       }{%
+       \begin{description}[\lecprogramlistindent]
+         \programblocklistbeamer
+       \end{description}
+       }
+     \end{frame}
+  \else
+    \@ifundefined{programlistbeamerii}{}{%
+    \def\btitleapp{\ (1/\pframes)}
+    \ifcsdef{@bpopts}{%
+       \begingroup\edef\tempa{\endgroup\noexpand%
+         \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
     }{%
-        \@ifundefined{programlistbeamerii}{%
-            \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
-          }{%
-             \@ifundefined{programlistbeameriii}{%
-                \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
-               }{%
-                 \@ifundefined{programlistbeameriv}{%
-                     \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
-                   }{%
-                      \begin{frame}[label=beamerprogram4]{\csuse{@bptitle}\btitleapp}
-                    }
-                }
-           }
-     }
-  \ifbool{alertedlist}{%
-    \begin{description}[<alert@+(1)>][\lecprogramlistindent]
-    \programlistbeamer
-    \end{description}
-  }{%
-    \begin{description}[\lecprogramlistindent]
-    \programlistbeamer
-    \end{description}
-  }
-  \end{frame}
+       \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
+    }
+    \ifbool{alertedlist}{%
+      \begin{description}[<alert@+(1)>][\lecprogramlistindent]
+      \programlistbeamerii
+      \end{description}
+    }{%
+      \begin{description}[\lecprogramlistindent]
+      \programlistbeamerii
+      \end{description}
+    }
+    \end{frame}
+    }
+    \@ifundefined{programlistbeameriii}{}{%
+    \def\btitleapp{\ (2/\pframes)}
+    \ifcsdef{@bpopts}{%
+       \begingroup\edef\tempa{\endgroup\noexpand%
+          \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+    }{%
+       \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
+    }
+    \ifbool{alertedlist}{%
+      \begin{description}[<alert@+(1)>][\lecprogramlistindent]
+      \programlistbeameriii
+      \end{description}
+    }{%
+      \begin{description}[\lecprogramlistindent]
+      \programlistbeameriii
+      \end{description}
+    }
+    \end{frame}
+    }
+    \@ifundefined{programlistbeameriv}{}{%
+    \def\btitleapp{\ (2/\pframes)}
+    \ifcsdef{@bpopts}{%
+       \begingroup\edef\tempa{\endgroup\noexpand%
+         \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+    }{%
+       \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+    }
+    \ifbool{alertedlist}{%
+      \begin{description}[<alert@+(1)>][\lecprogramlistindent]
+      \programlistbeameriv
+      \end{description}
+    }{%
+      \begin{description}[\lecprogramlistindent]
+      \programlistbeameriv
+      \end{description}
+    }
+    \end{frame}
+    }
+    \ifnumgreater{\thefbreaks}{0}{\def\btitleapp{\ (\pframes/\pframes)}}{}
+    \ifcsdef{@bpopts}{%
+        \begingroup\edef\tempa{\endgroup\noexpand%
+          \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+      }{%
+          \@ifundefined{programlistbeamerii}{%
+              \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+            }{%
+               \@ifundefined{programlistbeameriii}{%
+                  \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
+                 }{%
+                   \@ifundefined{programlistbeameriv}{%
+                       \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+                     }{%
+                        \begin{frame}[label=beamerprogram4]{\csuse{@bptitle}\btitleapp}
+                      }
+                  }
+             }
+       }
+    \ifbool{alertedlist}{%
+      \begin{description}[<alert@+(1)>][\lecprogramlistindent]
+      \programlistbeamer
+      \end{description}
+    }{%
+      \begin{description}[\lecprogramlistindent]
+      \programlistbeamer
+      \end{description}
+    }
+    \end{frame}
+  \fi%\else\ifKV@beamerprogram@blocksonly
 }
 
 
@@ -709,6 +726,7 @@
   \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
     \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}
   \gappto\programlistbeamer{\begin{description}[\lecprogramlistindent]}
+  \protected@xappto\programblocklistbeamer{\noexpand\item[{\Roman{blocks}}.] #1}
 }
 
 \newcommand*\EndBlock{%
