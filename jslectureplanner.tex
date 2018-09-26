@@ -521,6 +521,7 @@ a beamer-suited lecture program from the metadata in the form
 \item \joption{title=<title>}: Program title (<Heading>)
 \item \joption{blocksonly=true|false}: If \joption{true}, only the session blocks are output,
       not the sessions.
+\item \joption{uncover=true|false}: If \joption{true}, the program will be uncovered item-wise.
 \item \joption{options=<bfoptions>}: Beamer frame options. Note that key-value
     beamer frame options need to be embraced, as in\\
     \jcsmacro{makebeamerprogram[options=\{shrink=10\}]}
@@ -1074,7 +1075,7 @@ the \jslp\ style files. Thanks, Dominik.
 \item forthcoming (v. 1.6):
 	\begin{itemize}
 	    \item Do not output session title-subtitle separator if there is no	subtitle.
-	    \item Add \joption{blocksonly} option to \jcsmacro{makebeamerprogram}.
+	    \item Add \joption{blocksonly} and \joption{uncover} options to \jcsmacro{makebeamerprogram}.
     \end{itemize}
 \item 2017/03/12 (v. 1.5):
 	\begin{itemize}

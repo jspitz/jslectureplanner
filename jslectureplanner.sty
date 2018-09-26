@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2018/09/25}
+\def\filedate{2018/09/26}
 \def\fileversion{1.6dev}
 \def\filename{jslectureplanner.sty}
 
@@ -441,6 +441,7 @@
 \define@key{beamerprogram}{listoptions}{\csdef{@bplistopts}{#1}}
 \define@boolkey{beamerprogram}{alerted}[true]{}
 \define@boolkey{beamerprogram}{blocksonly}[true]{}
+\define@boolkey{beamerprogram}{uncover}[true]{}
 
 \newcommand*\makebeamerprogram[1][]{%
   \csdef{@bptitle}{\lecprogram}
@@ -448,25 +449,26 @@
   \numdef\pframes{\thefbreaks + 1}
   \setkeys{beamerprogram}{alerted=false}
   \setkeys{beamerprogram}{blocksonly=false}
+  \setkeys{beamerprogram}{uncover=false}
   \setkeys{beamerprogram}{#1}
   \def\bpdescbeg{\begin{description}[\lecprogramlistindent]}
-  \providebool{alertedlist}
   \ifKV@beamerprogram@alerted
-     \booltrue{alertedlist}
+  \fi
+  \providebool{uncoveredlist}
+  \ifKV@beamerprogram@uncover
+     \booltrue{uncoveredlist}
   \else
-     \boolfalse{alertedlist}
+     \boolfalse{uncoveredlist}
   \fi
   \ifKV@beamerprogram@blocksonly
      \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
-       \ifbool{alertedlist}{%
-       \begin{description}[<alert@+(1)>][\lecprogramlistindent]
-         \programblocklistbeamer
-       \end{description}
+       \ifbool{uncoveredlist}{%
+         \begin{description}[<+->][\lecprogramlistindent]
        }{%
-       \begin{description}[\lecprogramlistindent]
+         \begin{description}[\lecprogramlistindent]
+       }
          \programblocklistbeamer
        \end{description}
-       }
      \end{frame}
   \else
     \@ifundefined{programlistbeamerii}{}{%
@@ -477,15 +479,13 @@
     }{%
        \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
     }
-    \ifbool{alertedlist}{%
-      \begin{description}[<alert@+(1)>][\lecprogramlistindent]
-      \programlistbeamerii
-      \end{description}
+    \ifbool{uncoveredlist}{%
+      \begin{description}[<+(1)->][\lecprogramlistindent]
     }{%
       \begin{description}[\lecprogramlistindent]
+    }
       \programlistbeamerii
       \end{description}
-    }
     \end{frame}
     }
     \@ifundefined{programlistbeameriii}{}{%
@@ -496,15 +496,13 @@
     }{%
        \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
     }
-    \ifbool{alertedlist}{%
-      \begin{description}[<alert@+(1)>][\lecprogramlistindent]
-      \programlistbeameriii
-      \end{description}
+    \ifbool{uncoveredlist}{%
+      \begin{description}[<+->][\lecprogramlistindent]
     }{%
       \begin{description}[\lecprogramlistindent]
+    }
       \programlistbeameriii
       \end{description}
-    }
     \end{frame}
     }
     \@ifundefined{programlistbeameriv}{}{%
@@ -515,15 +513,13 @@
     }{%
        \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
     }
-    \ifbool{alertedlist}{%
-      \begin{description}[<alert@+(1)>][\lecprogramlistindent]
-      \programlistbeameriv
-      \end{description}
+    \ifbool{uncoveredlist}{%
+      \begin{description}[+(1)->][\lecprogramlistindent]
     }{%
       \begin{description}[\lecprogramlistindent]
+    }
       \programlistbeameriv
       \end{description}
-    }
     \end{frame}
     }
     \ifnumgreater{\thefbreaks}{0}{\def\btitleapp{\ (\pframes/\pframes)}}{}
@@ -545,15 +541,13 @@
                   }
              }
        }
-    \ifbool{alertedlist}{%
-      \begin{description}[<alert@+(1)>][\lecprogramlistindent]
-      \programlistbeamer
-      \end{description}
+    \ifbool{uncoveredlist}{%
+      \begin{description}[<+->][\lecprogramlistindent]
     }{%
       \begin{description}[\lecprogramlistindent]
+    }
       \programlistbeamer
       \end{description}
-    }
     \end{frame}
   \fi%\else\ifKV@beamerprogram@blocksonly
 }

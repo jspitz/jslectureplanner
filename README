@@ -71,7 +71,7 @@ instructions; also have a look at the example files.
 * V. 1.6 (forthcoming):  - Do not output session title-subtitle separator if there is no
                            subtitle.
 
-                         - Add "blocksonly" option to \makebeamerprogram.
+                         - Add "blocksonly" and "uncover" options to \makebeamerprogram.
 
 * V 1.5 (2017-03-12):    - Add "english" style file (proof of concept).
 
