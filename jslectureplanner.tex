@@ -483,8 +483,6 @@ e-learning platform
 \label{sec:lecprog}
 \begin{itemize}
 \item \jcsmacro{makeprogram}: Generates a course program in the form:
-
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \begin{labeling}{\lecprogramlistindent}
 \item[<short date>] <session full title>
@@ -502,10 +500,8 @@ The package provides a fallback, however, if a different class is used.
 
 \item \jcsmacro{makebeamerprogram[<options>]}: Generates
 a beamer-suited lecture program from the metadata in the form
-
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
-\begin[label=beamerprogram<nr>,<bfoptions>]{frame}
+\begin[label=beamerprogram<n>,<bfoptions>]{frame}
 \frametitle{<Heading>}
 \begin{description}[\lecprogramlistindent]
 \item[<short date>] <session full title>
@@ -519,12 +515,12 @@ a beamer-suited lecture program from the metadata in the form
 
 
 
-\joption{<options>} can be one of
+\joption{<options>} include
 \begin{itemize}
 \item \joption{title=<title>}: Program title (<Heading>)
-\item \joption{blocksonly=true|false}: If \joption{true}, only the session blocks are output,
+\item \joption{blocksonly=<true|false>}: If \joption{true}, only the session blocks are output,
       not the sessions.
-\item \joption{uncover=true|false}: If \joption{true}, the program will be uncovered item-wise.
+\item \joption{uncover=<true|false>}: If \joption{true}, the program will be uncovered item-wise.
 \item \joption{options=<bfoptions>}: Beamer frame options. Note that key-value
     beamer frame options need to be embraced, as in\\
     \jcsmacro{makebeamerprogram[options=\{shrink=10\}]}
@@ -548,7 +544,6 @@ via \textsf{biblatex}. The macro
 \item \jcsmacro{makesessionbib}
 \end{itemize}
 generates code in the form
-
 \begin{lstlisting}[basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{printbibliography}}]
 \section{<session full title>}
 \nocite{*}
@@ -576,7 +571,6 @@ by means of the \joption{presstudents} option of the \jcsmacro{NewSession} comma
 \end{quote}
 outputs a list that consists of the session dates and titles as well as the names of the
 presenting students, i.\,e., it expands to code in the form:
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \begin{labeling}{\lecprogramlistindent}
 \item[<short date>] <session full title>\par
@@ -624,8 +618,8 @@ to the current session. This is done as follows.
 
 \subsection{Setting the current session}
 
-Use \jcsmacro{ThisSession\{<nr>\}} to tell the package
-which session is current. \joption{<nr>} is an integer value, e.\,g.
+Use \jcsmacro{ThisSession\{<n>\}} to tell the package
+which session is current. \joption{<n>} is an integer value, e.\,g.
 \jcsmacro{ThisSession\{3\}} for the 3rd session of
 the lecture.
 
@@ -686,33 +680,32 @@ Via the numerical \joption{<offset>} option, you can specify which session, rela
 
 Independent of the value of \jcsmacro{ThisSession},
 you can retrieve the following information for arbitrary sessions
-(session number \joption{<nr>}) via the following macros:
+(session number \joption{<n>}) via the following macros:
 \begin{itemize}
-\item \jcsmacro{SessionTitle\{<nr>\}}: Outputs the main title
-of session number \joption{<nr>}
-\item \jcsmacro{SessionFullTitle\{<nr>\}}: Outputs the full
-title (main title, separator, subtitle) of session number \joption{<nr>}
-\item \jcsmacro{SessionShortTitle\{<nr>\}}: Outputs the short
-title of session number \joption{<nr>}; if
+\item \jcsmacro{SessionTitle\{<n>\}}: Outputs the main title
+of session number \joption{<n>}
+\item \jcsmacro{SessionFullTitle\{<n>\}}: Outputs the full
+title (main title, separator, subtitle) of session number \joption{<n>}
+\item \jcsmacro{SessionShortTitle\{<n>\}}: Outputs the short
+title of session number \joption{<n>}; if
 no explicit short title is specified, the normal main title is output
-\item \jcsmacro{SessionDate\{<nr>\}}: Outputs the date of
-session number \joption{<nr>}
-\item \jcsmacro{SessionShortDate\{<nr>\}}: Outputs the short
-date (no year) of session number \joption{<nr>}
-\item \jcsmacro{SessionInstructor\{<nr>\}}: Outputs the name of the instructor of session
-number \joption{<nr>}
-\item \jcsmacro{SessionInstructor*\{<nr>\}}: Outputs the name of the instructor of session
-number \joption{<nr>} if it differs from the general instructor (\jcsmacro{lecinstructor})
-\item \jcsmacro{SessionShortInstructor\{<nr>\}}: Outputs the short name (or normal name, if no short name was specified) of the instructor of session
-number \joption{<nr>}
-\item \jcsmacro{SessionShortInstructor*\{<nr>\}}: Outputs the short name  (or normal name, if no short name was specified) of the instructor of session
-number \joption{<nr>} if it differs from the general instructor (\jcsmacro{lecinstructor})
-\item \jcsmacro{SessionPresStudents\{<nr>\}}: Outputs the name of the students presenting
-in session number \joption{<nr>}
-\item \jcsmacro{SessionRoom\{<nr>\}}: Outputs the room of session number \joption{<nr>}
-\item \jcsmacro{MakeProgramline\{<nr>\}}: Outputs a list
-item line for session number \joption{<nr>} in the form
-
+\item \jcsmacro{SessionDate\{<n>\}}: Outputs the date of
+session number \joption{<n>}
+\item \jcsmacro{SessionShortDate\{<n>\}}: Outputs the short
+date (no year) of session number \joption{<n>}
+\item \jcsmacro{SessionInstructor\{<n>\}}: Outputs the name of the instructor of session
+number \joption{<n>}
+\item \jcsmacro{SessionInstructor*\{<n>\}}: Outputs the name of the instructor of session
+number \joption{<n>} if it differs from the general instructor (\jcsmacro{lecinstructor})
+\item \jcsmacro{SessionShortInstructor\{<n>\}}: Outputs the short name (or normal name, if no short name was specified) of the instructor of session
+number \joption{<n>}
+\item \jcsmacro{SessionShortInstructor*\{<n>\}}: Outputs the short name  (or normal name, if no short name was specified) of the instructor of session
+number \joption{<n>} if it differs from the general instructor (\jcsmacro{lecinstructor})
+\item \jcsmacro{SessionPresStudents\{<n>\}}: Outputs the name of the students presenting
+in session number \joption{<n>}
+\item \jcsmacro{SessionRoom\{<n>\}}: Outputs the room of session number \joption{<n>}
+\item \jcsmacro{MakeProgramline\{<n>\}}: Outputs a list
+item line for session number \joption{<n>} in the form
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \item[{\bfseries <short date>}] <session full title>
 \end{lstlisting}
@@ -761,7 +754,6 @@ If you need to change the date format, redefine the date styles \textsf{lecdate}
 (for the long format) and \textsf{lecshortdate} (for the short format),
 using the syntax provided by the \textsf{datetime2}
 package. By default, the two formats are defined as follows:
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{DTMnewdatestyle}}]
 \DTMnewdatestyle{lecdate}{% long date: DD.\,MM.~YYYY
 \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.~##1}%
@@ -776,7 +768,6 @@ package. By default, the two formats are defined as follows:
 \jfcsmacro{DTMtwodigits\{\#\#3\}} represents the day of the month (producing always two digits, i.\,e., \emph{01} not \emph{1}), \jfcsmacro{DTMtwodigits\{\#\#2\}} represents the month (also in two-digit form) and \jfmacro{\#\#1} represents the year. Please refer to the \textsf{datetime2} manual for details. 
 
 If you want to redefine the styles, use \jfcsmacro{DTMrenewdatestyle} and change the definition accordingly. For instance, to get the typical American English date formats \emph{MM/DD/YYYY} and \emph{Month, DD}, redefine the formats as follows:
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{DTMrenewdatestyle}}]
 \DTMrenewdatestyle{lecdate}{% long date: MM/DD/YYYY
 \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##2}/\DTMtwodigits{##3}/##1}%
@@ -796,18 +787,15 @@ Note, finally, that the date redefinition syntax used up to \jslp\ 1.2 is no lon
 The canceling output is ``Session title -- keine <Session>'' (``keine''
 is German for ``no''). To modify or translate this, redefine the
 following macro
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \newcommand*\leccancel{\ -- keine \lectypesession}
 \end{lstlisting}
 The default program string used in beamer frames can be changed by
 redefining
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \newcommand*\lecprogram{Programm}
 \end{lstlisting}
 The indentation used in program lists can be changed by redefining
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
 \end{lstlisting}
@@ -819,7 +807,6 @@ the value of the internal topic counter).
 \newcommand*\sestopic{Thema~\thesestopic}
 \end{lstlisting}
 Use \jfcsmacro{renewcommand{*}} for the redefinitions.
-
 
 \subsection{Using styles}\label{sec:styles}
 
@@ -915,7 +902,6 @@ and the extension must be omitted in the option, so
 loads the file \texttt{mystudents.csv}.
 
 It is assumed that the external CSV file conforms to the following structure:
-
 \begin{lstlisting}[language={},basicstyle={\small\ttfamily},frame=single]
 Prename1, Surname1, StudentID1, Email1
 Prename2, Surname2, StudentID2, Email2
@@ -954,7 +940,6 @@ If you want to have more or less columns, you need to redefine the
 \jcsmacro{makemembertable} command.
 The header strings, though, can easily be changed by redefining the following three
 macros (using \jfcsmacro{renewcommand*}), for instance like this:
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 % Student Name
 \renewcommand*\jsmnameheader{\textbf{Student name}}
@@ -1030,7 +1015,6 @@ page size.
 
 The header strings of the presence tables can be adjusted by redefining the following
 macros (using \jfcsmacro{renewcommand*}), for instance like this:
-
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 % Student Name
 \renewcommand*\jsmnameheader{\textbf{Student name}}
