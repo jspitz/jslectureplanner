@@ -68,7 +68,7 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.6 (forthcoming):  - Do not output session title-subtitle separator if there is no
+* V. 1.6 (2018-09-26):   - Do not output session title-subtitle separator if there is no
                            subtitle.
 
                          - Add "blocksonly" and "uncover" options to \makebeamerprogram.

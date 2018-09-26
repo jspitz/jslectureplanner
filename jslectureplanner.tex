@@ -69,7 +69,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.6dev, 2018/09/25}
+\date{Version 1.6, 2018/09/26}
 
 \maketitle
 
@@ -1066,9 +1066,9 @@ the \jslp\ style files. Thanks, Dominik.
 \section{Release History}
 
 \begin{itemize}
-\item forthcoming (v. 1.6):
+\item 2018/09/26 (v. 1.6):
 	\begin{itemize}
-	    \item Do not output session title-subtitle separator if there is no	subtitle.
+	    \item Bugfix: Do not output session title-subtitle separator if there is no	subtitle.
 	    \item Add \joption{blocksonly} and \joption{uncover} options to \jcsmacro{makebeamerprogram}.
 	    \item Add \joption{draft} option to \jcsmacro{NewSession}.
     \end{itemize}
@@ -1085,7 +1085,7 @@ the \jslp\ style files. Thanks, Dominik.
 		\item Add starred versions of the \jcsmacro{sesinstructor}, \jcsmacro{SessionInstructor} and \jcsmacro{AdjSessionInstructor} macros that only produce output if the session instructor differs from the general course instructor.
 		\item All short\{instructor|title\} macros now output the long version if no short form was defined.
 		\item Add boolean tests for unique short forms and session instructors.
-	\end{itemize}
+	\end{itemize}\clearpage
 \item 2016/08/31 (v. 1.3):
      \begin{itemize}
      	\item \textbf{Backwards-incompatible change!} Use \textsf{datetime2} instead of \textsf{datetime} and \textsf{advdate}.
