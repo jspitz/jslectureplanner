@@ -333,6 +333,9 @@ macro:
 
 Valid \joption{<options>} include:
 \begin{itemize}
+\item \joption{draft=<true|false>}: If \joption{true}, a placeholder text (by default: ``Thema <n>'',
+    see sec.~\ref{sec:misccust}) will be output if no session title is defined.
+    This might be handy for planning the schedule.
 \item \joption{titlesep=<separator>}: Separator between session title and
     subtitle (e.\,g., \verb|titlesep={.\ }|); this overrides any global separator set via \joption{sestitlesep} option
     or \jcsmacro{SessionTitleSep} macro for the current session
@@ -788,7 +791,7 @@ Note that it is not necessary to include the \jfcsmacro{DTMDisplaydate} redefini
 Note, finally, that the date redefinition syntax used up to \jslp\ 1.2 is no longer supported, since it relied on the \textsf{datetime} package, which is deprecated (and superseded by \textsf{datetime2}). The \jslp\ package will issue a warning if you try to use the old syntax.
 
 
-\subsection{Misc. customizing}
+\subsection{Misc. customizing}\label{sec:misccust}
 
 The canceling output is ``Session title -- keine <Session>'' (``keine''
 is German for ``no''). To modify or translate this, redefine the
@@ -807,6 +810,13 @@ The indentation used in program lists can be changed by redefining
 
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
 \newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
+\end{lstlisting}
+The placeholder text for session without title with \joption{draft=true}
+(see sec.~\ref{sec:lecplan}) is ``Thema <n>'' (``Thema'' is German for ``topic'').
+It can be changed by redefinition of this macro (\lstinline|\thesestopic| outputs
+the value of the internal topic counter).
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
+\newcommand*\sestopic{Thema~\thesestopic}
 \end{lstlisting}
 Use \jfcsmacro{renewcommand{*}} for the redefinitions.
 
@@ -1076,6 +1086,7 @@ the \jslp\ style files. Thanks, Dominik.
 	\begin{itemize}
 	    \item Do not output session title-subtitle separator if there is no	subtitle.
 	    \item Add \joption{blocksonly} and \joption{uncover} options to \jcsmacro{makebeamerprogram}.
+	    \item Add \joption{draft} option to \jcsmacro{NewSession}.
     \end{itemize}
 \item 2017/03/12 (v. 1.5):
 	\begin{itemize}

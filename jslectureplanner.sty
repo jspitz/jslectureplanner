@@ -163,6 +163,8 @@
 \newcommand*\lecprogram{Programm}
 % Program list indentation
 \newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
+% Session topic placeholder
+\newcommand*\sestopic{Thema~\thesestopic}
 
 
 %
@@ -580,9 +582,11 @@
     \csdef{@sesshortinstructor}{{#1}}\csdef{@usesshortinstructor}{{#1}}\toggletrue{shortinstrdef}}
 \define@key{session}{presstudents}{\csdef{@sespresstudents}{{#1}}}
 \define@boolkey{session}{cancel}[true]{}
+\define@boolkey{session}{draft}[true]{}
 %
 \newcommand*\NewSession[2][]{%
   \stepcounter{sesunit}
+  \stepcounter{sestopic}
   \ifnumcomp{\value{autooffsettrigger}}{>}{0}{%
      \ifnumcomp{\value{autooffsettrigger}}{=}{\value{autooffsetcounter}}{%
         \addtocounter{sesoffset}{\theautooffset}%
@@ -605,6 +609,7 @@
   \csdef{@usesshortinstructor}{}
   \csdef{@sespresstudents}{}
   \setkeys{session}{cancel=false}
+  \setkeys{session}{draft=false}
   \setkeys{session}{#1}
   \csdef{@sestitle}{#2}
   \protected@csxdef{sesdate\thesnum}{%
@@ -634,6 +639,9 @@
       \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}%
         \noexpand\leccancel\noexpand\egroup}
   \else
+    \ifKV@session@draft
+        \ifcsempty{@sestitle}{\protected@csxdef{sestitle\thesnum}{\sestopic}}{}
+    \fi
     \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
       \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
     \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%

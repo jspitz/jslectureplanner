@@ -64,6 +64,9 @@
 % Indentation of program list
 \renewcommand*\lecprogramlistindent{\textbf{88.\,88.}}
 
+% Session topic placeholder
+\renewcommand*\sestopic{Thema~\thesestopic}
+
 %
 % Strings used by the jsmembertable package
 % NOTE that these have to be defined via \newcommand

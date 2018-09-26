@@ -73,6 +73,8 @@ instructions; also have a look at the example files.
 
                          - Add "blocksonly" and "uncover" options to \makebeamerprogram.
 
+                         - Add "draft" option to \NewSession.
+
 * V 1.5 (2017-03-12):    - Add "english" style file (proof of concept).
 
                          - Add datakeys option to the jsmembertable package.
