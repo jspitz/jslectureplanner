@@ -442,6 +442,7 @@
 \define@key{beamerprogram}{title}{\csdef{@bptitle}{#1}}
 \define@key{beamerprogram}{options}{\csdef{@bpopts}{#1}}
 \define@key{beamerprogram}{listoptions}{\csdef{@bplistopts}{#1}}
+\define@key{beamerprogram}{overlayarg}{\csdef{@bpolarg}{#1}}
 \define@boolkey{beamerprogram}{alerted}[true]{}
 \define@boolkey{beamerprogram}{blocksonly}[true]{}
 \define@boolkey{beamerprogram}{uncover}[true]{}
@@ -464,12 +465,21 @@
      \boolfalse{uncoveredlist}
   \fi
   \ifKV@beamerprogram@blocksonly
-     \ifcsdef{@bpopts}{%
-       \begingroup\edef\tempa{\endgroup\noexpand%
-         \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-    }{%
-       \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
-    }
+     \ifcsdef{@bpolarg}{%
+        \ifcsdef{@bpopts}{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }{%
+           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
+        }%
+     }{%
+        \ifcsdef{@bpopts}{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }{%
+           \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
+        }%
+     }%
        \ifbool{uncoveredlist}{%
          \begin{description}[<+->][\lecprogramlistindent]
        }{%
@@ -481,12 +491,21 @@
   \else
     \@ifundefined{programlistbeamerii}{}{%
     \def\btitleapp{\ (1/\pframes)}
-    \ifcsdef{@bpopts}{%
-       \begingroup\edef\tempa{\endgroup\noexpand%
-         \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-    }{%
-       \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
-    }
+     \ifcsdef{@bpolarg}{%
+        \ifcsdef{@bpopts}{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }{%
+           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
+        }%
+     }{%
+        \ifcsdef{@bpopts}{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }{%
+           \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
+        }%
+    }%
     \ifbool{uncoveredlist}{%
       \begin{description}[<+(1)->][\lecprogramlistindent]
     }{%
@@ -498,12 +517,21 @@
     }
     \@ifundefined{programlistbeameriii}{}{%
     \def\btitleapp{\ (2/\pframes)}
-    \ifcsdef{@bpopts}{%
-       \begingroup\edef\tempa{\endgroup\noexpand%
-          \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-    }{%
-       \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
-    }
+    \ifcsdef{@bpolarg}{%
+        \ifcsdef{@bpopts}{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }{%
+           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
+        }%
+     }{%
+        \ifcsdef{@bpopts}{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+              \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }{%
+           \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
+        }%
+    }%
     \ifbool{uncoveredlist}{%
       \begin{description}[<+->][\lecprogramlistindent]
     }{%
@@ -514,13 +542,22 @@
     \end{frame}
     }
     \@ifundefined{programlistbeameriv}{}{%
-    \def\btitleapp{\ (2/\pframes)}
-    \ifcsdef{@bpopts}{%
-       \begingroup\edef\tempa{\endgroup\noexpand%
-         \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-    }{%
-       \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
-    }
+    \def\btitleapp{\ (3/\pframes)}
+    \ifcsdef{@bpolarg}{%
+        \ifcsdef{@bpopts}{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }{%
+           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+        }%
+     }{%
+        \ifcsdef{@bpopts}{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }{%
+           \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+        }%
+    }%
     \ifbool{uncoveredlist}{%
       \begin{description}[+(1)->][\lecprogramlistindent]
     }{%
@@ -531,24 +568,45 @@
     \end{frame}
     }
     \ifnumgreater{\thefbreaks}{0}{\def\btitleapp{\ (\pframes/\pframes)}}{}
-    \ifcsdef{@bpopts}{%
-        \begingroup\edef\tempa{\endgroup\noexpand%
-          \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-      }{%
-          \@ifundefined{programlistbeamerii}{%
-              \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
-            }{%
-               \@ifundefined{programlistbeameriii}{%
-                  \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
-                 }{%
-                   \@ifundefined{programlistbeameriv}{%
-                       \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+    \ifcsdef{@bpolarg}{%
+        \ifcsdef{@bpopts}{%
+            \begingroup\edef\tempa{\endgroup\noexpand%
+              \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+          }{%
+              \@ifundefined{programlistbeamerii}{%
+                  \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+                }{%
+                   \@ifundefined{programlistbeameriii}{%
+                      \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
                      }{%
-                        \begin{frame}[label=beamerprogram4]{\csuse{@bptitle}\btitleapp}
-                      }
-                  }
-             }
-       }
+                       \@ifundefined{programlistbeameriv}{%
+                           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+                         }{%
+                            \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram4]{\csuse{@bptitle}\btitleapp}
+                          }%
+                      }%
+                 }%
+           }%
+     }{%
+        \ifcsdef{@bpopts}{%
+            \begingroup\edef\tempa{\endgroup\noexpand%
+              \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+          }{%
+              \@ifundefined{programlistbeamerii}{%
+                  \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+                }{%
+                   \@ifundefined{programlistbeameriii}{%
+                      \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
+                     }{%
+                       \@ifundefined{programlistbeameriv}{%
+                           \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+                         }{%
+                            \begin{frame}[label=beamerprogram4]{\csuse{@bptitle}\btitleapp}
+                          }%
+                      }%
+                 }%
+           }%
+    }%
     \ifbool{uncoveredlist}{%
       \begin{description}[<+->][\lecprogramlistindent]
     }{%

@@ -69,7 +69,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.6, 2018/09/26}
+\date{Version 1.7dev, 2018/12/01}
 
 \maketitle
 
@@ -500,8 +500,8 @@ The package provides a fallback, however, if a different class is used.
 
 \item \jcsmacro{makebeamerprogram[<options>]}: Generates
 a beamer-suited lecture program from the metadata in the form
-\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
-\begin[label=beamerprogram<n>,<bfoptions>]{frame}
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{frametitle}}]
+\begin{frame}<overlayarg>[label=beamerprogram<n>,<bfoptions>]
 \frametitle{<Heading>}
 \begin{description}[\lecprogramlistindent]
 \item[<short date>] <session full title>
@@ -524,6 +524,8 @@ a beamer-suited lecture program from the metadata in the form
 \item \joption{options=<bfoptions>}: Beamer frame options. Note that key-value
     beamer frame options need to be embraced, as in\\
     \jcsmacro{makebeamerprogram[options=\{shrink=10\}]}
+\item \joption{overlayarg=<overlay specification>}: Beamer frame overlay specification
+     (to be specified without angle brackets).
 \end{itemize}
 
 Note that multiple subsequent frames are generated if the metadata
@@ -1066,6 +1068,11 @@ the \jslp\ style files. Thanks, Dominik.
 \section{Release History}
 
 \begin{itemize}
+\item Forthcoming (v. 1.7):
+	\begin{itemize}
+		\item Allow \joption{options} in \jcsmacro{makebeamerprogram} also with \joption{blocksonly}.
+		\item Add \joption{overlayarg} option to \jcsmacro{makebeamerprogram}.
+	\end{itemize}
 \item 2018/09/26 (v. 1.6):
 	\begin{itemize}
 	    \item Bugfix: Do not output session title-subtitle separator if there is no	subtitle.
@@ -1085,7 +1092,7 @@ the \jslp\ style files. Thanks, Dominik.
 		\item Add starred versions of the \jcsmacro{sesinstructor}, \jcsmacro{SessionInstructor} and \jcsmacro{AdjSessionInstructor} macros that only produce output if the session instructor differs from the general course instructor.
 		\item All short\{instructor|title\} macros now output the long version if no short form was defined.
 		\item Add boolean tests for unique short forms and session instructors.
-	\end{itemize}\clearpage
+	\end{itemize}
 \item 2016/08/31 (v. 1.3):
      \begin{itemize}
      	\item \textbf{Backwards-incompatible change!} Use \textsf{datetime2} instead of \textsf{datetime} and \textsf{advdate}.
