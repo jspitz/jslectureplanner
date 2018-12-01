@@ -23,8 +23,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2018/09/26}
-\def\fileversion{1.6}
+\def\filedate{2018/12/01}
+\def\fileversion{1.7dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -464,7 +464,12 @@
      \boolfalse{uncoveredlist}
   \fi
   \ifKV@beamerprogram@blocksonly
-     \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
+     \ifcsdef{@bpopts}{%
+       \begingroup\edef\tempa{\endgroup\noexpand%
+         \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+    }{%
+       \begin{frame}[label=beamerprogram1]{\csuse{@bptitle}\btitleapp}
+    }
        \ifbool{uncoveredlist}{%
          \begin{description}[<+->][\lecprogramlistindent]
        }{%

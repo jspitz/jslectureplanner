@@ -68,6 +68,8 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
+* V. 1.7 (forthcoming):  - Allow options in \makebeamerprogram also with blocksonly.
+
 * V. 1.6 (2018-09-26):   - Do not output session title-subtitle separator if there is no
                            subtitle.
 
