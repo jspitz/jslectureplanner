@@ -25,6 +25,7 @@
 
 \documentclass[english]{article}
 
+\usepackage{metre}
 \usepackage[osf]{libertine}
 \usepackage[scaled=0.7]{beramono}
 \usepackage[T1]{fontenc}
@@ -38,6 +39,7 @@
 \newcommand*\jfoption[1]{\texttt{#1}}
 \newcommand*\jfmacro[1]{\texttt{#1}}
 \newcommand*\jfcsmacro[1]{\jfmacro{\textbackslash{#1}}}
+\newcommand*\jparam[1]{\angus #1\angud}
 
 % macros
 \newcommand*\jslp{\textsf{jslectureplanner}}
@@ -167,7 +169,7 @@ or via specific macros (see sec.~\ref{sec:via-macros}).
 
 \subsection{Via package options\label{sub:package-options}}
 
-\jcsmacro{usepackage[<comma-separated options>]\{jslectureplanner\}}
+\jcsmacro{usepackage[\jparam{comma-separated options}]\{jslectureplanner\}}
 
 \subsubsection{Course classification\label{sec:lecture-classification}}
 
@@ -177,7 +179,7 @@ connected to a verbose string (such as \emph{Seminar}), a short form (such as
 \emph{SE}) and a form that is used to denote individual sessions (as
 in ``the second \emph{session} of this course'').
 \begin{description}
-\item [\joption{type=<type>}] defines the course type. Predefined values are:
+\item [\joption{type=\jparam{type}}] defines the course type. Predefined values are:
 
 \begin{itemize}
 \item \joption{vl}: A lecture (verbose form: \emph{Vorlesung}, short form:
@@ -201,15 +203,15 @@ Please also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
 
 \subsubsection{Course title}
 \begin{description}
-\item [\joption{title=<title>}] Main title of the course
-\item [\joption{titlesep=<separator>}] Separator between title and subtitle
-\item [\joption{subtitle=<subtitle>}] Subtitle of the course
-\item [\joption{shorttitle=<shorttitle>}] Short title of the course (for headings etc.)
+\item [\joption{title=\jparam{title}}] Main title of the course
+\item [\joption{titlesep=\jparam{separator}}] Separator between title and subtitle
+\item [\joption{subtitle=\jparam{subtitle}}] Subtitle of the course
+\item [\joption{shorttitle=\jparam{shorttitle}}] Short title of the course (for headings etc.)
 \end{description}
 
 \subsubsection{Date and place\label{sec:date-and-place}}
 \begin{description}
-\item [\joption{semester=<term>,}] where \joption{<term>} is one of
+\item [\joption{semester=\jparam{term}},] where \joption{\jparam{term}} is one of
 
 \begin{itemize}
 \item \joption{fs}: Spring term (\emph{Frühjahrssemester}, short form: \emph{FS})
@@ -220,34 +222,34 @@ Please also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
 Sec.~\ref{sec:customizing-strings} explains how to customize and extend this list.
 Also cf. sec.~\ref{sec:styles}.
 
-\item [\joption{year=<year>}] Year of the term
-\item [\joption{uni=<university>}] Your university
-\item [\joption{institute=<institute>}] Your institute/department
-\item [\joption{room=<room>}] The room where the course generally takes place;
+\item [\joption{year=\jparam{year}}] Year of the term
+\item [\joption{uni=\jparam{university}}] Your university
+\item [\joption{institute=\jparam{institute}}] Your institute/department
+\item [\joption{room=\jparam{room}}] The room where the course generally takes place;
       it is possible to specify diverging rooms for individual sessions
       (see sec. \ref{sec:lecplan})
-\item [\joption{startdate=<startdate>}] The date of the first session (the argument
+\item [\joption{startdate=\jparam{startdate}}] The date of the first session (the argument
       \emph{must} have the form DD/MM/YYYY); if no startdate is given,
       \jfcsmacro{today} is used
-\item [\joption{interval=<interval>}] The interval (in days) between two sessions;
+\item [\joption{interval=\jparam{interval}}] The interval (in days) between two sessions;
       the preset interval is 7 (=~weekly courses)
 \end{description}
 
 \subsubsection{Additional information}
 \begin{description}
-\item [\joption{instructor=<name>}] (General) course instructor's name;
+\item [\joption{instructor=\jparam{name}}] (General) course instructor's name;
       it is possible to specify different or specific instructors for individual sessions
       (see sec. \ref{sec:lecplan})
-\item [\joption{shortinstructor=<name>}] Short form of the course instructor's name (e.\,g., for headings)
-\item [\joption{platform=<data>}] Information of the e-learning platform
+\item [\joption{shortinstructor=\jparam{name}}] Short form of the course instructor's name (e.\,g., for headings)
+\item [\joption{platform=\jparam{data}}] Information of the e-learning platform
       (such as the URL)
-\item [\joption{officehours=<data>}] Date of your office hours
-\item [\joption{officenumber=<data>}] Your office (room) number
+\item [\joption{officehours=\jparam{data}}] Date of your office hours
+\item [\joption{officenumber=\jparam{data}}] Your office (room) number
 \end{description}
 
 \subsubsection{Other global settings}
 \begin{description}
-	\item[\joption{sestitlesep=<separator>}] Specifies a default separator between session title and subtitle
+	\item[\joption{sestitlesep=\jparam{separator}}] Specifies a default separator between session title and subtitle
 \end{description}
 
 \subsection{Via macros\label{sec:via-macros}}
@@ -256,8 +258,8 @@ The following macros provide an alternative way to set up the course metadata.
 
 \subsubsection{Course classification}
 \begin{itemize}
-\item \jcsmacro{LecType\{<course type>\}}: Set course type;
-\joption{<course type>} is one of\footnote{See above sec.~\ref{sec:lecture-classification} for a detailed
+\item \jcsmacro{LecType\{\jparam{course type}\}}: Set course type;
+\joption{\jparam{course type}} is one of\footnote{See above sec.~\ref{sec:lecture-classification} for a detailed
 description.}
 
 \begin{itemize}
@@ -272,19 +274,19 @@ description.}
 
 \subsubsection{Course title}
 \begin{itemize}
-\item \jcsmacro{LecTitle[<package options>]\{<title>\}}: Record course title and options;
-\joption{<package options>} might be any set of package options described
+\item \jcsmacro{LecTitle[\jparam{package options}]\{\jparam{title}\}}: Record course title and options;
+\joption{\jparam{package options}} might be any set of package options described
 in sec.~\ref{sub:package-options}, so this macro can actually be used to record
 all metadata.
-\item \jcsmacro{LecTitleSep\{<title separator>\}}: Specify a separator between course
+\item \jcsmacro{LecTitleSep\{\jparam{title separator}\}}: Specify a separator between course
 title and subtitle (e.\,g., ``. '' or `` -- '')
-\item \jcsmacro{LecSubTitle\{<subtitle>\}}: Record course subtitle
+\item \jcsmacro{LecSubTitle\{\jparam{subtitle}\}}: Record course subtitle
 \end{itemize}
 
 \subsubsection{Date and place}
 \begin{itemize}
-\item \jcsmacro{LecYear\{<term>\}\{<year>\}}, Record term and
-year of the course; \joption{<term>} is one of\footnote{See above sec.~\ref{sec:date-and-place} for a detailed
+\item \jcsmacro{LecYear\{\jparam{term}\}\{\jparam{year}\}}, Record term and
+year of the course; \joption{\jparam{term}} is one of\footnote{See above sec.~\ref{sec:date-and-place} for a detailed
 description.}
 
 \begin{itemize}
@@ -293,34 +295,34 @@ description.}
 \item \joption{ss}: Summer term (\emph{Sommersemester})
 \item \joption{ws}: Winter term (\emph{Wintersemester})
 \end{itemize}
-\item \jcsmacro{LecUni\{<university>\}}: Record the name of
+\item \jcsmacro{LecUni\{\jparam{university}\}}: Record the name of
 your university
-\item \jcsmacro{LecInstitute\{<institute>\}}: Record your institute's/department's name
-\item \jcsmacro{LecRoom\{<room>\}}: Record the room where the course (generally) takes place
-\item \jcsmacro{LecStartDate\{<startdate>\}}: Set the date of
+\item \jcsmacro{LecInstitute\{\jparam{institute}\}}: Record your institute's/department's name
+\item \jcsmacro{LecRoom\{\jparam{room}\}}: Record the room where the course (generally) takes place
+\item \jcsmacro{LecStartDate\{\jparam{startdate}\}}: Set the date of
 the first session (the argument \emph{must} have the form DD/MM/YYYY)
-\item \jcsmacro{LecInterval\{<interval>\}}: Adjust the interval (in days) between two sessions.
+\item \jcsmacro{LecInterval\{\jparam{interval}\}}: Adjust the interval (in days) between two sessions.
       The preset interval is 7 (=~weekly courses).
-\item \jcsmacro{SetAutoOffset\{<n>\}\{<days>\}}: Automatically shift all subsequent sessions
-      by <days> extra  days after every <n>th session. This is useful if you have each week
+\item \jcsmacro{SetAutoOffset\{\jparam{n}\}\{\jparam{days}\}}: Automatically shift all subsequent sessions
+      by \jparam{days} extra  days after every \jparam{n}th session. This is useful if you have each week
       two regular sessions and then a pause until the next week (for instance, a Tuesday +
       Thursday course could be defined via \jcsmacro{LecInterval\{2\}} and 
-      \jcsmacro{SetAutoOffset\{2\}\{3\}}). <n> must be a positive integer, <days> can 
+      \jcsmacro{SetAutoOffset\{2\}\{3\}}). \jparam{n} must be a positive integer, \jparam{days} can 
       also be a negative integer value.
 \end{itemize}
 
 \subsubsection{Additional information}\label{ses-add}
 \begin{itemize}
-\item \jcsmacro{LecInstructor[<short name>]\{<name>\}}: Record the (general) instructor's name, including an optional short form for headings etc.
-\item \jcsmacro{SetOfficeHours\{<office hours>\}}: Record date of your office hours
-\item \jcsmacro{SetOfficeNumber\{<office number>\}}: Record your office (room) number
-\item \jcsmacro{SetPlatform\{<platform information>\}}: Record information
+\item \jcsmacro{LecInstructor[\jparam{short name}]\{\jparam{name}\}}: Record the (general) instructor's name, including an optional short form for headings etc.
+\item \jcsmacro{SetOfficeHours\{\jparam{office hours}\}}: Record date of your office hours
+\item \jcsmacro{SetOfficeNumber\{\jparam{office number}\}}: Record your office (room) number
+\item \jcsmacro{SetPlatform\{\jparam{platform information}\}}: Record information
 (such as URL) of the e-learning platform
 \end{itemize}
 
 \subsubsection{Other global settings}\label{ses-global}
 \begin{itemize}
-\item \jcsmacro{SessionTitleSep\{<separator>\}}: Specify a default separator between session title and subtitle (e.\,g., ``. '' or `` -- ''). This is used if no specific separator has been specified in the session entry (see sec.~\ref{sec:lecplan}); by default, no separator is defined.
+\item \jcsmacro{SessionTitleSep\{\jparam{separator}\}}: Specify a default separator between session title and subtitle (e.\,g., ``. '' or `` -- ''). This is used if no specific separator has been specified in the session entry (see sec.~\ref{sec:lecplan}); by default, no separator is defined.
 \end{itemize}
 
 \section{Setting up a course schedule}\label{sec:lecplan}
@@ -329,30 +331,30 @@ In the metadata file, you can set up a schedule for the course by entering
 session information in chronological order. This is done via the following
 macro:
 \begin{itemize}
-\item \jcsmacro{NewSession[<options>]\{Session title\}}
+\item \jcsmacro{NewSession[\jparam{options}]\{Session title\}}
 
 
-Valid \joption{<options>} include:
+Valid \joption{\jparam{options}} include:
 \begin{itemize}
-\item \joption{draft=<true|false>}: If \joption{true}, a placeholder text (by default: ``Thema <n>'',
+\item \joption{draft=\jparam{true|false}}: If \joption{true}, a placeholder text (by default: ``Thema \jparam{n}'',
     see sec.~\ref{sec:misccust}) will be output if no session title is defined.
     This might be handy for planning the schedule.
-\item \joption{titlesep=<separator>}: Separator between session title and
+\item \joption{titlesep=\jparam{separator}}: Separator between session title and
     subtitle (e.\,g., \verb|titlesep={.\ }|); this overrides any global separator set via \joption{sestitlesep} option
     or \jcsmacro{SessionTitleSep} macro for the current session
-\item \joption{subtitle=<subtitle>}: Subtitle of the session
-\item \joption{shorttitle=<shorttitle>}: Short title (for
+\item \joption{subtitle=\jparam{subtitle}}: Subtitle of the session
+\item \joption{shorttitle=\jparam{shorttitle}}: Short title (for
     headings etc.)
-\item \joption{instructor=<name>}: Specific instructor for this session
+\item \joption{instructor=\jparam{name}}: Specific instructor for this session
     (if it differs from the usual course instructor)
-\item \joption{shortinstructor=<name>}: Short form of the specific instructor for this session
-\item \joption{presstudents=<names>}: Students presenting in this session
+\item \joption{shortinstructor=\jparam{name}}: Short form of the specific instructor for this session
+\item \joption{presstudents=\jparam{names}}: Students presenting in this session
     (used for student presentation lists, see below sec.~\ref{sec:preslists})
-\item \joption{room=<room>}: Room for this session (if it differs
+\item \joption{room=\jparam{room}}: Room for this session (if it differs
     from the usual course room)
-\item \joption{bibsec=<keyword>}: Session keyword for the bibliography
+\item \joption{bibsec=\jparam{keyword}}: Session keyword for the bibliography
     (see below sec.~\ref{sub:bibliographies} for its use)
-\item \joption{cancel=<true|false>}: Marks this session as ``canceled''.
+\item \joption{cancel=\jparam{true|false}}: Marks this session as ``canceled''.
     If you specify \joption{cancel=true}, the session will be printed
     in the program in bold type and appended by a verbal comment.
     For example,
@@ -371,7 +373,7 @@ that is used to retrieve session-specific information
 (see below sec.~\ref{sec:session-specific-info}).
 
 \end{itemize}
-\item \jcsmacro{SetBreak[<span>]\{Break\}}: Add a semester break
+\item \jcsmacro{SetBreak[\jparam{span}]\{Break\}}: Add a semester break
 (e.\,g., holidays) that affects one session. The macro increments
 the internal counters respectively and expands in the program to
 
@@ -381,10 +383,10 @@ the internal counters respectively and expands in the program to
 
 By means of the optional argument, the real time span of the break
 might be given if you want to print it on the program. If you pass
-an optional argument \joption{<span>}, the macro will expand to
+an optional argument \joption{\jparam{span}}, the macro will expand to
 
 \begin{center}
-\textbf{(<span>: Break)}
+\textbf{(\jparam{span}: Break)}
 \par\end{center}
 
 So for instance, \jcsmacro{SetBreak[28.05.-{}-3.06.]\{Whitsun holidays\}}
@@ -395,14 +397,14 @@ expands to
 \textbf{(28.05.--3.06.: Whitsun holidays)}
 \par\end{center}
 
-\item \jcsmacro{SetBreaks[<options>]\{Break\}}: Add
+\item \jcsmacro{SetBreaks[\jparam{options}]\{Break\}}: Add
 a semester break that affects more than one session (e.\,g., two-week holidays).
 The output in the program is identical to the \jcsmacro{SetBreak} macro,
 but the counter incrementation can be adjusted to the needed time span.
 
-Possible \jmacro{<options>} are:
+Possible \jmacro{\jparam{options}} are:
 \begin{itemize}
-\item \joption{units=<n>}: Number of interval units the break takes. One \emph{unit}
+\item \joption{units=\jparam{n}}: Number of interval units the break takes. One \emph{unit}
     is the number of days as specified by the \joption{interval} option (one week by
     default\footnote{The former option \joption{weeks} is deprecated as of v. 0.9,
     since the interval can be adjusted now.}).
@@ -410,18 +412,18 @@ Possible \jmacro{<options>} are:
     calculate the session dates. If \joption{units} is not specified, the counter is
     incremented by one.\footnote{That is: \jcsmacro{SetBreak\{Break\}} =
     \jcsmacro{SetBreaks\{Break\}} = \jcsmacro{SetBreaks[units=1]\{Break\}}.}
-    <n> must be a positive integer.
-\item \joption{span=<span>}: Real time span (verbally output on the program)
+    \jfoption{\jparam{n}} must be a positive integer.
+\item \joption{span=\jparam{span}}: Real time span (verbally output on the program)
 \end{itemize}
-\item \jcsmacro{SetLecOffset\{<n>\}}: Shift the date of all subsequent sessions by <n> days.
-    <n> can also be negative.
+\item \jcsmacro{SetLecOffset\{\jparam{n}\}}: Shift the date of all subsequent sessions by \jparam{n} days.
+    \jparam{n} can also be negative.
 \item \jcsmacro{SetBeamerFrameBreak}: Add a frame break in
 the beamer program at this position (more precisely, start a new frame).
 This also increments the frame counter which is used for subsequent program
 frame titles. Note that you can insert maximally 3 breaks.
-\item \jcsmacro{SetBeamerHook\{<code>\}}: Add arbitrary LaTeX code to the
+\item \jcsmacro{SetBeamerHook\{\jparam{code}\}}: Add arbitrary LaTeX code to the
 beamer program
-\item \jcsmacro{begin\{SessionBlock\}\{<Block title>\}}\\
+\item \jcsmacro{begin\{SessionBlock\}\{\jparam{Block title}\}}\\
 \ldots{} \\
 \jcsmacro{end\{SessionBlock\}}:\\
 Thematic block consisting of several sessions. Respective sessions
@@ -456,7 +458,7 @@ title and subtitle
 of the course title; if no explicit short title is specified,
 the normal title is output (you can check whether
 there is a unique short title by the test
-\jcsmacro{iftoggle\{uniquelecshorttitle\}\{<true>\}\{<false>\}})
+\jcsmacro{iftoggle\{uniquelecshorttitle\}\{\jparam{true}\}\{\jparam{false}\}})
 \item \jcsmacro{lecsemshort}: Outputs the short version of
 the term type (e.\,g., ``WS'')
 \item \jcsmacro{lecsemverb}: Outputs the verbose version
@@ -472,7 +474,7 @@ of the semester (such as ``Winter\-semester 2014'')
 \item \jcsmacro{lecshortinstructor}: Outputs short form of the (general) instructor's name;
 if no explicit short name is given, the normal name will be output (you can check whether
 there is a unique short name by the test
-\jcsmacro{iftoggle\{uniquelecshortinstructor\}\{<true>\}\{<false>\}})
+\jcsmacro{iftoggle\{uniquelecshortinstructor\}\{\jparam{true}\}\{\jparam{false}\}})
 \item \jcsmacro{lecroom}: Outputs the (general) course room
 \item \jcsmacro{lecplatform}: Outputs information on the
 e-learning platform
@@ -484,30 +486,32 @@ e-learning platform
 \label{sec:lecprog}
 \begin{itemize}
 \item \jcsmacro{makeprogram}: Generates a course program in the form:
-\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+                   frame=single,escapechar=\$]
 \begin{labeling}{\lecprogramlistindent}
-\item[<short date>] <session full title>
+\item[$\jparam{short date}$] $\jparam{session full title}$
 ...
 (break)
 ...
-\item[<short date>] <session full title>
+\item[$\jparam{short date}$]] $\jparam{session full title}$]
 \end{labeling}
 \end{lstlisting}
 
 The \jmacro{labeling} environment is defined by the KOMA classes.
 The package provides a fallback, however, if a different class is used.
 
-\item \jcsmacro{makebeamerprogram[<options>]}: Generates
+\item \jcsmacro{makebeamerprogram[\jparam{options}]}: Generates
 a beamer-suited lecture program from the metadata in the form
-\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{frametitle}}]
-\begin{frame}<overlayarg<n>>[label=beamerprogram<n>,<bfoptions>]
-\frametitle{<Heading>}
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+                   frame=single,escapechar=\$,moretexcs={[1]{frametitle}}]
+\begin{frame}<overlayarg$\jparam{n}$>[label=beamerprogram$\jparam{n}$,$\jparam{bfoptions}$]
+\frametitle{$\jparam{Heading}$}
 \begin{description}[\lecprogramlistindent]
-\item[<short date>] <session full title>
+\item[$\jparam{short date}$] $\jparam{session full title}$
 ...
 (break)
 ...
-\item[<short date>] <session full title>
+\item[$\jparam{short date}$] $\jparam{session full title}$
 \end{description}
 \end{frame}
 \end{lstlisting}
@@ -520,16 +524,16 @@ for the second, etc. Finally note that the number of program frames
 is currently limited to 4. If you need more, you should probably rethink
 your program structure.
 
-\joption{<options>} include
+\joption{\jparam{options}} include
 \begin{itemize}
-\item \joption{title=<title>}: Program title (<Heading>)
-\item \joption{blocksonly=<true|false>}: If \joption{true}, only the session blocks are output,
+\item \joption{title=\jparam{title}}: Program title (\jparam{Heading})
+\item \joption{blocksonly=\jparam{true|false}}: If \joption{true}, only the session blocks are output,
       not the sessions.
-\item \joption{uncover=<true|false>}: If \joption{true}, the program will be uncovered item-wise.
-\item \joption{options=<bfoptions>}: Beamer frame options. Note that key-value
+\item \joption{uncover=\jparam{true|false}}: If \joption{true}, the program will be uncovered item-wise.
+\item \joption{options=\jparam{bfoptions}}: Beamer frame options. Note that key-value
     beamer frame options need to be embraced, as in\\
     \jcsmacro{makebeamerprogram[options=\{shrink=10\}]}
-\item \joption{overlayarg=<overlay specification>}: Beamer frame overlay specification
+\item \joption{overlayarg=\jparam{overlay specification}}: Beamer frame overlay specification
      (to be specified without angle brackets, e.\,g.\ \jfoption{overlayarg=1-3}).\\
      This option applies to the first program frame only. For subsequent frames,
      use \joption{overlayarg2}, \joption{overlayarg3} and \joption{overlayarg4},
@@ -546,10 +550,11 @@ via \textsf{biblatex}. The macro
 \item \jcsmacro{makesessionbib}
 \end{itemize}
 generates code in the form
-\begin{lstlisting}[basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{printbibliography}}]
-\section{<session full title>}
+\begin{lstlisting}[basicstyle={\small\ttfamily},frame=single,
+                   escapechar=\$,moretexcs={[1]{printbibliography}}]
+\section{$\jparam{session full title}$}
 \nocite{*}
-\printbibliography[keyword=<session keyword>,heading=none]
+\printbibliography[keyword=$\jparam{session keyword}$,heading=none]
 \end{lstlisting}
  for each session of the lecture which has been linked to a \textsf{biblatex}
 keyword via the \joption{bibsec} option (see above sec.~\ref{sec:lecplan}).
@@ -573,10 +578,11 @@ by means of the \joption{presstudents} option of the \jcsmacro{NewSession} comma
 \end{quote}
 outputs a list that consists of the session dates and titles as well as the names of the
 presenting students, i.\,e., it expands to code in the form:
-\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+                   escapechar=\$,frame=single]
 \begin{labeling}{\lecprogramlistindent}
-\item[<short date>] <session full title>\par
-                    <presenting students>
+\item[$\jparam{short date}$] $\jparam{session full title}$\par
+                    $\jparam{presenting students}$
 ...
 \end{labeling}
 \end{lstlisting}
@@ -603,11 +609,11 @@ If you want to start your presentation list only from a given session number (e.
 do not have any presentations in the first session of the course), you can use
 
 \begin{quote}
-\jcsmacro{setfirstpressession\{<session number>\}}
+\jcsmacro{setfirstpressession\{\jparam{session number}\}}
 \end{quote}
 to set the first session number to be printed on the list. Likewise, 
 \begin{quote}
-\jcsmacro{setlastpressession\{<session number>\}}
+\jcsmacro{setlastpressession\{\jparam{session number}\}}
 \end{quote}
 can be used to determine the last session number to be printed on the list.
 
@@ -620,8 +626,8 @@ to the current session. This is done as follows.
 
 \subsection{Setting the current session}
 
-Use \jcsmacro{ThisSession\{<n>\}} to tell the package
-which session is current. \joption{<n>} is an integer value, e.\,g.
+Use \jcsmacro{ThisSession\{\jparam{n}\}} to tell the package
+which session is current. \joption{\jparam{n}} is an integer value, e.\,g.
 \jcsmacro{ThisSession\{3\}} for the 3rd session of
 the lecture.
 
@@ -638,7 +644,7 @@ short form (no year)
 \item \jcsmacro{sesshorttitle}: Short title of the current session; if
 no explicit short title is specified, the normal [main] title is output
 (you can check whether there is a unique short title by the test
-\jcsmacro{iftoggle\{uniquesesshorttitle\}\{<true>\}\{<false>\}})
+\jcsmacro{iftoggle\{uniquesesshorttitle\}\{\jparam{true}\}\{\jparam{false}\}})
 \item \jcsmacro{sestitlesep}: Title-subtitle separator of
 the current session
 \item \jcsmacro{sessubtitle}: Subtitle of the current session
@@ -646,10 +652,10 @@ the current session
 session (title, separator, subtitle)
 \item \jcsmacro{sesinstructor}: Current session's instructor's name; if you want to output this name only if it differs from the general instructor (\jcsmacro{lecinstructor}), use the starred version \jcsmacro{sesinstructor*} (furthermore, you can check whether
 there is a unique session instructor by the test
-\jcsmacro{iftoggle\{uniquesesinstructor\}\{<true>\}\{<false>\}})
+\jcsmacro{iftoggle\{uniquesesinstructor\}\{\jparam{true}\}\{\jparam{false}\}})
 \item \jcsmacro{sesshortinstructor}: Current session's instructor's short name; if you want to output this name only if it differs from the general instructor (\jcsmacro{lecshortinstructor}), use the starred version \jcsmacro{sesshortinstructor*}; if no explicit instructor short name is given, the normal instructor name will be output (you can check whether
 there is a unique short instructor [that differs from the long session instructor name] by the test
-\jcsmacro{iftoggle\{uniquesesshortinstructor\}\{<true>\}\{<false>\}})
+\jcsmacro{iftoggle\{uniquesesshortinstructor\}\{\jparam{true}\}\{\jparam{false}\}})
 \item \jcsmacro{sespresstudents}: Students presenting in this session
 \item \jcsmacro{sesnr}: Number of the current session
 \item \jcsmacro{sesroom}: Room of the current session
@@ -660,56 +666,57 @@ there is a unique short instructor [that differs from the long session instructo
 Depending on the value of \jcsmacro{ThisSession}, you can retrieve the following
 information for sessions that follow or precede the current session by a specific interval unit via the following macros:
 \begin{itemize}
-	\item \jcsmacro{AdjSessionTitle[<offset>]}: Outputs the main title
+	\item \jcsmacro{AdjSessionTitle[\jparam{offset}]}: Outputs the main title
 	of the adjacent session
-	\item \jcsmacro{AdjSessionFullTitle[<offset>]}: Outputs the full
+	\item \jcsmacro{AdjSessionFullTitle[\jparam{offset}]}: Outputs the full
 	title (main title, separator, subtitle) of the adjacent session
-	\item \jcsmacro{AdjSessionShortTitle[<offset>]}: Outputs the short
+	\item \jcsmacro{AdjSessionShortTitle[\jparam{offset}]}: Outputs the short
 	title of the adjacent session; if no explicit short title is specified, the normal main title is output
-	\item \jcsmacro{AdjSessionDate[<offset>]}: Outputs the date of the adjacent session
-	\item \jcsmacro{AdjSessionShortDate[<offset>]}: Outputs the short
+	\item \jcsmacro{AdjSessionDate[\jparam{offset}]}: Outputs the date of the adjacent session
+	\item \jcsmacro{AdjSessionShortDate[\jparam{offset}]}: Outputs the short
 	date (no year) of the adjacent session
-	\item \jcsmacro{AdjSessionInstructor[<offset>]}: Outputs the name of the instructor of the adjacent session
-	\item \jcsmacro{AdjSessionInstructor*[<offset>]}: Outputs the name of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecinstructor})
-	\item \jcsmacro{AdjSessionShortInstructor[<offset>]}: Outputs the short name (or normal name, if no short name was specified) of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecshortinstructor})
-	\item \jcsmacro{AdjSessionShortInstructor*[<offset>]}: Outputs the short name  (or normal name, if no short name was specified) of the instructor of the adjacent session
-	\item \jcsmacro{AdjSessionPresStudents[<offset>]}: Outputs the name of the students presenting in the adjacent session
-	\item \jcsmacro{AdjSessionRoom[<offset>]}: Outputs the room of the adjacent session
+	\item \jcsmacro{AdjSessionInstructor[\jparam{offset}]}: Outputs the name of the instructor of the adjacent session
+	\item \jcsmacro{AdjSessionInstructor*[\jparam{offset}]}: Outputs the name of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecinstructor})
+	\item \jcsmacro{AdjSessionShortInstructor[\jparam{offset}]}: Outputs the short name (or normal name, if no short name was specified) of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecshortinstructor})
+	\item \jcsmacro{AdjSessionShortInstructor*[\jparam{offset}]}: Outputs the short name  (or normal name, if no short name was specified) of the instructor of the adjacent session
+	\item \jcsmacro{AdjSessionPresStudents[\jparam{offset}]}: Outputs the name of the students presenting in the adjacent session
+	\item \jcsmacro{AdjSessionRoom[\jparam{offset}]}: Outputs the room of the adjacent session
 \end{itemize}
-Via the numerical \joption{<offset>} option, you can specify which session, relative to the current one, you want to output. The default is \joption{1}, i.\,e., \jcsmacro{AdjSessionTitle} without argument outputs the title of the \emph{next} session. Negative values are valid: \jcsmacro{AdjSessionTitle[-1]}, thus, outputs the title of the \emph{previous} session.
+Via the numerical \joption{\jparam{offset}} option, you can specify which session, relative to the current one, you want to output. The default is \joption{1}, i.\,e., \jcsmacro{AdjSessionTitle} without argument outputs the title of the \emph{next} session. Negative values are valid: \jcsmacro{AdjSessionTitle[-1]}, thus, outputs the title of the \emph{previous} session.
 
 \subsection{Generating session-specific information for an arbitrary session}
 
 Independent of the value of \jcsmacro{ThisSession},
 you can retrieve the following information for arbitrary sessions
-(session number \joption{<n>}) via the following macros:
+(session number \joption{\jparam{n}}) via the following macros:
 \begin{itemize}
-\item \jcsmacro{SessionTitle\{<n>\}}: Outputs the main title
-of session number \joption{<n>}
-\item \jcsmacro{SessionFullTitle\{<n>\}}: Outputs the full
-title (main title, separator, subtitle) of session number \joption{<n>}
-\item \jcsmacro{SessionShortTitle\{<n>\}}: Outputs the short
-title of session number \joption{<n>}; if
+\item \jcsmacro{SessionTitle\{\jparam{n}\}}: Outputs the main title
+of session number \joption{\jparam{n}}
+\item \jcsmacro{SessionFullTitle\{\jparam{n}\}}: Outputs the full
+title (main title, separator, subtitle) of session number \joption{\jparam{n}}
+\item \jcsmacro{SessionShortTitle\{\jparam{n}\}}: Outputs the short
+title of session number \joption{\jparam{n}}; if
 no explicit short title is specified, the normal main title is output
-\item \jcsmacro{SessionDate\{<n>\}}: Outputs the date of
-session number \joption{<n>}
-\item \jcsmacro{SessionShortDate\{<n>\}}: Outputs the short
-date (no year) of session number \joption{<n>}
-\item \jcsmacro{SessionInstructor\{<n>\}}: Outputs the name of the instructor of session
-number \joption{<n>}
-\item \jcsmacro{SessionInstructor*\{<n>\}}: Outputs the name of the instructor of session
-number \joption{<n>} if it differs from the general instructor (\jcsmacro{lecinstructor})
-\item \jcsmacro{SessionShortInstructor\{<n>\}}: Outputs the short name (or normal name, if no short name was specified) of the instructor of session
-number \joption{<n>}
-\item \jcsmacro{SessionShortInstructor*\{<n>\}}: Outputs the short name  (or normal name, if no short name was specified) of the instructor of session
-number \joption{<n>} if it differs from the general instructor (\jcsmacro{lecinstructor})
-\item \jcsmacro{SessionPresStudents\{<n>\}}: Outputs the name of the students presenting
-in session number \joption{<n>}
-\item \jcsmacro{SessionRoom\{<n>\}}: Outputs the room of session number \joption{<n>}
-\item \jcsmacro{MakeProgramline\{<n>\}}: Outputs a list
-item line for session number \joption{<n>} in the form
-\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
-\item[{\bfseries <short date>}] <session full title>
+\item \jcsmacro{SessionDate\{\jparam{n}\}}: Outputs the date of
+session number \joption{\jparam{n}}
+\item \jcsmacro{SessionShortDate\{\jparam{n}\}}: Outputs the short
+date (no year) of session number \joption{\jparam{n}}
+\item \jcsmacro{SessionInstructor\{\jparam{n}\}}: Outputs the name of the instructor of session
+number \joption{\jparam{n}}
+\item \jcsmacro{SessionInstructor*\{\jparam{n}\}}: Outputs the name of the instructor of session
+number \joption{\jparam{n}} if it differs from the general instructor (\jcsmacro{lecinstructor})
+\item \jcsmacro{SessionShortInstructor\{\jparam{n}\}}: Outputs the short name (or normal name, if no short name was specified) of the instructor of session
+number \joption{\jparam{n}}
+\item \jcsmacro{SessionShortInstructor*\{\jparam{n}\}}: Outputs the short name  (or normal name, if no short name was specified) of the instructor of session
+number \joption{\jparam{n}} if it differs from the general instructor (\jcsmacro{lecinstructor})
+\item \jcsmacro{SessionPresStudents\{\jparam{n}\}}: Outputs the name of the students presenting
+in session number \joption{\jparam{n}}
+\item \jcsmacro{SessionRoom\{\jparam{n}\}}: Outputs the room of session number \joption{\jparam{n}}
+\item \jcsmacro{MakeProgramline\{\jparam{n}\}}: Outputs a list
+item line for session number \joption{\jparam{n}} in the form
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+                   escapechar=\$,frame=single]
+\item[{\bfseries $\jparam{short date}$}] $\jparam{session full title}$
 \end{lstlisting}
 
 \end{itemize}
@@ -721,7 +728,7 @@ item line for session number \joption{<n>} in the form
 
 The following macro allows to define new course types and redefine existing ones:
 \begin{itemize}
-\item \jcsmacro{DefLecType\{<key>\}\{<short form>\}\{<title>\}\{<session title>\}}
+\item \jcsmacro{DefLecType\{\jparam{key}\}\{\jparam{short form}\}\{\jparam{title}\}\{\jparam{session title}\}}
 \end{itemize}
 A new type, say summer school, thus, could be defined as follows:
 \begin{itemize}
@@ -743,7 +750,7 @@ If you need to change or add types, consider the use of styles
 
 The available term (semester) types can be changed and extended via the macro:
 \begin{itemize}
-\item \jcsmacro{DefSemType\{<key>\}\{<short form>\}\{<verbose form>\}}
+\item \jcsmacro{DefSemType\{\jparam{key}\}\{\jparam{short form}\}\{\jparam{verbose form}\}}
 \end{itemize}
 Thus, you could add a new term type ``spring term'' via
 \begin{itemize}
@@ -786,7 +793,7 @@ Note, finally, that the date redefinition syntax used up to \jslp\ 1.2 is no lon
 
 \subsection{Misc. customizing}\label{sec:misccust}
 
-The canceling output is ``Session title -- keine <Session>'' (``keine''
+The canceling output is ``Session title -- keine \jparam{Session}'' (``keine''
 is German for ``no''). To modify or translate this, redefine the
 following macro
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
@@ -802,7 +809,7 @@ The indentation used in program lists can be changed by redefining
 \newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
 \end{lstlisting}
 The placeholder text for session without title with \joption{draft=true}
-(see sec.~\ref{sec:lecplan}) is ``Thema <n>'' (``Thema'' is German for ``topic'').
+(see sec.~\ref{sec:lecplan}) is ``Thema \jparam{n}'' (``Thema'' is German for ``topic'').
 It can be changed by redefinition of this macro (\lstinline|\thesestopic| outputs
 the value of the internal topic counter).
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
@@ -813,7 +820,7 @@ Use \jfcsmacro{renewcommand{*}} for the redefinitions.
 \subsection{Using styles}\label{sec:styles}
 
 The most elegant way to do the customizing is to use \emph{lecture planner style} (*.lps) files.
-These files can be loaded via the \joption{style=<style>} package option, where <style>
+These files can be loaded via the \joption{style=\jparam{style}} package option, where \jparam{style}
 is the file name without *.lps extension.
 
 Currently, the package ships three styles:
@@ -883,19 +890,19 @@ features (see below) and must be loaded explicitly in that case.
 
 The package is loaded as usual:
 \begin{quote}
-\jcsmacro{usepackage[<options>]\{jsmembertable\}}
+\jcsmacro{usepackage[\jparam{options}]\{jsmembertable\}}
 \end{quote}
 Currently, the following package options are available:
 \begin{itemize}
- \item \joption{datafile=<csv-file>}: Use external student data file (see sec.~\ref{sec:ext-data}).
- \item \joption{datakeys=<keyorder>}: Specify order of items in CSV data file (see sec.~\ref{sec:ext-data}).
+ \item \joption{datafile=\jparam{csv-file}}: Use external student data file (see sec.~\ref{sec:ext-data}).
+ \item \joption{datakeys=\jparam{keyorder}}: Specify order of items in CSV data file (see sec.~\ref{sec:ext-data}).
 \end{itemize}
 
 
 \subsection{Loading external data}\label{sec:ext-data} 
 
 Both course member and presence tables can be filled with external student data. To this end,
-the package option \joption{datafile=<csv-file>} is provided. If it is used, the package tries
+the package option \joption{datafile=\jparam{csv-file}} is provided. If it is used, the package tries
 to access a comma-separated data file. Note that the external file must have the extension \emph{.csv},
 and the extension must be omitted in the option, so
 \begin{quote}
@@ -922,17 +929,17 @@ Note, finally, that the CSV file should have the same encoding than the tex file
 In order to generate a course member table, simply insert
 
 \begin{quote}
-\jcsmacro{makemembertable\{<number of blank rows>\}}
+\jcsmacro{makemembertable\{\jparam{number of blank rows}\}}
 \end{quote}
-If an external data file has been loaded, \joption{<number of blank rows>} can either be empty or a positive
-integer value. If no external data file has been loaded, \joption{<number of blank rows>} \emph{must} be a
+If an external data file has been loaded, \joption{\jparam{number of blank rows}} can either be empty or a positive
+integer value. If no external data file has been loaded, \joption{\jparam{number of blank rows}} \emph{must} be a
 positive integer value.
 
-If no external data file has been loaded, the command generates a table with \joption{<number of blank rows>}
+If no external data file has been loaded, the command generates a table with \joption{\jparam{number of blank rows}}
 blank rows, to which your students can fill in their name, student ID and e-mail address.
 
 If an external data file has been loaded, an appropriate number of rows is generated and the
-respective student data is filled in. Additionally, \joption{<number of blank rows>} blank rows are
+respective student data is filled in. Additionally, \joption{\jparam{number of blank rows}} blank rows are
 \emph{appended} after the filled-in rows (for the late birds that have not registered themselves yet).
 If the command's argument is empty or \joption{0}, no extra rows are appended.
 
@@ -980,25 +987,25 @@ Note that if you use \jslp, you must load the \jslp\ package and also input the 
 The first presence table variant (with real session dates) is produced with the following macro:
 
 \begin{quote}
-\jcsmacro{makeprestable\{<number of blank rows>\}}
+\jcsmacro{makeprestable\{\jparam{number of blank rows}\}}
 \end{quote}
 As with the member table, an appropriate number of rows, pre-filled with student data, is
-generated if an external data file has been loaded. Then, \joption{<number of blank rows>}
-blank rows are \emph{appended} after the filled-in rows (if \joption{<number of blank rows>}
+generated if an external data file has been loaded. Then, \joption{\jparam{number of blank rows}}
+blank rows are \emph{appended} after the filled-in rows (if \joption{\jparam{number of blank rows}}
 is not empty or \joption{0}). If no external data file has been loaded, simply a table with
-\joption{<number of blank rows>} blank rows is constructed.
+\joption{\jparam{number of blank rows}} blank rows is constructed.
 
 The number of columns/sessions is automatically calculated from the metadata. If you want a different
 number, you can use the optional argument of the command to override this calculation:
 
 \begin{quote}
-\jcsmacro{makeprestable[<number of sessions>]\{<number of blank rows>\}}
+\jcsmacro{makeprestable[\jparam{number of sessions}]\{\jparam{number of blank rows}\}}
 \end{quote}
 The second kind of presence table (with session numbers instead of session dates) is provided
 via the starred version of the command:
 
 \begin{quote}
-\jcsmacro{makeprestable*[<number of sessions>]\{<number of blank rows>\}}
+\jcsmacro{makeprestable*[\jparam{number of sessions}]\{\jparam{number of blank rows}\}}
 \end{quote}
 Like with the unstarred version, if the \jslp\
 metadata is used/available, the number of columns/sessions is calculated from the metadata.
