@@ -35,6 +35,7 @@
 \newcommand*\jmacro[1]{\textbf{\texttt{#1}}}
 \newcommand*\jcsmacro[1]{\jmacro{\textbackslash{#1}}}
 \newcommand*\joption[1]{\textbf{\texttt{#1}}}
+\newcommand*\jfoption[1]{\texttt{#1}}
 \newcommand*\jfmacro[1]{\texttt{#1}}
 \newcommand*\jfcsmacro[1]{\jfmacro{\textbackslash{#1}}}
 
@@ -434,7 +435,7 @@ your document(s), you can retrieve the recorded as well as some concatenated
 information by means the following macros.
 
 
-\subsection{Course data}
+\subsection{Course data}\label{sec:csdata}
 
 The following macros output general course-specific information:
 \begin{itemize}
@@ -493,15 +494,13 @@ e-learning platform
 \end{labeling}
 \end{lstlisting}
 
-
-
 The \jmacro{labeling} environment is defined by the KOMA classes.
 The package provides a fallback, however, if a different class is used.
 
 \item \jcsmacro{makebeamerprogram[<options>]}: Generates
 a beamer-suited lecture program from the metadata in the form
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{frametitle}}]
-\begin{frame}<overlayarg>[label=beamerprogram<n>,<bfoptions>]
+\begin{frame}<overlayarg<n>>[label=beamerprogram<n>,<bfoptions>]
 \frametitle{<Heading>}
 \begin{description}[\lecprogramlistindent]
 \item[<short date>] <session full title>
@@ -513,7 +512,13 @@ a beamer-suited lecture program from the metadata in the form
 \end{frame}
 \end{lstlisting}
 
-
+Note that multiple subsequent frames (not just slides) are generated if the metadata
+file contains \jcsmacro{SetBeamerFrameBreak} macros.
+Also note that you can refer to the frames via the automatically generated
+labels \emph{beamerprogram} (for the first frame), \emph{beamerprogram2}
+for the second, etc. Finally note that the number of program frames
+is currently limited to 4. If you need more, you should probably rethink
+your program structure.
 
 \joption{<options>} include
 \begin{itemize}
@@ -525,16 +530,11 @@ a beamer-suited lecture program from the metadata in the form
     beamer frame options need to be embraced, as in\\
     \jcsmacro{makebeamerprogram[options=\{shrink=10\}]}
 \item \joption{overlayarg=<overlay specification>}: Beamer frame overlay specification
-     (to be specified without angle brackets).
+     (to be specified without angle brackets, e.\,g.\ \jfoption{overlayarg=1-3}).\\
+     This option applies to the first program frame only. For subsequent frames,
+     use \joption{overlayarg2}, \joption{overlayarg3} and \joption{overlayarg4},
+     respectively.
 \end{itemize}
-
-Note that multiple subsequent frames are generated if the metadata
-file contains \jcsmacro{SetBeamerFrameBreak} macros.
-Also note that you can refer to the frames via the automatically generated
-labels \emph{beamerprogram} (for the first frame), \emph{beamerprogram2}
-for the second, etc. Finally note that the number of program frames
-is currently limited to 4. If you need more, you should probably rethink
-your program structure.
 
 \end{itemize}
 
@@ -1071,7 +1071,7 @@ the \jslp\ style files. Thanks, Dominik.
 \item Forthcoming (v. 1.7):
 	\begin{itemize}
 		\item Allow \joption{options} in \jcsmacro{makebeamerprogram} also with \joption{blocksonly}.
-		\item Add \joption{overlayarg} option to \jcsmacro{makebeamerprogram}.
+		\item Add \joption{overlayarg} option to \jcsmacro{makebeamerprogram}. See sec.~\ref{sec:csdata}.
 	\end{itemize}
 \item 2018/09/26 (v. 1.6):
 	\begin{itemize}
