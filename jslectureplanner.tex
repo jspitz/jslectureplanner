@@ -650,6 +650,7 @@ the current session
 \item \jcsmacro{sessubtitle}: Subtitle of the current session
 \item \jcsmacro{sesfulltitle}: Full title of the current
 session (title, separator, subtitle)
+\item \jcsmacro{sesblocktitle}: The title of the current session block (if available).
 \item \jcsmacro{sesinstructor}: Current session's instructor's name; if you want to output this name only if it differs from the general instructor (\jcsmacro{lecinstructor}), use the starred version \jcsmacro{sesinstructor*} (furthermore, you can check whether
 there is a unique session instructor by the test
 \jcsmacro{iftoggle\{uniquesesinstructor\}\{\jparam{true}\}\{\jparam{false}\}})
@@ -672,6 +673,8 @@ information for sessions that follow or precede the current session by a specifi
 	title (main title, separator, subtitle) of the adjacent session
 	\item \jcsmacro{AdjSessionShortTitle[\jparam{offset}]}: Outputs the short
 	title of the adjacent session; if no explicit short title is specified, the normal main title is output
+	\item \jcsmacro{AdjSessionBlockTitle[\jparam{offset}]}: Outputs the session block
+	title of the adjacent session (if available)
 	\item \jcsmacro{AdjSessionDate[\jparam{offset}]}: Outputs the date of the adjacent session
 	\item \jcsmacro{AdjSessionShortDate[\jparam{offset}]}: Outputs the short
 	date (no year) of the adjacent session
@@ -697,6 +700,8 @@ title (main title, separator, subtitle) of session number \joption{\jparam{n}}
 \item \jcsmacro{SessionShortTitle\{\jparam{n}\}}: Outputs the short
 title of session number \joption{\jparam{n}}; if
 no explicit short title is specified, the normal main title is output
+\item \jcsmacro{SessionBlockTitle\{\jparam{n}\}}: Outputs the session block title
+of session number \joption{\jparam{n}} (if available)
 \item \jcsmacro{SessionDate\{\jparam{n}\}}: Outputs the date of
 session number \joption{\jparam{n}}
 \item \jcsmacro{SessionShortDate\{\jparam{n}\}}: Outputs the short
@@ -1079,6 +1084,8 @@ the \jslp\ style files. Thanks, Dominik.
 	\begin{itemize}
 		\item Allow \joption{options} in \jcsmacro{makebeamerprogram} also with \joption{blocksonly}.
 		\item Add \joption{overlayarg} option to \jcsmacro{makebeamerprogram}. See sec.~\ref{sec:csdata}.
+		\item Add macros to receive session block titles (\jcsmacro{sesblocktitle},\\
+		      \jcsmacro{SessionBlockTitle\{\jparam{session no}\}} and \jcsmacro{AdjSessionBlockTitle}).
 	\end{itemize}
 \item 2018/09/26 (v. 1.6):
 	\begin{itemize}

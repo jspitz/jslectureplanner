@@ -70,6 +70,8 @@ instructions; also have a look at the example files.
 
 * V. 1.7 (forthcoming):  - Allow options in \makebeamerprogram also with blocksonly.
                          - Add overlayarg option to \makebeamerprogram.
+                         - Add macros to receive session block titles (\sesblocktitle,
+                           \SessionBlockTitle{<session no>} and \AdjSessionBlockTitle).
 
 * V. 1.6 (2018-09-26):   - Do not output session title-subtitle separator if there is no
                            subtitle.

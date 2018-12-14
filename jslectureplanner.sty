@@ -729,6 +729,7 @@
   \protected@csxdef{usesinstructor\thesnum}{\csuse{@usesinstructor}}
   \protected@csxdef{usesshortinstructor\thesnum}{\csuse{@usesshortinstructor}}
   \protected@csxdef{sespresstudents\thesnum}{\csuse{@sespresstudents}}
+  \protected@csxdef{sesblock\thesnum}{\csuse{@currentblock}}
   \ifKV@session@cancel
     \stepcounter{cancellations}
     \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
@@ -821,19 +822,21 @@
 % 3) Definition of thematic blocks
 %
 \newcommand*\StartBlock[1]{%
-  \stepcounter{blocks}
+  \stepcounter{blocks}%
   \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
-    \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}
-  \gappto\programlist{\begin{labeling}{\lecprogramlistindent}}
+    \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}%
+  \gappto\programlist{\begin{labeling}{\lecprogramlistindent}}%
   \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
-    \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}
+    \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}%
   \gappto\programlistbeamer{\begin{description}[\lecprogramlistindent]}
-  \protected@xappto\programblocklistbeamer{\noexpand\item[{\Roman{blocks}}.] #1}
+  \protected@xappto\programblocklistbeamer{\noexpand\item[{\Roman{blocks}}.] #1}%
+  \csxdef{@currentblock}{#1}%
 }
 
 \newcommand*\EndBlock{%
   \gappto\programlist{\end{labeling}}
   \gappto\programlistbeamer{\end{description}}
+  \csxdef{@currentblock}{}%
 }
 
 \newcommand*\NewBlock[1]{%
@@ -969,6 +972,7 @@
   \gdef\@usesinstructor{\csuse{usesinstructor#1}}%
   \gdef\@usesshortinstructor{\csuse{usesshortinstructor#1}}%
   \gdef\sespresstudents{\csuse{sespresstudents#1}}%
+  \gdef\sesblocktitle{\csuse{sesblock#1}}%
   \if\hfuzz\@usesinstructor\hfuzz%
     \global\togglefalse{uniquesesinstructor}%
   \else
@@ -1002,6 +1006,7 @@
   \gdef\@lusesinstructor{\csuse{usesinstructor#1}}%
   \gdef\@lusesshortinstructor{\csuse{usesshortinstructor#1}}%
   \gdef\lsespresstudents{\csuse{sespresstudents#1}}%
+  \gdef\lsesblock{\csuse{sesblock#1}}%
 }
 
 % \ses[short]instructor and \ses[short]instructor*.
@@ -1091,6 +1096,12 @@
   \lsespresstudents%
 }
 
+% Session block title
+\newcommand*\SessionBlockTitle[1]{%
+  \LocalSession{#1}%
+  \lsesblock%
+}
+
 % Program line suitable for
 % a description or labeling list
 \newcommand*\MakeProgramline[1]{%
@@ -1127,6 +1138,13 @@
   \ifnum0<0\sesnr\relax
     \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
     \SessionTitle{\theadjsession}%
+  \fi
+}
+% Session block title
+\newcommand*\AdjSessionBlockTitle[1][1]{%
+  \ifnum0<0\sesnr\relax
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionBlockTitle{\theadjsession}%
   \fi
 }
 % Short date
