@@ -72,7 +72,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.7, 2018/12/14}
+\date{Version 1.8dev, 2019/01/08}
 
 \maketitle
 
@@ -651,6 +651,7 @@ the current session
 \item \jcsmacro{sesfulltitle}: Full title of the current
 session (title, separator, subtitle)
 \item \jcsmacro{sesblocktitle}: The title of the current session block (if available).
+\item \jcsmacro{sesblocknumber}: The number of the current session block (if available).
 \item \jcsmacro{sesinstructor}: Current session's instructor's name; if you want to output this name only if it differs from the general instructor (\jcsmacro{lecinstructor}), use the starred version \jcsmacro{sesinstructor*} (furthermore, you can check whether
 there is a unique session instructor by the test
 \jcsmacro{iftoggle\{uniquesesinstructor\}\{\jparam{true}\}\{\jparam{false}\}})
@@ -675,6 +676,8 @@ information for sessions that follow or precede the current session by a specifi
 	title of the adjacent session; if no explicit short title is specified, the normal main title is output
 	\item \jcsmacro{AdjSessionBlockTitle[\jparam{offset}]}: Outputs the session block
 	title of the adjacent session (if available)
+	\item \jcsmacro{AdjSessionBlockNumber[\jparam{offset}]}: Outputs the session block
+	number of the adjacent session (if available)
 	\item \jcsmacro{AdjSessionDate[\jparam{offset}]}: Outputs the date of the adjacent session
 	\item \jcsmacro{AdjSessionShortDate[\jparam{offset}]}: Outputs the short
 	date (no year) of the adjacent session
@@ -701,6 +704,8 @@ title (main title, separator, subtitle) of session number \joption{\jparam{n}}
 title of session number \joption{\jparam{n}}; if
 no explicit short title is specified, the normal main title is output
 \item \jcsmacro{SessionBlockTitle\{\jparam{n}\}}: Outputs the session block title
+of session number \joption{\jparam{n}} (if available)
+\item \jcsmacro{SessionBlockNumber\{\jparam{n}\}}: Outputs the (formatted) session block number
 of session number \joption{\jparam{n}} (if available)
 \item \jcsmacro{SessionDate\{\jparam{n}\}}: Outputs the date of
 session number \joption{\jparam{n}}
@@ -1080,6 +1085,11 @@ the \jslp\ style files. Thanks, Dominik.
 \section{Release History}
 
 \begin{itemize}
+\item forthcoming (v. 1.8):
+	\begin{itemize}
+		\item Add macros to receive session block numbers (\jcsmacro{sesblocknumber},\\
+		\jcsmacro{SessionBlockNumber\{\jparam{session no}\}} and \jcsmacro{AdjSessionBlockNumber}).
+	\end{itemize}
 \item 2018/12/14 (v. 1.7):
 	\begin{itemize}
 		\item Allow \joption{options} in \jcsmacro{makebeamerprogram} also with \joption{blocksonly}.

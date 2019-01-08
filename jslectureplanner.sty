@@ -23,8 +23,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2018/12/14}
-\def\fileversion{1.7}
+\def\filedate{2019/01/08}
+\def\fileversion{1.8dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -730,6 +730,7 @@
   \protected@csxdef{usesshortinstructor\thesnum}{\csuse{@usesshortinstructor}}
   \protected@csxdef{sespresstudents\thesnum}{\csuse{@sespresstudents}}
   \protected@csxdef{sesblock\thesnum}{\csuse{@currentblock}}
+  \protected@csxdef{sesblockno\thesnum}{\csuse{@currentblockno}}
   \ifKV@session@cancel
     \stepcounter{cancellations}
     \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
@@ -831,12 +832,14 @@
   \gappto\programlistbeamer{\begin{description}[\lecprogramlistindent]}
   \protected@xappto\programblocklistbeamer{\noexpand\item[{\Roman{blocks}}.] #1}%
   \csxdef{@currentblock}{#1}%
+  \csxdef{@currentblockno}{\Roman{blocks}}%
 }
 
 \newcommand*\EndBlock{%
   \gappto\programlist{\end{labeling}}
   \gappto\programlistbeamer{\end{description}}
   \csxdef{@currentblock}{}%
+  \csxdef{@currentblockno}{}%
 }
 
 \newcommand*\NewBlock[1]{%
@@ -973,6 +976,7 @@
   \gdef\@usesshortinstructor{\csuse{usesshortinstructor#1}}%
   \gdef\sespresstudents{\csuse{sespresstudents#1}}%
   \gdef\sesblocktitle{\csuse{sesblock#1}}%
+  \gdef\sesblocknumber{\csuse{sesblockno#1}}%
   \if\hfuzz\@usesinstructor\hfuzz%
     \global\togglefalse{uniquesesinstructor}%
   \else
@@ -1006,7 +1010,8 @@
   \gdef\@lusesinstructor{\csuse{usesinstructor#1}}%
   \gdef\@lusesshortinstructor{\csuse{usesshortinstructor#1}}%
   \gdef\lsespresstudents{\csuse{sespresstudents#1}}%
-  \gdef\lsesblock{\csuse{sesblock#1}}%
+  \gdef\lsesblocktitle{\csuse{sesblock#1}}%
+  \gdef\lsesblocknumber{\csuse{sesblockno#1}}%
 }
 
 % \ses[short]instructor and \ses[short]instructor*.
@@ -1099,7 +1104,13 @@
 % Session block title
 \newcommand*\SessionBlockTitle[1]{%
   \LocalSession{#1}%
-  \lsesblock%
+  \lsesblocktitle%
+}
+
+% Session block number
+\newcommand*\SessionBlockNumber[1]{%
+  \LocalSession{#1}%
+  \lsesblocknumber%
 }
 
 % Program line suitable for
@@ -1145,6 +1156,13 @@
   \ifnum0<0\sesnr\relax
     \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
     \SessionBlockTitle{\theadjsession}%
+  \fi
+}
+% Session block number
+\newcommand*\AdjSessionBlockNumber[1][1]{%
+  \ifnum0<0\sesnr\relax
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionBlockNumber{\theadjsession}%
   \fi
 }
 % Short date
