@@ -77,7 +77,9 @@
 \def\sesnr{}
 
 \def\programlist{}
+\def\programlistexam{}
 \def\programlistbeamer{}
+\def\programlistbeamerexam{}
 \def\programblocklistbeamer{\item}
 \def\jsbiblist{}
 
@@ -102,6 +104,7 @@
 \newcounter{loopcounter}
 \newcounter{adjsession}
 \newcounter{sestopic}
+\newcounter{exams}
 
 
 %
@@ -446,6 +449,14 @@
   \end{labeling}
 }
 
+% Exam schedule generation
+\newcommand\makeexamprogram{%
+  \raggedright
+  \begin{labeling}{\lecprogramlistindent}
+  \programlistexam
+  \end{labeling}
+}
+
 %
 % Beamer program generation
 \define@key{beamerprogram}{title}{\csdef{@bptitle}{#1}}
@@ -664,6 +675,57 @@
 }
 
 
+% Exam schedule generation
+\newcommand\makebeamerexamprogram[1][]{%
+  \csdef{@bptitle}{\lecprogram}
+  \def\btitleapp{}
+  \numdef\pframes{\thefbreaks + 1}
+  \setkeys{beamerprogram}{alerted=false}
+  \setkeys{beamerprogram}{blocksonly=false}
+  \setkeys{beamerprogram}{uncover=false}
+  \setkeys{beamerprogram}{#1}
+  \def\bpdescbeg{\begin{description}[\lecprogramlistindent]}
+  \ifKV@beamerprogram@alerted
+  \fi
+  \providebool{uncoveredlist}
+  \ifKV@beamerprogram@uncover
+     \booltrue{uncoveredlist}
+  \else
+     \boolfalse{uncoveredlist}
+  \fi
+  \ifKV@beamerprogram@blocksonly
+  \else% not \ifKV@beamerprogram@blocksonly
+    % All but last slide(s) are generated in what follows
+    \@ifundefined{programlistbeamerexam}{}{%
+    \def\btitleapp{}
+     \ifcsdef{@bpolarg}{%
+        \ifcsdef{@bpopts}{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }{%
+           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+        }%
+     }{%
+        \ifcsdef{@bpopts}{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }{%
+           \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+        }%
+    }%
+   \ifbool{uncoveredlist}{%
+      \begin{description}[<+->][\lecprogramlistindent]
+    }{%
+      \begin{description}[\lecprogramlistindent]
+    }
+      \programlistbeamerexam
+      \end{description}
+    \end{frame}
+  \fi%\else\ifKV@beamerprogram@blocksonly
+  }%
+}
+
+
 % 2) Bibliography
 %
 \newcommand\makesessionbib{%
@@ -691,6 +753,7 @@
 \define@key{session}{presstudents}{\csdef{@sespresstudents}{{#1}}}
 \define@boolkey{session}{cancel}[true]{}
 \define@boolkey{session}{draft}[true]{}
+\define@boolkey{session}{exam}[true]{}
 %
 \newcommand*\NewSession[2][]{%
   \stepcounter{sesunit}
@@ -718,6 +781,7 @@
   \csdef{@sespresstudents}{}
   \setkeys{session}{cancel=false}
   \setkeys{session}{draft=false}
+  \setkeys{session}{exam=false}
   \setkeys{session}{#1}
   \csdef{@sestitle}{#2}
   \protected@csxdef{sesdate\thesnum}{%
@@ -761,6 +825,32 @@
       \noexpand\nocite{*}%
       \noexpand\printbibliography[keyword=\csuse{sesbib\thesnum},heading=none]}%
     }%
+    \ifKV@session@exam
+        \stepcounter{exams}
+        \protected@csxdef{examsesno\theexams}{\thesnum}
+        \protected@eappto\programlistexam{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
+          \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
+        \protected@eappto\programlistbeamerexam{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
+          \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
+        \ifcsempty{sesbib\thesnum}{}{%
+        \xappto\jsbiblist{\noexpand\section{\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}%
+          \noexpand\nocite{*}%
+          \noexpand\printbibliography[keyword=\csuse{sesbib\thesnum},heading=none]}%
+        }%
+    \else
+        \ifKV@session@draft
+            \ifcsempty{@sestitle}{\protected@csxdef{sestitle\thesnum}{\sestopic}}{}
+        \fi
+        \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
+          \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
+        \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
+          \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
+        \ifcsempty{sesbib\thesnum}{}{%
+        \xappto\jsbiblist{\noexpand\section{\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}%
+          \noexpand\nocite{*}%
+          \noexpand\printbibliography[keyword=\csuse{sesbib\thesnum},heading=none]}%
+        }%
+      \fi
   \fi
 }
 
@@ -1021,6 +1111,11 @@
   \gdef\lsespresstudents{\csuse{sespresstudents#1}}%
   \gdef\lsesblocktitle{\csuse{sesblock#1}}%
   \gdef\lsesblocknumber{\csuse{sesblockno#1}}%
+}
+
+% Get the session no of exam no #1
+\newcommand*\examsesno[1]{%
+   \csuse{examsesno#1}%
 }
 
 % \ses[short]instructor and \ses[short]instructor*.
