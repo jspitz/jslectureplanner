@@ -68,7 +68,10 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.8 (forthcoming):  - Add macros to receive session block numbers (\sesblocknumber,
+* V. 1.8 (forthcoming):  - Switch input format of \LecStartDate to ISO (YYYY-MM-DD).
+                           The old format (DD/MM/YYYY) is still supported for backwards
+                           compatibility.
+                         - Add macros to receive session block numbers (\sesblocknumber,
                            \SessionBlockNumber{<session no>} and \AdjSessionBlockNumber).
 
 * V. 1.7 (2018-12-14):   - Allow options in \makebeamerprogram also with blocksonly.

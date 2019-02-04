@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2019/01/08}
+\def\filedate{2019/02/04}
 \def\fileversion{1.8dev}
 \def\filename{jslectureplanner.sty}
 
@@ -328,12 +328,21 @@
   \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
 }
 
+% Simple test for substring. Courtesy of egreg at
+% https://tex.stackexchange.com/a/26873/19291
+\def\jslp@instring#1#2{TT\fi\begingroup
+  \edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}
 
 % Internal macro to set the date to a given value
 % Code adapted from advdate.sty
 \newcommand\jslp@SetDate[1][\s@v@dT@d@y]{\edef\d@t@{#1}%
-  \expandafter\t@d@y\d@t@\t@d@y}
+\if\jslp@instring{-}{\d@t@}%
+  \expandafter\iso@t@d@y\d@t@\iso@t@d@y%
+\else%
+  \expandafter\t@d@y\d@t@\t@d@y%
+\fi}
 \def\t@d@y#1/#2/#3\t@d@y{\day#1 \month#2 \year#3 \relax}
+\def\iso@t@d@y#1-#2-#3\iso@t@d@y{\day#3 \month#2 \year#1 \relax}
 
 
 %
