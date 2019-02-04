@@ -371,7 +371,11 @@ will expand to
 Furthermore, a canceled session is not counted in the session counter
 that is used to retrieve session-specific information
 (see below sec.~\ref{sec:session-specific-info}).
-
+\item \joption{exam=\jparam{true|false}}: If \joption{true}, this session is put to the
+      exam rather than the program list.
+\item \joption{extradate=\jparam{date}}: Sets a fix date for this session. The date needs
+      to be inserted in ISO format (YYYY-MM-DD). Note that these sessions are excluded from
+      the auto-offset set by \jcsmacro{SetAutoOffset}.
 \end{itemize}
 \item \jcsmacro{SetBreak[\jparam{span}]\{Break\}}: Add a semester break
 (e.\,g., holidays) that affects one session. The macro increments
@@ -540,6 +544,17 @@ your program structure.
      respectively.
 \end{itemize}
 
+\end{itemize}
+%
+If you want to separate the dates of your exams from the program, you can flag them with
+the \joption{exam} option of \jcsmacro{NewSession}. Those session entries will not be included
+in the output of the above two macros. However, there are the macros
+
+\begin{itemize}
+	\item \jcsmacro{makeexamprogram}. This generates a list with exam dates in the same layout
+	      than \jcsmacro{makeprogram}.
+	\item \jcsmacro{makebeamerexamprogram}. This generates a list with exam dates in the same layout
+	      than \jcsmacro{makebeamerprogram} (and takes the same options).
 \end{itemize}
 
 \subsection{Generating bibliographies\label{sub:bibliographies}}
@@ -730,6 +745,12 @@ item line for session number \joption{\jparam{n}} in the form
 \end{lstlisting}
 
 \end{itemize}
+%
+Note that if you are looking for exam session particularly, you can also use
+\jcsmacro{examsesno\{\jparam{n}\}} with the number of the exam to get the
+corresponding session number. For instance, \verb|\SessionDate{\examsesno{2}}|
+will return the date of the second exam session, notwithstanding which global
+session number this exam has.
 
 \section{Customizing the output}\label{sec:customizing-strings}
 
@@ -1087,6 +1108,10 @@ the \jslp\ style files. Thanks, Dominik.
 \begin{itemize}
 \item forthcoming (v. 1.8):
 	\begin{itemize}
+		\item Add \joption{extradate} option to \jcsmacro{NewSession} to allow for fix dates.
+		\item Add possibility to enter and retrieve (separate) exam dates (option \joption{exam}
+		      of \jcsmacro{NewSession}, \jcsmacro{makeexamprogram} and \jcsmacro{makebeamerexamprogram}),
+		      and by the means of \jcsmacro{examsesno}.
 		\item Switch input format of \jcsmacro{LecStartDate} to ISO (YYYY-MM-DD). The old format
 		      (DD/MM/YYYY) is still supported for backwards compatibility.
 		\item Add macros to receive session block numbers (\jcsmacro{sesblocknumber},\\

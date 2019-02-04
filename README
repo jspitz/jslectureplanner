@@ -68,7 +68,11 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.8 (forthcoming):  - Switch input format of \LecStartDate to ISO (YYYY-MM-DD).
+* V. 1.8 (forthcoming):  - Add extradate option to \NewSession to allow for fix dates.
+                         - Add possibility to enter and retrieve (separate) exam dates
+                           (option exam of \NewSession, \makeexamprogram and
+                           \makebeamerexamprogram), and by the means of \examsesno.
+                         - Switch input format of \LecStartDate to ISO (YYYY-MM-DD).
                            The old format (DD/MM/YYYY) is still supported for backwards
                            compatibility.
                          - Add macros to receive session block numbers (\sesblocknumber,
