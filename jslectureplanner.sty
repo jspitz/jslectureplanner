@@ -753,18 +753,12 @@
 \define@key{session}{presstudents}{\csdef{@sespresstudents}{{#1}}}
 \define@boolkey{session}{cancel}[true]{}
 \define@boolkey{session}{draft}[true]{}
+\define@key{session}{extradate}{\csdef{@xsesdate}{#1}}
 \define@boolkey{session}{exam}[true]{}
 %
 \newcommand*\NewSession[2][]{%
   \stepcounter{sesunit}
   \stepcounter{sestopic}
-  \ifnumcomp{\value{autooffsettrigger}}{>}{0}{%
-     \ifnumcomp{\value{autooffsettrigger}}{=}{\value{autooffsetcounter}}{%
-        \addtocounter{sesoffset}{\theautooffset}%
-        \setcounter{autooffsetcounter}{1}%
-     }{\stepcounter{autooffsetcounter}}
-  }{}
-  \setcounter{dateratio}{(\thesesunit-1)*\thelecinterval+\thesesoffset}
   \setcounter{snum}{\thesesunit-\thecancellations}
   \protected@csxdef{sesnr\thesnum}{\thesnum}
   \togglefalse{shortinstrdef}
@@ -779,17 +773,33 @@
   \csdef{@usesinstructor}{}
   \csdef{@usesshortinstructor}{}
   \csdef{@sespresstudents}{}
+  \csdef{@xsesdate}{}
   \setkeys{session}{cancel=false}
   \setkeys{session}{draft=false}
   \setkeys{session}{exam=false}
   \setkeys{session}{#1}
   \csdef{@sestitle}{#2}
-  \protected@csxdef{sesdate\thesnum}{%
-      \bgroup\ifx\lecstartdate\empty\else\jslp@SetDate[\lecstartdate]\fi%
-      \DTMsetdatestyle{lecdate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
-  \protected@csxdef{sesshortdate\thesnum}{%
-      \bgroup\ifx\lecstartdate\empty\else\jslp@SetDate[\lecstartdate]\fi%
-      \DTMsetdatestyle{lecshortdate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
+  % only calculate the date if it is not fixed via extradate.
+  \ifcsempty{@xsesdate}{%
+     \setcounter{dateratio}{(\thesesunit-1)*\thelecinterval+\thesesoffset}
+     \ifnumcomp{\value{autooffsettrigger}}{>}{0}{%
+       \ifnumcomp{\value{autooffsettrigger}}{=}{\value{autooffsetcounter}}{%
+       \addtocounter{sesoffset}{\theautooffset}%
+       \setcounter{autooffsetcounter}{1}%
+       }{\stepcounter{autooffsetcounter}}
+     }{}
+     \protected@csxdef{sesdate\thesnum}{%
+       \bgroup\ifx\lecstartdate\empty\else\jslp@SetDate[\lecstartdate]\fi%
+       \DTMsetdatestyle{lecdate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
+     \protected@csxdef{sesshortdate\thesnum}{%
+       \bgroup\ifx\lecstartdate\empty\else\jslp@SetDate[\lecstartdate]\fi%
+       \DTMsetdatestyle{lecshortdate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
+  }{%
+     \protected@csxdef{sesdate\thesnum}{%
+       \bgroup\DTMsetdatestyle{lecdate}\expandafter\DTMdate{\csuse{@xsesdate}}\egroup}
+     \protected@csxdef{sesshortdate\thesnum}{%
+       \bgroup\DTMsetdatestyle{lecshortdate}\expandafter\DTMdate{\csuse{@xsesdate}}\egroup}
+  }
   \protected@csxdef{sestitle\thesnum}{\csuse{@sestitle}\ifcsempty{@sestitle}{\strut}{}}
   \protected@csxdef{sestitlesep\thesnum}{\csuse{@sestitlesep}}
   \protected@csxdef{sessubtitle\thesnum}{\csuse{@sessubtitle}}
@@ -813,18 +823,6 @@
       \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}%
         \noexpand\leccancel\noexpand\egroup}
   \else
-    \ifKV@session@draft
-        \ifcsempty{@sestitle}{\protected@csxdef{sestitle\thesnum}{\sestopic}}{}
-    \fi
-    \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-      \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
-    \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-      \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
-    \ifcsempty{sesbib\thesnum}{}{%
-    \xappto\jsbiblist{\noexpand\section{\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}%
-      \noexpand\nocite{*}%
-      \noexpand\printbibliography[keyword=\csuse{sesbib\thesnum},heading=none]}%
-    }%
     \ifKV@session@exam
         \stepcounter{exams}
         \protected@csxdef{examsesno\theexams}{\thesnum}
