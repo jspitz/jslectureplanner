@@ -79,6 +79,8 @@ instructions; also have a look at the example files.
                            compatibility.
                          - Add macros to receive session block numbers (\sesblocknumber,
                            \SessionBlockNumber{<session no>} and \AdjSessionBlockNumber).
+                         - Add unstyled date formats which allow preceding \DTMsetdatestyle
+                           (the short and long date formats would override such settings).
 
 * V. 1.7 (2018-12-14):   - Allow options in \makebeamerprogram also with blocksonly.
                          - Add overlayarg option to \makebeamerprogram.

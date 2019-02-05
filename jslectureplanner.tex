@@ -662,6 +662,10 @@ the following macros output general session-specific information:
 \item \jcsmacro{sesdate}: Date of the current session
 \item \jcsmacro{sesshortdate}: Date of the current session,
 short form (no year)
+\item \jcsmacro{sesdtmdate}: Date of the current session in the form of the
+       \textsf{datetime2} package, without explicit style setting.
+       This can be used if you want to locally set another
+       date style (via \jfcsmacro{DTMsetdatestyle}, which is to be set before this macro then)
 \item \jcsmacro{sestitle}: Main title of the current session
 \item \jcsmacro{sesshorttitle}: Short title of the current session; if
 no explicit short title is specified, the normal [main] title is output
@@ -703,6 +707,10 @@ information for sessions that follow or precede the current session by a specifi
 	\item \jcsmacro{AdjSessionDate[\jparam{offset}]}: Outputs the date of the adjacent session
 	\item \jcsmacro{AdjSessionShortDate[\jparam{offset}]}: Outputs the short
 	date (no year) of the adjacent session
+	\item \jcsmacro{AdjSessionDTMDate[\jparam{offset}]}: Date of the adjacent session in the form of the
+	\textsf{datetime2} package, without explicit style setting.
+	This can be used if you want to locally set another
+	date style (via \jfcsmacro{DTMsetdatestyle}, which is to be set before this macro then)
 	\item \jcsmacro{AdjSessionInstructor[\jparam{offset}]}: Outputs the name of the instructor of the adjacent session
 	\item \jcsmacro{AdjSessionInstructor*[\jparam{offset}]}: Outputs the name of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecinstructor})
 	\item \jcsmacro{AdjSessionShortInstructor[\jparam{offset}]}: Outputs the short name (or normal name, if no short name was specified) of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecshortinstructor})
@@ -733,6 +741,10 @@ of session number \joption{\jparam{n}} (if available)
 session number \joption{\jparam{n}}
 \item \jcsmacro{SessionShortDate\{\jparam{n}\}}: Outputs the short
 date (no year) of session number \joption{\jparam{n}}
+\item \jcsmacro{SessionDTMDate\{\jparam{n}\}}: Date of the session session number \joption{\jparam{n}}
+in the form of the \textsf{datetime2} package, without explicit style setting.
+This can be used if you want to locally set another
+date style (via \jfcsmacro{DTMsetdatestyle}, which is to be set before this macro then)
 \item \jcsmacro{SessionInstructor\{\jparam{n}\}}: Outputs the name of the instructor of session
 number \joption{\jparam{n}}
 \item \jcsmacro{SessionInstructor*\{\jparam{n}\}}: Outputs the name of the instructor of session
@@ -825,6 +837,8 @@ If you want to redefine the styles, use \jfcsmacro{DTMrenewdatestyle} and change
 }
 \end{lstlisting}
 Note that it is not necessary to include the \jfcsmacro{DTMDisplaydate} redefinition in the date format redefinition (since it does never change here). Note further that the macro \jfcsmacro{DTMenglishmonthname} used in the short date redefinition requires the \textsf{datetime2-english} module to be loaded (see \textsf{datetime2} manual for details).
+
+Note, further, that if you need another date style only locally, you can set an arbitrary date style on the dtm date provided by \jcsmacro{lectdtmdate} and friends, i.\,e., \verb|\DTMsetdatestyle{mydatestyle}\lecdtmdate|.
 
 Note, finally, that the date redefinition syntax used up to \jslp\ 1.2 is no longer supported, since it relied on the \textsf{datetime} package, which is deprecated (and superseded by \textsf{datetime2}). The \jslp\ package will issue a warning if you try to use the old syntax.
 
@@ -1115,6 +1129,8 @@ the \jslp\ style files. Thanks, Dominik.
 \begin{itemize}
 \item forthcoming (v. 1.8):
 	\begin{itemize}
+		\item Add unstyled date formats which allow preceding \jfcsmacro{DTMsetdatestyle}
+		      (the short and long date formats would override such settings).
 		\item Add \joption{extradate} option to \jcsmacro{NewSession} to support fix dates.
 		      See sec.~\ref{sec:lecplan}.
 		\item Add possibility to enter exam dates that are not added to the standard program

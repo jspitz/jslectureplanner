@@ -70,6 +70,7 @@
 
 \def\sesdate{}
 \def\sesshortdate{}
+\def\sesdtmdate{}
 \def\sestitle{}
 \def\sesshorttitle{}
 \def\sestitlesep{}
@@ -794,11 +795,16 @@
      \protected@csxdef{sesshortdate\thesnum}{%
        \bgroup\ifx\lecstartdate\empty\else\jslp@SetDate[\lecstartdate]\fi%
        \DTMsetdatestyle{lecshortdate}\DTMdate{\year-\month-\day+\thedateratio}\egroup}
+     \protected@csxdef{sesdtmdate\thesnum}{%
+       \bgroup\ifx\lecstartdate\empty\else\jslp@SetDate[\lecstartdate]\fi%
+       \DTMdate{\year-\month-\day+\thedateratio}\egroup}
   }{%
      \protected@csxdef{sesdate\thesnum}{%
        \bgroup\DTMsetdatestyle{lecdate}\expandafter\DTMdate{\csuse{@xsesdate}}\egroup}
      \protected@csxdef{sesshortdate\thesnum}{%
        \bgroup\DTMsetdatestyle{lecshortdate}\expandafter\DTMdate{\csuse{@xsesdate}}\egroup}
+     \protected@csxdef{sesdtmdate\thesnum}{%
+       \bgroup\expandafter\DTMdate{\csuse{@xsesdate}}\egroup}
   }
   \protected@csxdef{sestitle\thesnum}{\csuse{@sestitle}\ifcsempty{@sestitle}{\strut}{}}
   \protected@csxdef{sestitlesep\thesnum}{\csuse{@sestitlesep}}
@@ -1061,6 +1067,7 @@
   \gdef\sesnr{\csuse{sesnr#1}}%
   \gdef\sesdate{\csuse{sesdate#1}}%
   \gdef\sesshortdate{\csuse{sesshortdate#1}}%
+  \gdef\sesdtmdate{\csuse{sesdtmdate#1}}%
   \gdef\sestitle{\csuse{sestitle#1}}%
   \gdef\sestitlesep{\csuse{sestitlesep#1}}%
   \gdef\sesshorttitle{\csuse{sesshorttitle#1}}%
@@ -1097,6 +1104,7 @@
   \gdef\lsesnr{\csuse{sesnr#1}}%
   \gdef\lsesdate{\csuse{sesdate#1}}%
   \gdef\lsesshortdate{\csuse{sesshortdate#1}}%
+  \gdef\lsesdtmdate{\csuse{sesdtmdate#1}}%
   \gdef\lsestitle{\csuse{sestitle#1}}%
   \gdef\lsestitlesep{\csuse{sestitlesep#1}}%
   \gdef\lsesshorttitle{\csuse{sesshorttitle#1}}%
@@ -1155,6 +1163,12 @@
 \newcommand*\SessionShortDate[1]{%
   \LocalSession{#1}%
   \lsesshortdate%
+}
+
+% Short date
+\newcommand*\SessionDTMDate[1]{%
+  \LocalSession{#1}%
+  \lsesdtmdate%
 }
 
 % Room
@@ -1239,6 +1253,20 @@
     \SessionDate{\theadjsession}%
   \fi
 }
+% Short date
+\newcommand*\AdjSessionShortDate[1][1]{%
+  \ifnum0<0\sesnr\relax
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionShortDate{\theadjsession}%
+  \fi
+}
+% DTM Date
+\newcommand*\AdjSessionDTMDate[1][1]{%
+  \ifnum0<0\sesnr\relax
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionDTMDate{\theadjsession}%
+  \fi
+}
 % Short title
 \newcommand*\AdjSessionShortTitle[1][1]{%
   \ifnum0<0\sesnr\relax
@@ -1265,13 +1293,6 @@
   \ifnum0<0\sesnr\relax
     \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
     \SessionBlockNumber{\theadjsession}%
-  \fi
-}
-% Short date
-\newcommand*\AdjSessionShortDate[1][1]{%
-  \ifnum0<0\sesnr\relax
-    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
-    \SessionShortDate{\theadjsession}%
   \fi
 }
 % Room
