@@ -371,8 +371,11 @@ will expand to
 Furthermore, a canceled session is not counted in the session counter
 that is used to retrieve session-specific information
 (see below sec.~\ref{sec:session-specific-info}).
-\item \joption{exam=\jparam{true|false}}: If \joption{true}, this session is put to the
-      exam rather than the program list.
+\item \joption{exam=\jparam{true|false}}: Marker for exam dates. If \joption{true},
+      this session is put to the exam rather than the program list (see sec.~\ref{sec:lecprog})
+      Useful if you want to list the exam dates separately. Note that exam sessions also get their
+      own additional exam number, which makes them accessible independently from the number of
+      preceding sessions (see sec.~\ref{sec:arbisess} on macro \jcsmacro{examsesno}).
 \item \joption{extradate=\jparam{date}}: Sets a fix date for this session. The date needs
       to be inserted in ISO format (YYYY-MM-DD). Note that these sessions are excluded from
       the auto-offset set by \jcsmacro{SetAutoOffset}.
@@ -643,9 +646,13 @@ to the current session. This is done as follows.
 
 Use \jcsmacro{ThisSession\{\jparam{n}\}} to tell the package
 which session is current. \joption{\jparam{n}} is an integer value, e.\,g.
-\jcsmacro{ThisSession\{3\}} for the 3rd session of
-the lecture.
+\jcsmacro{ThisSession\{3\}} for the 3rd session of the lecture.
 
+If you are looking for exam session particularly, you can also use
+\jcsmacro{examsesno\{\jparam{n}\}} with the number of the exam to get the
+corresponding session number. Thus, \verb|\ThisSession{\examsesno{2}}|
+will set the current session to the second exam session, notwithstanding
+the number of preceding (non-exam) sessions.
 
 \subsection{Generating session-specific information for the current session}
 
@@ -705,7 +712,7 @@ information for sessions that follow or precede the current session by a specifi
 \end{itemize}
 Via the numerical \joption{\jparam{offset}} option, you can specify which session, relative to the current one, you want to output. The default is \joption{1}, i.\,e., \jcsmacro{AdjSessionTitle} without argument outputs the title of the \emph{next} session. Negative values are valid: \jcsmacro{AdjSessionTitle[-1]}, thus, outputs the title of the \emph{previous} session.
 
-\subsection{Generating session-specific information for an arbitrary session}
+\subsection{Generating session-specific information for an arbitrary session}\label{sec:arbisess}
 
 Independent of the value of \jcsmacro{ThisSession},
 you can retrieve the following information for arbitrary sessions
@@ -746,11 +753,11 @@ item line for session number \joption{\jparam{n}} in the form
 
 \end{itemize}
 %
-Note that if you are looking for exam session particularly, you can also use
+Note once more that if you are looking for exam session particularly, you can also use
 \jcsmacro{examsesno\{\jparam{n}\}} with the number of the exam to get the
 corresponding session number. For instance, \verb|\SessionDate{\examsesno{2}}|
-will return the date of the second exam session, notwithstanding which global
-session number this exam has.
+will return the date of the second exam session, notwithstanding the global
+session number of this session.
 
 \section{Customizing the output}\label{sec:customizing-strings}
 
@@ -1108,10 +1115,13 @@ the \jslp\ style files. Thanks, Dominik.
 \begin{itemize}
 \item forthcoming (v. 1.8):
 	\begin{itemize}
-		\item Add \joption{extradate} option to \jcsmacro{NewSession} to allow for fix dates.
-		\item Add possibility to enter and retrieve (separate) exam dates (option \joption{exam}
-		      of \jcsmacro{NewSession}, \jcsmacro{makeexamprogram} and \jcsmacro{makebeamerexamprogram}),
-		      and by the means of \jcsmacro{examsesno}.
+		\item Add \joption{extradate} option to \jcsmacro{NewSession} to support fix dates.
+		      See sec.~\ref{sec:lecplan}.
+		\item Add possibility to enter exam dates that are not added to the standard program
+		      (option \joption{exam} of \jcsmacro{NewSession}); see sec.~\ref{sec:lecplan}.
+		      Also add macros to display them separately (\jcsmacro{makeexamprogram},
+		      \jcsmacro{makebeamerexamprogram}; see sec.~\ref{sec:lecprog}) and to
+		      access their session number (\jcsmacro{examsesno}; see sec.~\ref{sec:arbisess}).
 		\item Switch input format of \jcsmacro{LecStartDate} to ISO (YYYY-MM-DD). The old format
 		      (DD/MM/YYYY) is still supported for backwards compatibility.
 		\item Add macros to receive session block numbers (\jcsmacro{sesblocknumber},\\
