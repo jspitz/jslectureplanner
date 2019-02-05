@@ -61,6 +61,7 @@
 \def\lecinstitute{}
 \def\lecroom{}
 \def\lecstartdate{}
+\def\lecstarttime{}
 \def\lecinstructor{}
 \def\lecshortinstructor{}
 
@@ -71,6 +72,7 @@
 \def\sesdate{}
 \def\sesshortdate{}
 \def\sesdtmdate{}
+\def\sesstarttime{}
 \def\sestitle{}
 \def\sesshorttitle{}
 \def\sestitlesep{}
@@ -241,6 +243,7 @@
 \define@key{lec}{officenumber}{\def\officenumber{#1}}
 \define@key{lec}{room}{\def\lecroom{#1}}
 \define@key{lec}{startdate}{\def\lecstartdate{#1}}
+\define@key{lec}{starttime}{\def\lecstarttime{\DTMtime{#1}}}
 \define@key{lec}{instructor}{\def\lecinstructor{#1}%
     \ifx\lecshortinstructor\empty\def\lecshortinstructor{#1}\fi}
 \define@key{lec}{shortinstructor}{%
@@ -268,6 +271,7 @@
 \DeclareOptionX{uni}{\setkeys{lec}{uni={#1}}}
 \DeclareOptionX{institute}{\setkeys{lec}{institute={#1}}}
 \DeclareOptionX{startdate}{\setkeys{lec}{startdate=#1}}
+\DeclareOptionX{starttime}{\setkeys{lec}{starttime=#1}}
 \DeclareOptionX{instructor}{\setkeys{lec}{instructor={#1}}}
 \DeclareOptionX{shortinstructor}{\setkeys{lec}{shortinstructor={#1}}}
 \DeclareOptionX{platform}{\setkeys{lec}{platform={#1}}}
@@ -298,6 +302,7 @@
 \newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute={#1}}}
 \newcommand*{\LecRoom}[1]{\setkeys{lec}{room={#1}}}
 \newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
+\newcommand*{\LecStartTime}[1]{\setkeys{lec}{starttime=#1}}
 \newcommand*{\LecInstructor}[2][\empty]{%
     \ifx#1\empty
         \setkeys{lec}{instructor={#2}}%
@@ -331,6 +336,14 @@
   \renewcommand*{\DTMdisplaydate}[4]{\DTMtwodigits{##3}.\,\DTMtwodigits{##2}.}%
   \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
 }
+
+
+%
+% CUSTOM TIME FORMATS (via datetime2)
+%
+
+\DTMsettimestyle{default}
+\DTMsetup{showseconds=false}
 
 % Simple test for substring. Courtesy of egreg at
 % https://tex.stackexchange.com/a/26873/19291
@@ -746,6 +759,7 @@
 \define@key{session}{shorttitle}{\csdef{@sesshorttitle}{{#1}}\csdef{@usesshorttitle}{{#1}}}
 \define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
 \define@key{session}{room}{\csdef{@sesroom}{{#1}}}
+\define@key{session}{starttime}{\csdef{@sestime}{\DTMtime{#1}}}
 \define@key{session}{instructor}{%
     \csdef{@sesinstructor}{{#1}}\csdef{@usesinstructor}{{#1}}%
     \iftoggle{shortinstrdef}{}{\csdef{@sesshortinstructor}{{#1}}\csdef{@usesshortinstructor}{{#1}}}}
@@ -769,6 +783,7 @@
   \csdef{@usesshorttitle}{}
   \csdef{@sesbibsec}{}
   \csdef{@sesroom}{\lecroom}
+  \csdef{@sestime}{\lecstarttime}
   \csdef{@sesinstructor}{\lecinstructor}
   \csdef{@sesshortinstructor}{\lecshortinstructor}
   \csdef{@usesinstructor}{}
@@ -813,6 +828,7 @@
   \protected@csxdef{usesshorttitle\thesnum}{\csuse{@usesshorttitle}}
   \protected@csxdef{sesbib\thesnum}{\csuse{@sesbibsec}}
   \protected@csxdef{sesroom\thesnum}{\csuse{@sesroom}}
+  \protected@csxdef{sestime\thesnum}{\csuse{@sestime}}
   \protected@csxdef{sesinstructor\thesnum}{\csuse{@sesinstructor}}
   \protected@csxdef{sesshortinstructor\thesnum}{\csuse{@sesshortinstructor}}
   \protected@csxdef{usesinstructor\thesnum}{\csuse{@usesinstructor}}
@@ -1074,6 +1090,7 @@
   \gdef\@usesshorttitle{\csuse{usesshorttitle#1}}%
   \gdef\sessubtitle{\csuse{sessubtitle#1}}%
   \gdef\sesroom{\csuse{sesroom#1}}%
+  \gdef\sesstarttime{\csuse{sestime#1}}%
   \gdef\@sesinstructor{\csuse{sesinstructor#1}}%
   \gdef\@sesshortinstructor{\csuse{sesshortinstructor#1}}%
   \gdef\@usesinstructor{\csuse{usesinstructor#1}}%
@@ -1110,6 +1127,7 @@
   \gdef\lsesshorttitle{\csuse{sesshorttitle#1}}%
   \gdef\lsessubtitle{\csuse{sessubtitle#1}}%
   \gdef\lsesroom{\csuse{sesroom#1}}%
+  \gdef\lsesstarttime{\csuse{sestime#1}}%
   \gdef\@lsesinstructor{\csuse{sesinstructor#1}}%
   \gdef\@lsesshortinstructor{\csuse{sesshortinstructor#1}}%
   \gdef\@lusesinstructor{\csuse{usesinstructor#1}}%
@@ -1169,6 +1187,12 @@
 \newcommand*\SessionDTMDate[1]{%
   \LocalSession{#1}%
   \lsesdtmdate%
+}
+
+% Time
+\newcommand*\SessionStartTime[1]{%
+  \LocalSession{#1}%
+  \lsesstarttime%
 }
 
 % Room
@@ -1265,6 +1289,13 @@
   \ifnum0<0\sesnr\relax
     \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
     \SessionDTMDate{\theadjsession}%
+  \fi
+}
+% Time
+\newcommand*\AdjSessionStartTime[1][1]{%
+  \ifnum0<0\sesnr\relax
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionStartTime{\theadjsession}%
   \fi
 }
 % Short title

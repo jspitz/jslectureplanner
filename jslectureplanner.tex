@@ -231,6 +231,8 @@ Also cf. sec.~\ref{sec:styles}.
 \item [\joption{startdate=\jparam{startdate}}] The date of the first session (the argument
        must have the form YYYY-MM-DD or DD/MM/YYYY); if no startdate is given,
       \jfcsmacro{today} is used
+\item [\joption{starttime=\jparam{starttime}}] The time the course generally starts (the argument
+      must have the form HH:MM:SS); if no starttime is given, current time is used
 \item [\joption{interval=\jparam{interval}}] The interval (in days) between two sessions;
       the preset interval is 7 (=~weekly courses)
 \end{description}
@@ -301,6 +303,8 @@ your university
 \item \jcsmacro{LecRoom\{\jparam{room}\}}: Record the room where the course (generally) takes place
 \item \jcsmacro{LecStartDate\{\jparam{startdate}\}}: Set the date of
        the first session (the argument must have the form YYYY-MM-DD or DD/MM/YYYY)
+\item \jcsmacro{LecStartTime\{\jparam{starttime}\}}: Set the time the course generally starts
+      (the argument must have the form HH:MM:SS)
 \item \jcsmacro{LecInterval\{\jparam{interval}\}}: Adjust the interval (in days) between two sessions.
       The preset interval is 7 (=~weekly courses).
 \item \jcsmacro{SetAutoOffset\{\jparam{n}\}\{\jparam{days}\}}: Automatically shift all subsequent sessions
@@ -352,6 +356,8 @@ Valid \joption{\jparam{options}} include:
     (used for student presentation lists, see below sec.~\ref{sec:preslists})
 \item \joption{room=\jparam{room}}: Room for this session (if it differs
     from the usual course room)
+\item \joption{starttime=\jparam{starttime}}: Start time for this session (if it differs
+     from the usual start time). Input must have the form HH:MM.SS.
 \item \joption{bibsec=\jparam{keyword}}: Session keyword for the bibliography
     (see below sec.~\ref{sub:bibliographies} for its use)
 \item \joption{cancel=\jparam{true|false}}: Marks this session as ``canceled''.
@@ -483,6 +489,7 @@ if no explicit short name is given, the normal name will be output (you can chec
 there is a unique short name by the test
 \jcsmacro{iftoggle\{uniquelecshortinstructor\}\{\jparam{true}\}\{\jparam{false}\}})
 \item \jcsmacro{lecroom}: Outputs the (general) course room
+\item \jcsmacro{lecstarttime}: Outputs the (general) start time
 \item \jcsmacro{lecplatform}: Outputs information on the
 e-learning platform
 \item \jcsmacro{officehours}: Outputs the office hours
@@ -666,6 +673,7 @@ short form (no year)
        \textsf{datetime2} package, without explicit style setting.
        This can be used if you want to locally set another
        date style (via \jfcsmacro{DTMsetdatestyle}, which is to be set before this macro then)
+\item \jcsmacro{sesstarttime}: Start time of the current session
 \item \jcsmacro{sestitle}: Main title of the current session
 \item \jcsmacro{sesshorttitle}: Short title of the current session; if
 no explicit short title is specified, the normal [main] title is output
@@ -711,6 +719,7 @@ information for sessions that follow or precede the current session by a specifi
 	\textsf{datetime2} package, without explicit style setting.
 	This can be used if you want to locally set another
 	date style (via \jfcsmacro{DTMsetdatestyle}, which is to be set before this macro then)
+	\item \jcsmacro{AdjSessionStartTime[\jparam{offset}]}: Outputs the start time of the adjacent session
 	\item \jcsmacro{AdjSessionInstructor[\jparam{offset}]}: Outputs the name of the instructor of the adjacent session
 	\item \jcsmacro{AdjSessionInstructor*[\jparam{offset}]}: Outputs the name of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecinstructor})
 	\item \jcsmacro{AdjSessionShortInstructor[\jparam{offset}]}: Outputs the short name (or normal name, if no short name was specified) of the instructor of the adjacent session if it differs from the general instructor (\jcsmacro{lecshortinstructor})
@@ -745,6 +754,8 @@ date (no year) of session number \joption{\jparam{n}}
 in the form of the \textsf{datetime2} package, without explicit style setting.
 This can be used if you want to locally set another
 date style (via \jfcsmacro{DTMsetdatestyle}, which is to be set before this macro then)
+\item \jcsmacro{SessionStartTime\{\jparam{n}\}}: Outputs the start time of
+session number \joption{\jparam{n}}
 \item \jcsmacro{SessionInstructor\{\jparam{n}\}}: Outputs the name of the instructor of session
 number \joption{\jparam{n}}
 \item \jcsmacro{SessionInstructor*\{\jparam{n}\}}: Outputs the name of the instructor of session
@@ -1129,6 +1140,7 @@ the \jslp\ style files. Thanks, Dominik.
 \begin{itemize}
 \item forthcoming (v. 1.8):
 	\begin{itemize}
+		\item Add support for lecture and session start time.
 		\item Add unstyled date formats which allow preceding \jfcsmacro{DTMsetdatestyle}
 		      (the short and long date formats would override such settings).
 		\item Add \joption{extradate} option to \jcsmacro{NewSession} to support fix dates.
@@ -1141,7 +1153,7 @@ the \jslp\ style files. Thanks, Dominik.
 		\item Switch input format of \jcsmacro{LecStartDate} to ISO (YYYY-MM-DD). The old format
 		      (DD/MM/YYYY) is still supported for backwards compatibility.
 		\item Add macros to receive session block numbers (\jcsmacro{sesblocknumber},\\
-		\jcsmacro{SessionBlockNumber\{\jparam{session no}\}} and \jcsmacro{AdjSessionBlockNumber}).
+		      \jcsmacro{SessionBlockNumber\{\jparam{session no}\}} and \jcsmacro{AdjSessionBlockNumber}).
 	\end{itemize}
 \item 2018/12/14 (v. 1.7):
 	\begin{itemize}
