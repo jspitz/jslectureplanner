@@ -478,15 +478,14 @@
 %
 \define@key{semtype}{next}{\csdef{@ltn}{#1}}
 \define@boolkey{semtype}{nextny}[true]{}
-\newcommand*\DefSemType[4][]{%
+\newcommand*\DefSemType[4][\empty]{%
   \csdef{@ltn}{}
   \csdef{lecsemshort@#2}{#3}
   \csdef{lecsemverb@#2}{#4}
-  \ifx#1\empty
-  \else
+  \ifx\empty#1\else%
         \setkeys{semtype}{nextny=false}%
         \setkeys{semtype}{#1}%
-        \ifKV@semtype@newyear
+        \ifKV@semtype@nextny
             \csdef{lecsemnextny@#2}{y}
         \else
             \csdef{lecsemnextny@#2}{n}
