@@ -53,7 +53,10 @@
 \def\lecsubtitle{}
 \def\lecshorttitle{}
 \def\lecsemshort{}
+\def\lecnsemshort{}
 \def\lecsemverb{}
+\def\lecnsemverb{}
+\def\lecnsemny{}
 \def\lecyear{}
 \def\lecsemester{}
 \def\lecsemesterverb{}
@@ -153,15 +156,24 @@
 % fs
 \def\lecsemverb@fs{Fr\"uhjahrssemester}
 \def\lecsemshort@fs{FS}
+\def\lecsemnext@fs{hs}
+\def\lecsemnextny@fs{n}
 % hs
 \def\lecsemverb@hs{Herbstsemester}
 \def\lecsemshort@hs{HS}
+\def\lecsemnext@hs{fs}
+\def\lecsemnextny@hs{y}
 % ss
 \def\lecsemverb@ss{Sommersemester}
 \def\lecsemshort@ss{SoSe}
+\def\lecsemnext@ss{ws}
+\def\lecsemnextny@ss{n}
 % ws
 \def\lecsemverb@ws{Wintersemester}
 \def\lecsemshort@ws{WS}
+\def\lecsemnext@ws{ss}
+\def\lecsemnextny@ws{y}
+
 
 % 3.) misc.
 %
@@ -225,6 +237,10 @@
     }{}
     \def\lecsemshort{\csuse{lecsemshort@#1}}%
     \def\lecsemverb{\csuse{lecsemverb@#1}}%
+    \def\@nextsem{\csuse{lecsemnext@#1}}%
+    \def\lecnsemshort{\csuse{lecsemshort@\@nextsem}}%
+    \def\lecnsemverb{\csuse{lecsemverb@\@nextsem}}%
+    \def\lecnsemny{\csuse{lecsemnextny@#1}}%
   }%
 }
 \DeclareOptionX{semester}{\setkeys{lec}{lecsem=#1}}
@@ -460,9 +476,23 @@
 
 % 2.) Term types
 %
-\newcommand*\DefSemType[3]{%
-  \csdef{lecsemshort@#1}{#2}
-  \csdef{lecsemverb@#1}{#3}
+\define@key{semtype}{next}{\csdef{@ltn}{#1}}
+\define@boolkey{semtype}{nextny}[true]{}
+\newcommand*\DefSemType[4][]{%
+  \csdef{@ltn}{}
+  \csdef{lecsemshort@#2}{#3}
+  \csdef{lecsemverb@#2}{#4}
+  \ifx#1\empty
+  \else
+        \setkeys{semtype}{nextny=false}%
+        \setkeys{semtype}{#1}%
+        \ifKV@semtype@newyear
+            \csdef{lecsemnextny@#2}{y}
+        \else
+            \csdef{lecsemnextny@#2}{n}
+        \fi%
+        \protected@csxdef{lecsemnext@#2}{\csuse{@ltn}}%
+  \fi
 }
 %
 % Kept for backwards compatibility
@@ -799,6 +829,24 @@
   \jsbiblist
 }
 
+
+% 3) Next term
+%
+\newcommand*\adjsemester{%
+   \def\lecnyear{\lecyear}%
+   \ifthenelse{\equal{\lecnsemny}{y}}{%
+       \def\lecnyear{\the\numexpr\lecyear+1\relax}%
+   }{}%
+   \lecnsemshort~\lecnyear%
+}
+
+\newcommand*\adjsemesterverb{%
+   \def\lecnyear{\lecyear}%
+   \ifthenelse{\equal{\lecnsemny}{y}}{%
+       \def\lecnyear{\the\numexpr\lecyear+1\relax}%
+   }{}%
+   \lecnsemverb~\lecnyear%
+}
 
 %
 % COURSE SCHEDULE SETUP

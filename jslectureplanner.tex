@@ -488,6 +488,10 @@ of the term type (such as ``Winter\-semester'')
 the semester (e.\,g., ``WS 2014'')
 \item \jcsmacro{lecsemesterverb}: Outputs the verbose version
 of the semester (such as ``Winter\-semester 2014'')
+\item \jcsmacro{adjsemester}: Outputs the short version of
+the semester that \emph{follows} this one (e.\,g., ``SoSe 2015'')
+\item \jcsmacro{adjsemesterverb}: Outputs the verbose version
+of the semester that \emph{follows} this one (such as ``Sommer\-semester 2015'')
 \item \jcsmacro{lecuniversity}: Outputs the university's name
 \item \jcsmacro{lecinstitute}: Outputs the institute's/department's name
 \item \jcsmacro{lecinstructor}: Outputs the (general) instructor's name
@@ -833,12 +837,21 @@ If you need to change or add types, consider the use of styles
 
 The available term (semester) types can be changed and extended via the macro:
 \begin{itemize}
-\item \jcsmacro{DefSemType\{\jparam{key}\}\{\jparam{short form}\}\{\jparam{verbose form}\}}
+\item \jcsmacro{DefSemType[\jparam{options}]\{\jparam{key}\}\{\jparam{short form}\}\{\jparam{verbose form}\}}
 \end{itemize}
-Thus, you could add a new term type ``spring term'' via
+%
+Options are in key-value form and include:
 \begin{itemize}
-\item \jcsmacro{DefSemType\{st\}\{ST\}\{Spring Term\}}
+	\item \joption{next=\jparam{key}}: the key of the semester type that follows this one in the academic cycle. This is
+	      used for \jcsmacro{adjsemester} and \jcsmacro{adjsemesterverb}.
+	\item \joption{nextny=\jparam{true|false}}: if true, the semester that follows this one is in a different year. This is
+	      used for \jcsmacro{adjsemester} and \jcsmacro{adjsemesterverb}.
 \end{itemize}
+Thus, you could add a new term types ``spring term'' and ``autumn term'' via
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{DefSemType}}]
+\DefSemType[next=at]{st}{ST}{Spring Term}
+\DefSemType[next=st,nextny=true]{at}{AT}{Autumn Term}
+\end{lstlisting}
 
 \subsection{Customizing the date and time format}\label{sec:custdate}
 
@@ -1169,6 +1182,8 @@ the \jslp\ style files. Thanks, Dominik.
 \begin{itemize}
 \item forthcoming (v. 1.8):
 	\begin{itemize}
+		\item Add support for displaying the next semester (\jcsmacro{AdjSem} and
+		      \jcsmacro{AdjSemVerb}).
 		\item Add support for lecture and session start time, duration and thus also end time
 		      calculation.
 		\item Add unstyled date formats which allow preceding \jfcsmacro{DTMsetdatestyle}
