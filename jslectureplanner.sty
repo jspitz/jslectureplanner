@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2019/02/04}
+\def\filedate{2019/02/06}
 \def\fileversion{1.8dev}
 \def\filename{jslectureplanner.sty}
 
@@ -62,6 +62,8 @@
 \def\lecroom{}
 \def\lecstartdate{}
 \def\lecstarttime{}
+\def\@lecstarttime{}
+\def\lecduration{90}
 \def\lecinstructor{}
 \def\lecshortinstructor{}
 
@@ -171,6 +173,8 @@
 \newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
 % Session topic placeholder
 \newcommand*\sestopic{Thema~\thesestopic}
+% Time slot
+\newcommand*\jstimeslot[2]{#1\,--\,#2}
 
 
 %
@@ -243,7 +247,8 @@
 \define@key{lec}{officenumber}{\def\officenumber{#1}}
 \define@key{lec}{room}{\def\lecroom{#1}}
 \define@key{lec}{startdate}{\def\lecstartdate{#1}}
-\define@key{lec}{starttime}{\def\lecstarttime{\DTMtime{#1}}}
+\define@key{lec}{starttime}{\def\@lecstarttime{#1}\def\lecstarttime{\DTMtime{#1}}}
+\define@key{lec}{duration}{\def\lecduration{#1}}
 \define@key{lec}{instructor}{\def\lecinstructor{#1}%
     \ifx\lecshortinstructor\empty\def\lecshortinstructor{#1}\fi}
 \define@key{lec}{shortinstructor}{%
@@ -303,6 +308,7 @@
 \newcommand*{\LecRoom}[1]{\setkeys{lec}{room={#1}}}
 \newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
 \newcommand*{\LecStartTime}[1]{\setkeys{lec}{starttime=#1}}
+\newcommand*{\LecDuration}[1]{\setkeys{lec}{duration=#1}}
 \newcommand*{\LecInstructor}[2][\empty]{%
     \ifx#1\empty
         \setkeys{lec}{instructor={#2}}%
@@ -315,12 +321,59 @@
 
 
 %
+% END TIME CALCULATION
+%
+% Courtesy of Christian Hupfer at
+% https://tex.stackexchange.com/a/473552/19291
+\RequirePackage{xparse}
+
+\ExplSyntaxOn
+\cs_generate_variant:Nn \int_set:Nn {NV}
+\cs_generate_variant:Nn \seq_set_split:Nnn {NVn,NVV}
+
+\NewDocumentCommand{\jslp@endtime}{+m+m}{%
+  \group_begin:
+  \tl_set:Nx \l_tmpa_tl {#1}
+  \seq_set_split:NVV \l_tmpa_seq {\c_colon_str} \l_tmpa_tl
+  \exp_args:NNx \fp_set:Nn \l_tmpa_fp {\seq_item:Nn \l_tmpa_seq {1} * 3600 + \seq_item:Nn \l_tmpa_seq {2} * 60 + \seq_item:Nn \l_tmpa_seq {3}  }
+  \exp_args:NNx \fp_set:Nn \l_tmpb_fp {#2 * 60}
+  \fp_add:Nn \l_tmpa_fp {#2 * 60} 
+  \tl_clear:N \l_tmpa_tl 
+  % Compute hours
+  \exp_args:NNx \int_set:Nn \l_tmpa_int {\int_div_truncate:nn {\fp_use:N \l_tmpa_fp}{3600}}
+  \int_compare:nNnTF {\l_tmpa_int } > {23} {% After midnight?
+    \exp_args:NNx \int_set:Nn \l_tmpb_int {\int_mod:nn {\l_tmpa_int } {24}}
+  }{%
+    \int_set_eq:NN \l_tmpb_int \l_tmpa_int
+  }
+  \tl_put_right:NV \l_tmpa_tl {\l_tmpb_int\c_colon_str}
+
+  % Remaining seconds, split them into minutes and seconds 
+  \int_set:Nn \l_tmpa_int {\fp_use:N \l_tmpa_fp}
+
+  \exp_args:NNx \int_set:Nn \l_tmpb_int {\int_mod:nn {\l_tmpa_int}{3600}}
+  \exp_args:NNx \int_set:Nn \l_tmpb_int {\int_div_truncate:nn {\l_tmpb_int}{60}}
+  \tl_put_right:NV \l_tmpa_tl {\l_tmpb_int\c_colon_str}
+  % Finally splitting: Seconds
+  \exp_args:NNx \int_set:Nn \l_tmpa_int {\int_mod:nn {\l_tmpa_int}{60}}
+  \tl_put_right:NV \l_tmpa_tl {\l_tmpa_int}
+  % Display output:
+  \exp_args:NV \DTMtime{\l_tmpa_tl}
+  \group_end:
+}
+
+\ExplSyntaxOff
+
+
+%
 % CONCATENATED VARIABLES
 %
 \def\lecsemester{\lecsemshort~\lecyear}
 \def\lecsemesterverb{\lecsemverb\ \lecyear}
 \def\lecfulltitle{\lectitle\lectitlesep\lecsubtitle}
 \def\sesfulltitle{\sestitle\sestitlesep\sessubtitle}
+\def\lecendtime{\jslp@endtime{\@lecstarttime}{\lecduration}}
+\newcommand*\lecslot{\jstimeslot{\lecstarttime}{\lecendtime}}
 
 
 %
@@ -759,7 +812,8 @@
 \define@key{session}{shorttitle}{\csdef{@sesshorttitle}{{#1}}\csdef{@usesshorttitle}{{#1}}}
 \define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
 \define@key{session}{room}{\csdef{@sesroom}{{#1}}}
-\define@key{session}{starttime}{\csdef{@sestime}{\DTMtime{#1}}}
+\define@key{session}{starttime}{\csdef{@sesrtime}{#1}\csdef{@sestime}{\DTMtime{#1}}}
+\define@key{session}{duration}{\csdef{@sesduration}{#1}}
 \define@key{session}{instructor}{%
     \csdef{@sesinstructor}{{#1}}\csdef{@usesinstructor}{{#1}}%
     \iftoggle{shortinstrdef}{}{\csdef{@sesshortinstructor}{{#1}}\csdef{@usesshortinstructor}{{#1}}}}
@@ -784,6 +838,8 @@
   \csdef{@sesbibsec}{}
   \csdef{@sesroom}{\lecroom}
   \csdef{@sestime}{\lecstarttime}
+  \csdef{@sesrtime}{\@lecstarttime}
+  \csdef{@sesduration}{\lecduration}
   \csdef{@sesinstructor}{\lecinstructor}
   \csdef{@sesshortinstructor}{\lecshortinstructor}
   \csdef{@usesinstructor}{}
@@ -829,6 +885,8 @@
   \protected@csxdef{sesbib\thesnum}{\csuse{@sesbibsec}}
   \protected@csxdef{sesroom\thesnum}{\csuse{@sesroom}}
   \protected@csxdef{sestime\thesnum}{\csuse{@sestime}}
+  \protected@csxdef{sesrtime\thesnum}{\csuse{@sesrtime}}
+  \protected@csxdef{sesduration\thesnum}{\csuse{@sesduration}}
   \protected@csxdef{sesinstructor\thesnum}{\csuse{@sesinstructor}}
   \protected@csxdef{sesshortinstructor\thesnum}{\csuse{@sesshortinstructor}}
   \protected@csxdef{usesinstructor\thesnum}{\csuse{@usesinstructor}}
@@ -1091,6 +1149,8 @@
   \gdef\sessubtitle{\csuse{sessubtitle#1}}%
   \gdef\sesroom{\csuse{sesroom#1}}%
   \gdef\sesstarttime{\csuse{sestime#1}}%
+  \gdef\sesendtime{\jslp@endtime{\csuse{sesrtime#1}}{\csuse{sesduration#1}}}%
+  \gdef\sesslot{\jstimeslot{\sesstarttime}{\sesendtime}}%
   \gdef\@sesinstructor{\csuse{sesinstructor#1}}%
   \gdef\@sesshortinstructor{\csuse{sesshortinstructor#1}}%
   \gdef\@usesinstructor{\csuse{usesinstructor#1}}%
@@ -1128,6 +1188,8 @@
   \gdef\lsessubtitle{\csuse{sessubtitle#1}}%
   \gdef\lsesroom{\csuse{sesroom#1}}%
   \gdef\lsesstarttime{\csuse{sestime#1}}%
+  \gdef\lsesendtime{\jslp@endtime{\csuse{sesrtime#1}}{\csuse{sesduration#1}}}%
+  \gdef\lsesslot{\jstimeslot{\lsesstarttime}{\lsesendtime}}%
   \gdef\@lsesinstructor{\csuse{sesinstructor#1}}%
   \gdef\@lsesshortinstructor{\csuse{sesshortinstructor#1}}%
   \gdef\@lusesinstructor{\csuse{usesinstructor#1}}%
@@ -1193,6 +1255,16 @@
 \newcommand*\SessionStartTime[1]{%
   \LocalSession{#1}%
   \lsesstarttime%
+}
+% End Time
+\newcommand*\SessionEndTime[1]{%
+  \LocalSession{#1}%
+  \lsesendtime%
+}
+% Time Slot
+\newcommand*\SessionTimeSlot[1]{%
+  \LocalSession{#1}%
+  \lsesslot%
 }
 
 % Room
@@ -1296,6 +1368,20 @@
   \ifnum0<0\sesnr\relax
     \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
     \SessionStartTime{\theadjsession}%
+  \fi
+}
+% Time
+\newcommand*\AdjSessionEndTime[1][1]{%
+  \ifnum0<0\sesnr\relax
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionEndTime{\theadjsession}%
+  \fi
+}
+% Time
+\newcommand*\AdjSessionTimeSlot[1][1]{%
+  \ifnum0<0\sesnr\relax
+    \setcounter{adjsession}{\numexpr\sesnr+#1\relax}%
+    \SessionTimeSlot{\theadjsession}%
   \fi
 }
 % Short title
