@@ -68,7 +68,7 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.8 (forthcoming):  - Add extradate option to \NewSession to support fix dates.
+* V. 1.8 (2019-02-06):   - Add extradate option to \NewSession to support fix dates.
                          - Add possibility to enter exam dates that are not added to
                            the standard program (option exam of \NewSession).
 		           Also add macros to display them separately (\makeexamprogram,
