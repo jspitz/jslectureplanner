@@ -348,34 +348,34 @@
 \cs_generate_variant:Nn \seq_set_split:Nnn {NVn,NVV}
 
 \NewDocumentCommand{\jslp@endtime}{+m+m}{%
-  \group_begin:
-  \tl_set:Nx \l_tmpa_tl {#1}
-  \seq_set_split:NVV \l_tmpa_seq {\c_colon_str} \l_tmpa_tl
-  \exp_args:NNx \fp_set:Nn \l_tmpa_fp {\seq_item:Nn \l_tmpa_seq {1} * 3600 + \seq_item:Nn \l_tmpa_seq {2} * 60 + \seq_item:Nn \l_tmpa_seq {3}  }
-  \exp_args:NNx \fp_set:Nn \l_tmpb_fp {#2 * 60}
-  \fp_add:Nn \l_tmpa_fp {#2 * 60} 
-  \tl_clear:N \l_tmpa_tl 
-  % Compute hours
-  \exp_args:NNx \int_set:Nn \l_tmpa_int {\int_div_truncate:nn {\fp_use:N \l_tmpa_fp}{3600}}
-  \int_compare:nNnTF {\l_tmpa_int } > {23} {% After midnight?
-    \exp_args:NNx \int_set:Nn \l_tmpb_int {\int_mod:nn {\l_tmpa_int } {24}}
-  }{%
-    \int_set_eq:NN \l_tmpb_int \l_tmpa_int
-  }
-  \tl_put_right:NV \l_tmpa_tl {\l_tmpb_int\c_colon_str}
+	\group_begin:
+	\tl_set:Nx \l_tmpa_tl {#1}
+	\seq_set_split:NVV \l_tmpa_seq {\c_colon_str} \l_tmpa_tl
+	\exp_args:NNx \fp_set:Nn \l_tmpa_fp {\seq_item:Nn \l_tmpa_seq {1} * 3600 + \seq_item:Nn \l_tmpa_seq {2} * 60 + \seq_item:Nn \l_tmpa_seq {3}  }
+	\exp_args:NNx \fp_set:Nn \l_tmpb_fp {#2 * 60}
+	\fp_add:Nn \l_tmpa_fp {#2 * 60} 
+	\tl_clear:N \l_tmpa_tl 
+	% Compute hours
+	\exp_args:NNx \int_set:Nn \l_tmpa_int {\int_div_truncate:nn {\fp_use:N \l_tmpa_fp}{3600}}
+	\int_compare:nNnTF {\l_tmpa_int } > {23} {% After midnight?
+	  \exp_args:NNx \int_set:Nn \l_tmpb_int {\int_mod:nn {\l_tmpa_int } {24}}
+	}{%
+	  \int_set_eq:NN \l_tmpb_int \l_tmpa_int
+	}
+	\tl_put_right:NV \l_tmpa_tl {\l_tmpb_int\c_colon_str}
 
-  % Remaining seconds, split them into minutes and seconds 
-  \int_set:Nn \l_tmpa_int {\fp_use:N \l_tmpa_fp}
+	% Remaining seconds, split them into minutes and seconds 
+	\int_set:Nn \l_tmpa_int {\fp_use:N \l_tmpa_fp}
 
-  \exp_args:NNx \int_set:Nn \l_tmpb_int {\int_mod:nn {\l_tmpa_int}{3600}}
-  \exp_args:NNx \int_set:Nn \l_tmpb_int {\int_div_truncate:nn {\l_tmpb_int}{60}}
-  \tl_put_right:NV \l_tmpa_tl {\l_tmpb_int\c_colon_str}
-  % Finally splitting: Seconds
-  \exp_args:NNx \int_set:Nn \l_tmpa_int {\int_mod:nn {\l_tmpa_int}{60}}
-  \tl_put_right:NV \l_tmpa_tl {\l_tmpa_int}
-  % Display output:
-  \exp_args:NV \DTMtime{\l_tmpa_tl}
-  \group_end:
+	\exp_args:NNx \int_set:Nn \l_tmpb_int {\int_mod:nn {\l_tmpa_int}{3600}}
+	\exp_args:NNx \int_set:Nn \l_tmpb_int {\int_div_truncate:nn {\l_tmpb_int}{60}}
+	\tl_put_right:NV \l_tmpa_tl {\l_tmpb_int\c_colon_str}
+	% Finally splitting: Seconds
+	\exp_args:NNx \int_set:Nn \l_tmpa_int {\int_mod:nn {\l_tmpa_int}{60}}
+	\tl_put_right:NV \l_tmpa_tl {\l_tmpa_int}
+	% Display output:
+	\exp_args:NV \DTMtime{\l_tmpa_tl}
+	\group_end:
 }
 
 \ExplSyntaxOff
