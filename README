@@ -83,8 +83,8 @@ instructions; also have a look at the example files.
                            (the short and long date formats would override such settings).
                          - Add support for lecture and session start time, duration and thus
                            also end time calculation.
-                         - Add support for displaying the next semester (\AdjSem and
-                           \AdjSemVerb).
+                         - Add support for displaying the next semester (\adjsemester and
+                           \adjsemesterverb).
 
 * V. 1.7 (2018-12-14):   - Allow options in \makebeamerprogram also with blocksonly.
                          - Add overlayarg option to \makebeamerprogram.
