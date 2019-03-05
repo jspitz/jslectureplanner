@@ -72,7 +72,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.8, 2019/02/06}
+\date{Version 1.9dev, 2019/03/05}
 
 \maketitle
 
@@ -437,10 +437,10 @@ Possible \jmacro{\jparam{options}} are:
 \end{itemize}
 \item \jcsmacro{SetLecOffset\{\jparam{n}\}}: Shift the date of all subsequent sessions by \jparam{n} days.
     \jparam{n} can also be negative.
-\item \jcsmacro{SetBeamerFrameBreak}: Add a frame break in
-the beamer program at this position (more precisely, start a new frame).
-This also increments the frame counter which is used for subsequent program
-frame titles. Note that you can insert maximally 3 breaks.
+\item \jcsmacro{SetBeamerFrameBreak}: Add a frame break in the beamer program at this position
+    (more precisely, start a new frame; see sec.~\ref{sec:lecprog} for details).
+    This also increments the frame counter which is used for subsequent program
+    frame titles. Note that you can insert maximally 3 breaks.
 \item \jcsmacro{SetBeamerHook\{\jparam{code}\}}: Add arbitrary LaTeX code to the
 beamer program
 \item \jcsmacro{begin\{SessionBlock\}\{\jparam{Block title}\}}\\
@@ -545,14 +545,18 @@ a beamer-suited lecture program from the metadata in the form
 \end{frame}
 \end{lstlisting}
 
-Note that multiple subsequent frames (not just slides) are generated if the metadata
-file contains \jcsmacro{SetBeamerFrameBreak} macros.
-Also note that you can refer to the frames via the automatically generated
-labels \emph{beamerprogram} (for the first frame), \emph{beamerprogram2}
-for the second, etc. Finally note that the number of program frames
-is currently limited to 4. If you need more, you should probably rethink
-your program structure.
-
+Note that 
+\begin{itemize}
+	\item multiple subsequent frames (not just slides) are generated if the metadata
+	      file contains \jcsmacro{SetBeamerFrameBreak} macros (this is because beamer frame breaks
+	      via \jfoption{allowframebreaks} and \jfcsmacro{framebreak} do not allow for overlays).
+	\item you can refer to the frames via the automatically generated
+	      labels \emph{beamerprogram} (for the first frame), \emph{beamerprogram2}
+	       for the second, etc. 
+	\item the number of program frames is currently limited to 4. If you need more, you should probably rethink
+	      your program structure.
+\end{itemize}
+%
 \joption{\jparam{options}} include
 \begin{itemize}
 \item \joption{title=\jparam{title}}: Program title (\jparam{Heading})
@@ -1180,6 +1184,10 @@ the \jslp\ style files. Thanks, Dominik.
 \section{Release History}
 
 \begin{itemize}
+\item Forthcoming (v. 1.9):
+	\begin{itemize}
+		\item Allow \jcsmacro{SetBeamerFrameBreak} within \joption{SessionBlock}.
+	\end{itemize}
 \item 2019/02/06 (v. 1.8):
 	\begin{itemize}
 		\item Add support for displaying the next semester (macros \jcsmacro{adjsemester} and
