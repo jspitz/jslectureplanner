@@ -1074,12 +1074,12 @@
   \StartBlock{#1}
 }
 
-\newcommand*\PauseBlock{%
+\newcommand*\@PauseBlock{%
   \gappto\programlist{\end{labeling}}
   \gappto\programlistbeamer{\end{description}}
 }
 
-\newcommand*\ResumeBlock{%
+\newcommand*\@ResumeBlock{%
   % the \item here is necessary since this is nested immediately into another list
   \gappto\programlist{\item \begin{labeling}{\lecprogramlistindent}}%
   \gappto\programlistbeamer{\item \begin{description}[\lecprogramlistindent]}
@@ -1091,7 +1091,7 @@
 %
 % Beamer frame breaks
 \newcommand*\SetBeamerFrameBreak{%
-  \iftoggle{inblock}{\PauseBlock}{}%
+  \iftoggle{inblock}{\@PauseBlock}{}%
   \stepcounter{fbreaks}
   \ifdefined\programlistbeamerii
      \ifdefined\programlistbeameriii
@@ -1103,7 +1103,7 @@
     \global\let\programlistbeamerii\programlistbeamer
   \fi
   \global\let\programlistbeamer\empty
-  \iftoggle{inblock}{\ResumeBlock}{}%
+  \iftoggle{inblock}{\@ResumeBlock}{}%
 }
 
 % Beamer program hook
