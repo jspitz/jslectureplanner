@@ -23,8 +23,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2019/02/06}
-\def\fileversion{1.8}
+\def\filedate{2019/03/05}
+\def\fileversion{1.9dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -1046,6 +1046,7 @@
 
 % 3) Definition of thematic blocks
 %
+\newtoggle{inblock}
 \newcommand*\StartBlock[1]{%
   \stepcounter{blocks}%
   \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
@@ -1057,6 +1058,7 @@
   \protected@xappto\programblocklistbeamer{\noexpand\item[{\Roman{blocks}}.] #1}%
   \csxdef{@currentblock}{#1}%
   \csxdef{@currentblockno}{\Roman{blocks}}%
+  \global\toggletrue{inblock}%
 }
 
 \newcommand*\EndBlock{%
@@ -1064,11 +1066,23 @@
   \gappto\programlistbeamer{\end{description}}
   \csxdef{@currentblock}{}%
   \csxdef{@currentblockno}{}%
+  \global\togglefalse{inblock}%
 }
 
 \newcommand*\NewBlock[1]{%
   \EndBlock
   \StartBlock{#1}
+}
+
+\newcommand*\PauseBlock{%
+  \gappto\programlist{\end{labeling}}
+  \gappto\programlistbeamer{\end{description}}
+}
+
+\newcommand*\ResumeBlock{%
+  % the \item here is necessary since this is nested immediately into another list
+  \gappto\programlist{\item \begin{labeling}{\lecprogramlistindent}}%
+  \gappto\programlistbeamer{\item \begin{description}[\lecprogramlistindent]}
 }
 
 \newenvironment{SessionBlock}[1]{\StartBlock{#1}}{\EndBlock}
@@ -1077,17 +1091,19 @@
 %
 % Beamer frame breaks
 \newcommand*\SetBeamerFrameBreak{%
+  \iftoggle{inblock}{\PauseBlock}{}%
   \stepcounter{fbreaks}
-  \@ifundefined{programlistbeamerii}{%
+  \ifdefined\programlistbeamerii
+     \ifdefined\programlistbeameriii
+        \global\let\programlistbeameriv\programlistbeamer
+     \else
+       \global\let\programlistbeameriii\programlistbeamer
+     \fi
+  \else%
     \global\let\programlistbeamerii\programlistbeamer
-  }{%
-    \@ifundefined{programlistbeameriii}{%
-      \global\let\programlistbeameriii\programlistbeamer
-    }{%
-      \global\let\programlistbeameriv\programlistbeamer
-    }
-  }
+  \fi
   \global\let\programlistbeamer\empty
+  \iftoggle{inblock}{\ResumeBlock}{}%
 }
 
 % Beamer program hook
