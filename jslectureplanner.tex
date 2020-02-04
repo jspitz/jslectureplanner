@@ -312,12 +312,21 @@ your university
       Default is 90.
 \item \jcsmacro{LecInterval\{\jparam{interval}\}}: Adjust the interval (in days) between two sessions.
       The preset interval is 7 (=~weekly courses).
-\item \jcsmacro{SetAutoOffset\{\jparam{n}\}\{\jparam{days}\}}: Automatically shift all subsequent sessions
-      by \jparam{days} extra  days after every \jparam{n}th session. This is useful if you have each week
-      two regular sessions and then a pause until the next week (for instance, a Tuesday +
-      Thursday course could be defined via \jcsmacro{LecInterval\{2\}} and 
-      \jcsmacro{SetAutoOffset\{2\}\{3\}}). \jparam{n} must be a positive integer, \jparam{days} can 
-      also be a negative integer value.
+\item \jcsmacro{SetAutoOffset[\jparam{first}]\{\jparam{n}\}\{\jparam{days}\}}:
+ Automatically shift all subsequent sessions
+      by \jparam{days} extra days after every \jparam{n}th session,
+      counting the first session as the \jparam{first}th session for
+      this purpose. This is useful if your course meets multiple times
+      a week. For instance, a course meeting Tuesdays and Thursdays
+      could be defined via \jcsmacro{LecInterval\{2\}} and
+      \jcsmacro{SetAutoOffset\{2\}\{3\}}), a course meeting Monday,
+      Wednesday, Friday using \jcsmacro{LecInterval\{2\}} and
+      \jcsmacro{SetAutoOffset\{3\}\{1\}}. \jparam{n} must be a
+      positive integer, \jparam{days} can also be a negative integer
+      value. Use the optional \jparam{first} if the first session in
+      the course is not the first session in a group. For instance, if
+      your course meets Monday/Wednesday/Friday but the first day of
+      term is a Friday, use \jcsmacro{SetAutoOffset[2]\{3\}\{1\}}.
 \end{itemize}
 
 \subsubsection{Additional information}\label{ses-add}

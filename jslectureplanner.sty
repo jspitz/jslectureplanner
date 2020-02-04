@@ -1039,9 +1039,10 @@
 }
 
 % Automatic Offset after n sessions
-\newcommand*\SetAutoOffset[2]{%
-    \setcounter{autooffsettrigger}{#1}
-    \setcounter{autooffset}{#2}
+\newcommand*{\SetAutoOffset}[3][1]{%
+    \setcounter{autooffsetcounter}{#1}
+    \setcounter{autooffsettrigger}{#2}
+    \setcounter{autooffset}{#3}
 }
 
 % 3) Definition of thematic blocks
