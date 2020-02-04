@@ -68,7 +68,9 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.9 (forthcoming):  - Allow \SetBeamerFrameBreak within SessionBlock.
+* V. 1.9 (2020-02-04):   - Allow \SetBeamerFrameBreak within SessionBlock.
+                         - Fix \SetAutoOffset at first session and add optional argument
+		            to alter first session (fix contributed by Richard Zach).
 
 * V. 1.8 (2019-02-06):   - Add extradate option to \NewSession to support fix dates.
                          - Add possibility to enter exam dates that are not added to

@@ -72,7 +72,7 @@
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.9dev, 2019/03/05}
+\date{Version 1.9, 2020/02/04}
 
 \maketitle
 
@@ -313,13 +313,13 @@ your university
 \item \jcsmacro{LecInterval\{\jparam{interval}\}}: Adjust the interval (in days) between two sessions.
       The preset interval is 7 (=~weekly courses).
 \item \jcsmacro{SetAutoOffset[\jparam{first}]\{\jparam{n}\}\{\jparam{days}\}}:
- Automatically shift all subsequent sessions
+      Automatically shift all subsequent sessions
       by \jparam{days} extra days after every \jparam{n}th session,
       counting the first session as the \jparam{first}th session for
       this purpose. This is useful if your course meets multiple times
       a week. For instance, a course meeting Tuesdays and Thursdays
       could be defined via \jcsmacro{LecInterval\{2\}} and
-      \jcsmacro{SetAutoOffset\{2\}\{3\}}), a course meeting Monday,
+      \jcsmacro{SetAutoOffset\{2\}\{3\}}, a course meeting Monday,
       Wednesday, Friday using \jcsmacro{LecInterval\{2\}} and
       \jcsmacro{SetAutoOffset\{3\}\{1\}}. \jparam{n} must be a
       positive integer, \jparam{days} can also be a negative integer
@@ -1177,7 +1177,7 @@ linked to \jslp's \jcsmacro{lectypesession} value if
 I could not have written the packages of the \jslp\ bundle without the expertise of the incredible \LaTeX\
 community. The packages heavily rely on functions and features
 provided by other packages (which are listed in sec.~\ref{sec:req-jslp} and \ref{sec:req-jsmt}).
-I am deeply indepted to the authors of those packages.
+I am deeply indebted to the authors of those packages.
 Furthermore, \emph{stackexchange} proved to be a great source of knowledge which
 provided me with solutions for specific tasks:
 \jsmt\ heavily draws on code for dynamic table generation that has been
@@ -1186,16 +1186,20 @@ use code to test for \jfcsmacro{romannumeral} arguments which has been taken fro
 a \emph{stackexchange} post by Enrico Gregorio (\url{http://tex.stackexchange.com/a/50131}).
 The time span calculation uses code provided by Christian Hupfer at
 \url{https://tex.stackexchange.com/a/473552/19291}.
-Thank you, Herbert, Enrico and Christian! Finally, Dominik Waßenhoven tested the package and provided
+Thank you, Herbert, Enrico and Christian!
+Richard Zach provided a fix and enhancement to \jcsmacro{SetAutoOffset}. Many thanks for this.
+Finally, Dominik Waßenhoven tested the package and provided
 me with multiple suggestions, which effectively manifested in major new features such as
 the \jslp\ style files. Thanks, Dominik.
 
 \section{Release History}
 
 \begin{itemize}
-\item Forthcoming (v. 1.9):
+\item 2020/02/04 (v. 1.9):
 	\begin{itemize}
 		\item Allow \jcsmacro{SetBeamerFrameBreak} within \joption{SessionBlock}.
+		\item Fix \jcsmacro{SetAutoOffset} at first session and add optional argument
+		      to alter first session (fix contributed by Richard Zach).
 	\end{itemize}
 \item 2019/02/06 (v. 1.8):
 	\begin{itemize}
