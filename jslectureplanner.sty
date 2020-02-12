@@ -23,8 +23,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2020/02/04}
-\def\fileversion{1.9}
+\def\filedate{2020/02/12}
+\def\fileversion{1.10dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -874,7 +874,7 @@
 %
 \newcommand*\NewSession[2][]{%
   \stepcounter{sesunit}
-  \stepcounter{sestopic}
+  \setcounter{sestopic}{\thesesunit-\thecancellations}
   \setcounter{snum}{\thesesunit-\thecancellations}
   \protected@csxdef{sesnr\thesnum}{\thesnum}
   \togglefalse{shortinstrdef}

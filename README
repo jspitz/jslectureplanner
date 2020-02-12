@@ -68,6 +68,9 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
+* V. 1.10 (forthcoming): - Do not increment session topic counter for cancelled sessions
+                           and breaks.
+
 * V. 1.9 (2020-02-04):   - Allow \SetBeamerFrameBreak within SessionBlock.
                          - Fix \SetAutoOffset at first session and add optional argument
 		            to alter first session (fix contributed by Richard Zach).
