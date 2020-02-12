@@ -869,12 +869,12 @@
 \define@key{session}{presstudents}{\csdef{@sespresstudents}{{#1}}}
 \define@boolkey{session}{cancel}[true]{}
 \define@boolkey{session}{draft}[true]{}
+\define@key{session}{topicnumber}{\setcounter{sestopic}{#1-1}}
 \define@key{session}{extradate}{\csdef{@xsesdate}{#1}}
 \define@boolkey{session}{exam}[true]{}
 %
 \newcommand*\NewSession[2][]{%
   \stepcounter{sesunit}
-  \setcounter{sestopic}{\thesesunit-\thecancellations}
   \setcounter{snum}{\thesesunit-\thecancellations}
   \protected@csxdef{sesnr\thesnum}{\thesnum}
   \togglefalse{shortinstrdef}
@@ -963,6 +963,7 @@
           \noexpand\printbibliography[keyword=\csuse{sesbib\thesnum},heading=none]}%
         }%
     \else
+        \stepcounter{sestopic}
         \ifKV@session@draft
             \ifcsempty{@sestitle}{\protected@csxdef{sestitle\thesnum}{\sestopic}}{}
         \fi

@@ -70,6 +70,7 @@ instructions; also have a look at the example files.
 
 * V. 1.10 (forthcoming): - Do not increment session topic counter for cancelled sessions
                            and breaks.
+                         - Add session option topicnumber to reset topic number in draft mode.
 
 * V. 1.9 (2020-02-04):   - Allow \SetBeamerFrameBreak within SessionBlock.
                          - Fix \SetAutoOffset at first session and add optional argument

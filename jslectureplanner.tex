@@ -357,6 +357,9 @@ Valid \joption{\jparam{options}} include:
 \item \joption{draft=\jparam{true|false}}: If \joption{true}, a placeholder text (by default: ``Thema \jparam{n}'',
     see sec.~\ref{sec:misccust}) will be output if no session title is defined.
     This might be handy for planning the schedule.
+\item \joption{topicnumber=\jparam{n}}: In draft mode, reset the current topic number of this session to \jparam{n}.
+    All subsequent topics will be calculated from this unless reset again. This might be useful if only part of
+    the schedule is still drafted.
 \item \joption{titlesep=\jparam{separator}}: Separator between session title and
     subtitle (e.\,g., \verb|titlesep={.\ }|); this overrides any global separator set via \joption{sestitlesep} option
     or \jcsmacro{SessionTitleSep} macro for the current session
@@ -1198,6 +1201,7 @@ the \jslp\ style files. Thanks, Dominik.
 \item forthcoming (v. 1.10):
 	\begin{itemize}
 		\item Do not increment session topic counter for cancelled sessionsand breaks.
+		\item Add session option \joption{topicnumber} to reset topic number in draft mode.
 	\end{itemize}
 \item 2020/02/04 (v. 1.9):
 	\begin{itemize}
