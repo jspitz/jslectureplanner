@@ -68,7 +68,7 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.10 (2020-02-30):  - Do not increment session topic counter for cancelled sessions
+* V. 1.10 (2020-04-30):  - Do not increment session topic counter for cancelled sessions
                            and breaks.
                          - Add session option topicnumber to reset topic number in draft mode.
                          - Recode manual in utf8.
