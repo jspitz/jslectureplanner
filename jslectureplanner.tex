@@ -29,7 +29,7 @@
 \usepackage[osf]{libertine}
 \usepackage[scaled=0.7]{beramono}
 \usepackage[T1]{fontenc}
-\usepackage[latin9]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{url}
 
 % markup
@@ -69,7 +69,7 @@
 
 \title{The \jslp\ bundle}
 
-\author{Jürgen Spitzmüller%
+\author{JÃ¼rgen SpitzmÃ¼ller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
 \date{Version 1.10dev, 2020/02/12}
@@ -189,7 +189,7 @@ in ``the second \emph{session} of this course'').
       short form: \emph{PS}, session form: \emph{Sitzung})
 \item \joption{se}: Seminar (verbose form: \emph{Seminar}, short form:
       \emph{SE}, session form: \emph{Sitzung})
-\item \joption{ue}: Practical course (verbose form: \emph{Übung}, short
+\item \joption{ue}: Practical course (verbose form: \emph{Ãœbung}, short
       form: \emph{UE}, session form: \emph{Sitzung})
 \item \joption{ko}: Colloquium (verbose form: \emph{Kolloquium}, short form:
       \emph{KO}, session form: \emph{Sitzung})
@@ -215,7 +215,7 @@ Please also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
 \item [\joption{semester=\jparam{term}},] where \joption{\jparam{term}} is one of
 
 \begin{itemize}
-\item \joption{fs}: Spring term (\emph{Frühjahrssemester}, short form: \emph{FS})
+\item \joption{fs}: Spring term (\emph{FrÃ¼hjahrssemester}, short form: \emph{FS})
 \item \joption{hs}: Fall term (\emph{Herbstsemester}, short form: \emph{HS})
 \item \joption{ss}: Summer term (\emph{Sommersemester}, short form: \emph{SoSe})
 \item \joption{ws}: Winter term (\emph{Wintersemester}, short form: \emph{WS})
@@ -271,7 +271,7 @@ description.}
 \item \joption{vl}: Lecture (\emph{Vorlesung})
 \item \joption{ps}: Undergraduate seminar (\emph{Proseminar})
 \item \joption{se}: Seminar (\emph{Seminar})
-\item \joption{ue}: Practical course (\emph{Übung})
+\item \joption{ue}: Practical course (\emph{Ãœbung})
 \item \joption{ko}: Colloquium (\emph{Kolloquium})
 \item \joption{pv}: Research seminar (\emph{Privatissimum})
 \end{itemize}
@@ -295,7 +295,7 @@ year of the course; \joption{\jparam{term}} is one of\footnote{See above sec.~\r
 description.}
 
 \begin{itemize}
-\item \joption{fs}: Spring term (\emph{Frühjahrssemester})
+\item \joption{fs}: Spring term (\emph{FrÃ¼hjahrssemester})
 \item \joption{hs}: Fall term (\emph{Herbstsemester})
 \item \joption{ss}: Summer term (\emph{Sommersemester})
 \item \joption{ws}: Winter term (\emph{Wintersemester})
@@ -950,11 +950,11 @@ Currently, the package ships three styles:
      This style can be used as a basis for English styles. The English examples
      included in the \jslp\ bundle use this style.
   \item \joption{cologne} provides some specifics current at the University of Cologne
-     (\emph{Universität zu Köln}):
+     (\emph{UniversitÃ¤t zu KÃ¶ln}):
      \begin{itemize}
       \item Additional course types: \joption{ak} (AK, \emph{Arbeitskurs}),
-      \joption{as} (AS, \emph{Aufbauseminar}), \joption{es} (ES, \emph{Einführungsseminar}),
-      \joption{evl} (EVL, \emph{Einführungsvorlesung}), \joption{hs} (HS, \emph{Hauptseminar}).
+      \joption{as} (AS, \emph{Aufbauseminar}), \joption{es} (ES, \emph{EinfÃ¼hrungsseminar}),
+      \joption{evl} (EVL, \emph{EinfÃ¼hrungsvorlesung}), \joption{hs} (HS, \emph{Hauptseminar}).
      \end{itemize}
      
 \end{enumerate}
@@ -1191,7 +1191,7 @@ The time span calculation uses code provided by Christian Hupfer at
 \url{https://tex.stackexchange.com/a/473552/19291}.
 Thank you, Herbert, Enrico and Christian!
 Richard Zach provided a fix and enhancement to \jcsmacro{SetAutoOffset}. Many thanks for this.
-Finally, Dominik Waßenhoven tested the package and provided
+Finally, Dominik WaÃŸenhoven tested the package and provided
 me with multiple suggestions, which effectively manifested in major new features such as
 the \jslp\ style files. Thanks, Dominik.
 
@@ -1200,7 +1200,8 @@ the \jslp\ style files. Thanks, Dominik.
 \begin{itemize}
 \item forthcoming (v. 1.10):
 	\begin{itemize}
-		\item Do not increment session topic counter for cancelled sessionsand breaks.
+		\item Do not increment session topic counter for cancelled sessions
+and breaks.
 		\item Add session option \joption{topicnumber} to reset topic number in draft mode.
 	\end{itemize}
 \item 2020/02/04 (v. 1.9):
@@ -1314,7 +1315,7 @@ the \jslp\ style files. Thanks, Dominik.
        \item Fix expansion issue in \joption{options} option of \jcsmacro{makebeamerprogram}.
        \item Add option to automatically shift all subsequent sessions by a certain value
              after every \emph{n}th session (\jcsmacro{SetAutoOffset}).
-       \item Add \joption{cologne} style file (suggested by Dominik Waßenhoven).
+       \item Add \joption{cologne} style file (suggested by Dominik WaÃŸenhoven).
     \end{itemize}
 \item 2015/02/08 (v. 0.9):
      \begin{itemize}
