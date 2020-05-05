@@ -540,23 +540,44 @@
 % Program generation
 \newcommand\makeprogram{%
   \raggedright
-  \begin{labeling}{\lecprogramlistindent}
+  \ProgramListBegin
   \programlist
-  \end{labeling}
+  \ProgramListEnd
 }
 
-% ProgramListSession - format a session in the program list
-% Arguments are date, title, and subtitle
-\newcommand{\ProgramListSession}[4]{\item[\textbf{#1}] #2#3#4}
-\newcommand{\ProgramListSessionCancel}[4]{\item[\textbf{#1}] #2#3#4 \leccancel}
-\newcommand{\ProgramListBreak}[2][\empty]{\begin{center} (\ifx\empty#1 #2\else #1: #2\fi) \noexpand\end{center}}
 % Exam schedule generation
 \newcommand\makeexamprogram{%
   \raggedright
-  \begin{labeling}{\lecprogramlistindent}
+  \ProgramListExamBegin
   \programlistexam
-  \end{labeling}
+  \ProgramListExamEnd
 }
+
+% Macros for formatting the program list
+
+% ProgramListBegin and ProgramListEnd start and end the program
+
+\newcommand{\ProgramListBegin}{\begin{labeling}{\lecprogramlistindent}}
+\newcommand{\ProgramListEnd}{\end{labeling}}
+\newcommand{\ProgramListExamBegin}{\begin{labeling}{\lecprogramlistindent}}
+\newcommand{\ProgramListExamEnd}{\end{labeling}}
+
+% ProgramListSession, ProgramListExam and ProgramListSessionCancel typeset a single
+% session. Arguments: #1 date, #2 title, #3 title separator, #4 subtitle
+
+\newcommand{\ProgramListSession}[4]{\item[\textbf{#1}] #2#3#4}
+\newcommand{\ProgramListSessionCancel}[4]{\item[\textbf{#1}] \textbf{#2#3#4 \leccancel}}
+\newcommand{\ProgramListSessionExam}[4]{\item[\textbf{#1}] #2#3#4}
+
+% ProgramListBreak typesets a break. Optional argument is date range,
+% #2 is name of break
+\newcommand{\ProgramListBreak}[2][\empty]{\begin{center}
+  \ifx\empty#1 (#2)\else (#1: #2)\fi \end{center}}
+
+% ProgramListBlockBegin 
+\newcommand{\ProgramListBlockBegin}[2]{\item[\textbf{#1}.] \textbf{#2}
+  \begin{labeling}{\lecprogramlistindent}}
+\newcommand{\ProgramListBlockEnd}{\end{labeling}}
 
 %
 % Beamer program generation
@@ -956,8 +977,7 @@
     \ifKV@session@exam
         \stepcounter{exams}
         \protected@csxdef{examsesno\theexams}{\thesnum}
-        \protected@eappto\programlistexam{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-          \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
+        \protected@eappto\programlistexam{\noexpand\ProgramListSessionExam{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
         \protected@eappto\programlistbeamerexam{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
           \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
         \ifcsempty{sesbib\thesnum}{}{%
@@ -995,12 +1015,10 @@
      }{\stepcounter{autooffsetcounter}}
   }{}
   \ifx\empty#1
-    \protected@eappto\programlist{\noexpand\ProgramListBreak[\empty]{#2}}
-\typeout{\noexpand\ProgramListBreak[\empty]{#2}}
+    \protected@eappto\programlist{\noexpand\ProgramListBreak{#2}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}
   \else
     \protected@eappto\programlist{\noexpand\ProgramListBreak[#1]{#2}}
-\typeout{\noexpand\ProgramListBreak[#1]{#2}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#1: #2) \noexpand\end{center}}
   \fi
 }
@@ -1030,10 +1048,10 @@
     \stepcounter{loopcounter}
   \repeat
   \ifcsempty{@breakspan}{%
-    \protected@eappto\programlist{\noexpand\begin{center} (#2) \noexpand\end{center}}
+    \protected@eappto\programlist{\noexpand\ProgramListBreak{#2}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}
   }{%
-    \protected@eappto\programlist{\noexpand\begin{center} (\csuse{@breakspan}: #2) \noexpand\end{center}}
+    \protected@eappto\programlist{\noexpand\ProgramListBreak[\csuse{@breakspan}]{#2}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (\csuse{@breakspan}: #2) \noexpand\end{center}}
   }
 }
@@ -1055,9 +1073,7 @@
 \newtoggle{inblock}
 \newcommand*\StartBlock[1]{%
   \stepcounter{blocks}%
-  \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
-    \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}%
-  \gappto\programlist{\begin{labeling}{\lecprogramlistindent}}%
+  \protected@eappto\programlist{\noexpand\ProgramListBlockBegin{\Roman{blocks}}{#1}}
   \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
     \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}%
   \gappto\programlistbeamer{\begin{description}[\lecprogramlistindent]}
@@ -1068,7 +1084,7 @@
 }
 
 \newcommand*\EndBlock{%
-  \gappto\programlist{\end{labeling}}
+  \gappto\programlist{\ProgramListBlockEnd}
   \gappto\programlistbeamer{\end{description}}
   \csxdef{@currentblock}{}%
   \csxdef{@currentblockno}{}%
