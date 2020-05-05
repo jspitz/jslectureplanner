@@ -545,6 +545,11 @@
   \end{labeling}
 }
 
+% ProgramListSession - format a session in the program list
+% Arguments are date, title, and subtitle
+\newcommand{\ProgramListSession}[4]{\item[\textbf{#1}] #2#3#4}
+\newcommand{\ProgramListSessionCancel}[4]{\item[\textbf{#1}] #2#3#4 \leccancel}
+\newcommand{\ProgramListBreak}[2][\empty]{\begin{center} (\ifx\empty#1 #2\else #1: #2\fi) \noexpand\end{center}}
 % Exam schedule generation
 \newcommand\makeexamprogram{%
   \raggedright
@@ -943,9 +948,7 @@
   \protected@csxdef{sesblockno\thesnum}{\csuse{@currentblockno}}
   \ifKV@session@cancel
     \stepcounter{cancellations}
-    \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-      \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}%
-        \noexpand\leccancel\noexpand\egroup}
+    \protected@eappto\programlist{\noexpand\ProgramListSessionCancel{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
     \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
       \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}%
         \noexpand\leccancel\noexpand\egroup}
@@ -967,8 +970,7 @@
         \ifKV@session@draft
             \ifcsempty{@sestitle}{\protected@csxdef{sestitle\thesnum}{\sestopic}}{}
         \fi
-        \protected@eappto\programlist{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-          \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
+        \protected@eappto\programlist{\noexpand\ProgramListSession{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
         \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
           \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
         \ifcsempty{sesbib\thesnum}{}{%
@@ -993,10 +995,12 @@
      }{\stepcounter{autooffsetcounter}}
   }{}
   \ifx\empty#1
-    \protected@eappto\programlist{\noexpand\begin{center} (#2) \noexpand\end{center}}
+    \protected@eappto\programlist{\noexpand\ProgramListBreak[\empty]{#2}}
+\typeout{\noexpand\ProgramListBreak[\empty]{#2}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}
   \else
-    \protected@eappto\programlist{\noexpand\begin{center} (#1: #2) \noexpand\end{center}}
+    \protected@eappto\programlist{\noexpand\ProgramListBreak[#1]{#2}}
+\typeout{\noexpand\ProgramListBreak[#1]{#2}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#1: #2) \noexpand\end{center}}
   \fi
 }
