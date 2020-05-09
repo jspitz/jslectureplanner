@@ -68,6 +68,8 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
+* V. 1.11 (forthcoming): - Allow for customization of program list. 
+
 * V. 1.10 (2020-04-30):  - Do not increment session topic counter for cancelled sessions
                            and breaks.
                          - Add session option topicnumber to reset topic number in draft mode.
