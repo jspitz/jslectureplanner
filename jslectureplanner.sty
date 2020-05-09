@@ -24,7 +24,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\filedate{2020/04/30}
-\def\fileversion{1.10}
+\def\fileversion{1.11dev}
 \def\filename{jslectureplanner.sty}
 
 \NeedsTeXFormat{LaTeX2e}
@@ -182,7 +182,7 @@
 % Beamer program heading
 \newcommand*\lecprogram{Programm}
 % Program list indentation
-\newcommand*\lecprogramlistindent{\textbf{88.\,88.}}
+\newcommand*\lecprogramlistindent{\programdateformat{88.\,88.}}
 % Session topic placeholder
 \newcommand*\sestopic{Thema~\thesestopic}
 % Time slot
@@ -540,44 +540,64 @@
 % Program generation
 \newcommand\makeprogram{%
   \raggedright
-  \ProgramListBegin
+  \begin{ProgramList}
   \programlist
-  \ProgramListEnd
+  \end{ProgramList}
 }
 
 % Exam schedule generation
 \newcommand\makeexamprogram{%
   \raggedright
-  \ProgramListExamBegin
+  \begin{ProgramListExam}
   \programlistexam
-  \ProgramListExamEnd
+  \end{ProgramListExam}
 }
 
-% Macros for formatting the program list
+% Customizable environments for formatting the lists
 
-% ProgramListBegin and ProgramListEnd start and end the program
+% ProgramList is the list used in programs
+\newenvironment{ProgramList}{\begin{labeling}{\lecprogramlistindent}}{\end{labeling}}
 
-\newcommand{\ProgramListBegin}{\begin{labeling}{\lecprogramlistindent}}
-\newcommand{\ProgramListEnd}{\end{labeling}}
-\newcommand{\ProgramListExamBegin}{\begin{labeling}{\lecprogramlistindent}}
-\newcommand{\ProgramListExamEnd}{\end{labeling}}
+% ProgramListExam is the list used in exam schedules. BY default identical to ProgramList
+\newenvironment{ProgramListExam}{\begin{ProgramList}}{\end{ProgramList}}
+
+% Text format of program date
+\newcommand*\programdateformat[1]{\textbf{#1}}
+% Text format of program title
+\newcommand*\sestitleformat[1]{#1}
+% Text format of program title
+\newcommand*\exsestitleformat[1]{\sestitleformat{#1}}
+% Text format of canceled session titles
+\newcommand*\cansestitleformat[1]{\textbf{#1}}
+% Text format of block titles
+\newcommand*\blocktitleformat[1]{\textbf{#1}}
+% Text format of block numbers
+\newcommand*\blocknumberformat[1]{\textbf{#1}}
 
 % ProgramListSession, ProgramListExam and ProgramListSessionCancel typeset a single
 % session. Arguments: #1 date, #2 title, #3 title separator, #4 subtitle
+\newcommand*{\ProgramListSession}[4]{\item[\programdateformat{#1}] \sestitleformat{#2#3#4}}
+\newcommand*{\ProgramListSessionCancel}[4]{\item[\programdateformat{#1}] \cansestitleformat{#2#3#4 \leccancel}}
+\newcommand*{\ProgramListSessionExam}[4]{\item[\programdateformat{#1}] \exsestitleformat{#2#3#4}}
 
-\newcommand{\ProgramListSession}[4]{\item[\textbf{#1}] #2#3#4}
-\newcommand{\ProgramListSessionCancel}[4]{\item[\textbf{#1}] \textbf{#2#3#4 \leccancel}}
-\newcommand{\ProgramListSessionExam}[4]{\item[\textbf{#1}] #2#3#4}
+% Formar break event
+\newcommand*\breakevent[3]{\ifx\empty#1 #2\else#1#2#3\fi}
+% ProgramListBreak typesets a break.
+% Optional argument is date range, #2 is name of break
+\newcommand*{\ProgramListBreak}[2][\empty]%
+{%
+  \begin{center}
+    (\breakevent{#1}{: }{#2})
+  \end{center}%
+}
 
-% ProgramListBreak typesets a break. Optional argument is date range,
-% #2 is name of break
-\newcommand{\ProgramListBreak}[2][\empty]{\begin{center}
-  \ifx\empty#1 (#2)\else (#1: #2)\fi \end{center}}
-
-% ProgramListBlockBegin 
-\newcommand{\ProgramListBlockBegin}[2]{\item[\textbf{#1}.] \textbf{#2}
-  \begin{labeling}{\lecprogramlistindent}}
-\newcommand{\ProgramListBlockEnd}{\end{labeling}}
+% ProgramListBlock
+\newenvironment{ProgramListBlock}[2]%
+ {%
+  \item[\blocknumberformat{#1}.] \blocktitleformat{#2}
+  \begin{ProgramList}%
+ }%
+ {\end{ProgramList}}
 
 %
 % Beamer program generation
@@ -1073,7 +1093,7 @@
 \newtoggle{inblock}
 \newcommand*\StartBlock[1]{%
   \stepcounter{blocks}%
-  \protected@eappto\programlist{\noexpand\ProgramListBlockBegin{\Roman{blocks}}{#1}}
+  \protected@eappto\programlist{\noexpand\begin{ProgramListBlock}{\Roman{blocks}}{#1}}
   \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
     \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}%
   \gappto\programlistbeamer{\begin{description}[\lecprogramlistindent]}
@@ -1084,7 +1104,7 @@
 }
 
 \newcommand*\EndBlock{%
-  \gappto\programlist{\ProgramListBlockEnd}
+  \gappto\programlist{\end{ProgramListBlock}}
   \gappto\programlistbeamer{\end{description}}
   \csxdef{@currentblock}{}%
   \csxdef{@currentblockno}{}%
