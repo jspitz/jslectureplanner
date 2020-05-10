@@ -558,7 +558,7 @@
 % ProgramList is the list used in programs
 \newenvironment{ProgramList}{\begin{labeling}{\lecprogramlistindent}}{\end{labeling}}
 
-% ProgramListExam is the list used in exam schedules. BY default identical to ProgramList
+% ProgramListExam is the list used in exam schedules. By default identical to ProgramList
 \newenvironment{ProgramListExam}{\begin{ProgramList}}{\end{ProgramList}}
 
 % Text format of program date
@@ -1117,13 +1117,13 @@
 }
 
 \newcommand*\@PauseBlock{%
-  \gappto\programlist{\end{labeling}}
+  \gappto\programlist{\end{ProgramList}}
   \gappto\programlistbeamer{\end{description}}
 }
 
 \newcommand*\@ResumeBlock{%
   % the \item here is necessary since this is nested immediately into another list
-  \gappto\programlist{\item \begin{labeling}{\lecprogramlistindent}}%
+  \gappto\programlist{\item \begin{ProgramList}}%
   \gappto\programlistbeamer{\item \begin{description}[\lecprogramlistindent]}
 }
 
