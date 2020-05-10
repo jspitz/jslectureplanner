@@ -561,6 +561,9 @@
 % ProgramListExam is the list used in exam schedules. By default identical to ProgramList
 \newenvironment{ProgramListExam}{\begin{ProgramList}}{\end{ProgramList}}
 
+% PresList is the list of presenting students
+\newenvironment{PresList}{\begin{ProgramList}}{\end{ProgramList}}
+
 % Text format of program date
 \newcommand*\programdateformat[1]{\textbf{#1}}
 % Text format of program title
@@ -579,6 +582,11 @@
 \newcommand*{\ProgramListItem}[4]{\item[\programdateformat{#1}] \sestitleformat{#2#3#4}}
 \newcommand*{\ProgramListCancelItem}[4]{\item[\programdateformat{#1}] \cansestitleformat{#2#3#4 \leccancel}}
 \newcommand*{\ProgramListExamItem}[4]{\item[\programdateformat{#1}] \exsestitleformat{#2#3#4}}
+
+% PresListItem: Program line for student presentation lists
+\newcommand*\PresListItem[4]{%
+  \ProgramListItem{#1}{#2}{#3}{#4}%
+}
 
 % Format break event
 \newcommand*\breakevent[3]{\ifx\empty#1 #2\else#1#2#3\fi}
@@ -1197,31 +1205,31 @@
 % Unstarred: use sespresstudents
 \newcommand\@makepreslist{%
   \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
-  \begin{labeling}{\lecprogramlistindent}
+  \begin{PresList}
   \whiledo {\not{\value{pressession} > \value{lastpressession}}}%
   {%
     \ThisSession{\thepressession}%
     \if\relax\sespresstudents\relax
-    \MakeProgramline{\thepressession}\par
+    \MakePresListLine{\thepressession}\par
      ---
     \else
-    \MakeProgramline{\thepressession}\par
+    \MakePresListLine{\thepressession}\par
     \SessionPresStudents{\thepressession}
     \fi
     \stepcounter{pressession}%
   }
-  \end{labeling}
+  \end{PresList}
 }
 % Starred: blank list
 \newcommand\@makeblankpreslist{%
   \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
-  \begin{labeling}{\lecprogramlistindent}
+  \begin{PresList}
   \whiledo {\not{\value{pressession} > \value{lastpressession}}}%
   {%
-    \MakeProgramline{\thepressession}\vspace{2\baselineskip}
+    \MakePresListLine{\thepressession}\vspace{2\baselineskip}
     \stepcounter{pressession}%
   }
-  \end{labeling}
+  \end{PresList}
 }
 
 % A beamer-specific version
@@ -1436,6 +1444,12 @@
   \LocalSession{#1}%
   \item[{\bfseries\lsesshortdate}]%
     \lsestitle\lsestitlesep\lsessubtitle%
+}
+
+% Program line suitable for preslist
+\newcommand*\MakePresListLine[1]{%
+  \LocalSession{#1}%
+  \PresListItem{\lsesshortdate}{\lsestitle}{\lsestitlesep}{\lsessubtitle}%
 }
 
 % Get information for adjacent (next, previous etc.) sessions
