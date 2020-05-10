@@ -574,13 +574,13 @@
 % Text format of block numbers
 \newcommand*\blocknumberformat[1]{\textbf{#1}}
 
-% ProgramListSession, ProgramListExam and ProgramListSessionCancel typeset a single
+% ProgramListItem, ProgramListExamItem and ProgramListCancelItem typeset a single
 % session. Arguments: #1 date, #2 title, #3 title separator, #4 subtitle
-\newcommand*{\ProgramListSession}[4]{\item[\programdateformat{#1}] \sestitleformat{#2#3#4}}
-\newcommand*{\ProgramListSessionCancel}[4]{\item[\programdateformat{#1}] \cansestitleformat{#2#3#4 \leccancel}}
-\newcommand*{\ProgramListSessionExam}[4]{\item[\programdateformat{#1}] \exsestitleformat{#2#3#4}}
+\newcommand*{\ProgramListItem}[4]{\item[\programdateformat{#1}] \sestitleformat{#2#3#4}}
+\newcommand*{\ProgramListCancelItem}[4]{\item[\programdateformat{#1}] \cansestitleformat{#2#3#4 \leccancel}}
+\newcommand*{\ProgramListExamItem}[4]{\item[\programdateformat{#1}] \exsestitleformat{#2#3#4}}
 
-% Formar break event
+% Format break event
 \newcommand*\breakevent[3]{\ifx\empty#1 #2\else#1#2#3\fi}
 % ProgramListBreak typesets a break.
 % Optional argument is date range, #2 is name of break
@@ -989,7 +989,7 @@
   \protected@csxdef{sesblockno\thesnum}{\csuse{@currentblockno}}
   \ifKV@session@cancel
     \stepcounter{cancellations}
-    \protected@eappto\programlist{\noexpand\ProgramListSessionCancel{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
+    \protected@eappto\programlist{\noexpand\ProgramListCancelItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
     \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
       \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}%
         \noexpand\leccancel\noexpand\egroup}
@@ -997,7 +997,7 @@
     \ifKV@session@exam
         \stepcounter{exams}
         \protected@csxdef{examsesno\theexams}{\thesnum}
-        \protected@eappto\programlistexam{\noexpand\ProgramListSessionExam{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
+        \protected@eappto\programlistexam{\noexpand\ProgramListExamItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
         \protected@eappto\programlistbeamerexam{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
           \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
         \ifcsempty{sesbib\thesnum}{}{%
@@ -1010,7 +1010,7 @@
         \ifKV@session@draft
             \ifcsempty{@sestitle}{\protected@csxdef{sestitle\thesnum}{\sestopic}}{}
         \fi
-        \protected@eappto\programlist{\noexpand\ProgramListSession{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
+        \protected@eappto\programlist{\noexpand\ProgramListItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
         \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
           \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
         \ifcsempty{sesbib\thesnum}{}{%
