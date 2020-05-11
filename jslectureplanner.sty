@@ -88,7 +88,7 @@
 \def\programlistexam{}
 \def\programlistbeamer{}
 \def\programlistbeamerexam{}
-\def\programblocklistbeamer{\item}
+\def\programblocklistbeamer{}
 \def\jsbiblist{}
 
 
@@ -558,6 +558,9 @@
 % ProgramList is the list used in programs
 \newenvironment{ProgramList}{\begin{labeling}{\lecprogramlistindent}}{\end{labeling}}
 
+% BeamerProgramList is the list used in programs
+\newenvironment{BeamerProgramList}{\begin{description}[\lecprogramlistindent]}{\end{description}}
+
 % ProgramListExam is the list used in exam schedules. By default identical to ProgramList
 \newenvironment{ProgramListExam}{\begin{ProgramList}}{\end{ProgramList}}
 
@@ -583,9 +586,18 @@
 \newcommand*{\ProgramListCancelItem}[4]{\item[\programdateformat{#1}] \cansestitleformat{#2#3#4\leccancel}}
 \newcommand*{\ProgramListExamItem}[4]{\item[\programdateformat{#1}] \exsestitleformat{#2#3#4}}
 
+% Same for beamer program
+\newcommand*{\BeamerProgramListItem}[4]{\item[\programdateformat{#1}] \sestitleformat{#2#3#4}}
+\newcommand*{\BeamerProgramListCancelItem}[4]{\item[\programdateformat{#1}] \cansestitleformat{#2#3#4\leccancel}}
+\newcommand*{\BeamerProgramListExamItem}[4]{\item[\programdateformat{#1}] \exsestitleformat{#2#3#4}}
+
 % PresListItem: Program line for student presentation lists
 \newcommand*\PresListItem[4]{%
   \ProgramListItem{#1}{#2}{#3}{#4}%
+}
+
+\newcommand*\BeamerPresListItem[4]{%
+  \BeamerProgramListItem{#1}{#2}{#3}{#4}%
 }
 
 % Format break event
@@ -602,10 +614,14 @@
 % ProgramListBlock
 \newenvironment{ProgramListBlock}[2]%
  {%
-  \item[\blocknumberformat{#1}.] \blocktitleformat{#2}
+  \ProgramBlockItem{#1}{#2}
   \begin{ProgramList}%
  }%
  {\end{ProgramList}}
+
+\newcommand*{\ProgramBlockItem}[2]{\item[\blocknumberformat{#1}.] \blocktitleformat{#2}}
+\newcommand*{\BeamerProgramBlockItem}[2]{\item[\blocknumberformat{#1}.] \blocktitleformat{#2}}
+\newcommand*{\BeamerProgramBlockBlocksOnlyItem}[2]{\item[#1.] #2}
 
 %
 % Beamer program generation
@@ -620,6 +636,11 @@
 \define@boolkey{beamerprogram}{blocksonly}[true]{}
 \define@boolkey{beamerprogram}{uncover}[true]{}
 
+% Overlay specifications for uncover programs
+\newcommand*\beameruncoverspec{\beamerdefaultoverlayspecification{<+(1)->}}
+\newcommand*\beameruncoverffslidesspec{\beamerdefaultoverlayspecification{<+(-1)->}}
+\newcommand*\beameruncoverblocksonlyspec{\beamerdefaultoverlayspecification{<+->}}
+
 \newcommand*\makebeamerprogram[1][]{%
   \csdef{@bptitle}{\lecprogram}
   \def\btitleapp{}
@@ -628,7 +649,7 @@
   \setkeys{beamerprogram}{blocksonly=false}
   \setkeys{beamerprogram}{uncover=false}
   \setkeys{beamerprogram}{#1}
-  \def\bpdescbeg{\begin{description}[\lecprogramlistindent]}
+  \def\bpdescbeg{\begin{BeamerProgramList}}
   \ifKV@beamerprogram@alerted
   \fi
   \providebool{uncoveredlist}
@@ -653,13 +674,10 @@
            \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
         }%
      }%
-       \ifbool{uncoveredlist}{%
-         \begin{description}[<+->][\lecprogramlistindent]
-       }{%
-         \begin{description}[\lecprogramlistindent]
-       }
-         \programblocklistbeamer
-       \end{description}
+       \ifbool{uncoveredlist}{\beameruncoverblocksonlyspec}{}
+       \begin{BeamerProgramList}
+         \ifcsempty{programblocklistbeamer}{\BeamerProgramBlockBlocksOnlyItem{}{}}{\programblocklistbeamer}
+       \end{BeamerProgramList}
      \end{frame}
   \else% not \ifKV@beamerprogram@blocksonly
     % All but last slide(s) are generated in what follows
@@ -680,13 +698,10 @@
            \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
         }%
     }%
-    \ifbool{uncoveredlist}{%
-      \begin{description}[<+(1)->][\lecprogramlistindent]
-    }{%
-      \begin{description}[\lecprogramlistindent]
-    }
+     \ifbool{uncoveredlist}{\beameruncoverspec}{}
+     \begin{BeamerProgramList}
       \programlistbeamerii
-      \end{description}
+     \end{BeamerProgramList}
     \end{frame}
     }
     \@ifundefined{programlistbeameriii}{}{%
@@ -706,13 +721,10 @@
            \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
         }%
     }%
-    \ifbool{uncoveredlist}{%
-      \begin{description}[<+->][\lecprogramlistindent]
-    }{%
-      \begin{description}[\lecprogramlistindent]
-    }
+     \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{}
+     \begin{BeamerProgramList}
       \programlistbeameriii
-      \end{description}
+     \end{BeamerProgramList}
     \end{frame}
     }
     \@ifundefined{programlistbeameriv}{}{%
@@ -732,13 +744,10 @@
            \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
         }%
     }%
-    \ifbool{uncoveredlist}{%
-      \begin{description}[<+(1)->][\lecprogramlistindent]
-    }{%
-      \begin{description}[\lecprogramlistindent]
-    }
+     \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{}
+     \begin{BeamerProgramList}
       \programlistbeameriv
-      \end{description}
+     \end{BeamerProgramList}
     \end{frame}
     }
     % The last slide is generated separately:
@@ -812,14 +821,10 @@
              }%
           }%
       }%
-
-    \ifbool{uncoveredlist}{%
-      \begin{description}[<+->][\lecprogramlistindent]
-    }{%
-      \begin{description}[\lecprogramlistindent]
-    }
+     \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{}
+     \begin{BeamerProgramList}
       \programlistbeamer
-      \end{description}
+     \end{BeamerProgramList}
     \end{frame}
   \fi%\else\ifKV@beamerprogram@blocksonly
 }
@@ -834,7 +839,7 @@
   \setkeys{beamerprogram}{blocksonly=false}
   \setkeys{beamerprogram}{uncover=false}
   \setkeys{beamerprogram}{#1}
-  \def\bpdescbeg{\begin{description}[\lecprogramlistindent]}
+  \def\bpdescbeg{\begin{BeamerProgramList}}
   \ifKV@beamerprogram@alerted
   \fi
   \providebool{uncoveredlist}
@@ -863,13 +868,10 @@
            \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
         }%
     }%
-   \ifbool{uncoveredlist}{%
-      \begin{description}[<+->][\lecprogramlistindent]
-    }{%
-      \begin{description}[\lecprogramlistindent]
-    }
+     \ifbool{uncoveredlist}{\beameruncoverspec}{}
+     \begin{BeamerProgramList}
       \programlistbeamerexam
-      \end{description}
+     \end{BeamerProgramList}
     \end{frame}
   \fi%\else\ifKV@beamerprogram@blocksonly
   }%
@@ -998,16 +1000,13 @@
   \ifKV@session@cancel
     \stepcounter{cancellations}
     \protected@eappto\programlist{\noexpand\ProgramListCancelItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
-    \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-      \noexpand\bgroup\noexpand\bfseries\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}%
-        \noexpand\leccancel\noexpand\egroup}
+    \protected@eappto\programlistbeamer{\noexpand\BeamerProgramListCancelItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
   \else
     \ifKV@session@exam
         \stepcounter{exams}
         \protected@csxdef{examsesno\theexams}{\thesnum}
         \protected@eappto\programlistexam{\noexpand\ProgramListExamItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
-        \protected@eappto\programlistbeamerexam{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-          \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
+        \protected@eappto\programlistbeamerexam{\noexpand\BeamerProgramListExamItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
         \ifcsempty{sesbib\thesnum}{}{%
         \xappto\jsbiblist{\noexpand\section{\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}%
           \noexpand\nocite{*}%
@@ -1019,8 +1018,7 @@
             \ifcsempty{@sestitle}{\protected@csxdef{sestitle\thesnum}{\sestopic}}{}
         \fi
         \protected@eappto\programlist{\noexpand\ProgramListItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
-        \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\csuse{sesshortdate\thesnum}}]%
-          \csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}
+        \protected@eappto\programlistbeamer{\noexpand\BeamerProgramListItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
         \ifcsempty{sesbib\thesnum}{}{%
         \xappto\jsbiblist{\noexpand\section{\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}%
           \noexpand\nocite{*}%
@@ -1102,10 +1100,9 @@
 \newcommand*\StartBlock[1]{%
   \stepcounter{blocks}%
   \protected@eappto\programlist{\noexpand\begin{ProgramListBlock}{\Roman{blocks}}{#1}}
-  \protected@eappto\programlistbeamer{\noexpand\item[{\noexpand\bfseries\Roman{blocks}}.]%
-    \noexpand\bgroup\noexpand\bfseries #1\noexpand\egroup}%
-  \gappto\programlistbeamer{\begin{description}[\lecprogramlistindent]}
-  \protected@xappto\programblocklistbeamer{\noexpand\item[{\Roman{blocks}}.] #1}%
+  \protected@eappto\programlistbeamer{\noexpand\BeamerProgramBlockItem{\Roman{blocks}}{#1}}%
+  \gappto\programlistbeamer{\begin{BeamerProgramList}}
+  \protected@xappto\programblocklistbeamer{\noexpand\BeamerProgramBlockBlocksOnlyItem{\Roman{blocks}}{#1}}%
   \csxdef{@currentblock}{#1}%
   \csxdef{@currentblockno}{\Roman{blocks}}%
   \global\toggletrue{inblock}%
@@ -1113,7 +1110,7 @@
 
 \newcommand*\EndBlock{%
   \gappto\programlist{\end{ProgramListBlock}}
-  \gappto\programlistbeamer{\end{description}}
+  \gappto\programlistbeamer{\end{BeamerProgramList}}
   \csxdef{@currentblock}{}%
   \csxdef{@currentblockno}{}%
   \global\togglefalse{inblock}%
@@ -1125,14 +1122,12 @@
 }
 
 \newcommand*\@PauseBlock{%
-  \gappto\programlist{\end{ProgramList}}
-  \gappto\programlistbeamer{\end{description}}
+  \gappto\programlistbeamer{\end{BeamerProgramList}}
 }
 
 \newcommand*\@ResumeBlock{%
   % the \item here is necessary since this is nested immediately into another list
-  \gappto\programlist{\item \begin{ProgramList}}%
-  \gappto\programlistbeamer{\item \begin{description}[\lecprogramlistindent]}
+  \gappto\programlistbeamer{\item \begin{BeamerProgramList}}
 }
 
 \newenvironment{SessionBlock}[1]{\StartBlock{#1}}{\EndBlock}
@@ -1213,10 +1208,10 @@
   {%
     \ThisSession{\thepressession}%
     \if\relax\sespresstudents\relax
-    \MakePresListLine{\thepressession}\presseparator
+    \MakePresListLine{\thepressession}\presseparator%
     \emptypressession
     \else
-    \MakePresListLine{\thepressession}\presseparator
+    \MakePresListLine{\thepressession}\presseparator%
     \SessionPresStudents{\thepressession}
     \fi
     \stepcounter{pressession}%
@@ -1241,13 +1236,14 @@
 \newcommand*\beamerpresseparator{:\ }
 \newcommand\makebeamerpreslist{%
   \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
-  \begin{description}[\lecprogramlistindent]
+  \begin{BeamerProgramList}
   \whiledo {\not{\value{pressession} > \value{lastpressession}}}%
   {%
-    \MakeProgramline{\thepressession}\beamerpresseparator\SessionPresStudents{\thepressession}
+    \MakeBeamerPresListLine{\thepressession}\beamerpresseparator%
+    \SessionPresStudents{\thepressession}
     \stepcounter{pressession}%
   }
-  \end{description}
+  \end{BeamerProgramList}
 }
 
 
@@ -1456,6 +1452,10 @@
 \newcommand*\MakePresListLine[1]{%
   \LocalSession{#1}%
   \PresListItem{\lsesshortdate}{\lsestitle}{\lsestitlesep}{\lsessubtitle}%
+}
+\newcommand*\MakeBeamerPresListLine[1]{%
+  \LocalSession{#1}%
+  \BeamerPresListItem{\lsesshortdate}{\lsestitle}{\lsestitlesep}{\lsessubtitle}%
 }
 
 % Get information for adjacent (next, previous etc.) sessions

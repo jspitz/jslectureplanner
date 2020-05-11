@@ -941,6 +941,13 @@ If you want these lists to look different from the normal program list, redefine
 \newenvironment{PresList}{\begin{ProgramList}}{\end{ProgramList}}
 \end{lstlisting}
 %
+For beamer programs, a description environment is used instead, and the respective command is
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+frame=single,moretexcs={[1]{lecprogramlistindent}}]
+\newenvironment{BeamerProgramList}{\begin{description}[\lecprogramlistindent]}%
+                                  {\end{description}}
+\end{lstlisting}
+%
 The individual lines of the program are defined in the following macro that can be redefined
 (\texttt{\#1} represents the date, \texttt{\#2} the session title, \texttt{\#3} the session title--subtitle separator,
 and \texttt{\#4} the session subtitle; for the used text formatting macros, see sec.~\ref{subsec:textform}):
@@ -968,6 +975,48 @@ frame=single,moretexcs={[3]{ProgramListCancelItem,programdateformat,cansestitlef
 frame=single,moretexcs={[3]{ProgramListExamItem,programdateformat,exsestitleformat}}]
 \newcommand*{\ProgramListExamItem}[4]{\item[\programdateformat{#1}]
                                            \exsestitleformat{#2#3#4}}
+\end{lstlisting}
+%
+For the beamer program, the respective macros are:
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+frame=single,moretexcs={[3]{BeamerProgramListItem,programdateformat,sestitleformat}}]
+\newcommand*{\BeamerProgramListItem}[4]{\item[\programdateformat{#1}]
+                                              \sestitleformat{#2#3#4}}
+\end{lstlisting}
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+frame=single,moretexcs={[2]{BeamerPresListItem,BeamerProgramListItem}}]
+\newcommand*\BeamerPresListItem[4]{%
+    \BeamerProgramListItem{#1}{#2}{#3}{#4}%
+}
+\end{lstlisting}
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+frame=single,moretexcs={[3]{BeamerProgramListCancelItem,programdateformat,cansestitleformat}}]
+\newcommand*{\BeamerProgramListCancelItem}[4]{\item[\programdateformat{#1}]
+                                              \cansestitleformat{#2#3#4\leccancel}}
+\end{lstlisting}
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+frame=single,moretexcs={[3]{BeamerProgramListExamItem,programdateformat,exsestitleformat}}]
+\newcommand*{\BeamerProgramListExamItem}[4]{\item[\programdateformat{#1}]
+                                            \exsestitleformat{#2#3#4}}
+\end{lstlisting}
+%
+The program block titles are set in the embedding list via the following macro:
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+frame=single,moretexcs={[3]{ProgramBlockItem,blocknumberformat,blocktitleformat}}]
+\newcommand*{\ProgramBlockItem}[2]{\item[\blocknumberformat{#1}.] \blocktitleformat{#2}}
+\end{lstlisting}
+%
+For beamer, the following is used with \joption{blocksonly=false}:
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+frame=single,moretexcs={[3]{BeamerProgramBlockItem,blocknumberformat,blocktitleformat}}]
+\newcommand*{\BeamerProgramBlockItem}[2]{\item[\blocknumberformat{#1}.]
+                                              \blocktitleformat{#2}}
+\end{lstlisting}
+%
+and the following is used with \joption{blocksonly=true}:
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+frame=single,moretexcs={[1]{BeamerProgramBlockBlocksOnlyItem}}]
+\newcommand*{\BeamerProgramBlockBlocksOnlyItem}[2]{\item[#1.] #2}
 \end{lstlisting}
 %
 The indentation used in program lists can be changed by redefining
