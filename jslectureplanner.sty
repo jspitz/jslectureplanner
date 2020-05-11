@@ -1220,13 +1220,15 @@
   }
   \end{PresList}
 }
+\newlength\blankpreslistvspace
+\setlength\blankpreslistvspace{2\baselineskip}
 % Starred: blank list
 \newcommand\@makeblankpreslist{%
   \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
   \begin{PresList}
   \whiledo {\not{\value{pressession} > \value{lastpressession}}}%
   {%
-    \MakePresListLine{\thepressession}\vspace{2\baselineskip}
+    \MakePresListLine{\thepressession}\vspace{\blankpreslistvspace}
     \stepcounter{pressession}%
   }
   \end{PresList}
