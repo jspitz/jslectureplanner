@@ -580,7 +580,7 @@
 % ProgramListItem, ProgramListExamItem and ProgramListCancelItem typeset a single
 % session. Arguments: #1 date, #2 title, #3 title separator, #4 subtitle
 \newcommand*{\ProgramListItem}[4]{\item[\programdateformat{#1}] \sestitleformat{#2#3#4}}
-\newcommand*{\ProgramListCancelItem}[4]{\item[\programdateformat{#1}] \cansestitleformat{#2#3#4 \leccancel}}
+\newcommand*{\ProgramListCancelItem}[4]{\item[\programdateformat{#1}] \cansestitleformat{#2#3#4\leccancel}}
 \newcommand*{\ProgramListExamItem}[4]{\item[\programdateformat{#1}] \exsestitleformat{#2#3#4}}
 
 % PresListItem: Program line for student presentation lists
