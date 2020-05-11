@@ -567,6 +567,10 @@
 % PresList is the list of presenting students
 \newenvironment{PresList}{\begin{ProgramList}}{\end{ProgramList}}
 
+% Same for beamer
+\newenvironment{BeamerPresList}{\begin{BeamerProgramList}}{\end{BeamerProgramList}}
+\newenvironment{BeamerProgramListExam}{\begin{BeamerProgramList}}{\end{BeamerProgramList}}
+
 % Text format of program date
 \newcommand*\programdateformat[1]{\textbf{#1}}
 % Text format of program title
@@ -851,30 +855,30 @@
   \ifKV@beamerprogram@blocksonly
   \else% not \ifKV@beamerprogram@blocksonly
     % All but last slide(s) are generated in what follows
-    \@ifundefined{programlistbeamerexam}{}{%
-    \def\btitleapp{}
-     \ifcsdef{@bpolarg}{%
-        \ifcsdef{@bpopts}{%
-           \begingroup\edef\tempa{\endgroup\noexpand%
-             \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-        }{%
-           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
-        }%
-     }{%
-        \ifcsdef{@bpopts}{%
-           \begingroup\edef\tempa{\endgroup\noexpand%
-             \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-        }{%
-           \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
-        }%
-    }%
-     \ifbool{uncoveredlist}{\beameruncoverspec}{}
-     \begin{BeamerProgramList}
-      \programlistbeamerexam
-     \end{BeamerProgramList}
-    \end{frame}
+    \ifcsempty{programlistbeamerexam}{}{%
+     \def\btitleapp{}
+      \ifcsdef{@bpolarg}{%
+         \ifcsdef{@bpopts}{%
+            \begingroup\edef\tempa{\endgroup\noexpand%
+              \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+         }{%
+            \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+         }%
+      }{%
+         \ifcsdef{@bpopts}{%
+            \begingroup\edef\tempa{\endgroup\noexpand%
+              \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+         }{%
+            \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+         }%
+     }%
+      \ifbool{uncoveredlist}{\beameruncoverspec}{}
+      \begin{BeamerProgramListExam}
+       \programlistbeamerexam
+      \end{BeamerProgramListExam}
+     \end{frame}
+   }%
   \fi%\else\ifKV@beamerprogram@blocksonly
-  }%
 }
 
 
@@ -1236,14 +1240,14 @@
 \newcommand*\beamerpresseparator{:\ }
 \newcommand\makebeamerpreslist{%
   \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
-  \begin{BeamerProgramList}
+  \begin{BeamerPresList}
   \whiledo {\not{\value{pressession} > \value{lastpressession}}}%
   {%
     \MakeBeamerPresListLine{\thepressession}\beamerpresseparator%
     \SessionPresStudents{\thepressession}
     \stepcounter{pressession}%
   }
-  \end{BeamerProgramList}
+  \end{BeamerPresList}
 }
 
 

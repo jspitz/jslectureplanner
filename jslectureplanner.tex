@@ -941,11 +941,22 @@ If you want these lists to look different from the normal program list, redefine
 \newenvironment{PresList}{\begin{ProgramList}}{\end{ProgramList}}
 \end{lstlisting}
 %
-For beamer programs, a description environment is used instead, and the respective command is
+For beamer programs, exam and presentation lists, a description environment is used instead,
+and the respective commands are
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
 frame=single,moretexcs={[1]{lecprogramlistindent}}]
 \newenvironment{BeamerProgramList}{\begin{description}[\lecprogramlistindent]}%
                                   {\end{description}}
+\end{lstlisting}
+%
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+frame=single,moretexcs={[1]{lecprogramlistindent}}]
+\newenvironment{BeamerPresList}{\begin{BeamerProgramList}}{\end{BeamerProgramList}}
+\end{lstlisting}
+%
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+frame=single,moretexcs={[1]{lecprogramlistindent}}]
+\newenvironment{BeamerProgramListExam}{\begin{BeamerProgramList}}{\end{BeamerProgramList}}
 \end{lstlisting}
 %
 The individual lines of the program are defined in the following macro that can be redefined
