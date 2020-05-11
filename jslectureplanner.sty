@@ -1202,6 +1202,7 @@
 \newcommand\makepreslist{%
   \@ifstar{\@makeblankpreslist}{\@makepreslist}%
 }
+\newcommand*\emptypressession{---}
 % Unstarred: use sespresstudents
 \newcommand\@makepreslist{%
   \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
@@ -1211,7 +1212,7 @@
     \ThisSession{\thepressession}%
     \if\relax\sespresstudents\relax
     \MakePresListLine{\thepressession}\par
-     ---
+    \emptypressession
     \else
     \MakePresListLine{\thepressession}\par
     \SessionPresStudents{\thepressession}

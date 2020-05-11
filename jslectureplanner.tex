@@ -1064,6 +1064,13 @@ the value of the internal topic counter).
                    moretexcs={[2]{sestopic,thesestopic}}]
 \newcommand*\sestopic{Thema~\thesestopic}
 \end{lstlisting}
+%
+The placeholder for presentation sessions with no students assigned (by default
+an em-dash), can be redefined by changing
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,
+moretexcs={[1]{emptypressession}}]
+\newcommand*\emptypressession{---}
+\end{lstlisting}
 
 \subsection{Using styles}\label{sec:styles}
 
