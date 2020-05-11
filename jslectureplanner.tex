@@ -87,7 +87,7 @@ colorlinks=false
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.11, 2020/04/30}
+\date{Version 1.11dev, 2020/04/30}
 
 \maketitle
 
@@ -576,6 +576,8 @@ a beamer-suited lecture program from the metadata in the form
 \end{frame}
 \end{lstlisting}
 
+Again, see sec.~\ref{sec:listcust} for customization possibilities.
+
 Note that 
 \begin{itemize}
 	\item multiple subsequent frames (not just slides) are generated if the metadata
@@ -663,6 +665,7 @@ presenting students, i.\,e., it expands to code in the form:
 \end{lstlisting}
 If no presenting students have been assigned to a given session,
 an em-dash (---) is output instead.
+This all can be customized (please refer to sec.~\ref{sec:listcust} for details).
 
 A starred version of the macro outputs a ``blank'' presentation list that just consists of
 the session dates and titles with enough space to fill in student names manually.
