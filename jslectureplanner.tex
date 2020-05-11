@@ -55,6 +55,20 @@
 \vfuzz \hfuzz
 \raggedbottom
 
+\usepackage[bookmarks=true,
+bookmarksnumbered=false,
+bookmarksopen=false,
+breaklinks=false,
+pdfborder={0 0 0},
+backref=false,
+colorlinks=false
+]{hyperref}
+\hypersetup{%
+	pdftitle={The jslectureplanner manual},
+	pdfauthor={Jürgen Spitzmüller},
+	pdfkeywords={latex,course planning}
+}
+
 \usepackage{microtype}
 
 \usepackage{babel}
@@ -343,6 +357,8 @@ your university
 \begin{itemize}
 \item \jcsmacro{SessionTitleSep\{\jparam{separator}\}}: Specify a default separator between session title and subtitle (e.\,g., ``. '' or `` -- ''). This is used if no specific separator has been specified in the session entry (see sec.~\ref{sec:lecplan}); by default, no separator is defined.
 \end{itemize}
+
+\clearpage
 
 \section{Setting up a course schedule}\label{sec:lecplan}
 
