@@ -1204,6 +1204,7 @@
   \@ifstar{\@makeblankpreslist}{\@makepreslist}%
 }
 \newcommand*\emptypressession{---}
+\newcommand*\presseparator{\par}
 % Unstarred: use sespresstudents
 \newcommand\@makepreslist{%
   \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
@@ -1212,10 +1213,10 @@
   {%
     \ThisSession{\thepressession}%
     \if\relax\sespresstudents\relax
-    \MakePresListLine{\thepressession}\par
+    \MakePresListLine{\thepressession}\presseparator
     \emptypressession
     \else
-    \MakePresListLine{\thepressession}\par
+    \MakePresListLine{\thepressession}\presseparator
     \SessionPresStudents{\thepressession}
     \fi
     \stepcounter{pressession}%
@@ -1237,12 +1238,13 @@
 }
 
 % A beamer-specific version
+\newcommand*\beamerpresseparator{:\ }
 \newcommand\makebeamerpreslist{%
   \ifbool{deflastpressession}{}{\setcounter{lastpressession}{\thesnum}}%
   \begin{description}[\lecprogramlistindent]
   \whiledo {\not{\value{pressession} > \value{lastpressession}}}%
   {%
-    \MakeProgramline{\thepressession}: \SessionPresStudents{\thepressession}
+    \MakeProgramline{\thepressession}\beamerpresseparator\SessionPresStudents{\thepressession}
     \stepcounter{pressession}%
   }
   \end{description}

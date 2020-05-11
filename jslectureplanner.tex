@@ -982,6 +982,19 @@ by redefining
 moretexcs={[2]{blankpreslistvspace,setlength}}]
 \setlength\blankpreslistvspace{2\baselineskip}
 \end{lstlisting}
+%
+The separator between session title and presenting students in presentation lists
+can be adjusted by changing
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,
+moretexcs={[1]{presseparator}}]
+\newcommand*\presseparator{\par}
+\end{lstlisting}
+%
+For beamer presentation lists, the adaptation can be done by changing
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,
+moretexcs={[1]{beamerpresseparator}}]
+\newcommand*\beamerpresseparator{:\ }
+\end{lstlisting}
 
 
 \subsubsection{Text formatting}\label{subsec:textform}
