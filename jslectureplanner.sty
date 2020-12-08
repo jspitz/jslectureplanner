@@ -58,6 +58,8 @@
 \def\lecnsemverb{}
 \def\lecnsemny{}
 \def\lecyear{}
+\def\lecendyear{}
+\def\lecendyearsep{/}
 \def\lecsemester{}
 \def\lecsemesterverb{}
 \def\lecuniversity{}
@@ -256,6 +258,7 @@
     \def\lecshorttitle{#1}%
     \global\toggletrue{uniquelecshorttitle}}
 \define@key{lec}{year}{\def\lecyear{#1}}
+\define@key{lec}{endyear}{\def\lecendyear{#1}}
 \define@key{lec}{uni}{\def\lecuniversity{#1}}
 \define@key{lec}{institute}{\def\lecinstitute{#1}}
 \define@key{lec}{platform}{\def\lecplatform{#1}}
@@ -313,12 +316,31 @@
 %
 % ALTERNATIVE SETUP MACROS
 %
+\RequirePackage{xparse}
+
+% LecYear parses and splits {...}{startyear/endyear}
+\ExplSyntaxOn
+\NewDocumentCommand \LecYear { m m }
+{
+   % #1: semester/term
+   \setkeys{lec}{lecsem=#1}
+   % split #2 at / if available (startyear/endyear)
+   \seq_set_split:Nnn \seq_jslp_lec_year { / } { #2 }
+   \seq_pop_left:NNT \seq_jslp_lec_year \tl_jslp_start_year
+   { 
+      \setkeys{lec}{year=\tl_jslp_start_year} 
+   }
+   \seq_get_right:NNT \seq_jslp_lec_year \tl_jslp_end_year
+   {
+       \setkeys{lec}{endyear=\tl_jslp_end_year}
+   }
+}
+\ExplSyntaxOff
 
 \newcommand*{\LecType}[1]{\setkeys{lec}{lectype=#1}}
 \newcommand*{\LecTitle}[2][]{\setkeys{lec}{shorttitle={#2},#1,title={#2}}}
 \newcommand*{\LecTitleSep}[1]{\setkeys{lec}{titlesep={#1}}}
 \newcommand*{\LecSubTitle}[1]{\setkeys{lec}{subtitle={#1}}}
-\newcommand*{\LecYear}[2]{\setkeys{lec}{lecsem=#1,year=#2}}
 \newcommand*{\LecUni}[1]{\setkeys{lec}{uni={#1}}}
 \newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute={#1}}}
 \newcommand*{\LecRoom}[1]{\setkeys{lec}{room={#1}}}
@@ -341,7 +363,6 @@
 %
 % Courtesy of Christian Hupfer at
 % https://tex.stackexchange.com/a/473552/19291
-\RequirePackage{xparse}
 
 \ExplSyntaxOn
 \cs_generate_variant:Nn \int_set:Nn {NV}
@@ -384,8 +405,8 @@
 %
 % CONCATENATED VARIABLES
 %
-\def\lecsemester{\lecsemshort~\lecyear}
-\def\lecsemesterverb{\lecsemverb\ \lecyear}
+\def\lecsemester{\lecsemshort~\lecyear\ifcsempty{lecendyear}{}{\lecendyearsep\lecendyear}}
+\def\lecsemesterverb{\lecsemverb\ \lecyear\ifcsempty{lecendyear}{}{\lecendyearsep\lecendyear}}
 \def\lecfulltitle{\lectitle\lectitlesep\lecsubtitle}
 \def\sesfulltitle{\sestitle\sestitlesep\sessubtitle}
 \def\lecendtime{\jslp@endtime{\@lecstarttime}{\lecduration}}
