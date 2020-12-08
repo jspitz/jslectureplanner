@@ -87,7 +87,7 @@ colorlinks=false
 \author{Jürgen Spitzmüller%
 \thanks{Please report issues via \protect\url{https://github.com/jspitz/jslectureplanner}.}}
 
-\date{Version 1.11, 2020/05/11}
+\date{Version 1.12, 2020/12/08}
 
 \maketitle
 
@@ -238,7 +238,8 @@ Please also cf. sec.~\ref{sec:styles} on the concept of ``styles''.
 Sec.~\ref{sec:customizing-strings} explains how to customize and extend this list.
 Also cf. sec.~\ref{sec:styles}.
 
-\item [\joption{year=\jparam{year}}] Year of the term
+\item [\joption{year=\jparam{year}}] (Start) year of the term
+\item [\joption{endyear=\jparam{year}}] End year of the term if applicable (in case of terms such as \emph{Winter Term 2020/21})
 \item [\joption{uni=\jparam{university}}] Your university
 \item [\joption{institute=\jparam{institute}}] Your institute/department
 \item [\joption{room=\jparam{room}}] The room where the course generally takes place;
@@ -315,6 +316,10 @@ description.}
 \item \joption{ss}: Summer term (\emph{Sommersemester})
 \item \joption{ws}: Winter term (\emph{Wintersemester})
 \end{itemize}
+%
+If the \joption{\jparam{year}} spans multiple years, always use a slash as separator (e.\,g., 2020/21)
+for parsing purposes in the input.
+The separator that is used in the output can be customized (see sec.~\ref{sec:custstrings}).
 \item \jcsmacro{LecUni\{\jparam{university}\}}: Record the name of
 your university
 \item \jcsmacro{LecInstitute\{\jparam{institute}\}}: Record your institute's/department's name
@@ -358,7 +363,6 @@ your university
 \item \jcsmacro{SessionTitleSep\{\jparam{separator}\}}: Specify a default separator between session title and subtitle (e.\,g., ``. '' or `` -- ''). This is used if no specific separator has been specified in the session entry (see sec.~\ref{sec:lecplan}); by default, no separator is defined.
 \end{itemize}
 
-\clearpage
 
 \section{Setting up a course schedule}\label{sec:lecplan}
 
@@ -512,11 +516,13 @@ there is a unique short title by the test
 the term type (e.\,g., ``WS'')
 \item \jcsmacro{lecsemverb}: Outputs the verbose version
 of the term type (such as ``Winter\-semester'')
-\item \jcsmacro{lecyear}: Outputs the year
+\item \jcsmacro{lecyear}: Outputs the (start) year
+\item \jcsmacro{lecendyear}: Outputs the end year if available
+\item \jcsmacro{lecendyearsep}: Outputs the separator between start and end year (slash by default)
 \item \jcsmacro{lecsemester}: Outputs the short version of
-the semester (e.\,g., ``WS 2014'')
+the semester (e.\,g., ``WS 2014/15'')
 \item \jcsmacro{lecsemesterverb}: Outputs the verbose version
-of the semester (such as ``Winter\-semester 2014'')
+of the semester (such as ``Winter\-semester 2014/15'')
 \item \jcsmacro{adjsemester}: Outputs the short version of
 the semester that \emph{follows} this one (e.\,g., ``SoSe 2015'')
 \item \jcsmacro{adjsemesterverb}: Outputs the verbose version
@@ -1132,7 +1138,7 @@ frame=single,moretexcs={[1]{breakevent}}]
 and if so, it is output followed by the separator given as second argument and the break
 title (\texttt{\#2}). If not, only the break title (\texttt{\#2}) is output.
 
-\subsubsection{Strings}
+\subsubsection{Strings}\label{sec:custstrings}
 
 For canceled sessions, the program outputs
 ``\jparam{Session title} -- keine \jparam{Session}'' (``keine''
@@ -1162,6 +1168,12 @@ an em-dash), can be redefined by changing
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,
 moretexcs={[1]{emptypressession}}]
 \newcommand*\emptypressession{---}
+\end{lstlisting}
+%
+The separator between start and end year of a term can be redefined by changing
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,
+moretexcs={[1]{lecendyearsep}}]
+\newcommand*\lecendyearsep{/}
 \end{lstlisting}
 
 \subsection{Using styles}\label{sec:styles}
@@ -1427,6 +1439,10 @@ the \jslp\ style files. Thanks, Dominik.
 \section{Release History}
 
 \begin{itemize}
+\item 2020/12/08 (v. 1.12):
+	\begin{itemize}
+		\item Correctly parse staryear/endyear.
+	\end{itemize}
 \item 2020/05/11 (v. 1.11):
 	\begin{itemize}
 		\item Allow for customization of program and presentation lists (see sec.~\ref{sec:listcust}).
