@@ -41,32 +41,35 @@
 \RequirePackage{array}
 \RequirePackage{longtable}
 \RequirePackage{hhline}
-\RequirePackage{xkeyval}
 
 %
 % PACKAGE OPTIONS
 %
 
-\newif\if@datatool\@datatoolfalse
-\def\jsmt@datafile{}
-\define@key{mem}{datafile}{%
-  \def\jsmt@datafile{#1.csv}
-  \@datatooltrue
-}
-\DeclareOptionX{datafile}{\setkeys{mem}{datafile=#1}}
+\newif\if@jsmt@datatool\@jsmt@datatoolfalse
 \def\jsmt@datakeys{pname,sname,mid,email}
-\define@key{mem}{datakeys}{%
-  \def\jsmt@datakeys{#1}
+
+\DeclareKeys[jsmt]
+{
+  % datafile=filename
+  datafile.code = {
+     \def\jsmt@datafile{#1.csv}
+     \@jsmt@datatooltrue
+  },
+  datafile.usage = load,
+  % datakeys={<keyorder>}
+  datakeys.store = \jsmt@datakeys,
+  datakeys.usage = load
 }
-\DeclareOptionX{datakeys}{\setkeys{mem}{datakeys={#1}}}
-\ProcessOptionsX
+
+\ProcessKeyOptions[jsmt]
 
 %
 % OPT-IN PACKAGES
 %
 
 % Load datatool if necessary
-\if@datatool
+\if@jsmt@datatool
   \RequirePackage{datatool}
   \DTLloadrawdb[noheader,keys={\jsmt@datakeys}]{data}{\jsmt@datafile}
   \dtlsort{sname,pname}{data}{\dtlicompare}
@@ -197,7 +200,7 @@
          &   \jsemailheader\tabularnewline
   \hhline{-===}
   \endhead
-  \if@datatool
+  \if@jsmt@datatool
     \DTLforeach*{data}{%
       \jsmt@firstname=pname,\jsmt@surname=sname,\jsmt@mid=mid,\jsmt@email=email}{%
       \DTLiffirstrow{}{\tabularnewline\hline}%
@@ -649,7 +652,7 @@
   \hline
   \hline
   \endhead
-  \if@datatool%
+  \if@jsmt@datatool%
     \DTLforeach*{data}{%
       \jsmt@firstname=pname,\jsmt@surname=sname}{%
       \DTLiffirstrow{}{\tabularnewline\hline}%
@@ -684,7 +687,7 @@
     \hline
     \hline
     \endhead
-    \if@datatool
+    \if@jsmt@datatool
       \DTLforeach*{data}{%
         \jsmt@firstname=pname,\jsmt@surname=sname}{%
         \DTLiffirstrow{}{\tabularnewline\hline}%
