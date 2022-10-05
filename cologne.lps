@@ -23,6 +23,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Version: 1.13dev -- 2022/10/05
+
 % Additional lecture types
 \DefLecType{evl}{EVL}{Einf\"uhrungsvorlesung}{Vorlesung}% introductory lecture
 \DefLecType{es}{ES}{Einf\"uhrungsseminar}{Sitzung}% undergraduate seminar

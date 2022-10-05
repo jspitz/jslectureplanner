@@ -27,6 +27,8 @@
 % Default strings (German) used by the jslectureplanner package
 %
 
+% Version: 1.13dev -- 2022/10/05
+
 % Lecture types
 \DefLecType{vl}{VL}{Vorlesung}{Vorlesung}% lecture
 \DefLecType{ps}{PS}{Proseminar}{Sitzung}% undergraduate seminar
