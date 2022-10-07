@@ -36,7 +36,6 @@
 % REQUIRED PACKAGES
 %
 \RequirePackage{etoolbox}
-\RequirePackage{xkeyval}
 \RequirePackage[calc,useregional]{datetime2}
 \RequirePackage{calc}
 \RequirePackage{ifthen}
@@ -218,95 +217,113 @@
 %
 % PACKAGE OPTIONS
 %
-\define@key{lec}{lectype}{%
-  \js@AtEndPreambleIfInPreamble{%
-    \ifcsundef{lectype@#1}{%
-       \PackageError{jslectureplanner}{Lecture type '#1' is not defined!}{%
-             Please consult the package manual for instructions how to define it}
-    }{}
-    \def\lectype{\csuse{lectype@#1}}%
-    \def\lectypeverb{\csuse{lectypeverb@#1}}%
-    \def\lectypesession{\csuse{lectypesession@#1}}%
-  }%
+
+\DeclareKeys[lec]
+{
+	% type=<type>
+	type.code = {
+	  \js@AtEndPreambleIfInPreamble{%
+	    \ifcsundef{lectype@#1}{%
+	       \PackageError{jslectureplanner}{Lecture type '#1' is not defined!}{%
+		     Please consult the package manual for instructions how to define it}
+	    }{}
+	    \def\lectype{\csuse{lectype@#1}}%
+	    \def\lectypeverb{\csuse{lectypeverb@#1}}%
+	    \def\lectypesession{\csuse{lectypesession@#1}}%
+	  }%
+	},
+	% semester=<type>
+	semester.code = {
+	  \js@AtEndPreambleIfInPreamble{%
+	    \ifcsundef{lecsemshort@#1}{%
+	       \PackageError{jslectureplanner}{Semester type '#1' is not defined!}{%
+		     Please consult the package manual for instructions how to define it}
+	    }{}
+	    \def\lecsemshort{\csuse{lecsemshort@#1}}%
+	    \def\lecsemverb{\csuse{lecsemverb@#1}}%
+	    \def\@nextsem{\csuse{lecsemnext@#1}}%
+	    \def\lecnsemshort{\csuse{lecsemshort@\@nextsem}}%
+	    \def\lecnsemverb{\csuse{lecsemverb@\@nextsem}}%
+	    \def\lecnsemny{\csuse{lecsemnextny@#1}}%
+	  }%
+	},
+	% title=<title>
+	title.code = {
+	    \def\lectitle{#1}%
+	    \ifx\lecshorttitle\empty%
+	      \def\lecshorttitle{#1}%
+	      \global\togglefalse{uniquelecshorttitle}%
+	    \fi
+	},
+	% titlesep=<sep>
+	titlesep.store = \lectitlesep,
+	% subtitle=<sep>
+	subtitle.store = \lecsubtitle,
+	% shorttitle=<title>
+	shorttitle.code = {
+	   \def\lecshorttitle{#1}
+	   \global\toggletrue{uniquelecshorttitle}
+	},
+	% year=<year>
+	year.store = \lecyear,
+	% endyear=<year>
+	endyear.store = \lecendyear,
+	% uni=<university>
+	uni.store = \lecuniversity,
+	% institute=<institute>
+	institute.store = \lecinstitute,
+	% platform=<platform>
+	platform.store = \lecplatform,
+	% officehours=<officehours>
+	officehours.store = \lecofficehours,
+	% officenumber=<officenumber>
+	officenumber.store = \lecofficenumber,
+	% room=<room>
+	room.store = \lecroom,
+	% startdate=<startdate>
+	startdate.store = \lecstartdate,
+	% starttime=<starttime>
+	starttime.code = {
+	   \def\@lecstarttime{#1}
+	   \def\lecstarttime{\DTMtime{#1}}
+	},
+	% duration=<duration>
+	startdate.store = \lecduration,
+	% instructor=<instructor>
+	instructor.code = {
+	   \def\lecinstructor{#1}%
+    	   \ifx\lecshortinstructor\empty
+    	      \def\lecshortinstructor{#1}
+    	   \fi
+	},
+	% shortinstructor=<shortinstructor>
+	shortinstructor.code = {
+	    \def\lecshortinstructor{#1}%
+	    \global\toggletrue{uniquelecshortinstructor}
+	},
+	% style=<style>
+	style.code = {
+	    \AtEndOfPackage{\input{#1.lps}}
+	},
+	% interval=<interval>
+	interval.code = {
+	    % test if the input is a number
+	    % courtesy of egreg at http://tex.stackexchange.com/a/50131
+	    \if\relax\detokenize\expandafter{\romannumeral-0#1}\relax
+	      \setcounter{lecinterval}{#1}%
+	    \else
+	      \PackageError{jslectureplanner}{%
+		  Value of 'interval' option must be a number\MessageBreak
+		  ('#1' was given instead)}{}%
+	    \fi
+	},
+	% sestitlesep=<sestitlesep>
+	sestitlesep.store = \sestitlesep
 }
-\DeclareOptionX{type}{\setkeys{lec}{lectype=#1}}
 
-\define@key{lec}{lecsem}{%
-  \js@AtEndPreambleIfInPreamble{%
-    \ifcsundef{lecsemshort@#1}{%
-       \PackageError{jslectureplanner}{Semester type '#1' is not defined!}{%
-             Please consult the package manual for instructions how to define it}
-    }{}
-    \def\lecsemshort{\csuse{lecsemshort@#1}}%
-    \def\lecsemverb{\csuse{lecsemverb@#1}}%
-    \def\@nextsem{\csuse{lecsemnext@#1}}%
-    \def\lecnsemshort{\csuse{lecsemshort@\@nextsem}}%
-    \def\lecnsemverb{\csuse{lecsemverb@\@nextsem}}%
-    \def\lecnsemny{\csuse{lecsemnextny@#1}}%
-  }%
-}
-\DeclareOptionX{semester}{\setkeys{lec}{lecsem=#1}}
+% Process
+\ProcessKeyOptions[lec]
 
-\define@key{lec}{title}{\def\lectitle{#1}%
-    \ifx\lecshorttitle\empty%
-      \def\lecshorttitle{#1}%
-      \global\togglefalse{uniquelecshorttitle}%
-    \fi}
-\define@key{lec}{titlesep}{\def\lectitlesep{#1}}
-\define@key{lec}{subtitle}{\def\lecsubtitle{#1}}
-\define@key{lec}{shorttitle}{%
-    \def\lecshorttitle{#1}%
-    \global\toggletrue{uniquelecshorttitle}}
-\define@key{lec}{year}{\def\lecyear{#1}}
-\define@key{lec}{endyear}{\def\lecendyear{#1}}
-\define@key{lec}{uni}{\def\lecuniversity{#1}}
-\define@key{lec}{institute}{\def\lecinstitute{#1}}
-\define@key{lec}{platform}{\def\lecplatform{#1}}
-\define@key{lec}{officehours}{\def\officehours{#1}}
-\define@key{lec}{officenumber}{\def\officenumber{#1}}
-\define@key{lec}{room}{\def\lecroom{#1}}
-\define@key{lec}{startdate}{\def\lecstartdate{#1}}
-\define@key{lec}{starttime}{\def\@lecstarttime{#1}\def\lecstarttime{\DTMtime{#1}}}
-\define@key{lec}{duration}{\def\lecduration{#1}}
-\define@key{lec}{instructor}{\def\lecinstructor{#1}%
-    \ifx\lecshortinstructor\empty\def\lecshortinstructor{#1}\fi}
-\define@key{lec}{shortinstructor}{%
-    \def\lecshortinstructor{#1}%
-    \global\toggletrue{uniquelecshortinstructor}}
-\define@key{lec}{style}{\AtEndOfPackage{\input{#1.lps}}}
-\define@key{lec}{interval}{%
-    % test if the input is a number
-    % courtesy of egreg at http://tex.stackexchange.com/a/50131
-    \if\relax\detokenize\expandafter{\romannumeral-0#1}\relax
-      \setcounter{lecinterval}{#1}%
-    \else
-      \PackageError{jslectureplanner}{%
-          Value of 'interval' option must be a number\MessageBreak
-          ('#1' was given instead)}{}%
-    \fi
-}
-\define@key{lec}{sestitlesep}{\def\sestitlesep{#1}}
-
-\DeclareOptionX{title}{\setkeys{lec}{title={#1}}}
-\DeclareOptionX{titlesep}{\setkeys{lec}{titlesep={#1}}}
-\DeclareOptionX{subtitle}{\setkeys{lec}{subtitle={#1}}}
-\DeclareOptionX{shorttitle}{\setkeys{lec}{shorttitle={#1}}}
-\DeclareOptionX{year}{\setkeys{lec}{year=#1}}
-\DeclareOptionX{uni}{\setkeys{lec}{uni={#1}}}
-\DeclareOptionX{institute}{\setkeys{lec}{institute={#1}}}
-\DeclareOptionX{startdate}{\setkeys{lec}{startdate=#1}}
-\DeclareOptionX{starttime}{\setkeys{lec}{starttime=#1}}
-\DeclareOptionX{instructor}{\setkeys{lec}{instructor={#1}}}
-\DeclareOptionX{shortinstructor}{\setkeys{lec}{shortinstructor={#1}}}
-\DeclareOptionX{platform}{\setkeys{lec}{platform={#1}}}
-\DeclareOptionX{officehours}{\setkeys{lec}{officehours={#1}}}
-\DeclareOptionX{officenumber}{\setkeys{lec}{officenumber={#1}}}
-\DeclareOptionX{room}{\setkeys{lec}{room={#1}}}
-\DeclareOptionX{style}{\setkeys{lec}{style=#1}}
-\DeclareOptionX{interval}{\setkeys{lec}{interval=#1}}
-\DeclareOptionX{sestitlesep}{\setkeys{lec}{sestitlesep=#1}}
-
-\ProcessOptionsX
 
 %
 % End Options
@@ -323,39 +340,39 @@
 \NewDocumentCommand \LecYear { m m }
 {
    % #1: semester/term
-   \setkeys{lec}{lecsem=#1}
+   \SetKeys[lec]{semester=#1}
    % split #2 at / if available (startyear/endyear)
    \seq_set_split:Nnn \seq_jslp_lec_year { / } { #2 }
    \seq_pop_left:NNT \seq_jslp_lec_year \tl_jslp_start_year
    { 
-      \setkeys{lec}{year=\tl_jslp_start_year} 
+      \SetKeys[lec]{year=\tl_jslp_start_year} 
    }
    \seq_get_right:NNT \seq_jslp_lec_year \tl_jslp_end_year
    {
-       \setkeys{lec}{endyear=\tl_jslp_end_year}
+       \SetKeys[lec]{endyear=\tl_jslp_end_year}
    }
 }
 \ExplSyntaxOff
 
-\newcommand*{\LecType}[1]{\setkeys{lec}{lectype=#1}}
-\newcommand*{\LecTitle}[2][]{\setkeys{lec}{shorttitle={#2},#1,title={#2}}}
-\newcommand*{\LecTitleSep}[1]{\setkeys{lec}{titlesep={#1}}}
-\newcommand*{\LecSubTitle}[1]{\setkeys{lec}{subtitle={#1}}}
-\newcommand*{\LecUni}[1]{\setkeys{lec}{uni={#1}}}
-\newcommand*{\LecInstitute}[1]{\setkeys{lec}{institute={#1}}}
-\newcommand*{\LecRoom}[1]{\setkeys{lec}{room={#1}}}
-\newcommand*{\LecStartDate}[1]{\setkeys{lec}{startdate=#1}}
-\newcommand*{\LecStartTime}[1]{\setkeys{lec}{starttime=#1}}
-\newcommand*{\LecDuration}[1]{\setkeys{lec}{duration=#1}}
+\newcommand*{\LecType}[1]{\SetKeys[lec]{type=#1}}
+\newcommand*{\LecTitle}[2][]{\SetKeys[lec]{shorttitle={#2},#1,title={#2}}}
+\newcommand*{\LecTitleSep}[1]{\SetKeys[lec]{titlesep={#1}}}
+\newcommand*{\LecSubTitle}[1]{\SetKeys[lec]{subtitle={#1}}}
+\newcommand*{\LecUni}[1]{\SetKeys[lec]{uni={#1}}}
+\newcommand*{\LecInstitute}[1]{\SetKeys[lec]{institute={#1}}}
+\newcommand*{\LecRoom}[1]{\SetKeys[lec]{room={#1}}}
+\newcommand*{\LecStartDate}[1]{\SetKeys[lec]{startdate=#1}}
+\newcommand*{\LecStartTime}[1]{\SetKeys[lec]{starttime=#1}}
+\newcommand*{\LecDuration}[1]{\SetKeys[lec]{duration=#1}}
 \newcommand*{\LecInstructor}[2][\empty]{%
     \ifx#1\empty
-        \setkeys{lec}{instructor={#2}}%
+        \SetKeys[lec]{instructor={#2}}%
     \else
-        \setkeys{lec}{instructor={#2},shortinstructor={#1}}%
+        \SetKeys[lec]{instructor={#2},shortinstructor={#1}}%
     \fi
 }
-\newcommand*{\LecInterval}[1]{\setkeys{lec}{interval=#1}}
-\newcommand*{\SessionTitleSep}[1]{\setkeys{lec}{sestitlesep=#1}}
+\newcommand*{\LecInterval}[1]{\SetKeys[lec]{interval=#1}}
+\newcommand*{\SessionTitleSep}[1]{\SetKeys[lec]{sestitlesep=#1}}
 
 
 %
@@ -497,16 +514,21 @@
 
 % 2.) Term types
 %
-\define@key{semtype}{next}{\csdef{@ltn}{#1}}
-\define@boolkey{semtype}{nextny}[true]{}
+\newif\if@jslp@semtype@nextny\@jslp@semtype@nextnyfalse
+\DeclareKeys[semtype]
+{
+	next.store = \@ltn,
+	nextny.if = @jslp@semtype@nextny
+}
+
 \newcommand*\DefSemType[4][\empty]{%
   \csdef{@ltn}{}
   \csdef{lecsemshort@#2}{#3}
   \csdef{lecsemverb@#2}{#4}
   \ifx\empty#1\else%
-        \setkeys{semtype}{nextny=false}%
-        \setkeys{semtype}{#1}%
-        \ifKV@semtype@nextny
+        \SetKeys[semtype]{nextny=false}%
+        \SetKeys[semtype]{#1}%
+        \if@jslp@semtype@nextny
             \csdef{lecsemnextny@#2}{y}
         \else
             \csdef{lecsemnextny@#2}{n}
@@ -650,16 +672,22 @@
 
 %
 % Beamer program generation
-\define@key{beamerprogram}{title}{\csdef{@bptitle}{#1}}
-\define@key{beamerprogram}{options}{\csdef{@bpopts}{#1}}
-\define@key{beamerprogram}{listoptions}{\csdef{@bplistopts}{#1}}
-\define@key{beamerprogram}{overlayarg}{\csdef{@bpolarg}{#1}}
-\define@key{beamerprogram}{overlayarg2}{\csdef{@bpolargii}{#1}}
-\define@key{beamerprogram}{overlayarg3}{\csdef{@bpolargiii}{#1}}
-\define@key{beamerprogram}{overlayarg4}{\csdef{@bpolargiv}{#1}}
-\define@boolkey{beamerprogram}{alerted}[true]{}
-\define@boolkey{beamerprogram}{blocksonly}[true]{}
-\define@boolkey{beamerprogram}{uncover}[true]{}
+\newif\if@jslp@beamerprogram@alerted\@jslp@beamerprogram@alertedfalse
+\newif\if@jslp@beamerprogram@blocksonly\@jslp@beamerprogram@blocksonlyfalse
+\newif\if@jslp@beamerprogram@uncover\@jslp@beamerprogram@uncoverfalse
+\DeclareKeys[beamerprogram]
+{
+	title.store = \@bptitle,
+	options.store = \@bpopts,
+	listoptions.store = \@bplistopts,
+	overlayarg.store = \@bpolarg,
+	overlayarg2.store = \@bpolargii,
+	overlayarg3.store = \@bpolargiii,
+	overlayarg4.store = \@bpolargiv,
+	alerted.if = @jslp@beamerprogram@alerted,
+	blocksonly.if = @jslp@beamerprogram@blocksonly,
+	uncover.if = @jslp@beamerprogram@uncover
+}
 
 % Overlay specifications for uncover programs
 \newcommand*\beameruncoverspec{\beamerdefaultoverlayspecification{<+(1)->}}
@@ -670,33 +698,33 @@
   \csdef{@bptitle}{\lecprogram}
   \def\btitleapp{}
   \numdef\pframes{\thefbreaks + 1}
-  \setkeys{beamerprogram}{alerted=false}
-  \setkeys{beamerprogram}{blocksonly=false}
-  \setkeys{beamerprogram}{uncover=false}
-  \setkeys{beamerprogram}{#1}
+  \SetKeys[beamerprogram]{alerted=false}
+  \SetKeys[beamerprogram]{blocksonly=false}
+  \SetKeys[beamerprogram]{uncover=false}
+  \SetKeys[beamerprogram]{#1}
   \def\bpdescbeg{\begin{BeamerProgramList}}
-  \ifKV@beamerprogram@alerted
+  \if@jslp@beamerprogram@alerted
   \fi
   \providebool{uncoveredlist}
-  \ifKV@beamerprogram@uncover
+  \if@jslp@beamerprogram@uncover
      \booltrue{uncoveredlist}
   \else
      \boolfalse{uncoveredlist}
   \fi
-  \ifKV@beamerprogram@blocksonly
-     \ifcsdef{@bpolarg}{%
-        \ifcsdef{@bpopts}{%
-           \begingroup\edef\tempa{\endgroup\noexpand%
-             \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+  \if@jslp@beamerprogram@blocksonly
+     \ifcsvoid{@bpolarg}{%
+       \ifcsvoid{@bpopts}{%
+           \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
         }{%
-           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
-        }%
-     }{%
-        \ifcsdef{@bpopts}{%
            \begingroup\edef\tempa{\endgroup\noexpand%
              \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }%
+     }{%
+       \ifcsvoid{@bpopts}{%
+           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
         }{%
-           \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
         }%
      }%
        \ifbool{uncoveredlist}{\beameruncoverblocksonlyspec}{}
@@ -704,25 +732,25 @@
          \ifcsempty{programblocklistbeamer}{\BeamerProgramBlockBlocksOnlyItem{}{}}{\programblocklistbeamer}
        \end{BeamerProgramList}
      \end{frame}
-  \else% not \ifKV@beamerprogram@blocksonly
+  \else% not \if@jslp@beamerprogram@blocksonly
     % All but last slide(s) are generated in what follows
     \@ifundefined{programlistbeamerii}{}{%
     \def\btitleapp{\ (1/\pframes)}
-     \ifcsdef{@bpolarg}{%
-        \ifcsdef{@bpopts}{%
-           \begingroup\edef\tempa{\endgroup\noexpand%
-             \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+     \ifcsvoid{@bpolarg}{%
+        \ifcsvoid{@bpopts}{%
+           \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
         }{%
-           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
-        }%
-     }{%
-        \ifcsdef{@bpopts}{%
            \begingroup\edef\tempa{\endgroup\noexpand%
              \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-        }{%
-           \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
         }%
-    }%
+    }{%
+        \ifcsvoid{@bpopts}{%
+           \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+        }{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }%
+     }%
      \ifbool{uncoveredlist}{\beameruncoverspec}{}
      \begin{BeamerProgramList}
       \programlistbeamerii
@@ -731,21 +759,21 @@
     }
     \@ifundefined{programlistbeameriii}{}{%
     \def\btitleapp{\ (2/\pframes)}
-    \ifcsdef{@bpolargii}{%
-        \ifcsdef{@bpopts}{%
-           \begingroup\edef\tempa{\endgroup\noexpand%
-             \begin{frame}<\csuse{@bpolargii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+    \ifcsvoid{@bpolargii}{%
+        \ifcsvoid{@bpopts}{%
+           \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
         }{%
-           \begin{frame}<\csuse{@bpolargii}>[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
-        }%
-     }{%
-        \ifcsdef{@bpopts}{%
            \begingroup\edef\tempa{\endgroup\noexpand%
               \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-        }{%
-           \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
         }%
-    }%
+    }{%
+        \ifcsvoid{@bpopts}{%
+           \begin{frame}<\csuse{@bpolargii}>[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
+        }{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}<\csuse{@bpolargii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }%
+     }%
      \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{}
      \begin{BeamerProgramList}
       \programlistbeameriii
@@ -754,21 +782,21 @@
     }
     \@ifundefined{programlistbeameriv}{}{%
     \def\btitleapp{\ (3/\pframes)}
-    \ifcsdef{@bpolargiii}{%
-        \ifcsdef{@bpopts}{%
-           \begingroup\edef\tempa{\endgroup\noexpand%
-             \begin{frame}<\csuse{@bpolargiii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+    \ifcsvoid{@bpolargiii}{%
+        \ifcsvoid{@bpopts}{%
+           \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
         }{%
-           \begin{frame}<\csuse{@bpolargiii}>[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
-        }%
-     }{%
-        \ifcsdef{@bpopts}{%
            \begingroup\edef\tempa{\endgroup\noexpand%
              \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-        }{%
-           \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
         }%
-    }%
+    }{%
+        \ifcsvoid{@bpopts}{%
+           \begin{frame}<\csuse{@bpolargiii}>[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+        }{%
+           \begingroup\edef\tempa{\endgroup\noexpand%
+             \begin{frame}<\csuse{@bpolargiii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+        }%
+     }%
      \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{}
      \begin{BeamerProgramList}
       \programlistbeameriv
@@ -778,69 +806,69 @@
     % The last slide is generated separately:
     \ifnumgreater{\thefbreaks}{0}{\def\btitleapp{\ (\pframes/\pframes)}}{}
        \@ifundefined{programlistbeamerii}{%
-          \ifcsdef{@bpolarg}{%
-              \ifcsdef{@bpopts}{%
-                 \begingroup\edef\tempa{\endgroup\noexpand%
-                 \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-              }{%
-                 \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
-             }%
-          }{%
-             \ifcsdef{@bpopts}{%
+          \ifcsvoid{@bpolarg}{%
+             \ifcsvoid{@bpopts}{%
+               \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+            }{%
                \begingroup\edef\tempa{\endgroup\noexpand%
                \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+             }%
+          }{%
+              \ifcsvoid{@bpopts}{%
+                 \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
              }{%
-               \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
-            }%
+                 \begingroup\edef\tempa{\endgroup\noexpand%
+                 \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+             }%
           }%
         }{%
           \@ifundefined{programlistbeameriii}{%
-             \ifcsdef{@bpolargii}{%
-               \ifcsdef{@bpopts}{%
-                 \begingroup\edef\tempa{\endgroup\noexpand%
-                 \begin{frame}<\csuse{@bpolargii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+             \ifcsvoid{@bpolargii}{%
+               \ifcsvoid{@bpopts}{%
+                 \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
                }{%
-                 \begin{frame}<\csuse{@bpolargii}>[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
-               }%
-             }{%
-               \ifcsdef{@bpopts}{%
                  \begingroup\edef\tempa{\endgroup\noexpand%
                  \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+               }%
+             }{%
+               \ifcsvoid{@bpopts}{%
+                 \begin{frame}<\csuse{@bpolargii}>[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
                }{%
-                 \begin{frame}[label=beamerprogram2]{\csuse{@bptitle}\btitleapp}
+                 \begingroup\edef\tempa{\endgroup\noexpand%
+                 \begin{frame}<\csuse{@bpolargii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
                }%
              }%
           }{%
              \@ifundefined{programlistbeameriv}{%
-                    \ifcsdef{@bpolargiii}{%
-                       \ifcsdef{@bpopts}{%
-                          \begingroup\edef\tempa{\endgroup\noexpand%
-                           \begin{frame}<\csuse{@bpolargiii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+                    \ifcsvoid{@bpolargiii}{%
+                        \ifcsvoid{@bpopts}{%
+                           \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
                         }{%
-                           \begin{frame}<\csuse{@bpolargiii}>[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
-                        }%
-                    }{%
-                        \ifcsdef{@bpopts}{%
                            \begingroup\edef\tempa{\endgroup\noexpand%
                            \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+                        }%
+                    }{%
+                       \ifcsvoid{@bpopts}{%
+                           \begin{frame}<\csuse{@bpolargiii}>[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
                         }{%
-                           \begin{frame}[label=beamerprogram3]{\csuse{@bptitle}\btitleapp}
+                          \begingroup\edef\tempa{\endgroup\noexpand%
+                           \begin{frame}<\csuse{@bpolargiii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
                         }%
                     }%
              }{%
-                  \ifcsdef{@bpolargiv}{%
-                       \ifcsdef{@bpopts}{%
-                          \begingroup\edef\tempa{\endgroup\noexpand%
-                           \begin{frame}<\csuse{@bpolargiv}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+                  \ifcsvoid{@bpolargiv}{%
+                        \ifcsvoid{@bpopts}{%
+                           \begin{frame}[label=beamerprogram4]{\csuse{@bptitle}\btitleapp}
                         }{%
-                           \begin{frame}<\csuse{@bpolargiv}>[label=beamerprogram4]{\csuse{@bptitle}\btitleapp}
-                        }%
-                    }{%
-                        \ifcsdef{@bpopts}{%
                            \begingroup\edef\tempa{\endgroup\noexpand%
                            \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+                        }%
+                    }{%
+                       \ifcsvoid{@bpopts}{%
+                           \begin{frame}<\csuse{@bpolargiv}>[label=beamerprogram4]{\csuse{@bptitle}\btitleapp}
                         }{%
-                           \begin{frame}[label=beamerprogram4]{\csuse{@bptitle}\btitleapp}
+                          \begingroup\edef\tempa{\endgroup\noexpand%
+                           \begin{frame}<\csuse{@bpolargiv}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
                         }%
                     }%
              }%
@@ -851,7 +879,7 @@
       \programlistbeamer
      \end{BeamerProgramList}
     \end{frame}
-  \fi%\else\ifKV@beamerprogram@blocksonly
+  \fi%\else\if@jslp@beamerprogram@blocksonly
 }
 
 
@@ -860,46 +888,46 @@
   \csdef{@bptitle}{\lecprogram}
   \def\btitleapp{}
   \numdef\pframes{\thefbreaks + 1}
-  \setkeys{beamerprogram}{alerted=false}
-  \setkeys{beamerprogram}{blocksonly=false}
-  \setkeys{beamerprogram}{uncover=false}
-  \setkeys{beamerprogram}{#1}
+  \SetKeys[beamerprogram]{alerted=false}
+  \SetKeys[beamerprogram]{blocksonly=false}
+  \SetKeys[beamerprogram]{uncover=false}
+  \SetKeys[beamerprogram]{#1}
   \def\bpdescbeg{\begin{BeamerProgramList}}
-  \ifKV@beamerprogram@alerted
+  \if@jslp@beamerprogram@alerted
   \fi
   \providebool{uncoveredlist}
-  \ifKV@beamerprogram@uncover
+  \if@jslp@beamerprogram@uncover
      \booltrue{uncoveredlist}
   \else
      \boolfalse{uncoveredlist}
   \fi
-  \ifKV@beamerprogram@blocksonly
-  \else% not \ifKV@beamerprogram@blocksonly
+  \if@jslp@beamerprogram@blocksonly
+  \else% not \if@jslp@beamerprogram@blocksonly
     % All but last slide(s) are generated in what follows
     \ifcsempty{programlistbeamerexam}{}{%
      \def\btitleapp{}
-      \ifcsdef{@bpolarg}{%
-         \ifcsdef{@bpopts}{%
-            \begingroup\edef\tempa{\endgroup\noexpand%
-              \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+      \ifcsvoid{@bpolarg}{%
+         \ifcsvoid{@bpopts}{%
+            \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
          }{%
-            \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
-         }%
-      }{%
-         \ifcsdef{@bpopts}{%
             \begingroup\edef\tempa{\endgroup\noexpand%
               \begin{frame}[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
-         }{%
-            \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
          }%
-     }%
+     }{%
+         \ifcsvoid{@bpopts}{%
+            \begin{frame}<\csuse{@bpolarg}>[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
+         }{%
+            \begingroup\edef\tempa{\endgroup\noexpand%
+              \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
+         }%
+      }%
       \ifbool{uncoveredlist}{\beameruncoverspec}{}
       \begin{BeamerProgramListExam}
        \programlistbeamerexam
       \end{BeamerProgramListExam}
      \end{frame}
    }%
-  \fi%\else\ifKV@beamerprogram@blocksonly
+  \fi%\else\if@jslp@beamerprogram@blocksonly
 }
 
 
@@ -935,24 +963,47 @@
 % 1) Session definition
 %
 \newtoggle{shortinstrdef}
-\define@key{session}{titlesep}{\csdef{@sestitlesep}{{#1}}}
-\define@key{session}{subtitle}{\csdef{@sessubtitle}{{#1}}}
-\define@key{session}{shorttitle}{\csdef{@sesshorttitle}{{#1}}\csdef{@usesshorttitle}{{#1}}}
-\define@key{session}{bibsec}{\csdef{@sesbibsec}{#1}}
-\define@key{session}{room}{\csdef{@sesroom}{{#1}}}
-\define@key{session}{starttime}{\csdef{@sesrtime}{#1}\csdef{@sestime}{\DTMtime{#1}}}
-\define@key{session}{duration}{\csdef{@sesduration}{#1}}
-\define@key{session}{instructor}{%
-    \csdef{@sesinstructor}{{#1}}\csdef{@usesinstructor}{{#1}}%
-    \iftoggle{shortinstrdef}{}{\csdef{@sesshortinstructor}{{#1}}\csdef{@usesshortinstructor}{{#1}}}}
-\define@key{session}{shortinstructor}{%
-    \csdef{@sesshortinstructor}{{#1}}\csdef{@usesshortinstructor}{{#1}}\toggletrue{shortinstrdef}}
-\define@key{session}{presstudents}{\csdef{@sespresstudents}{{#1}}}
-\define@boolkey{session}{cancel}[true]{}
-\define@boolkey{session}{draft}[true]{}
-\define@key{session}{topicnumber}{\setcounter{sestopic}{#1-1}}
-\define@key{session}{extradate}{\csdef{@xsesdate}{#1}}
-\define@boolkey{session}{exam}[true]{}
+\newif\if@jslp@session@cancel\@jslp@session@cancelfalse
+\newif\if@jslp@session@draft\@jslp@session@draftfalse
+\newif\if@jslp@session@exam\@jslp@session@examfalse
+\DeclareKeys[session]
+{
+	titlesep.store = \@sestitlesep,
+	subtitle.store = \@sessubtitle,
+	shorttitle.code = {
+	    \csdef{@sesshorttitle}{{#1}}
+	    \csdef{@usesshorttitle}{{#1}}
+	},
+	bibsec.store = \@sesbibsec,
+	room.store = \@sesroom,
+	starttime.code = {
+	    \csdef{@sesrtime}{#1}
+	    \csdef{@sestime}{\DTMtime{#1}}
+	},
+	duration.store = \@sesduration,
+	instructor.code = {
+	    \csdef{@sesinstructor}{{#1}}
+	    \csdef{@usesinstructor}{{#1}}
+	    \iftoggle{shortinstrdef}{}{%
+	      \csdef{@sesshortinstructor}{{#1}}
+	      \csdef{@usesshortinstructor}{{#1}}%
+	    }
+	},
+	shortinstructor.code = {
+	    \csdef{@sesshortinstructor}{{#1}}
+	    \csdef{@usesshortinstructor}{{#1}}
+	    \toggletrue{shortinstrdef}
+	},
+	presstudents.store = \@sespresstudents,
+	cancel.if = @jslp@session@cancel,
+	draft.if = @jslp@session@draft,
+	exam.if = @jslp@session@exam,
+	topicnumber.code = {
+	    \setcounter{sestopic}{#1-1}
+	},
+	extradate.store = \@xsesdate
+}
+
 %
 \newcommand*\NewSession[2][]{%
   \stepcounter{sesunit}
@@ -974,10 +1025,10 @@
   \csdef{@usesshortinstructor}{}
   \csdef{@sespresstudents}{}
   \csdef{@xsesdate}{}
-  \setkeys{session}{cancel=false}
-  \setkeys{session}{draft=false}
-  \setkeys{session}{exam=false}
-  \setkeys{session}{#1}
+  \SetKeys[session]{cancel=false}
+  \SetKeys[session]{draft=false}
+  \SetKeys[session]{exam=false}
+  \SetKeys[session]{#1}
   \csdef{@sestitle}{#2}
   % only calculate the date if it is not fixed via extradate.
   \ifcsempty{@xsesdate}{%
@@ -1022,12 +1073,12 @@
   \protected@csxdef{sespresstudents\thesnum}{\csuse{@sespresstudents}}
   \protected@csxdef{sesblock\thesnum}{\csuse{@currentblock}}
   \protected@csxdef{sesblockno\thesnum}{\csuse{@currentblockno}}
-  \ifKV@session@cancel
+  \if@jslp@session@cancel
     \stepcounter{cancellations}
     \protected@eappto\programlist{\noexpand\ProgramListCancelItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
     \protected@eappto\programlistbeamer{\noexpand\BeamerProgramListCancelItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
   \else
-    \ifKV@session@exam
+    \if@jslp@session@exam
         \stepcounter{exams}
         \protected@csxdef{examsesno\theexams}{\thesnum}
         \protected@eappto\programlistexam{\noexpand\ProgramListExamItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
@@ -1039,7 +1090,7 @@
         }%
     \else
         \stepcounter{sestopic}
-        \ifKV@session@draft
+        \if@jslp@session@draft
             \ifcsempty{@sestitle}{\protected@csxdef{sestitle\thesnum}{\sestopic}}{}
         \fi
         \protected@eappto\programlist{\noexpand\ProgramListItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
@@ -1075,16 +1126,20 @@
 }
 
 % Set break of multiple interval units
-\define@key{break}{units}{\csdef{@breakunits}{#1}}
-\define@key{break}{span}{\csdef{@breakspan}{#1}}
-\define@key{break}{weeks}{%
-  \PackageWarning{jslectureplanner}{\protect\SetBreaks\space option 'weeks' is deprecated. Use 'units' instead.}%
-  \setkeys{break}{units=#1}%
+\DeclareKeys[break]
+{
+	units.store = \@breakunits,
+	span.store = \@breakspan,
+	weeks.code = {
+	  \PackageWarning{jslectureplanner}{\protect\SetBreaks\space option 'weeks' is deprecated. Use 'units' instead.}%
+	  \SetKeys[break]{units=#1}%
+	}
 }
+
 \newcommand*\SetBreaks[2][units=1]{%
   \csdef{@breakunits}{}
   \csdef{@breakspan}{}
-  \setkeys{break}{#1}
+  \SetKeys[break]{#1}
   \setcounter{breakunits}{\csuse{@breakunits}}
   \setcounter{sesunit}{\thesesunit+\thebreakunits}
   \setcounter{cancellations}{\thecancellations+\thebreakunits}
