@@ -693,6 +693,7 @@
 \newcommand*\beameruncoverspec{\beamerdefaultoverlayspecification{<+(1)->}}
 \newcommand*\beameruncoverffslidesspec{\beamerdefaultoverlayspecification{<+(-1)->}}
 \newcommand*\beameruncoverblocksonlyspec{\beamerdefaultoverlayspecification{<+->}}
+\newcommand*\beameralertspec{}
 
 \newcommand*\makebeamerprogram[1][]{%
   \csdef{@bptitle}{\lecprogram}
@@ -703,7 +704,11 @@
   \SetKeys[beamerprogram]{uncover=false}
   \SetKeys[beamerprogram]{#1}
   \def\bpdescbeg{\begin{BeamerProgramList}}
+  \providebool{alerted}
   \if@jslp@beamerprogram@alerted
+     \booltrue{alerted}
+  \else
+     \boolfalse{alerted}
   \fi
   \providebool{uncoveredlist}
   \if@jslp@beamerprogram@uncover
@@ -712,6 +717,11 @@
      \boolfalse{uncoveredlist}
   \fi
   \if@jslp@beamerprogram@blocksonly
+     \ifbool{alerted}{%
+       \ifbool{uncoveredlist}%
+           {\renewcommand*\beameruncoverblocksonlyspec{\beamerdefaultoverlayspecification{<+-| alert@+>}}}%
+           {\renewcommand*\beameralertspec{\beamerdefaultoverlayspecification{<alert@+>}}}%
+     }{}
      \ifcsvoid{@bpolarg}{%
        \ifcsvoid{@bpopts}{%
            \begin{frame}[label=beamerprogram]{\csuse{@bptitle}\btitleapp}
@@ -727,12 +737,20 @@
              \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
         }%
      }%
-       \ifbool{uncoveredlist}{\beameruncoverblocksonlyspec}{}
+       \ifbool{uncoveredlist}{\beameruncoverblocksonlyspec}{\beameralertspec}
        \begin{BeamerProgramList}
          \ifcsempty{programblocklistbeamer}{\BeamerProgramBlockBlocksOnlyItem{}{}}{\programblocklistbeamer}
        \end{BeamerProgramList}
      \end{frame}
   \else% not \if@jslp@beamerprogram@blocksonly
+    \ifbool{alerted}{%
+       \ifbool{uncoveredlist}%
+           {%
+             \renewcommand*\beameruncoverspec{\beamerdefaultoverlayspecification{<+(1)-| alert@+(1)>}}
+             \renewcommand*\beameruncoverffslidesspec{\beamerdefaultoverlayspecification{<+(-1)-| alert@+(-1)>}}
+           }%
+           {\renewcommand*\beameralertspec{\beamerdefaultoverlayspecification{<alert@+(1)>}}}%
+     }{}
     % All but last slide(s) are generated in what follows
     \@ifundefined{programlistbeamerii}{}{%
     \def\btitleapp{\ (1/\pframes)}
@@ -751,7 +769,7 @@
              \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
         }%
      }%
-     \ifbool{uncoveredlist}{\beameruncoverspec}{}
+     \ifbool{uncoveredlist}{\beameruncoverspec}{\beameralertspec}
      \begin{BeamerProgramList}
       \programlistbeamerii
      \end{BeamerProgramList}
@@ -774,7 +792,7 @@
              \begin{frame}<\csuse{@bpolargii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
         }%
      }%
-     \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{}
+     \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{\beameralertspec}
      \begin{BeamerProgramList}
       \programlistbeameriii
      \end{BeamerProgramList}
@@ -797,7 +815,7 @@
              \begin{frame}<\csuse{@bpolargiii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
         }%
      }%
-     \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{}
+     \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{\beameralertspec}
      \begin{BeamerProgramList}
       \programlistbeameriv
      \end{BeamerProgramList}
@@ -874,7 +892,7 @@
              }%
           }%
       }%
-     \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{}
+     \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{\beameralertspec}
      \begin{BeamerProgramList}
       \programlistbeamer
      \end{BeamerProgramList}
@@ -893,7 +911,11 @@
   \SetKeys[beamerprogram]{uncover=false}
   \SetKeys[beamerprogram]{#1}
   \def\bpdescbeg{\begin{BeamerProgramList}}
+  \providebool{alerted}
   \if@jslp@beamerprogram@alerted
+     \booltrue{alerted}
+  \else
+     \boolfalse{alerted}
   \fi
   \providebool{uncoveredlist}
   \if@jslp@beamerprogram@uncover
@@ -903,6 +925,11 @@
   \fi
   \if@jslp@beamerprogram@blocksonly
   \else% not \if@jslp@beamerprogram@blocksonly
+    \ifbool{alerted}{%
+       \ifbool{uncoveredlist}%
+           {\renewcommand*\beameruncoverspec{\beamerdefaultoverlayspecification{<+(1)-| alert@+(1)>}}}%
+           {\renewcommand*\beameralertspec{\beamerdefaultoverlayspecification{<alert@+(1)>}}}%
+     }{}
     % All but last slide(s) are generated in what follows
     \ifcsempty{programlistbeamerexam}{}{%
      \def\btitleapp{}
@@ -921,7 +948,7 @@
               \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
          }%
       }%
-      \ifbool{uncoveredlist}{\beameruncoverspec}{}
+      \ifbool{uncoveredlist}{\beameruncoverspec}{\beameralertspec}
       \begin{BeamerProgramListExam}
        \programlistbeamerexam
       \end{BeamerProgramListExam}
