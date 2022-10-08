@@ -220,110 +220,109 @@
 
 \DeclareKeys[lec]
 {
-	% type=<type>
-	type.code = {
-	  \js@AtEndPreambleIfInPreamble{%
-	    \ifcsundef{lectype@#1}{%
-	       \PackageError{jslectureplanner}{Lecture type '#1' is not defined!}{%
-		     Please consult the package manual for instructions how to define it}
-	    }{}
-	    \def\lectype{\csuse{lectype@#1}}%
-	    \def\lectypeverb{\csuse{lectypeverb@#1}}%
-	    \def\lectypesession{\csuse{lectypesession@#1}}%
-	  }%
-	},
-	% semester=<type>
-	semester.code = {
-	  \js@AtEndPreambleIfInPreamble{%
-	    \ifcsundef{lecsemshort@#1}{%
-	       \PackageError{jslectureplanner}{Semester type '#1' is not defined!}{%
-		     Please consult the package manual for instructions how to define it}
-	    }{}
-	    \def\lecsemshort{\csuse{lecsemshort@#1}}%
-	    \def\lecsemverb{\csuse{lecsemverb@#1}}%
-	    \def\@nextsem{\csuse{lecsemnext@#1}}%
-	    \def\lecnsemshort{\csuse{lecsemshort@\@nextsem}}%
-	    \def\lecnsemverb{\csuse{lecsemverb@\@nextsem}}%
-	    \def\lecnsemny{\csuse{lecsemnextny@#1}}%
-	  }%
-	},
-	% title=<title>
-	title.code = {
-	    \def\lectitle{#1}%
-	    \ifx\lecshorttitle\empty%
-	      \def\lecshorttitle{#1}%
-	      \global\togglefalse{uniquelecshorttitle}%
-	    \fi
-	},
-	% titlesep=<sep>
-	titlesep.store = \lectitlesep,
-	% subtitle=<sep>
-	subtitle.store = \lecsubtitle,
-	% shorttitle=<title>
-	shorttitle.code = {
-	   \def\lecshorttitle{#1}
-	   \global\toggletrue{uniquelecshorttitle}
-	},
-	% year=<year>
-	year.store = \lecyear,
-	% endyear=<year>
-	endyear.store = \lecendyear,
-	% uni=<university>
-	uni.store = \lecuniversity,
-	% institute=<institute>
-	institute.store = \lecinstitute,
-	% platform=<platform>
-	platform.store = \lecplatform,
-	% officehours=<officehours>
-	officehours.store = \lecofficehours,
-	% officenumber=<officenumber>
-	officenumber.store = \lecofficenumber,
-	% room=<room>
-	room.store = \lecroom,
-	% startdate=<startdate>
-	startdate.store = \lecstartdate,
-	% starttime=<starttime>
-	starttime.code = {
-	   \def\@lecstarttime{#1}
-	   \def\lecstarttime{\DTMtime{#1}}
-	},
-	% duration=<duration>
-	duration.store = \lecduration,
-	% instructor=<instructor>
-	instructor.code = {
-	   \def\lecinstructor{#1}%
-    	   \ifx\lecshortinstructor\empty
-    	      \def\lecshortinstructor{#1}
-    	   \fi
-	},
-	% shortinstructor=<shortinstructor>
-	shortinstructor.code = {
-	    \def\lecshortinstructor{#1}%
-	    \global\toggletrue{uniquelecshortinstructor}
-	},
-	% style=<style>
-	style.code = {
-	    \AtEndOfPackage{\input{#1.lps}}
-	},
-	% interval=<interval>
-	interval.code = {
-	    % test if the input is a number
-	    % courtesy of egreg at http://tex.stackexchange.com/a/50131
-	    \if\relax\detokenize\expandafter{\romannumeral-0#1}\relax
-	      \setcounter{lecinterval}{#1}%
-	    \else
-	      \PackageError{jslectureplanner}{%
-		  Value of 'interval' option must be a number\MessageBreak
-		  ('#1' was given instead)}{}%
-	    \fi
-	},
-	% sestitlesep=<sestitlesep>
-	sestitlesep.store = \sestitlesep
+  % type=<type>
+  type.code = {
+    \js@AtEndPreambleIfInPreamble{%
+      \ifcsundef{lectype@#1}{%
+         \PackageError{jslectureplanner}{Lecture type '#1' is not defined!}{%
+	       Please consult the package manual for instructions how to define it}
+      }{}
+      \def\lectype{\csuse{lectype@#1}}%
+      \def\lectypeverb{\csuse{lectypeverb@#1}}%
+      \def\lectypesession{\csuse{lectypesession@#1}}%
+    }%
+  },
+  % semester=<type>
+  semester.code = {
+    \js@AtEndPreambleIfInPreamble{%
+      \ifcsundef{lecsemshort@#1}{%
+         \PackageError{jslectureplanner}{Semester type '#1' is not defined!}{%
+	       Please consult the package manual for instructions how to define it}
+      }{}
+      \def\lecsemshort{\csuse{lecsemshort@#1}}%
+      \def\lecsemverb{\csuse{lecsemverb@#1}}%
+      \def\@nextsem{\csuse{lecsemnext@#1}}%
+      \def\lecnsemshort{\csuse{lecsemshort@\@nextsem}}%
+      \def\lecnsemverb{\csuse{lecsemverb@\@nextsem}}%
+      \def\lecnsemny{\csuse{lecsemnextny@#1}}%
+    }%
+  },
+  % title=<title>
+  title.code = {
+    \def\lectitle{#1}%
+    \ifx\lecshorttitle\empty%
+      \def\lecshorttitle{#1}%
+      \global\togglefalse{uniquelecshorttitle}%
+    \fi
+  },
+  % titlesep=<sep>
+  titlesep.store = \lectitlesep,
+  % subtitle=<sep>
+  subtitle.store = \lecsubtitle,
+  % shorttitle=<title>
+  shorttitle.code = {
+    \def\lecshorttitle{#1}
+    \global\toggletrue{uniquelecshorttitle}
+  },
+  % year=<year>
+  year.store = \lecyear,
+  % endyear=<year>
+  endyear.store = \lecendyear,
+  % uni=<university>
+  uni.store = \lecuniversity,
+  % institute=<institute>
+  institute.store = \lecinstitute,
+  % platform=<platform>
+  platform.store = \lecplatform,
+  % officehours=<officehours>
+  officehours.store = \lecofficehours,
+  % officenumber=<officenumber>
+  officenumber.store = \lecofficenumber,
+  % room=<room>
+  room.store = \lecroom,
+  % startdate=<startdate>
+  startdate.store = \lecstartdate,
+  % starttime=<starttime>
+  starttime.code = {
+    \def\@lecstarttime{#1}
+    \def\lecstarttime{\DTMtime{#1}}
+  },
+  % duration=<duration>
+  duration.store = \lecduration,
+  % instructor=<instructor>
+  instructor.code = {
+    \def\lecinstructor{#1}%
+    \ifx\lecshortinstructor\empty
+      \def\lecshortinstructor{#1}
+    \fi
+  },
+  % shortinstructor=<shortinstructor>
+  shortinstructor.code = {
+    \def\lecshortinstructor{#1}%
+    \global\toggletrue{uniquelecshortinstructor}
+  },
+  % style=<style>
+  style.code = {
+    \AtEndOfPackage{\input{#1.lps}}
+  },
+  % interval=<interval>
+  interval.code = {
+    % test if the input is a number
+    % courtesy of egreg at http://tex.stackexchange.com/a/50131
+    \if\relax\detokenize\expandafter{\romannumeral-0#1}\relax
+      \setcounter{lecinterval}{#1}%
+    \else
+      \PackageError{jslectureplanner}{%
+        Value of 'interval' option must be a number\MessageBreak
+        ('#1' was given instead)}{}%
+    \fi
+  },
+  % sestitlesep=<sestitlesep>
+  sestitlesep.store = \sestitlesep
 }
 
-% Process
+% Process package options
 \ProcessKeyOptions[lec]
-
 
 %
 % End Options
@@ -675,18 +674,29 @@
 \newif\if@jslp@beamerprogram@alerted\@jslp@beamerprogram@alertedfalse
 \newif\if@jslp@beamerprogram@blocksonly\@jslp@beamerprogram@blocksonlyfalse
 \newif\if@jslp@beamerprogram@uncover\@jslp@beamerprogram@uncoverfalse
+
 \DeclareKeys[beamerprogram]
 {
-	title.store = \@bptitle,
-	options.store = \@bpopts,
-	listoptions.store = \@bplistopts,
-	overlayarg.store = \@bpolarg,
-	overlayarg2.store = \@bpolargii,
-	overlayarg3.store = \@bpolargiii,
-	overlayarg4.store = \@bpolargiv,
-	alerted.if = @jslp@beamerprogram@alerted,
-	blocksonly.if = @jslp@beamerprogram@blocksonly,
-	uncover.if = @jslp@beamerprogram@uncover
+  % title=<title>
+  title.store = \@bptitle,
+  % options = <options>
+  options.store = \@bpopts,
+  % listoptions = <options>
+  listoptions.store = \@bplistopts,
+  % overlayarg = <arg>
+  overlayarg.store = \@bpolarg,
+  % overlayarg2 = <arg>
+  overlayarg2.store = \@bpolargii,
+  % overlayarg3 = <arg>
+  overlayarg3.store = \@bpolargiii,
+  % overlayarg4 = <arg>
+  overlayarg4.store = \@bpolargiv,
+  % overlayarg = <true|false> [not functional!]
+  alerted.if = @jslp@beamerprogram@alerted,
+  % blocksonly = <true|false>
+  blocksonly.if = @jslp@beamerprogram@blocksonly,
+  % uncover = <true|false>
+  uncover.if = @jslp@beamerprogram@uncover
 }
 
 % Overlay specifications for uncover programs
@@ -993,42 +1003,58 @@
 \newif\if@jslp@session@cancel\@jslp@session@cancelfalse
 \newif\if@jslp@session@draft\@jslp@session@draftfalse
 \newif\if@jslp@session@exam\@jslp@session@examfalse
+
 \DeclareKeys[session]
 {
-	titlesep.store = \@sestitlesep,
-	subtitle.store = \@sessubtitle,
-	shorttitle.code = {
-	    \csdef{@sesshorttitle}{{#1}}
-	    \csdef{@usesshorttitle}{{#1}}
-	},
-	bibsec.store = \@sesbibsec,
-	room.store = \@sesroom,
-	starttime.code = {
-	    \csdef{@sesrtime}{#1}
-	    \csdef{@sestime}{\DTMtime{#1}}
-	},
-	duration.store = \@sesduration,
-	instructor.code = {
-	    \csdef{@sesinstructor}{{#1}}
-	    \csdef{@usesinstructor}{{#1}}
-	    \iftoggle{shortinstrdef}{}{%
-	      \csdef{@sesshortinstructor}{{#1}}
-	      \csdef{@usesshortinstructor}{{#1}}%
-	    }
-	},
-	shortinstructor.code = {
-	    \csdef{@sesshortinstructor}{{#1}}
-	    \csdef{@usesshortinstructor}{{#1}}
-	    \toggletrue{shortinstrdef}
-	},
-	presstudents.store = \@sespresstudents,
-	cancel.if = @jslp@session@cancel,
-	draft.if = @jslp@session@draft,
-	exam.if = @jslp@session@exam,
-	topicnumber.code = {
-	    \setcounter{sestopic}{#1-1}
-	},
-	extradate.store = \@xsesdate
+  % titlesep = <sep>
+  titlesep.store = \@sestitlesep,
+  % subtitle = <title>
+  subtitle.store = \@sessubtitle,
+  % shorttitle = <title>
+  shorttitle.code = {
+    \csdef{@sesshorttitle}{{#1}}
+    \csdef{@usesshorttitle}{{#1}}
+  },
+  % bibsec = <keyword>
+  bibsec.store = \@sesbibsec,
+  % room = <room>
+  room.store = \@sesroom,
+  % starttime = <starttime>
+  starttime.code = {
+    \csdef{@sesrtime}{#1}
+    \csdef{@sestime}{\DTMtime{#1}}
+  },
+  % duration = <duration>
+  duration.store = \@sesduration,
+  % instructor = <instructor>
+  instructor.code = {
+    \csdef{@sesinstructor}{{#1}}
+    \csdef{@usesinstructor}{{#1}}
+    \iftoggle{shortinstrdef}{}{%
+      \csdef{@sesshortinstructor}{{#1}}
+      \csdef{@usesshortinstructor}{{#1}}%
+    }
+  },
+  % shortinstructor = <instructor>
+  shortinstructor.code = {
+    \csdef{@sesshortinstructor}{{#1}}
+    \csdef{@usesshortinstructor}{{#1}}
+    \toggletrue{shortinstrdef}
+  },
+  % presstudents = <instructor>
+  presstudents.store = \@sespresstudents,
+  % cancel = <true|false>
+  cancel.if = @jslp@session@cancel,
+  % draft = <true|false>
+  draft.if = @jslp@session@draft,
+  % exam = <true|false>
+  exam.if = @jslp@session@exam,
+  % topicnumber = <true|false>
+  topicnumber.code = {
+    \setcounter{sestopic}{#1-1}
+  },
+  % extradate = <date>
+  extradate.store = \@xsesdate
 }
 
 %
@@ -1155,12 +1181,16 @@
 % Set break of multiple interval units
 \DeclareKeys[break]
 {
-	units.store = \@breakunits,
-	span.store = \@breakspan,
-	weeks.code = {
-	  \PackageWarning{jslectureplanner}{\protect\SetBreaks\space option 'weeks' is deprecated. Use 'units' instead.}%
-	  \SetKeys[break]{units=#1}%
-	}
+  % units = <int>
+  units.store = \@breakunits,
+  % span = <int>
+  span.store = \@breakspan,
+  % weeks = <int> (deprecated!)
+  weeks.code = {
+    \PackageWarning{jslectureplanner}{%
+        \protect\SetBreaks\space option 'weeks' is deprecated. Use 'units' instead.}%
+    \SetKeys[break]{units=#1}%
+  }
 }
 
 \newcommand*\SetBreaks[2][units=1]{%
