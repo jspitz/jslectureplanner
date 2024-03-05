@@ -69,6 +69,7 @@ instructions; also have a look at the example files.
 == CHANGES ==
 
 * V. 1.23 (forthcoming): - use legacy keyvals rather than xkeyval.
+                         - fix row spacing in membertables.
 
 * V. 1.12 (2020-12-08):  - Correctly parse staryear/endyear.
 

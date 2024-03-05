@@ -24,7 +24,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\filedate{2022/10/05}
+\def\filedate{2024/03/05}
 \def\fileversion{1.13dev}
 \def\filename{jsmembertable.sty}
 
@@ -125,7 +125,7 @@
 \providecommand*\jsemailheader{\textbf{E-Mail-Adresse}}
 
 % 4.) Signature advice
-\providecommand*\jssigheader{Unterschrift Teilnehmer*innen}
+\providecommand*\jssigheader{Unterschrift Teilnehmer:innen}
 
 
 %
@@ -652,11 +652,12 @@
   \hline
   \hline
   \endhead
+  \strut
   \if@jsmt@datatool%
     \DTLforeach*{data}{%
       \jsmt@firstname=pname,\jsmt@surname=sname}{%
       \DTLiffirstrow{}{\tabularnewline\hline}%
-      \bodyrowone{\jsmt@surname, \jsmt@firstname}%
+      \bodyrowone{\jsmt@surname, \jsmt@firstname}\strut%
     }%
     \tabularnewline\hline
   \fi%
@@ -680,18 +681,19 @@
     \resettabtoks
     \loop\ifnum\thetabrow<\themembers\relax
       \stepcounter{tabrow}
-      \addtabtoks{\bodyrowtwo{}\tabularnewline\hline}%
+      \addtabtoks{\bodyrowtwo{}\tabularnewline\hline}\strut%
     \repeat
     \ltstarttwo
     \headerptwo
     \hline
     \hline
     \endhead
+    \strut
     \if@jsmt@datatool
       \DTLforeach*{data}{%
         \jsmt@firstname=pname,\jsmt@surname=sname}{%
         \DTLiffirstrow{}{\tabularnewline\hline}%
-        \bodyrowtwo{\jsmt@surname, \jsmt@firstname}%
+        \bodyrowtwo{\jsmt@surname, \jsmt@firstname}\strut%
       }%
       \tabularnewline\hline
     \fi%
