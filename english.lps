@@ -27,7 +27,7 @@
 % English localization of the default strings used by the jslectureplanner package
 %
 
-% Version: 1.13dev -- 2022/10/05
+% Version: 1.13 -- 2024/03/06
 
 % Lecture types
 \DefLecType{vl}{LEC}{Lecture}{Lecture}% lecture

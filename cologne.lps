@@ -23,7 +23,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Version: 1.13dev -- 2022/10/05
+% Version: 1.13 -- 2024/03/06
 
 % Additional lecture types
 \DefLecType{evl}{EVL}{Einf\"uhrungsvorlesung}{Vorlesung}% introductory lecture
