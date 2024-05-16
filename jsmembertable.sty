@@ -76,6 +76,11 @@
 \fi
 
 %
+% HOOKS
+%
+\NewHook{jsmembertable/followuptable/before}
+
+%
 % STRETCH ROW HEIGHT
 %
 
@@ -664,7 +669,8 @@
   \printtabtoks
   \end{longtable}
   \ifnum\thesnum>7
-    \clearpage
+    \clearpage%
+    \UseHook{jsmembertable/followuptable/before}%
     \setcounter{tabrow}{0}
     \ifx\relax#1\relax\else
       % test if the input is a number

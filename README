@@ -68,7 +68,9 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.13 (2024-03-06): - use legacy keyvals rather than xkeyval.
+* V. 1.14 (forthcoming): - Add jsmembertable/followuptable/before LaTeX hook (jsmembertable).
+
+* V. 1.13 (2024-03-06):  - use legacy keyvals rather than xkeyval.
                          - fix row spacing in prestables.
 
 * V. 1.12 (2020-12-08):  - Correctly parse staryear/endyear.

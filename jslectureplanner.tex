@@ -1379,6 +1379,12 @@ are produced. In general, it is assumed that you use landscape page format for p
 The tables will be too wide for portrait page format. Also, the tables have been optimized for A4
 page size.
 
+If you want to add text before the second of these tables (e.\,g., repeating the course title),
+you can employ the \LaTeX\ hook \texttt{jsmembertable/followuptable/before}, as in:
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single,moretexcs={[1]{AddToHook}}]
+\AddToHook{jsmembertable/followuptable/before}{additional text}
+\end{lstlisting}
+%
 The header strings of the presence tables can be adjusted by redefining the following
 macros (using \jfcsmacro{renewcommand*}), for instance like this:
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},frame=single]
@@ -1405,7 +1411,6 @@ Note, furthermore, that the ``Session'' string (value of \jcsmacro{jsmsession}) 
 linked to \jslp's \jcsmacro{lectypesession} value if 
 \jslp\ is loaded before \jsmt. So if \jcsmacro{lectypesession} fits, you do not have to redefine
 \jcsmacro{jsmsession}.
-
 
 \clearpage
 
@@ -1437,6 +1442,10 @@ the \jslp\ style files. Thanks, Dominik.
 \section{Release History}
 
 \begin{itemize}
+\item Forthcoming (v. 1.14):
+\begin{itemize}
+	\item Add \texttt{jsmembertable/followuptable/before} \LaTeX\ hook.
+\end{itemize}
 \item 2024/03/06 (v. 1.13):
 \begin{itemize}
 	\item Use legacy keyvals rather than \textsf{xkeyval}.
