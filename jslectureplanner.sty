@@ -86,8 +86,9 @@
 \def\sesnr{}
 
 \def\programlist{}
+\def\programlist@instr{}
 \def\programlistexam{}
-\def\programlistbeamer{}
+\def\programlistbeamer@instr{}
 \def\programlistbeamerexam{}
 \def\programblocklistbeamer{}
 \def\jsbiblist{}
@@ -580,10 +581,21 @@
 }{}
 %
 % Program generation
-\newcommand\makeprogram{%
+\newcommand*\makeprogram{%
+  \@ifstar{\@makeinstrprogram}{\@makeprogram}%
+}
+
+\newcommand\@makeprogram{%
   \raggedright
   \begin{ProgramList}
   \programlist
+  \end{ProgramList}
+}
+
+\newcommand\@makeinstrprogram{%
+  \raggedright
+  \begin{ProgramList}
+  \programlist@instr
   \end{ProgramList}
 }
 
@@ -674,6 +686,7 @@
 \newif\if@jslp@beamerprogram@alerted\@jslp@beamerprogram@alertedfalse
 \newif\if@jslp@beamerprogram@blocksonly\@jslp@beamerprogram@blocksonlyfalse
 \newif\if@jslp@beamerprogram@uncover\@jslp@beamerprogram@uncoverfalse
+\newif\if@jslp@beamerprogram@instr\@jslp@beamerprogram@instrfalse
 
 \DeclareKeys[beamerprogram]
 {
@@ -696,7 +709,9 @@
   % blocksonly = <true|false>
   blocksonly.if = @jslp@beamerprogram@blocksonly,
   % uncover = <true|false>
-  uncover.if = @jslp@beamerprogram@uncover
+  uncover.if = @jslp@beamerprogram@uncover,
+  % instructors = <true|false>
+  uncover.if = @jslp@beamerprogram@instr
 }
 
 % Overlay specifications for uncover programs
@@ -712,6 +727,7 @@
   \SetKeys[beamerprogram]{alerted=false}
   \SetKeys[beamerprogram]{blocksonly=false}
   \SetKeys[beamerprogram]{uncover=false}
+  \SetKeys[beamerprogram]{instructors=false}
   \SetKeys[beamerprogram]{#1}
   \def\bpdescbeg{\begin{BeamerProgramList}}
   \providebool{alerted}
@@ -781,7 +797,11 @@
      }%
      \ifbool{uncoveredlist}{\beameruncoverspec}{\beameralertspec}
      \begin{BeamerProgramList}
-      \programlistbeamerii
+      \if@jslp@beamerprogram@instr
+        \programlistbeamerii@instr
+      \else
+        \programlistbeamerii
+      \fi
      \end{BeamerProgramList}
     \end{frame}
     }
@@ -804,7 +824,11 @@
      }%
      \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{\beameralertspec}
      \begin{BeamerProgramList}
-      \programlistbeameriii
+      \if@jslp@beamerprogram@instr
+        \programlistbeameriii@instr
+      \else
+        \programlistbeameriii
+      \fi
      \end{BeamerProgramList}
     \end{frame}
     }
@@ -827,7 +851,11 @@
      }%
      \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{\beameralertspec}
      \begin{BeamerProgramList}
-      \programlistbeameriv
+      \if@jslp@beamerprogram@instr
+        \programlistbeameriv@instr
+      \else
+        \programlistbeameriv
+      \fi
      \end{BeamerProgramList}
     \end{frame}
     }
@@ -904,7 +932,11 @@
       }%
      \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{\beameralertspec}
      \begin{BeamerProgramList}
-      \programlistbeamer
+      \if@jslp@beamerprogram@instr
+        \programlistbeamer@instr
+      \else
+        \programlistbeamer
+      \fi
      \end{BeamerProgramList}
     \end{frame}
   \fi%\else\if@jslp@beamerprogram@blocksonly
@@ -1129,7 +1161,9 @@
   \if@jslp@session@cancel
     \stepcounter{cancellations}
     \protected@eappto\programlist{\noexpand\ProgramListCancelItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
+    \protected@eappto\programlist@instr{\noexpand\ProgramListCancelItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
     \protected@eappto\programlistbeamer{\noexpand\BeamerProgramListCancelItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
+    \protected@eappto\programlistbeamer@instr{\noexpand\BeamerProgramListCancelItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
   \else
     \if@jslp@session@exam
         \stepcounter{exams}
@@ -1147,7 +1181,11 @@
             \ifcsempty{@sestitle}{\protected@csxdef{sestitle\thesnum}{\sestopic}}{}
         \fi
         \protected@eappto\programlist{\noexpand\ProgramListItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
+        \protected@eappto\programlist@instr{\noexpand\ProgramListItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}%
+                  \ifcsempty{usesinstructor\thesnum}{}{\ [\csuse{usesinstructor\thesnum}]}}
         \protected@eappto\programlistbeamer{\noexpand\BeamerProgramListItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}}
+        \protected@eappto\programlistbeamer@instr{\noexpand\BeamerProgramListItem{\csuse{sesshortdate\thesnum}}{\csuse{sestitle\thesnum}}{\csuse{@sestitlesep}}{\csuse{@sessubtitle}}%
+                  \ifcsempty{usesinstructor\thesnum}{}{\ [\csuse{usesinstructor\thesnum}]}}
         \ifcsempty{sesbib\thesnum}{}{%
         \xappto\jsbiblist{\noexpand\section{\csuse{sestitle\thesnum}\csuse{@sestitlesep}\csuse{@sessubtitle}}%
           \noexpand\nocite{*}%
@@ -1278,13 +1316,17 @@
   \ifdefined\programlistbeamerii
      \ifdefined\programlistbeameriii
         \global\let\programlistbeameriv\programlistbeamer
+        \global\let\programlistbeameriv@instr\programlistbeamer@instr
      \else
        \global\let\programlistbeameriii\programlistbeamer
+        \global\let\programlistbeameriii@instr\programlistbeamer@instr
      \fi
   \else%
     \global\let\programlistbeamerii\programlistbeamer
+    \global\let\programlistbeamerii@instr\programlistbeamer@instr
   \fi
   \global\let\programlistbeamer\empty
+  \global\let\programlistbeamer@instr\empty
   \iftoggle{inblock}{\@ResumeBlock}{}%
 }
 

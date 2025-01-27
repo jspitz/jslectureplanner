@@ -565,6 +565,9 @@ The \jmacro{labeling} environment is defined by the KOMA classes.
 The package provides a fallback, however, if a different class is used.
 The list type can also be customized. See sec.~\ref{sec:listcust} for details.
 
+\item \jcsmacro{makeprogram*}: as opposed to the unstarred form, the session instructors
+(if there are specific instructors for a given session) are added to the program items.
+
 \item \jcsmacro{makebeamerprogram[\jparam{options}]}: Generates
 a beamer-suited lecture program from the metadata in the form
 \begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
@@ -609,6 +612,8 @@ Note that
      This option applies to the first program frame only. For subsequent frames,
      use \joption{overlayarg2}, \joption{overlayarg3} and \joption{overlayarg4},
      respectively.
+\item \joption{instructors=\jparam{true|false}}: If \joption{true}, the session instructors
+    (if there are specific instructors for a given session) are added to the program items.
 \end{itemize}
 
 \end{itemize}
@@ -1445,6 +1450,9 @@ the \jslp\ style files. Thanks, Dominik.
 \item Forthcoming (v. 1.14):
 \begin{itemize}
 	\item Add \texttt{jsmembertable/followuptable/before} \LaTeX\ hook.
+	\item Add way to generate programs with session instructors
+	      (\jcsmacro{makeprogram*} and \joption{instructors=true}
+	       with \jcsmacro{makebeamerprogram}).
 \end{itemize}
 \item 2024/03/06 (v. 1.13):
 \begin{itemize}
