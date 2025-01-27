@@ -1210,9 +1210,13 @@
   \ifx\empty#1
     \protected@eappto\programlist{\noexpand\ProgramListBreak{#2}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}
+    \protected@eappto\programlist@instr{\noexpand\ProgramListBreak{#2}}
+    \protected@eappto\programlistbeamer@instr{\noexpand\begin{center} (#2) \noexpand\end{center}}
   \else
     \protected@eappto\programlist{\noexpand\ProgramListBreak[#1]{#2}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#1: #2) \noexpand\end{center}}
+    \protected@eappto\programlist@instr{\noexpand\ProgramListBreak[#1]{#2}}
+    \protected@eappto\programlistbeamer@instr{\noexpand\begin{center} (#1: #2) \noexpand\end{center}}
   \fi
 }
 
@@ -1251,9 +1255,13 @@
   \ifcsempty{@breakspan}{%
     \protected@eappto\programlist{\noexpand\ProgramListBreak{#2}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (#2) \noexpand\end{center}}
+    \protected@eappto\programlist@instr{\noexpand\ProgramListBreak{#2}}
+    \protected@eappto\programlistbeamer@instr{\noexpand\begin{center} (#2) \noexpand\end{center}}
   }{%
     \protected@eappto\programlist{\noexpand\ProgramListBreak[\csuse{@breakspan}]{#2}}
     \protected@eappto\programlistbeamer{\noexpand\begin{center} (\csuse{@breakspan}: #2) \noexpand\end{center}}
+    \protected@eappto\programlist@instr{\noexpand\ProgramListBreak[\csuse{@breakspan}]{#2}}
+    \protected@eappto\programlistbeamer@instr{\noexpand\begin{center} (\csuse{@breakspan}: #2) \noexpand\end{center}}
   }
 }
 
@@ -1277,6 +1285,9 @@
   \protected@eappto\programlist{\noexpand\begin{ProgramListBlock}{\Roman{blocks}}{#1}}
   \protected@eappto\programlistbeamer{\noexpand\BeamerProgramBlockItem{\Roman{blocks}}{#1}}%
   \gappto\programlistbeamer{\begin{BeamerProgramList}}
+  \protected@eappto\programlist@instr{\noexpand\begin{ProgramListBlock}{\Roman{blocks}}{#1}}
+  \protected@eappto\programlistbeamer@instr{\noexpand\BeamerProgramBlockItem{\Roman{blocks}}{#1}}%
+  \gappto\programlistbeamer@instr{\begin{BeamerProgramList}}
   \protected@xappto\programblocklistbeamer{\noexpand\BeamerProgramBlockBlocksOnlyItem{\Roman{blocks}}{#1}}%
   \csxdef{@currentblock}{#1}%
   \csxdef{@currentblockno}{\Roman{blocks}}%
@@ -1286,6 +1297,8 @@
 \newcommand*\EndBlock{%
   \gappto\programlist{\end{ProgramListBlock}}
   \gappto\programlistbeamer{\end{BeamerProgramList}}
+  \gappto\programlist@instr{\end{ProgramListBlock}}
+  \gappto\programlistbeamer@instr{\end{BeamerProgramList}}
   \csxdef{@currentblock}{}%
   \csxdef{@currentblockno}{}%
   \global\togglefalse{inblock}%
@@ -1298,11 +1311,13 @@
 
 \newcommand*\@PauseBlock{%
   \gappto\programlistbeamer{\end{BeamerProgramList}}
+  \gappto\programlistbeamer@instr{\end{BeamerProgramList}}
 }
 
 \newcommand*\@ResumeBlock{%
-  % the \item here is necessary since this is nested immediately into another list
-  \gappto\programlistbeamer{\item \begin{BeamerProgramList}}
+  % the \item here is necessary since this is nested immediately into an
+  \gappto\programlistbeamer{\item \begin{BeamerProgramList}}other list
+  \gappto\programlistbeamer@instr{\item \begin{BeamerProgramList}}
 }
 
 \newenvironment{SessionBlock}[1]{\StartBlock{#1}}{\EndBlock}
@@ -1333,6 +1348,7 @@
 % Beamer program hook
 \newcommand*\SetBeamerHook[1]{%
     \protected@eappto\programlistbeamer{\noexpand#1}
+    \protected@eappto\programlistbeamer@instr{\noexpand#1}
 }
 
 % 5) Infrastructure
