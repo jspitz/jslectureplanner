@@ -68,7 +68,7 @@ instructions; also have a look at the example files.
 
 == CHANGES ==
 
-* V. 1.14 (forthcoming): - Add jsmembertable/followuptable/before LaTeX hook (jsmembertable).
+* V. 1.14 (2025-01-29): - Add jsmembertable/followuptable/before LaTeX hook (jsmembertable).
                          - Add way to generate programs with session instructors (\makeprogram* and
                            instructors=true with \makebeamerprogram).
 
