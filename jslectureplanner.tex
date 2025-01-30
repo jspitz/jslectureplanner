@@ -1447,40 +1447,40 @@ the \jslp\ style files. Thanks, Dominik.
 \section{Release History}
 
 \begin{itemize}
-\item Forthcoming (v. 1.14):
+\item 2025/01/29 (v.\,1.14):
 \begin{itemize}
 	\item Add \texttt{jsmembertable/followuptable/before} \LaTeX\ hook.
 	\item Add way to generate programs with session instructors
 	      (\jcsmacro{makeprogram*} and \joption{instructors=true}
 	       with \jcsmacro{makebeamerprogram}).
 \end{itemize}
-\item 2024/03/06 (v. 1.13):
+\item 2024/03/06 (v.\,1.13):
 \begin{itemize}
 	\item Use legacy keyvals rather than \textsf{xkeyval}.
 	\item Fix row spacing in prestables.
 \end{itemize}
-\item 2020/12/08 (v. 1.12):
+\item 2020/12/08 (v.\,1.12):
 	\begin{itemize}
 		\item Correctly parse staryear/endyear.
 	\end{itemize}
-\item 2020/05/11 (v. 1.11):
+\item 2020/05/11 (v.\,1.11):
 	\begin{itemize}
 		\item Allow for customization of program and presentation lists (see sec.~\ref{sec:listcust}).
 		\item Correctly set first session in presentation list.
 	\end{itemize}
-\item 2020/04/30 (v. 1.10):
+\item 2020/04/30 (v.\,1.10):
 	\begin{itemize}
 		\item Do not increment session topic counter for cancelled sessions and breaks.
 		\item Add session option \joption{topicnumber} to reset topic number in draft mode.
 		\item Recode this manual in utf8.
 	\end{itemize}
-\item 2020/02/04 (v. 1.9):
+\item 2020/02/04 (v.\,1.9):
 	\begin{itemize}
 		\item Allow \jcsmacro{SetBeamerFrameBreak} within \joption{SessionBlock}.
 		\item Fix \jcsmacro{SetAutoOffset} at first session and add optional argument
 		      to alter first session (fix contributed by Richard Zach).
 	\end{itemize}
-\item 2019/02/06 (v. 1.8):
+\item 2019/02/06 (v.\,1.8):
 	\begin{itemize}
 		\item Add support for displaying the next semester (macros \jcsmacro{adjsemester} and
 		      \jcsmacro{adjsemesterverb}).
@@ -1500,34 +1500,34 @@ the \jslp\ style files. Thanks, Dominik.
 		\item Add macros to receive session block numbers (\jcsmacro{sesblocknumber},\\
 		      \jcsmacro{SessionBlockNumber\{\jparam{session no}\}} and \jcsmacro{AdjSessionBlockNumber}).
 	\end{itemize}
-\item 2018/12/14 (v. 1.7):
+\item 2018/12/14 (v.\,1.7):
 	\begin{itemize}
 		\item Allow \joption{options} in \jcsmacro{makebeamerprogram} also with \joption{blocksonly}.
 		\item Add \joption{overlayarg} option to \jcsmacro{makebeamerprogram}. See sec.~\ref{sec:csdata}.
 		\item Add macros to receive session block titles (\jcsmacro{sesblocktitle},\\
 		      \jcsmacro{SessionBlockTitle\{\jparam{session no}\}} and \jcsmacro{AdjSessionBlockTitle}).
 	\end{itemize}
-\item 2018/09/26 (v. 1.6):
+\item 2018/09/26 (v.\,1.6):
 	\begin{itemize}
 	    \item Bugfix: Do not output session title-subtitle separator if there is no	subtitle.
 	    \item Add \joption{blocksonly} and \joption{uncover} options to \jcsmacro{makebeamerprogram}.
 	    \item Add \joption{draft} option to \jcsmacro{NewSession}.
     \end{itemize}
-\item 2017/03/12 (v. 1.5):
+\item 2017/03/12 (v.\,1.5):
 	\begin{itemize}
 		\item Add \joption{english} style file (proof of concept).
 		\item Add \joption{datakeys} option to \jsmt.
 		\item Add package option \joption{sestitlesep} and macro \jcsmacro{SessionTitleSep} that
 		allow for the definition of a global session title-subtitle	separator.
 	\end{itemize}
-\item 2016/10/19 (v. 1.4):
+\item 2016/10/19 (v.\,1.4):
 	\begin{itemize}
 		\item Add instructor short forms for lecture and session.
 		\item Add starred versions of the \jcsmacro{sesinstructor}, \jcsmacro{SessionInstructor} and \jcsmacro{AdjSessionInstructor} macros that only produce output if the session instructor differs from the general course instructor.
 		\item All short\{instructor|title\} macros now output the long version if no short form was defined.
 		\item Add boolean tests for unique short forms and session instructors.
 	\end{itemize}
-\item 2016/08/31 (v. 1.3):
+\item 2016/08/31 (v.\,1.3):
      \begin{itemize}
      	\item \textbf{Backwards-incompatible change!} Use \textsf{datetime2} instead of \textsf{datetime} and \textsf{advdate}.
      	      This changes the interface to set the lecture date format. See sec.~\ref{sec:custdate}.
@@ -1536,7 +1536,7 @@ the \jslp\ style files. Thanks, Dominik.
      	      titles etc.
         \item Microtypographic improvement in default definition of the lecture date format.
 	 \end{itemize}
-\item 2016/05/11 (v. 1.2):
+\item 2016/05/11 (v.\,1.2):
     \begin{itemize}	
 	\item Fix line breaking with empty session titles before course breaks. 
 	\item New commands for getting adjacent session data:
@@ -1551,7 +1551,7 @@ the \jslp\ style files. Thanks, Dominik.
 		  \item \jcsmacro{AdjSessionPresStudents}
 	  \end{itemize}
     \end{itemize}
-\item 2015/07/15 (v. 1.1):
+\item 2015/07/15 (v.\,1.1):
      \begin{itemize}
        \item Include and document the \jsmt\ package.
        \item Add support for student presentation lists. This introduces the new macros
@@ -1560,7 +1560,7 @@ the \jslp\ style files. Thanks, Dominik.
              \jcsmacro{setlastpressession}.
        \item Major revision of the manual.
      \end{itemize}
-\item 2015/07/07 (v. 1.0.2):
+\item 2015/07/07 (v.\,1.0.2):
      \begin{itemize}
        \item Permit \jcsmacro{LecType} and \jcsmacro{LecYear} in the document body again
              (fix a regression introduced by v. 1.0).
@@ -1587,7 +1587,7 @@ the \jslp\ style files. Thanks, Dominik.
              after every \emph{n}th session (\jcsmacro{SetAutoOffset}).
        \item Add \joption{cologne} style file (suggested by Dominik Waßenhoven).
     \end{itemize}
-\item 2015/02/08 (v. 0.9):
+\item 2015/02/08 (v.\,0.9):
      \begin{itemize}
        \item Add a way to adjust the interval between two sessions
              (\joption{interval} package option and \jcsmacro{LecInterval} macro).
