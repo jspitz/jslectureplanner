@@ -400,14 +400,14 @@
 	}{%
 	  \int_set_eq:NN \l_tmpb_int \l_tmpa_int
 	}
-	\tl_put_right:NV \l_tmpa_tl {\l_tmpb_int\c_colon_str}
+	\tl_put_right:Nx \l_tmpa_tl {\int_use:N\l_tmpb_int\c_colon_str}
 
 	% Remaining seconds, split them into minutes and seconds 
 	\int_set:Nn \l_tmpa_int {\fp_use:N \l_tmpa_fp}
 
 	\exp_args:NNx \int_set:Nn \l_tmpb_int {\int_mod:nn {\l_tmpa_int}{3600}}
 	\exp_args:NNx \int_set:Nn \l_tmpb_int {\int_div_truncate:nn {\l_tmpb_int}{60}}
-	\tl_put_right:NV \l_tmpa_tl {\l_tmpb_int\c_colon_str}
+	\tl_put_right:Nx \l_tmpa_tl {\int_use:N\l_tmpb_int\c_colon_str}
 	% Finally splitting: Seconds
 	\exp_args:NNx \int_set:Nn \l_tmpa_int {\int_mod:nn {\l_tmpa_int}{60}}
 	\tl_put_right:NV \l_tmpa_tl {\l_tmpa_int}
