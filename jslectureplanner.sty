@@ -388,7 +388,7 @@
 \NewDocumentCommand{\jslp@endtime}{+m+m}{%
 	\group_begin:
 	\tl_set:Nx \l_tmpa_tl {#1}
-	\seq_set_split:NVV \l_tmpa_seq {\c_colon_str} \l_tmpa_tl
+	\seq_set_split:NVV \l_tmpa_seq \c_colon_str \l_tmpa_tl
 	\exp_args:NNx \fp_set:Nn \l_tmpa_fp {\seq_item:Nn \l_tmpa_seq {1} * 3600 + \seq_item:Nn \l_tmpa_seq {2} * 60 + \seq_item:Nn \l_tmpa_seq {3}  }
 	\exp_args:NNx \fp_set:Nn \l_tmpb_fp {#2 * 60}
 	\fp_add:Nn \l_tmpa_fp {#2 * 60} 
