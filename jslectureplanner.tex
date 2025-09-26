@@ -544,6 +544,14 @@ e-learning platform
 \item \jcsmacro{officehours}: Outputs the office hours
 \item \jcsmacro{officenumber}: Outputs the office (room) number
 \end{itemize}
+%
+Furthermore, if your material contains information that is specific to a given term, you can use the test
+\verb|\IfSemesterTF{<term>}{<true>}{<false>}|, where \joption{<term>} is the term specifier used in
+course metadata specification. For example:
+\begin{lstlisting}[language={[LaTeX]TeX},basicstyle={\small\ttfamily},
+	frame=single,escapechar=\$]
+\IfSemesterTF{ws}{Winter}{Spring} break
+\end{lstlisting}
 
 \subsection{Generating course programs}\label{subsec:genprog}
 \label{sec:lecprog}
@@ -1451,6 +1459,7 @@ the \jslp\ style files. Thanks, Dominik.
 \item Forthcoming (v.\,1.15):
 \begin{itemize}
 	\item Fix some expl3 code.
+	\item Add \jcsmacro{IfSemesterTF} check (see sec.~\ref{sec:csdata}).
 \end{itemize}
 \item 2025/01/29 (v.\,1.14):
 \begin{itemize}

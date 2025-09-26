@@ -155,6 +155,7 @@
 
 % 2.) Term types
 %
+\def\currentsem{}
 % fs
 \def\lecsemverb@fs{Fr\"uhjahrssemester}
 \def\lecsemshort@fs{FS}
@@ -235,6 +236,7 @@
   },
   % semester=<type>
   semester.code = {
+    \def\currentsem{#1}%
     \js@AtEndPreambleIfInPreamble{%
       \ifcsundef{lecsemshort@#1}{%
          \PackageError{jslectureplanner}{Semester type '#1' is not defined!}{%
@@ -1023,6 +1025,12 @@
        \def\lecnyear{\the\numexpr\lecyear+1\relax}%
    }{}%
    \lecnsemverb~\lecnyear%
+}
+
+% Check term
+%
+\newcommand*\IfSemesterTF[3]{%
+  \ifthenelse{\equal{\currentsem}{#1}}{#2}{#3}%
 }
 
 %
