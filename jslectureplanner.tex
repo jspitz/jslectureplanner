@@ -612,6 +612,7 @@ Note that
 \item \joption{blocksonly=\jparam{true|false}}: If \joption{true}, only the session blocks are output,
       not the sessions.
 \item \joption{uncover=\jparam{true|false}}: If \joption{true}, the program will be uncovered item-wise.
+\item \joption{size=\jparam{size command}}: Adjust the size of the program.
 \item \joption{options=\jparam{bfoptions}}: Beamer frame options. Note that key-value
     beamer frame options need to be embraced, as in\\
     \jcsmacro{makebeamerprogram[options=\{shrink=10\}]}
@@ -1460,6 +1461,7 @@ the \jslp\ style files. Thanks, Dominik.
 \begin{itemize}
 	\item Fix some expl3 code.
 	\item Add \jcsmacro{IfSemesterTF} check (see sec.~\ref{sec:csdata}).
+	\item Add \joption{size} option to \jcsmacro{makebeamerprogram}.
 \end{itemize}
 \item 2025/01/29 (v.\,1.14):
 \begin{itemize}

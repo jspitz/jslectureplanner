@@ -713,7 +713,9 @@
   % uncover = <true|false>
   uncover.if = @jslp@beamerprogram@uncover,
   % instructors = <true|false>
-  instructors.if = @jslp@beamerprogram@instr
+  instructors.if = @jslp@beamerprogram@instr,
+  % size = <size>
+  size.store = \@bpsize,
 }
 
 % Overlay specifications for uncover programs
@@ -765,6 +767,7 @@
              \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
         }%
      }%
+       \ifcsvoid{@bpsize}{}{\@bpsize}%
        \ifbool{uncoveredlist}{\beameruncoverblocksonlyspec}{\beameralertspec}
        \begin{BeamerProgramList}
          \ifcsempty{programblocklistbeamer}{\BeamerProgramBlockBlocksOnlyItem{}{}}{\programblocklistbeamer}
@@ -797,6 +800,7 @@
              \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
         }%
      }%
+     \ifcsvoid{@bpsize}{}{\@bpsize}%
      \ifbool{uncoveredlist}{\beameruncoverspec}{\beameralertspec}
      \begin{BeamerProgramList}
       \if@jslp@beamerprogram@instr
@@ -851,6 +855,7 @@
              \begin{frame}<\csuse{@bpolargiii}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
         }%
      }%
+     \ifcsvoid{@bpsize}{}{\@bpsize}%
      \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{\beameralertspec}
      \begin{BeamerProgramList}
       \if@jslp@beamerprogram@instr
@@ -932,6 +937,7 @@
              }%
           }%
       }%
+     \ifcsvoid{@bpsize}{}{\@bpsize}%
      \ifbool{uncoveredlist}{\beameruncoverffslidesspec}{\beameralertspec}
      \begin{BeamerProgramList}
       \if@jslp@beamerprogram@instr
@@ -992,6 +998,7 @@
               \begin{frame}<\csuse{@bpolarg}>[\csuse{@bpopts}]{\csuse{@bptitle}\btitleapp}}\tempa
          }%
       }%
+      \ifcsvoid{@bpsize}{}{\@bpsize}%
       \ifbool{uncoveredlist}{\beameruncoverspec}{\beameralertspec}
       \begin{BeamerProgramListExam}
        \programlistbeamerexam

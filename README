@@ -69,6 +69,7 @@ instructions; also have a look at the example files.
 == CHANGES ==
 
 * V. 1.15 (forthcoming): - Add \IfSemesterTF check.
+                         - Add size option to \makebeamerprogram.
                          - Fix some expl3 code.
 
 * V. 1.14 (2025-01-29):  - Add jsmembertable/followuptable/before LaTeX hook (jsmembertable).
