@@ -27,7 +27,7 @@
 % Default strings (German) used by the jslectureplanner package
 %
 
-% Version: 1.14 -- 2025/01/29
+% Version: 1.15 -- 2025/10/02
 
 % Lecture types
 \DefLecType{vl}{VL}{Vorlesung}{Vorlesung}% lecture
