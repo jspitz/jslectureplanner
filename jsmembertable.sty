@@ -71,7 +71,7 @@
 % Load datatool if necessary
 \if@jsmt@datatool
   \RequirePackage{datatool}
-  \DTLloadrawdb[noheader,keys={\jsmt@datakeys}]{data}{\jsmt@datafile}
+  \edef\jsmt@temp{\noexpand\DTLloadrawdb[noheader,keys={\jsmt@datakeys}]{data}{\jsmt@datafile}}\jsmt@temp
   \dtlsort{sname,pname}{data}{\dtlicompare}
 \fi
 

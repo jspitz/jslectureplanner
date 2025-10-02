@@ -70,6 +70,7 @@ instructions; also have a look at the example files.
 
 * V. 1.15 (forthcoming): - Add \IfSemesterTF check.
                          - Add size option to \makebeamerprogram.
+                         - Fix expansion issue with datatool keys in jsmembertable.
                          - Fix some expl3 code.
 
 * V. 1.14 (2025-01-29):  - Add jsmembertable/followuptable/before LaTeX hook (jsmembertable).
